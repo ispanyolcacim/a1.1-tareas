@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Özne Zamirleri & El Alfabeto | A1.1 H2 5-6.Ders</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf7;--card:#fff;--card2:#f2f2ee;
+  --accent:#b5451b;--accent2:#d4813a;--blue:#1a5276;
+  --green:#1a7a45;--text:#1a1208;--muted:#7a7060;
+  --border:#e0d8cc;--radius:14px;--shadow:0 4px 24px rgba(60,30,10,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Plus Jakarta Sans",sans-serif;
+  min-height:100vh;max-width:620px;margin:0 auto;
+  box-shadow:0 0 60px rgba(0,0,0,.08);
+  background-image:radial-gradient(ellipse at 5% 10%,#fdebd0 0%,transparent 45%),
+                   radial-gradient(ellipse at 95% 90%,#d6eaf8 0%,transparent 45%);
+}
+/* INTRO */
+#intro{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2.5rem 1.5rem;text-align:center;}
+.week-pill{display:inline-block;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.4rem;border-radius:50px;margin-bottom:1rem;}
+.intro-icon{font-size:3.5rem;margin-bottom:.8rem;display:block;animation:sway 3s ease-in-out infinite;}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+#intro h1{font-family:"Fraunces",serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;color:var(--accent);margin-bottom:.3rem;line-height:1.1;}
+.intro-sub{color:var(--blue);font-weight:700;font-size:.95rem;margin-bottom:.3rem;}
+.intro-desc{color:var(--muted);font-size:.85rem;margin-bottom:1.4rem;}
+.teacher-badge{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid var(--border);background:var(--card);border-radius:50px;padding:.4rem 1.1rem;margin-bottom:1.4rem;font-size:.83rem;}
+.teacher-badge .handle{color:var(--blue);font-weight:700;}
+.topic-chips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.8rem;}
+.chip{background:var(--card);border:1.5px solid var(--border);color:var(--accent);font-size:.75rem;font-weight:600;padding:.22rem .7rem;border-radius:50px;}
+.name-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin-bottom:1.2rem;width:100%;max-width:400px;text-align:left;box-shadow:var(--shadow);}
+.name-box label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+.name-select{width:100%;border:1.5px solid var(--border);background:var(--card2);border-radius:10px;padding:.7rem 1rem;font-size:.93rem;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);outline:none;}
+.start-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.95rem 2.8rem;font-size:1rem;font-weight:700;border-radius:50px;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;box-shadow:0 4px 20px rgba(181,69,27,.3);transition:transform .2s;}
+.start-btn:hover{transform:translateY(-3px);}
+/* QUIZ */
+#quiz{display:none;padding:1.8rem 1.2rem 4rem;}
+.top-bar{display:flex;align-items:center;gap:1rem;margin-bottom:.4rem;}
+.prog-wrap{flex:1;background:var(--border);border-radius:50px;height:7px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:50px;transition:width .4s ease;}
+.prog-label{font-size:.8rem;color:var(--muted);white-space:nowrap;}
+.score-bar{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;margin-bottom:1.3rem;}
+.s-correct{color:#1a7a45;font-weight:600;}
+.s-wrong{color:var(--accent);font-weight:600;}
+.finish-btn-sm{background:var(--accent);color:#fff;border:none;border-radius:50px;padding:.35rem 1rem;font-size:.75rem;font-weight:700;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.warn-box{background:#fff8e1;border:2px solid #f9a825;border-radius:10px;padding:.65rem .9rem;font-size:.8rem;color:#5a3a00;margin-bottom:.85rem;line-height:1.6;}
+.warn-box strong{color:var(--accent);}
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.5rem 1.2rem;box-shadow:var(--shadow);animation:slideUp .3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;}
+.q-type-badge{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .65rem;border-radius:50px;display:inline-block;margin-bottom:.45rem;}
+.badge-mc{background:#e8f0fb;color:var(--blue);}
+.badge-fill{background:#fef3e2;color:#a05a00;}
+.q-text{font-family:"Fraunces",serif;font-size:clamp(.95rem,2.4vw,1.12rem);font-weight:700;line-height:1.5;margin-bottom:1rem;}
+.choices{display:flex;flex-direction:column;gap:.5rem;}
+.choice-btn{background:var(--card2);border:2px solid transparent;color:var(--text);padding:.62rem .9rem;border-radius:10px;cursor:pointer;font-size:.87rem;text-align:left;font-family:"Plus Jakarta Sans",sans-serif;display:flex;align-items:flex-start;gap:.6rem;transition:all .17s;line-height:1.4;}
+.choice-btn:hover:not(:disabled){border-color:var(--accent2);background:#fdf3e8;}
+.choice-btn.correct{border-color:#1a7a45;background:#eafaf2;color:#1a7a45;}
+.choice-btn.wrong{border-color:var(--accent);background:#fdf0ec;color:var(--accent);}
+.choice-btn:disabled{cursor:default;}
+.cletter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--border);font-size:.68rem;font-weight:700;flex-shrink:0;color:var(--muted);margin-top:1px;}
+.correct .cletter{background:#1a7a45;color:#fff;}
+.wrong .cletter{background:var(--accent);color:#fff;}
+.fill-wrap{display:flex;flex-direction:column;gap:.5rem;}
+.fill-input{border:2px solid var(--border);background:var(--card2);border-radius:10px;padding:.72rem 1rem;font-size:.97rem;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);outline:none;transition:border-color .2s;width:100%;}
+.fill-input:focus{border-color:var(--accent2);}
+.fill-input.correct-input{border-color:#1a7a45;background:#eafaf2;color:#1a7a45;font-weight:600;}
+.fill-input.wrong-input{border-color:var(--accent);background:#fdf0ec;color:var(--accent);}
+.fill-submit{background:linear-gradient(135deg,var(--blue),#2471a3);color:#fff;border:none;padding:.62rem 1.5rem;border-radius:10px;font-size:.87rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;align-self:flex-start;}
+.fill-submit:disabled{opacity:.5;cursor:default;}
+.explanation{display:none;margin-top:.85rem;padding:.8rem 1rem;border-radius:10px;font-size:.83rem;line-height:1.75;}
+.explanation.show{display:block;animation:slideUp .22s ease;}
+.exp-ok{background:#eafaf2;border-left:4px solid #1a7a45;color:#0d4a28;}
+.exp-err{background:#fdf0ec;border-left:4px solid var(--accent);color:#6b1a0a;}
+.exp-es{font-style:italic;margin-top:.4rem;display:block;}
+.exp-tr{font-weight:700;color:var(--blue);display:block;}.exp-en{font-style:italic;color:var(--muted);display:block;}
+.nav-row{display:flex;gap:.65rem;margin-top:1rem;flex-wrap:wrap;}
+.nav-btn{flex:1;min-width:80px;padding:.62rem .9rem;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-size:.83rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;transition:all .17s;}
+.nav-btn:hover{border-color:var(--accent2);color:var(--accent);}
+.nav-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;}
+.nav-btn:disabled{opacity:.35;cursor:default;}
+/* RESULT */
+#result{display:none;padding:2rem 1.2rem 4rem;}
+.result-hero{text-align:center;margin-bottom:1.8rem;}
+.result-icon{font-size:3.5rem;display:block;margin-bottom:.6rem;}
+.result-score{font-family:"Fraunces",serif;font-size:5rem;font-weight:900;color:var(--blue);line-height:1;}
+.result-sub{color:var(--muted);font-size:.87rem;margin-top:.3rem;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.2rem;}
+.stat-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:.85rem;text-align:center;box-shadow:var(--shadow);}
+.stat-val{font-family:"Fraunces",serif;font-size:1.9rem;font-weight:900;line-height:1;}
+.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:.2rem;font-weight:600;}
+.clr-g{color:#1a7a45;}.clr-r{color:var(--accent);}.clr-b{color:var(--blue);}
+.name-section{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.name-section label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+.name-row{display:flex;gap:.6rem;flex-wrap:wrap;}
+.name-confirm{background:var(--blue);color:#fff;border:none;border-radius:10px;padding:.65rem 1.2rem;font-size:.87rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.name-confirm:disabled{opacity:.6;}
+#sendStatus{font-size:.79rem;margin-top:.4rem;display:none;}
+.summary-card{display:none;background:linear-gradient(135deg,var(--blue),#2471a3);color:#fff;border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:.85rem;}
+.summary-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:.25rem;}
+.summary-name{font-family:"Fraunces",serif;font-size:1.2rem;font-weight:900;margin-bottom:.65rem;}
+.summary-scores{display:flex;gap:.8rem;}
+.sum-box{background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .9rem;text-align:center;flex:1;}
+.sum-val{font-family:"Fraunces",serif;font-size:1.5rem;font-weight:900;}
+.sum-lbl{font-size:.66rem;opacity:.8;margin-top:.1rem;}
+.notice-box{display:none;background:#fff8e1;border:2px solid #f9a825;border-radius:var(--radius);padding:.85rem 1.1rem;font-size:.85rem;color:#5a3a00;line-height:1.7;margin-bottom:.85rem;}
+.action-btns{display:none;flex-direction:column;gap:.6rem;margin-bottom:.85rem;}
+.action-btns.show{display:flex;}
+.btn-review{background:var(--card);border:1.5px solid var(--border);color:var(--text);padding:.78rem;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.btn-restart{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.78rem;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.review-title{font-family:"Fraunces",serif;font-size:1.1rem;font-weight:900;color:var(--accent);margin-bottom:.85rem;}
+.review-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:.65rem;box-shadow:var(--shadow);}
+.review-qnum{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.22rem;}
+.review-q{font-weight:700;margin-bottom:.38rem;line-height:1.5;font-size:.88rem;}
+.review-your{color:var(--accent);font-size:.83rem;margin-bottom:.22rem;}
+.review-correct{color:#1a7a45;font-size:.83rem;margin-bottom:.33rem;}
+.review-exp{background:var(--card2);border-radius:8px;padding:.5rem .72rem;font-size:.8rem;line-height:1.65;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <span class="intro-icon">📚</span>
+  <div class="week-pill">2. HAFTA ÖDEV &nbsp;|&nbsp; A1.1 &nbsp;|&nbsp; 5-6. Ders</div>
+  <h1>Özne Zamirleri &amp; El Alfabeto</h1>
+  <div class="intro-sub">Los Pronombres &amp; El Alfabeto</div>
+  <p class="intro-desc">100 soru · Çoktan seçmeli</p>
+  <div class="teacher-badge"><span class="handle">@ispanyolcacim</span><span style="color:var(--border)">•</span><span style="color:var(--muted)">Profe Hazel</span></div>
+  <div class="name-box">
+    <label>👤 Adınızı seçin</label>
+    <select id="introName" class="name-select">
+    <option value="">— Adınızı seçin —</option>
+    <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+    <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+    <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+    <option value="Seher Erçin">Seher Erçin</option>
+    <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+    <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+    <option value="Büşra Çam">Büşra Çam</option>
+    <option value="Görkem Dursun">Görkem Dursun</option>
+    <option value="Sibel Atmaca">Sibel Atmaca</option>
+    <option value="Onur Atlı">Onur Atlı</option>
+    <option value="Elif Atlı">Elif Atlı</option>
+    <option value="Murat Erdem">Murat Erdem</option>
+    <option value="Şeyma Dereci">Şeyma Dereci</option>
+    <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+    <option value="Ecem Sukas">Ecem Sukas</option>
+    <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+    <option value="Şenay Sezgin">Şenay Sezgin</option>
+    <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+    <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+    <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+    <option value="Merve Sağlam">Merve Sağlam</option>
+    <option value="Meryem Özbek">Meryem Özbek</option>
+    <option value="Elif Bozkurt">Elif Bozkurt</option>
+    <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+    <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+    <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+    <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+    <option value="Harun Özmen">Harun Özmen</option>
+    <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+    <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+    <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+    <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+    <option value="Büşra Yurt">Büşra Yurt</option>
+    <option value="Elif Çetin">Elif Çetin</option>
+    <option value="Mehtap Keklik">Mehtap Keklik</option>
+    <option value="Elif Ataç">Elif Ataç</option>
+    <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+    <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+    <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+    <option value="Eray Sayılık">Eray Sayılık</option>
+    <option value="Birce Süzen">Birce Süzen</option>
+    <option value="Seher Akbulat">Seher Akbulat</option>
+    <option value="Deneme Öğrencisi">Deneme Öğrencisi</option>
+  </select>
+  </div>
+  <button class="start-btn" onclick="startQuiz()">Teste Başla →</button>
+</div>
+
+<div id="quiz">
+  <div class="top-bar">
+    <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-label" id="progLabel">1 / 100</div>
+  </div>
+  <div class="score-bar">
+    <span class="s-correct">✓ <span id="sCorrect">0</span> doğru</span>
+    <button class="finish-btn-sm" onclick="showResult()">Testi Bitir →</button>
+    <span class="s-wrong">✗ <span id="sWrong">0</span> yanlış</span>
+  </div>
+  <div id="qArea"></div>
+</div>
+
+<div id="result">
+  <div class="result-hero">
+    <span class="result-icon" id="resIcon">🎉</span>
+    <div class="week-pill">2. HAFTA ÖDEV &nbsp;|&nbsp; A1.1 &nbsp;|&nbsp; 5-6. Ders</div>
+    <div class="result-score" id="resPct">0</div>
+    <div class="result-sub">/ 100 puan</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-val clr-g" id="stOk">0</div><div class="stat-lbl">✓ Doğru</div></div>
+    <div class="stat-box"><div class="stat-val clr-r" id="stErr">0</div><div class="stat-lbl">✗ Yanlış</div></div>
+    <div class="stat-box"><div class="stat-val clr-b" id="stPct">0</div><div class="stat-lbl">Puan</div></div>
+  </div>
+  <div class="name-section">
+    <label>👤 Adınızı onaylayın — ödev çizelgesine işlenecek</label>
+    <div class="name-row">
+      <select class="name-select" id="studentName" style="flex:1;min-width:160px;">
+        <option value="">— Adınızı seçin —</option>
+        <option>Birce Süzen</option><option>Burakhan Kaydı</option><option>Büşra Yurt</option>
+        <option>Ceren Erdoğan</option><option>Doğa Değirmenci</option><option>Ecem Sukas</option>
+        <option>Elif Ataç</option><option>Elif Bozkurt</option><option>Elif Çetin</option>
+        <option>Erdinç Tigin Bilen</option><option>Eray Sayılık</option><option>Eylül Şerbetçi</option>
+        <option>Ezgican Tekçorap</option><option>Gülce Eyibilir</option><option>Harun Özmen</option>
+        <option>Hilal Dilsiz</option><option>İncilay Dikbıyık</option><option>Mehtap Keklik</option>
+        <option>Meltem Çiftçi</option><option>Merve Sağlam</option><option>Meryem Özbek</option>
+        <option>Ruhşen Çavuşoğlu</option><option>Rümeysa Yatgın</option><option>Sedat Zincirkıran</option>
+        <option>Seher Akbulat</option><option>Serra Sancaklı Işık</option><option>Simge Eldeniz</option>
+        <option>Sonay Çetinkaya</option><option>Yasemin Kurtuluş Tunç</option>
+        <option>Zehra Rümeysa Çolak Dağdelen</option><option>Zeynep Hediye Özay</option>
+        <option>Zeynep Öztaşkın</option><option>Zeynep Söylemez</option><option>Zeynep Su Alişan</option>
+        <option>Şenay Sezgin</option><option>Şeyma Dereci</option>
+      </select>
+      <button class="name-confirm" id="confirmBtn" onclick="confirmName()">Onayla ✓</button>
+    </div>
+    <div id="sendStatus"></div>
+  </div>
+  <div class="summary-card" id="summaryCard">
+    <div class="summary-label">✅ Ödeviniz teslim edildi!</div>
+    <div class="summary-name" id="summaryName"></div>
+    <div style="font-size:.82rem;opacity:.8;margin-bottom:.7rem;" id="summaryOdev"></div>
+    <div class="summary-scores">
+      <div class="sum-box"><div class="sum-val" id="sumPuan">0</div><div class="sum-lbl">Puan / 100</div></div>
+      <div class="sum-box"><div class="sum-val" id="sumDogru">0</div><div class="sum-lbl">✓ Doğru</div></div>
+      <div class="sum-box"><div class="sum-val" id="sumYanlis">0</div><div class="sum-lbl">✗ Yanlış</div></div>
+    </div>
+  </div>
+  <div class="notice-box" id="noticeBox">
+    🎉 <strong>Test tamamlandı!</strong><br>
+    Yanlışlarınız için <strong>WhatsApp grubundan</strong> sorun!
+  </div>
+  <div class="action-btns" id="actionBtns">
+    <button class="btn-review" onclick="toggleReview()">🔍 Hatalarımı gözden geçir</button>
+    <button class="btn-restart" onclick="restart()">🔄 Testi Tekrar Çöz</button>
+  </div>
+  <div id="reviewSection"></div>
+</div>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwbAQtk4nhM73aqYCKwg0z5s5qxPaCAWeLncNVHtSQ2jHbuo7SomG4PJpOBN8C0sXzTQw/exec";
+const ODEV_ADI="H2 – 5-6.Ders";
+const GROUPS={
+  'Sedat Zincirkıran':'A1.1',
+  'İncilay Dikbıyık':'A1.1',
+  'Ruhşen Çavuşoğlu':'A1.1',
+  'Seher Erçin':'A1.1',
+  'Ceren Erdoğan':'A1.1',
+  'Erdinç Tigin Bilen':'A1.1',
+  'Büşra Çam':'A1.1',
+  'Görkem Dursun':'A1.1',
+  'Sibel Atmaca':'A1.1',
+  'Onur Atlı':'A1.1',
+  'Elif Atlı':'A1.1',
+  'Murat Erdem':'A1.1',
+  'Şeyma Dereci':'A1.1',
+  'Zeynep Söylemez':'A1.1',
+  'Ecem Sukas':'A1.1',
+  'Burakhan Kaydı':'A1.1',
+  'Şenay Sezgin':'A1.1',
+  'Zeynep Öztaşkın':'A1.1',
+  'Sonay Çetinkaya':'A1.1',
+  'Ezgican Tekçorap':'A1.1',
+  'Merve Sağlam':'A1.1',
+  'Meryem Özbek':'A1.1',
+  'Elif Bozkurt':'A1.1',
+  'Meltem Çiftçi':'A1.1',
+  'Hilal Dilsiz':'A1.1',
+  'Rümeysa Yatgın':'A1.1',
+  'Eylül Şerbetçi':'A1.1',
+  'Harun Özmen':'A1.1',
+  'Yasemin Kurtuluş Tunç':'A1.1',
+  'Zeynep Hediye Özay':'A1.1',
+  'Gülce Eyibilir':'A1.1',
+  'Serra Sancaklı Işık':'A1.1',
+  'Büşra Yurt':'A1.1',
+  'Elif Çetin':'A1.1',
+  'Mehtap Keklik':'A1.1',
+  'Elif Ataç':'A1.1',
+  'Doğa Değirmenci':'A1.1',
+  'Zehra Rümeysa Çolak':'A1.1',
+  'Zeynep Su Alişan':'A1.1',
+  'Eray Sayılık':'A1.1',
+  'Birce Süzen':'A1.1',
+  'Seher Akbulat':'A1.1',
+  'Deneme Öğrencisi':'A1.1'
+};
+
+const WARN='';
+
+const Q=[
+{t:"mc",q:"\"\u00c9l\" ve \"el\" aras\u0131ndaki temel fark nedir?",o:["\"\u00c9l\" di\u015fil, \"el\" erildir.", "\u00c9l \u00e7o\u011ful, el tekildir.", "\u0130kisi tamamen ayn\u0131 kelimedir, fark yoktur.", "\u00c9l = \u00f6zne zamiri (o-erkek), el = eril belirli artikel."],a:3,exp:"Aksanl\u0131 \"\u00c9l\" = o (erkek) \u00f6zne zamiri. Aksans\u0131z \"el\" = eril belirli artikel (el libro = kitap). | \ud83c\uddea\ud83c\uddf8 \u00c9l trabaja. / El libro es interesante. | \ud83c\uddf9\ud83c\uddf7 \u00c9l = o (erkek) / el = eril artikel. | \ud83c\uddec\ud83c\udde7 \u00c9l = he / el = the (masculine).",es:"\u00c9l trabaja. / El libro es interesante.",tr:"\u00c9l = o (erkek) / el = eril artikel.",en:"\u00c9l = he / el = the (masculine)."},
+{t:"mc",q:"\"Ellos\" hangi T\u00fcrk\u00e7e \u00f6zneye kar\u015f\u0131l\u0131k gelir?",o:["Ben", "Onlar (erkek/karma grup)", "Sen", "Biz"],a:1,exp:"\"Ellos\" = onlar (erkek ya da karma grup). \"Ellas\" = onlar (yaln\u0131zca kad\u0131n grup). | \ud83c\uddea\ud83c\uddf8 Ellos trabajan mucho. | \ud83c\uddf9\ud83c\uddf7 Ellos = Onlar. | \ud83c\uddec\ud83c\udde7 Ellos = They (male/mixed).",es:"Ellos trabajan mucho.",tr:"Ellos = Onlar.",en:"Ellos = They (male/mixed)."},
+{t:"mc",q:"\"Abrazar\" fiilinin \"t\u00fa\" \u00e7ekimi hangisidir?",o:["Abrazamos", "Abrazas", "Abraza", "Abrazo"],a:1,exp:"-AR fiillerde t\u00fa \u00e7ekimi: k\u00f6k + -as \u2192 abraz + as = abrazas. | \ud83c\uddea\ud83c\uddf8 T\u00fa abrazas a tu amigo. | \ud83c\uddf9\ud83c\uddf7 Abrazas = Sen sar\u0131l\u0131yorsun. | \ud83c\uddec\ud83c\udde7 Abrazas = You hug.",es:"T\u00fa abrazas a tu amigo.",tr:"Abrazas = Sen sar\u0131l\u0131yorsun.",en:"Abrazas = You hug."},
+{t:"mc",q:"\"Bailar\" fiilinin \"usted\" \u00e7ekimi hangisidir?",o:["Bailas", "Bail\u00e1is", "Baila", "Bailo"],a:2,exp:"Usted 3. tekil \u00e7ekim al\u0131r. -AR fiilde: k\u00f6k + -a \u2192 bail + a = baila. | \ud83c\uddea\ud83c\uddf8 Usted baila muy bien. | \ud83c\uddf9\ud83c\uddf7 Baila = O/Siz (resmi) dans ediyor. | \ud83c\uddec\ud83c\udde7 Baila = He/She/You(formal) dances.",es:"Usted baila muy bien.",tr:"Baila = O/Siz (resmi) dans ediyor.",en:"Baila = He/She/You(formal) dances."},
+{t:"mc",q:"-AR fiillerinin t\u00fcm \u015fah\u0131s eklerini do\u011fru s\u0131rada veren hangisidir?",o:["-o / -as / -e / -amos / -\u00e1is / -an", "-o / -es / -e / -emos / -\u00e9is / -en", "-o / -as / -a / -amos / -\u00e1is / -an", "-o / -as / -a / -imos / -\u00e1is / -an"],a:2,exp:"-AR fiil ekleri: yo -o / t\u00fa -as / \u00e9l-ella-usted -a / nosotros -amos / vosotros -\u00e1is / ellos-ellas-ustedes -an. | \ud83c\uddea\ud83c\uddf8 -o, -as, -a, -amos, -\u00e1is, -an. | \ud83c\uddf9\ud83c\uddf7 -AR fiil ekleri: -o, -as, -a, -amos, -\u00e1is, -an. | \ud83c\uddec\ud83c\udde7 -AR endings: -o, -as, -a, -amos, -\u00e1is, -an.",es:"-o, -as, -a, -amos, -\u00e1is, -an.",tr:"-AR fiil ekleri: -o, -as, -a, -amos, -\u00e1is, -an.",en:"-AR endings: -o, -as, -a, -amos, -\u00e1is, -an."},
+{t:"mc",q:"\"Trabajar\" fiilinin \"vosotros\" \u00e7ekimi hangisidir?",o:["Trabajan", "Trabaj\u00e1is", "Trabajas", "Trabajo"],a:1,exp:"-AR fiillerde vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 trabaj + \u00e1is = trabaj\u00e1is. | \ud83c\uddea\ud83c\uddf8 Vosotros trabaj\u00e1is mucho. | \ud83c\uddf9\ud83c\uddf7 Trabaj\u00e1is = Siz \u00e7al\u0131\u015f\u0131yorsunuz. | \ud83c\uddec\ud83c\udde7 Trabaj\u00e1is = You all work (Spain).",es:"Vosotros trabaj\u00e1is mucho.",tr:"Trabaj\u00e1is = Siz \u00e7al\u0131\u015f\u0131yorsunuz.",en:"Trabaj\u00e1is = You all work (Spain)."},
+{t:"mc",q:"B ve V harfleri hakk\u0131nda do\u011fru olan hangisidir?",o:["V \u0130spanyolcada hi\u00e7 kullan\u0131lmaz.", "B = \"be\" ve V = \"uve\" adlar\u0131n\u0131 ta\u015f\u0131r, ama ikisi de ayn\u0131 sesi \u00e7\u0131kar\u0131r.", "B sessiz, V seslidir.", "B ve V farkl\u0131 sesler \u00e7\u0131kar\u0131r."],a:1,exp:"\u0130spanyolcada B ve V tamamen ayn\u0131 sesi verir. Adlar\u0131yla ay\u0131rt edilirler: \"be\" (B) ve \"uve\" (V). | \ud83c\uddea\ud83c\uddf8 B = 'be' / V = 'uve' \u2014 \u00a1mismo sonido! | \ud83c\uddf9\ud83c\uddf7 B = be / V = uve \u2014 ama ayn\u0131 ses! | \ud83c\uddec\ud83c\udde7 B = be / V = uve \u2014 but identical sound!",es:"B = 'be' / V = 'uve' \u2014 \u00a1mismo sonido!",tr:"B = be / V = uve \u2014 ama ayn\u0131 ses!",en:"B = be / V = uve \u2014 but identical sound!"},
+{t:"mc",q:"\"F\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Efe", "Fe", "Ef", "Efi"],a:0,exp:"\u0130spanyolca alfabede 'F' harfinin ad\u0131 'efe' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra F se llama 'efe'. | \ud83c\uddf9\ud83c\uddf7 F harfinin ad\u0131 = efe. | \ud83c\uddec\ud83c\udde7 The name of letter F = efe.",es:"La letra F se llama 'efe'.",tr:"F harfinin ad\u0131 = efe.",en:"The name of letter F = efe."},
+{t:"mc",q:"\"T\u00fa\" ve \"tu\" aras\u0131ndaki fark nedir?",o:["\u0130kisi de \u00f6zne zamiridir.", "\u0130kisi de iyelik s\u0131fat\u0131d\u0131r.", "Tamamen ayn\u0131 kelimedir.", "Aksanl\u0131 t\u00fa = \u00f6zne zamiri (sen), aksans\u0131z tu = iyelik s\u0131fat\u0131 (senin)."],a:3,exp:"\"\u00bfC\u00f3mo te llamas t\u00fa?\" = sen (\u00f6zne). \"tu nombre\" = senin ad\u0131n (iyelik). Aksanl\u0131/aksans\u0131z yaz\u0131l\u0131\u015f anlam\u0131 de\u011fi\u015ftirir! | \ud83c\uddea\ud83c\uddf8 T\u00fa hablas. / tu nombre. | \ud83c\uddf9\ud83c\uddf7 T\u00fa = sen (\u00f6zne) / tu = senin (iyelik). | \ud83c\uddec\ud83c\udde7 T\u00fa = you (subject) / tu = your (possessive).",es:"T\u00fa hablas. / tu nombre.",tr:"T\u00fa = sen (\u00f6zne) / tu = senin (iyelik).",en:"T\u00fa = you (subject) / tu = your (possessive)."},
+{t:"mc",q:"\"\u00c9l\" zamirinin T\u00fcrk\u00e7e kar\u015f\u0131l\u0131\u011f\u0131 ve kullan\u0131m amac\u0131 nedir?",o:["O (erkek), 3. tekil eril \u00f6zne zamiridir.", "Biz, 1. \u00e7o\u011ful \u00f6zne zamiridir.", "O (kad\u0131n), 3. tekil di\u015fil \u00f6zne zamiridir.", "Resmi siz, formal ortamda kullan\u0131l\u0131r."],a:0,exp:"Aksanl\u0131 \"\u00c9l\" = o (erkek) \u00f6zne zamiri. Aksans\u0131z \"el\" ise \"the\" anlam\u0131nda eril artikel. | \ud83c\uddea\ud83c\uddf8 \u00c9l habla mucho. | \ud83c\uddf9\ud83c\uddf7 \u00c9l = o (erkek). | \ud83c\uddec\ud83c\udde7 \u00c9l = he.",es:"\u00c9l habla mucho.",tr:"\u00c9l = o (erkek).",en:"\u00c9l = he."},
+{t:"mc",q:"\"Cantar\" fiilinin \"ellas\" \u00e7ekimi hangisidir?",o:["Canto", "Cantas", "Cantan", "Canta"],a:2,exp:"-AR fiillerde ellos/ellas/ustedes \u00e7ekimi: k\u00f6k + -an \u2192 cant + an = cantan. | \ud83c\uddea\ud83c\uddf8 Ellas cantan en el coro. | \ud83c\uddf9\ud83c\uddf7 Cantan = Onlar \u015fark\u0131 s\u00f6yl\u00fcyor. | \ud83c\uddec\ud83c\udde7 Cantan = They sing.",es:"Ellas cantan en el coro.",tr:"Cantan = Onlar \u015fark\u0131 s\u00f6yl\u00fcyor.",en:"Cantan = They sing."},
+{t:"mc",q:"\"i\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["i", "iye", "ai", "ay"],a:0,exp:"\u0130spanyolca alfabede 'i' harfinin ad\u0131 'i' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra i se llama 'i'. | \ud83c\uddf9\ud83c\uddf7 i harfinin ad\u0131 = i. | \ud83c\uddec\ud83c\udde7 The name of letter i = i.",es:"La letra i se llama 'i'.",tr:"i harfinin ad\u0131 = i.",en:"The name of letter i = i."},
+{t:"mc",q:"\"Hablar\" fiilinin tam \u00e7ekiminde \"nosotros\" i\u00e7in do\u011fru form hangisidir?",o:["Habl\u00e9is", "Hablas", "Hablan", "Hablamos"],a:3,exp:"-AR fiillerde nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 habl + amos = hablamos. | \ud83c\uddea\ud83c\uddf8 Nosotros hablamos espa\u00f1ol en casa. | \ud83c\uddf9\ud83c\uddf7 Hablamos = Biz konu\u015fuyoruz. | \ud83c\uddec\ud83c\udde7 Hablamos = We speak.",es:"Nosotros hablamos espa\u00f1ol en casa.",tr:"Hablamos = Biz konu\u015fuyoruz.",en:"Hablamos = We speak."},
+{t:"mc",q:"\"Y\" harfinin \u0130spanyolca ad\u0131 nedir ve \"I\" harfinden fark\u0131 nedir?",o:["Y = \"ye\" veya \"i griega\" (Yunan i'si), I = \"i latina\" (Latin i'si).", "Y harfinin ad\u0131 'ya'd\u0131r.", "Y harfinin ad\u0131 \"i\"dir, I harfinden fark\u0131 yoktur.", "Y harfinin ad\u0131 'wi'dir."],a:0,exp:"Y harfinin geleneksel ad\u0131 \"i griega\" (Yunan i'si), yeni ad\u0131 \"ye\"dir. I harfi ise \"i latina\" olarak an\u0131l\u0131r. | \ud83c\uddea\ud83c\uddf8 Y = 'i griega' / 'ye' \u2014 I = 'i latina'. | \ud83c\uddf9\ud83c\uddf7 Y = i griega / ye I = i latina. | \ud83c\uddec\ud83c\udde7 Y = i griega / ye I = i latina.",es:"Y = 'i griega' / 'ye' \u2014 I = 'i latina'.",tr:"Y = i griega / ye I = i latina.",en:"Y = i griega / ye I = i latina."},
+{t:"mc",q:"\"H\" harfi hakk\u0131nda do\u011fru olan ifade hangisidir?",o:["H harfi CH ile birle\u015fince de sessizdir.", "H harfi her zaman g\u00fc\u00e7l\u00fc okunur.", "H harfi yaln\u0131zca kelime sonunda sessizdir.", "H harfi \u0130spanyolcada her zaman sessizdir, hi\u00e7 okunmaz."],a:3,exp:"\"Hablar\", \"hola\", \"habitar\" gibi kelimelerde H harfi hi\u00e7bir zaman okunmaz. \"CH\" kombinasyonu ise farkl\u0131 bir sestir. | \ud83c\uddea\ud83c\uddf8 Hablar, hola, habitar \u2014 la H es siempre muda. | \ud83c\uddf9\ud83c\uddf7 H harfi \u0130spanyolcada daima sessizdir. | \ud83c\uddec\ud83c\udde7 The letter H is always silent in Spanish.",es:"Hablar, hola, habitar \u2014 la H es siempre muda.",tr:"H harfi \u0130spanyolcada daima sessizdir.",en:"The letter H is always silent in Spanish."},
+{t:"mc",q:"\"P\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Pa", "Pe", "Pu", "Pi"],a:1,exp:"\u0130spanyolca alfabede 'P' harfinin ad\u0131 'pe' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra P se llama 'pe'. | \ud83c\uddf9\ud83c\uddf7 P harfinin ad\u0131 = pe. | \ud83c\uddec\ud83c\udde7 The name of letter P = pe.",es:"La letra P se llama 'pe'.",tr:"P harfinin ad\u0131 = pe.",en:"The name of letter P = pe."},
+{t:"mc",q:"\"Z\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ze", "Za", "Zeta", "Zi"],a:2,exp:"\u0130spanyolca alfabede 'Z' harfinin ad\u0131 'zeta' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra Z se llama 'zeta'. | \ud83c\uddf9\ud83c\uddf7 Z harfinin ad\u0131 = zeta. | \ud83c\uddec\ud83c\udde7 The name of letter Z = zeta.",es:"La letra Z se llama 'zeta'.",tr:"Z harfinin ad\u0131 = zeta.",en:"The name of letter Z = zeta."},
+{t:"mc",q:"\"R\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Re", "Rre", "Ra", "Erre"],a:3,exp:"\u0130spanyolca alfabede 'R' harfinin ad\u0131 'erre' olarak okunur. \u00c7ift R sesi ise daha g\u00fc\u00e7l\u00fc titre\u015fimli okunur. | \ud83c\uddea\ud83c\uddf8 La letra R se llama 'erre'. | \ud83c\uddf9\ud83c\uddf7 R harfinin ad\u0131 = erre. | \ud83c\uddec\ud83c\udde7 The name of letter R = erre.",es:"La letra R se llama 'erre'.",tr:"R harfinin ad\u0131 = erre.",en:"The name of letter R = erre."},
+{t:"mc",q:"\"T\u00fa\" hangi T\u00fcrk\u00e7e \u00f6zneye kar\u015f\u0131l\u0131k gelir?",o:["Sen", "O", "Biz", "Ben"],a:0,exp:"Aksanl\u0131 \"T\u00fa\" = sen (\u00f6zne zamiri). Aksans\u0131z \"tu\" = senin (iyelik s\u0131fat\u0131). \u0130kisi farkl\u0131d\u0131r! | \ud83c\uddea\ud83c\uddf8 T\u00fa hablas muy bien. | \ud83c\uddf9\ud83c\uddf7 T\u00fa = Sen. | \ud83c\uddec\ud83c\udde7 T\u00fa = You (informal).",es:"T\u00fa hablas muy bien.",tr:"T\u00fa = Sen.",en:"T\u00fa = You (informal)."},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerin hangisinde 'el' kelimesi \u00d6ZNE ZAM\u0130R\u0130 olarak kullan\u0131lm\u0131\u015ft\u0131r?",o:["El estudiante habla.", "El libro es interesante.", "El caf\u00e9 es rico.", "\u00c9l trabaja mucho."],a:3,exp:"Di\u011fer 'el' kelimeleri eril artikel. Yaln\u0131zca '\u00c9l trabaja'da aksanl\u0131 \u00f6zne zamiridir. | \ud83c\uddea\ud83c\uddf8 \u00c9l trabaja mucho. (\u00f6zne zamiri \u00c9l) | \ud83c\uddf9\ud83c\uddf7 '\u00c9l trabaja mucho' = O \u00e7ok \u00e7al\u0131\u015f\u0131yor (\u00f6zne zamiri). | \ud83c\uddec\ud83c\udde7 '\u00c9l trabaja mucho' = He works a lot (subject pronoun).",es:"\u00c9l trabaja mucho. (\u00f6zne zamiri \u00c9l)",tr:"'\u00c9l trabaja mucho' = O \u00e7ok \u00e7al\u0131\u015f\u0131yor (\u00f6zne zamiri).",en:"'\u00c9l trabaja mucho' = He works a lot (subject pronoun)."},
+{t:"mc",q:"\u0130spanyolca -AR fiil \u00e7ekiminde hangi ek 't\u00fa' \u015fahs\u0131na aittir?",o:["-amos", "-a", "-as", "-o"],a:2,exp:"-AR fiillerde \u015fah\u0131s ekleri: yo -o / t\u00fa -as / \u00e9l-ella-usted -a / nosotros -amos / vosotros -\u00e1is / ellos -an. | \ud83c\uddea\ud83c\uddf8 T\u00fa hablas, bailas, cantas... | \ud83c\uddf9\ud83c\uddf7 T\u00fa \u00e7ekimi = k\u00f6k + -as. | \ud83c\uddec\ud83c\udde7 T\u00fa ending = stem + -as.",es:"T\u00fa hablas, bailas, cantas...",tr:"T\u00fa \u00e7ekimi = k\u00f6k + -as.",en:"T\u00fa ending = stem + -as."},
+{t:"mc",q:"\"Dibujar\" fiilinin \"ellos\" \u00e7ekimi hangisidir?",o:["Dibujo", "Dibujas", "Dibujan", "Dibuja"],a:2,exp:"-AR fiillerde ellos/ellas/ustedes \u00e7ekimi: k\u00f6k + -an \u2192 dibuj + an = dibujan. | \ud83c\uddea\ud83c\uddf8 Ellos dibujan muy bien. | \ud83c\uddf9\ud83c\uddf7 Dibujan = Onlar \u00e7iziyor. | \ud83c\uddec\ud83c\udde7 Dibujan = They draw.",es:"Ellos dibujan muy bien.",tr:"Dibujan = Onlar \u00e7iziyor.",en:"Dibujan = They draw."},
+{t:"mc",q:"\"V\" harfinin \u0130spanyolca ad\u0131 nedir ve \"B\" harfiyle fark\u0131 nedir?",o:["\"V\" harfinin ad\u0131 \"uve\"dir, B harfiyle (be) ayn\u0131 sesi verir.", "\"V\" harfinin ad\u0131 \"vi\"dir.", "\"V\" harfinin ad\u0131 \"ve\"dir, B'den farkl\u0131 okunur.", "\u0130ki harf tamamen farkl\u0131 sesler \u00e7\u0131kar\u0131r."],a:0,exp:"\u0130spanyolcada B ve V harfleri ayn\u0131 sesi \u00e7\u0131kar\u0131r! B = \"be\", V = \"uve\". Ay\u0131rt etmek i\u00e7in \"be\" ve \"uve\" adlar\u0131 kullan\u0131l\u0131r. | \ud83c\uddea\ud83c\uddf8 B = 'be' / V = 'uve' \u2014 \u00a1mismo sonido! | \ud83c\uddf9\ud83c\uddf7 V harfinin ad\u0131 = uve (B ile ayn\u0131 ses!). | \ud83c\uddec\ud83c\udde7 V = uve (sounds identical to B!).",es:"B = 'be' / V = 'uve' \u2014 \u00a1mismo sonido!",tr:"V harfinin ad\u0131 = uve (B ile ayn\u0131 ses!).",en:"V = uve (sounds identical to B!)."},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Usted ______ espa\u00f1ol muy bien. (hablar fiili)",o:["habla", "hablas", "hablo", "habl\u00e1is"],a:0,exp:"Usted 3. tekil \u00e7ekim al\u0131r: k\u00f6k + -a \u2192 habl + a = habla. | \ud83c\uddea\ud83c\uddf8 Usted habla espa\u00f1ol muy bien. | \ud83c\uddf9\ud83c\uddf7 Habla espa\u00f1ol muy bien = \u00c7ok iyi \u0130spanyolca konu\u015fuyor. | \ud83c\uddec\ud83c\udde7 Habla espa\u00f1ol muy bien = Speaks Spanish very well.",es:"Usted habla espa\u00f1ol muy bien.",tr:"Habla espa\u00f1ol muy bien = \u00c7ok iyi \u0130spanyolca konu\u015fuyor.",en:"Habla espa\u00f1ol muy bien = Speaks Spanish very well."},
+{t:"mc",q:"\"Caminar\" fiilinin \"ellos\" \u00e7ekimi hangisidir?",o:["Camino", "Caminan", "Caminas", "Camina"],a:1,exp:"-AR fiillerde ellos/ellas/ustedes \u00e7ekimi: k\u00f6k + -an \u2192 camin + an = caminan. | \ud83c\uddea\ud83c\uddf8 Ellos caminan por el parque. | \ud83c\uddf9\ud83c\uddf7 Caminan = Onlar y\u00fcr\u00fcyor. | \ud83c\uddec\ud83c\udde7 Caminan = They walk.",es:"Ellos caminan por el parque.",tr:"Caminan = Onlar y\u00fcr\u00fcyor.",en:"Caminan = They walk."},
+{t:"mc",q:"\"Mirar\" fiilinin \"yo\" \u00e7ekimi hangisidir?",o:["Miras", "Miramos", "Mira", "Miro"],a:3,exp:"-AR fiillerde yo \u00e7ekimi: k\u00f6k + -o \u2192 mir + o = miro. | \ud83c\uddea\ud83c\uddf8 Yo miro la televisi\u00f3n. | \ud83c\uddf9\ud83c\uddf7 Miro = Ben bak\u0131yorum. | \ud83c\uddec\ud83c\udde7 Miro = I look / watch.",es:"Yo miro la televisi\u00f3n.",tr:"Miro = Ben bak\u0131yorum.",en:"Miro = I look / watch."},
+{t:"mc",q:"\"K\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ki", "Ka", "Ko", "Ke"],a:1,exp:"\u0130spanyolca alfabede 'K' harfinin ad\u0131 'ka' olarak okunur. K harfi \u0130spanyolcada nadiren kullan\u0131l\u0131r. | \ud83c\uddea\ud83c\uddf8 La letra K se llama 'ka'. | \ud83c\uddf9\ud83c\uddf7 K harfinin ad\u0131 = ka. | \ud83c\uddec\ud83c\udde7 The name of letter K = ka.",es:"La letra K se llama 'ka'.",tr:"K harfinin ad\u0131 = ka.",en:"The name of letter K = ka."},
+{t:"mc",q:"\"Usted\" hangi \u00f6zne zamiriyle ayn\u0131 fiil \u00e7ekimini kullan\u0131r?",o:["Yo", "T\u00fa", "\u00c9l / Ella", "Nosotros"],a:2,exp:"Usted = resmi \"siz\" ama fiil \u00e7ekiminde 3. tekil \u015fahs\u0131 (\u00e9l/ella) kullan\u0131r. | \ud83c\uddea\ud83c\uddf8 Usted habla. / \u00c9l habla. | \ud83c\uddf9\ud83c\uddf7 Usted \u2192 \u00e9l/ella ile ayn\u0131 \u00e7ekim. | \ud83c\uddec\ud83c\udde7 Usted uses the same conjugation as \u00e9l/ella.",es:"Usted habla. / \u00c9l habla.",tr:"Usted \u2192 \u00e9l/ella ile ayn\u0131 \u00e7ekim.",en:"Usted uses the same conjugation as \u00e9l/ella."},
+{t:"mc",q:"\"Ustedes\" hangi \u00f6zne grubuyla ayn\u0131 fiil \u00e7ekimini kullan\u0131r?",o:["\u00c9l/Ella", "T\u00fa", "Ellos/Ellas", "Yo"],a:2,exp:"Ustedes = resmi/\u00e7o\u011ful \"siz\" ama fiil \u00e7ekiminde 3. \u00e7o\u011ful \u015fahs\u0131 (ellos/ellas) kullan\u0131r. | \ud83c\uddea\ud83c\uddf8 Ustedes hablan. / Ellos hablan. | \ud83c\uddf9\ud83c\uddf7 Ustedes \u2192 ellos/ellas ile ayn\u0131 \u00e7ekim. | \ud83c\uddec\ud83c\udde7 Ustedes uses the same conjugation as ellos/ellas.",es:"Ustedes hablan. / Ellos hablan.",tr:"Ustedes \u2192 ellos/ellas ile ayn\u0131 \u00e7ekim.",en:"Ustedes uses the same conjugation as ellos/ellas."},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Ella ______ la guitarra cada d\u00eda. (tocar fiili)",o:["tocamos", "tocas", "toco", "toca"],a:3,exp:"-AR fiil TOCAR + ella \u2192 3. tekil \u2192 k\u00f6k + -a \u2192 toc + a = toca. | \ud83c\uddea\ud83c\uddf8 Ella toca la guitarra cada d\u00eda. | \ud83c\uddf9\ud83c\uddf7 Toca la guitarra = Gitar \u00e7al\u0131yor. | \ud83c\uddec\ud83c\udde7 Toca la guitarra = She plays guitar.",es:"Ella toca la guitarra cada d\u00eda.",tr:"Toca la guitarra = Gitar \u00e7al\u0131yor.",en:"Toca la guitarra = She plays guitar."},
+{t:"mc",q:"Cocinar (yemek pi\u015firmek) fiilinin geni\u015f zamanda 6 \u00f6zneye g\u00f6re do\u011fru \u00e7ekimi hangisidir?",o:["cocino \u2013 cocinas \u2013 cocina \u2013 cocinamos \u2013 cocin\u00e1is \u2013 cocinen", "cocino \u2013 cocinas \u2013 cocina \u2013 cocinamos \u2013 cocinan \u2013 cocin\u00e1is", "cocino \u2013 cocinas \u2013 cocina \u2013 cocinamos \u2013 cocin\u00e9is \u2013 cocinan", "cocino \u2013 cocinas \u2013 cocina \u2013 cocinamos \u2013 cocin\u00e1is \u2013 cocinan"],a:3,exp:"Cocinar d\u00fczenli bir -AR fiilidir: yo cocino, t\u00fa cocinas, \u00e9l cocina, nosotros cocinamos, vosotros cocin\u00e1is, ellos cocinan. | \ud83c\uddea\ud83c\uddf8 Cocinar es un verbo regular en -AR. | \ud83c\uddf9\ud83c\uddf7 Cocinar = yemek pi\u015firmek. | \ud83c\uddec\ud83c\udde7 Cocinar = to cook.",es:"Cocinar es un verbo regular en -AR.",tr:"Cocinar = yemek pi\u015firmek.",en:"Cocinar = to cook."},
+{t:"mc",q:"Comprar (sat\u0131n almak) fiilinin geni\u015f zamanda 6 \u00f6zneye g\u00f6re do\u011fru \u00e7ekimi hangisidir?",o:["compro \u2013 compras \u2013 compra \u2013 compramos \u2013 compran \u2013 compr\u00e1is", "compro \u2013 compras \u2013 compra \u2013 compramos \u2013 compr\u00e1is \u2013 compran", "compro \u2013 compras \u2013 compra \u2013 compramos \u2013 compr\u00e9is \u2013 compran", "compro \u2013 compras \u2013 compra \u2013 compramos \u2013 compr\u00e1is \u2013 compren"],a:1,exp:"Comprar d\u00fczenli bir -AR fiilidir: yo compro, t\u00fa compras, \u00e9l compra, nosotros compramos, vosotros compr\u00e1is, ellos compran. | \ud83c\uddea\ud83c\uddf8 Comprar es un verbo regular en -AR. | \ud83c\uddf9\ud83c\uddf7 Comprar = sat\u0131n almak. | \ud83c\uddec\ud83c\udde7 Comprar = to buy.",es:"Comprar es un verbo regular en -AR.",tr:"Comprar = sat\u0131n almak.",en:"Comprar = to buy."},
+{t:"mc",q:"\u0130spanyolca alfabede ka\u00e7 harf vard\u0131r? (\u00d1 dahil, LL ve CH hari\u00e7)",o:["27", "26", "25", "28"],a:0,exp:"\u0130spanyolca alfabesinde A'dan Z'ye 26 harf + \u00d1 = 27 harf. LL ve CH art\u0131k ayr\u0131 harf say\u0131lmamaktad\u0131r. | \ud83c\uddea\ud83c\uddf8 El alfabeto espa\u00f1ol tiene 27 letras (con \u00d1). | \ud83c\uddf9\ud83c\uddf7 \u0130spanyolca alfabede 27 harf vard\u0131r (\u00d1 dahil). | \ud83c\uddec\ud83c\udde7 The Spanish alphabet has 27 letters (including \u00d1).",es:"El alfabeto espa\u00f1ol tiene 27 letras (con \u00d1).",tr:"\u0130spanyolca alfabede 27 harf vard\u0131r (\u00d1 dahil).",en:"The Spanish alphabet has 27 letters (including \u00d1)."},
+{t:"mc",q:"\"W\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["We", "Double u", "Doble ve", "Uve doble"],a:3,exp:"\"W\" harfinin ad\u0131 \"uve doble\"dir. Bu harf \u0130spanyolcada \u00e7ok az kullan\u0131l\u0131r. | \ud83c\uddea\ud83c\uddf8 La letra W se llama 'uve doble'. | \ud83c\uddf9\ud83c\uddf7 W harfinin ad\u0131 = uve doble. | \ud83c\uddec\ud83c\udde7 The name of letter W = uve doble.",es:"La letra W se llama 'uve doble'.",tr:"W harfinin ad\u0131 = uve doble.",en:"The name of letter W = uve doble."},
+{t:"mc",q:"Ense\u00f1ar (\u00f6\u011fretmek) fiilinin geni\u015f zamanda 6 \u00f6zneye g\u00f6re do\u011fru \u00e7ekimi hangisidir?",o:["ense\u00f1o \u2013 ense\u00f1as \u2013 ense\u00f1a \u2013 ense\u00f1amos \u2013 ense\u00f1\u00e9is \u2013 ense\u00f1an", "ense\u00f1o \u2013 ense\u00f1as \u2013 ense\u00f1a \u2013 ense\u00f1amos \u2013 ense\u00f1an \u2013 ense\u00f1\u00e1is", "ense\u00f1o \u2013 ense\u00f1as \u2013 ense\u00f1a \u2013 ense\u00f1amos \u2013 ense\u00f1\u00e1is \u2013 ense\u00f1an", "ense\u00f1o \u2013 ense\u00f1as \u2013 ense\u00f1a \u2013 ense\u00f1amos \u2013 ense\u00f1\u00e1is \u2013 ense\u00f1en"],a:2,exp:"Ense\u00f1ar d\u00fczenli bir -AR fiilidir: yo ense\u00f1o, t\u00fa ense\u00f1as, \u00e9l ense\u00f1a, nosotros ense\u00f1amos, vosotros ense\u00f1\u00e1is, ellos ense\u00f1an. | \ud83c\uddea\ud83c\uddf8 Ense\u00f1ar es un verbo regular en -AR. | \ud83c\uddf9\ud83c\uddf7 Ense\u00f1ar = \u00f6\u011fretmek. | \ud83c\uddec\ud83c\udde7 Ense\u00f1ar = to teach.",es:"Ense\u00f1ar es un verbo regular en -AR.",tr:"Ense\u00f1ar = \u00f6\u011fretmek.",en:"Ense\u00f1ar = to teach."},
+{t:"mc",q:"\"Bailar\" fiilinin \"ellos\" \u00e7ekimi hangisidir?",o:["Bailo", "Baila", "Bailas", "Bailan"],a:3,exp:"-AR fiillerde ellos/ellas/ustedes \u00e7ekimi: k\u00f6k + -an \u2192 bail + an = bailan. | \ud83c\uddea\ud83c\uddf8 Ellos bailan muy bien. | \ud83c\uddf9\ud83c\uddf7 Bailan = Onlar dans ediyor. | \ud83c\uddec\ud83c\udde7 Bailan = They dance.",es:"Ellos bailan muy bien.",tr:"Bailan = Onlar dans ediyor.",en:"Bailan = They dance."},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Nosotros ______ en Madrid. (HABITAR fiilini kullan\u0131n)",o:["habitamos", "habita", "habitan", "habitas"],a:0,exp:"-AR fiil HABITAR + nosotros \u2192 k\u00f6k + -amos \u2192 habit + amos = habitamos. | \ud83c\uddea\ud83c\uddf8 Nosotros habitamos en Madrid. | \ud83c\uddf9\ud83c\uddf7 Habitamos = Biz ya\u015f\u0131yoruz (ikamet ediyoruz). | \ud83c\uddec\ud83c\udde7 Habitamos = We inhabit / live.",es:"Nosotros habitamos en Madrid.",tr:"Habitamos = Biz ya\u015f\u0131yoruz (ikamet ediyoruz).",en:"Habitamos = We inhabit / live."},
+{t:"mc",q:"\"Bailar\" fiilinin \"nosotros\" \u00e7ekimi hangisidir?",o:["Bailo", "Bail\u00e1is", "Bailas", "Bailamos"],a:3,exp:"-AR fiillerde nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 bail + amos = bailamos. | \ud83c\uddea\ud83c\uddf8 Nosotros bailamos en la fiesta. | \ud83c\uddf9\ud83c\uddf7 Bailamos = Biz dans ediyoruz. | \ud83c\uddec\ud83c\udde7 Bailamos = We dance.",es:"Nosotros bailamos en la fiesta.",tr:"Bailamos = Biz dans ediyoruz.",en:"Bailamos = We dance."},
+{t:"mc",q:"\"B\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Be", "Bo", "Ba", "Bi"],a:0,exp:"\u0130spanyolca alfabede 'B' harfinin ad\u0131 'be' olarak okunur. 'V' harfinin ad\u0131 ise 'uve'dir. | \ud83c\uddea\ud83c\uddf8 La letra B se llama 'be'. | \ud83c\uddf9\ud83c\uddf7 B harfinin ad\u0131 = be. | \ud83c\uddec\ud83c\udde7 The name of letter B = be.",es:"La letra B se llama 'be'.",tr:"B harfinin ad\u0131 = be.",en:"The name of letter B = be."},
+{t:"mc",q:"Llamar (aramak/\u00e7a\u011f\u0131rmak) fiilinin geni\u015f zamanda 6 \u00f6zneye g\u00f6re do\u011fru \u00e7ekimi hangisidir?",o:["llamo \u2013 llamas \u2013 llama \u2013 llamamos \u2013 llaman \u2013 llam\u00e1is", "llamo \u2013 llamas \u2013 llama \u2013 llamamos \u2013 llam\u00e1is \u2013 llaman", "llamo \u2013 llamas \u2013 llama \u2013 llamamos \u2013 llam\u00e9is \u2013 llaman", "llamo \u2013 llamas \u2013 llama \u2013 llamamos \u2013 llam\u00e1is \u2013 llamen"],a:1,exp:"Llamar d\u00fczenli bir -AR fiilidir: yo llamo, t\u00fa llamas, \u00e9l llama, nosotros llamamos, vosotros llam\u00e1is, ellos llaman. | \ud83c\uddea\ud83c\uddf8 Llamar es un verbo regular en -AR. | \ud83c\uddf9\ud83c\uddf7 Llamar = aramak/\u00e7a\u011f\u0131rmak. | \ud83c\uddec\ud83c\udde7 Llamar = to call.",es:"Llamar es un verbo regular en -AR.",tr:"Llamar = aramak/\u00e7a\u011f\u0131rmak.",en:"Llamar = to call."},
+{t:"mc",q:"\"O\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Oe", "Oo", "O", "Ou"],a:2,exp:"\u0130spanyolca alfabede 'O' harfinin ad\u0131 sadece 'o' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra O se llama 'o'. | \ud83c\uddf9\ud83c\uddf7 O harfinin ad\u0131 = o. | \ud83c\uddec\ud83c\udde7 The name of letter O = o.",es:"La letra O se llama 'o'.",tr:"O harfinin ad\u0131 = o.",en:"The name of letter O = o."},
+{t:"mc",q:"-AR fiil \u00e7ekiminde 'yo' \u015fahs\u0131na ait ek hangisidir?",o:["-a", "-as", "-amos", "-o"],a:3,exp:"T\u00fcm -AR fiillerde yo \u00e7ekimi: k\u00f6k + -o. \u00d6rn: hablo, bailo, canto, escucho. | \ud83c\uddea\ud83c\uddf8 Yo hablo, bailo, canto, escucho... | \ud83c\uddf9\ud83c\uddf7 Yo \u00e7ekimi = k\u00f6k + -o. | \ud83c\uddec\ud83c\udde7 Yo ending = stem + -o.",es:"Yo hablo, bailo, canto, escucho...",tr:"Yo \u00e7ekimi = k\u00f6k + -o.",en:"Yo ending = stem + -o."},
+{t:"mc",q:"\"Bailar\" fiilinin \"t\u00fa\" \u00e7ekimi hangisidir?",o:["Baila", "Bail\u00e1is", "Bailo", "Bailas"],a:3,exp:"-AR fiillerde t\u00fa \u00e7ekimi: k\u00f6k + -as \u2192 bail + as = bailas. | \ud83c\uddea\ud83c\uddf8 T\u00fa bailas muy bien. | \ud83c\uddf9\ud83c\uddf7 Bailas = Sen dans ediyorsun. | \ud83c\uddec\ud83c\udde7 Bailas = You dance.",es:"T\u00fa bailas muy bien.",tr:"Bailas = Sen dans ediyorsun.",en:"Bailas = You dance."},
+{t:"mc",q:"\"Vosotras\" ile \"Vosotros\" aras\u0131ndaki fark nedir?",o:["Vosotros = karma/eril siz grubu, Vosotras = yaln\u0131zca kad\u0131n siz grubudur.", "Vosotros tekil, Vosotras \u00e7o\u011fuldur.", "Vosotras daha resmidir.", "\u0130kisi ayn\u0131d\u0131r."],a:0,exp:"T\u0131pk\u0131 nosotros/nosotras gibi: grupta en az bir erkek varsa vosotros, hepsi kad\u0131nsa vosotras. | \ud83c\uddea\ud83c\uddf8 Vosotros (chicos/karma) / Vosotras (solo chicas). | \ud83c\uddf9\ud83c\uddf7 Vosotros = karma/eril / Vosotras = yaln\u0131zca kad\u0131n. | \ud83c\uddec\ud83c\udde7 Vosotros = mixed/male / Vosotras = female-only.",es:"Vosotros (chicos/karma) / Vosotras (solo chicas).",tr:"Vosotros = karma/eril / Vosotras = yaln\u0131zca kad\u0131n.",en:"Vosotros = mixed/male / Vosotras = female-only."},
+{t:"mc",q:"Usar (kullanmak) fiilinin geni\u015f zamanda 6 \u00f6zneye g\u00f6re do\u011fru \u00e7ekimi hangisidir?",o:["uso \u2013 usas \u2013 usa \u2013 usamos \u2013 us\u00e9is \u2013 usan", "uso \u2013 usas \u2013 usa \u2013 usamos \u2013 usan \u2013 us\u00e1is", "uso \u2013 usas \u2013 usa \u2013 usamos \u2013 us\u00e1is \u2013 usan", "uso \u2013 usas \u2013 usa \u2013 usamos \u2013 us\u00e1is \u2013 usen"],a:2,exp:"Usar d\u00fczenli bir -AR fiilidir: yo uso, t\u00fa usas, \u00e9l usa, nosotros usamos, vosotros us\u00e1is, ellos usan. | \ud83c\uddea\ud83c\uddf8 Usar es un verbo regular en -AR. | \ud83c\uddf9\ud83c\uddf7 Usar = kullanmak. | \ud83c\uddec\ud83c\udde7 Usar = to use.",es:"Usar es un verbo regular en -AR.",tr:"Usar = kullanmak.",en:"Usar = to use."},
+{t:"mc",q:"\u0130spanyolcada 't\u00fa' ve 'usted' ayn\u0131 ki\u015fiyi kastederken neden farkl\u0131 fiil \u00e7ekimi al\u0131r?",o:["\u0130kisi de ayn\u0131 \u00e7ekimi al\u0131r.", "T\u00fa informal oldu\u011fu i\u00e7in 2. tekil \u00e7ekimi, usted resmi oldu\u011fu i\u00e7in 3. tekil \u00e7ekimi al\u0131r.", "Her ikisi de 1. tekil \u00e7ekimi al\u0131r.", "T\u00fa 3. tekil, usted 2. tekil \u00e7ekimi al\u0131r."],a:1,exp:"Dilbilgisi kural\u0131 gere\u011fi usted, tarihsel olarak \"vuestra merced\" (siz-sayg\u0131) k\u00f6keninden gelir ve 3. tekil \u00e7ekim kullan\u0131r. | \ud83c\uddea\ud83c\uddf8 T\u00fa hablas. / Usted habla. | \ud83c\uddf9\ud83c\uddf7 T\u00fa \u2192 2. tekil \u00e7ekim / Usted \u2192 3. tekil \u00e7ekim. | \ud83c\uddec\ud83c\udde7 T\u00fa \u2192 2nd singular / Usted \u2192 3rd singular conjugation.",es:"T\u00fa hablas. / Usted habla.",tr:"T\u00fa \u2192 2. tekil \u00e7ekim / Usted \u2192 3. tekil \u00e7ekim.",en:"T\u00fa \u2192 2nd singular / Usted \u2192 3rd singular conjugation."},
+{t:"mc",q:"\"C\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ce", "Ka", "Si", "Se"],a:0,exp:"\u0130spanyolca alfabede 'C' harfinin ad\u0131 'ce' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra C se llama 'ce'. | \ud83c\uddf9\ud83c\uddf7 C harfinin ad\u0131 = ce. | \ud83c\uddec\ud83c\udde7 The name of letter C = ce.",es:"La letra C se llama 'ce'.",tr:"C harfinin ad\u0131 = ce.",en:"The name of letter C = ce."},
+{t:"mc",q:"\"Escuchar\" fiilinin \"t\u00fa\" \u00e7ekimi hangisidir?",o:["Escuchas", "Escuch\u00e1is", "Escucho", "Escucha"],a:0,exp:"-AR fiillerde t\u00fa \u00e7ekimi: k\u00f6k + -as \u2192 escuch + as = escuchas. | \ud83c\uddea\ud83c\uddf8 T\u00fa escuchas m\u00fasica todo el d\u00eda. | \ud83c\uddf9\ud83c\uddf7 Escuchas = Sen dinliyorsun. | \ud83c\uddec\ud83c\udde7 Escuchas = You listen.",es:"T\u00fa escuchas m\u00fasica todo el d\u00eda.",tr:"Escuchas = Sen dinliyorsun.",en:"Escuchas = You listen."},
+{t:"mc",q:"\"Escuchar\" fiilinin \"usted\" \u00e7ekimi hangisidir?",o:["Escucho", "Escucha", "Escuchamos", "Escuchas"],a:1,exp:"Usted 3. tekil \u015fah\u0131s \u00e7ekimini al\u0131r: k\u00f6k + -a \u2192 escuch + a = escucha. | \ud83c\uddea\ud83c\uddf8 Usted escucha muy bien. | \ud83c\uddf9\ud83c\uddf7 Escucha = O/Siz dinliyor. | \ud83c\uddec\ud83c\udde7 Escucha = He/She/You(formal) listens.",es:"Usted escucha muy bien.",tr:"Escucha = O/Siz dinliyor.",en:"Escucha = He/She/You(formal) listens."},
+{t:"mc",q:"\"M\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ma", "Mi", "Eme", "Em"],a:2,exp:"\u0130spanyolca alfabede 'M' harfinin ad\u0131 'eme' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra M se llama 'eme'. | \ud83c\uddf9\ud83c\uddf7 M harfinin ad\u0131 = eme. | \ud83c\uddec\ud83c\udde7 The name of letter M = eme.",es:"La letra M se llama 'eme'.",tr:"M harfinin ad\u0131 = eme.",en:"The name of letter M = eme."},
+{t:"mc",q:"\"S\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ese", "Si", "Sa", "Es"],a:0,exp:"\u0130spanyolca alfabede 'S' harfinin ad\u0131 'ese' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra S se llama 'ese'. | \ud83c\uddf9\ud83c\uddf7 S harfinin ad\u0131 = ese. | \ud83c\uddec\ud83c\udde7 The name of letter S = ese.",es:"La letra S se llama 'ese'.",tr:"S harfinin ad\u0131 = ese.",en:"The name of letter S = ese."},
+{t:"mc",q:"\"Vosotros\" hangi T\u00fcrk\u00e7e \u00f6zneye kar\u015f\u0131l\u0131k gelir?",o:["Onlar", "Siz (\u0130spanya'da kullan\u0131lan \u00e7o\u011ful sen)", "Biz", "Ben"],a:1,exp:"\"Vosotros\" = siz (\u0130spanya'ya \u00f6zg\u00fc, informal \u00e7o\u011ful). Latin Amerika'da bu yerine \"Ustedes\" kullan\u0131l\u0131r. | \ud83c\uddea\ud83c\uddf8 Vosotros habl\u00e1is mucho. | \ud83c\uddf9\ud83c\uddf7 Vosotros = Siz. | \ud83c\uddec\ud83c\udde7 Vosotros = You all (Spain, informal).",es:"Vosotros habl\u00e1is mucho.",tr:"Vosotros = Siz.",en:"Vosotros = You all (Spain, informal)."},
+{t:"mc",q:"\"Nosotros\" hangi T\u00fcrk\u00e7e \u00f6zneye kar\u015f\u0131l\u0131k gelir?",o:["Siz", "Biz", "Sen", "Onlar"],a:1,exp:"\"Nosotros\" = biz (karma veya eril grup). \"Nosotras\" = biz (yaln\u0131zca kad\u0131n grup). | \ud83c\uddea\ud83c\uddf8 Nosotros hablamos espa\u00f1ol. | \ud83c\uddf9\ud83c\uddf7 Nosotros = Biz. | \ud83c\uddec\ud83c\udde7 Nosotros = We.",es:"Nosotros hablamos espa\u00f1ol.",tr:"Nosotros = Biz.",en:"Nosotros = We."},
+{t:"mc",q:"\"G\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ge", "Gu", "Ji", "Gue"],a:0,exp:"\u0130spanyolca alfabede 'G' harfinin ad\u0131 'ge' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra G se llama 'ge'. | \ud83c\uddf9\ud83c\uddf7 G harfinin ad\u0131 = ge. | \ud83c\uddec\ud83c\udde7 The name of letter G = ge.",es:"La letra G se llama 'ge'.",tr:"G harfinin ad\u0131 = ge.",en:"The name of letter G = ge."},
+{t:"mc",q:"\"L\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ele", "Li", "Lo", "El"],a:0,exp:"\u0130spanyolca alfabede 'L' harfinin ad\u0131 'ele' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra L se llama 'ele'. | \ud83c\uddf9\ud83c\uddf7 L harfinin ad\u0131 = ele. | \ud83c\uddec\ud83c\udde7 The name of letter L = ele.",es:"La letra L se llama 'ele'.",tr:"L harfinin ad\u0131 = ele.",en:"The name of letter L = ele."},
+{t:"mc",q:"\"Cantar\" fiilinin \"nosotros\" \u00e7ekimi hangisidir?",o:["Canto", "Cant\u00e1is", "Cantamos", "Cantas"],a:2,exp:"-AR fiillerde nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 cant + amos = cantamos. | \ud83c\uddea\ud83c\uddf8 Nosotros cantamos en el coro. | \ud83c\uddf9\ud83c\uddf7 Cantamos = Biz \u015fark\u0131 s\u00f6yl\u00fcyoruz. | \ud83c\uddec\ud83c\udde7 Cantamos = We sing.",es:"Nosotros cantamos en el coro.",tr:"Cantamos = Biz \u015fark\u0131 s\u00f6yl\u00fcyoruz.",en:"Cantamos = We sing."},
+{t:"mc",q:"\"U\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["U", "Uu", "Ue", "Ui"],a:0,exp:"\u0130spanyolca alfabede 'U' harfinin ad\u0131 sadece 'u' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra U se llama 'u'. | \ud83c\uddf9\ud83c\uddf7 U harfinin ad\u0131 = u. | \ud83c\uddec\ud83c\udde7 The name of letter U = u.",es:"La letra U se llama 'u'.",tr:"U harfinin ad\u0131 = u.",en:"The name of letter U = u."},
+{t:"mc",q:"\"Q\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Qi", "Cu", "Qa", "Que"],a:1,exp:"\u0130spanyolca alfabede 'Q' harfinin ad\u0131 'cu' (T\u00fcrk\u00e7e okunu\u015fu ku!!!) olarak okunur. Q harfi her zaman 'ui' ya da 'ue' ile birlikte gelir: que, qui. | \ud83c\uddea\ud83c\uddf8 La letra Q se llama 'cu'. | \ud83c\uddf9\ud83c\uddf7 Q harfinin ad\u0131 = cu. | \ud83c\uddec\ud83c\udde7 The name of letter Q = cu.",es:"La letra Q se llama 'cu'.",tr:"Q harfinin ad\u0131 = cu.",en:"The name of letter Q = cu."},
+{t:"mc",q:"\"Mirar\" fiilinin \"ustedes\" \u00e7ekimi hangisidir?",o:["Miras", "Miro", "Miran", "Mira"],a:2,exp:"Ustedes = ellos/ellas ile ayn\u0131 \u00e7ekim. -AR fiilde: k\u00f6k + -an \u2192 mir + an = miran. | \ud83c\uddea\ud83c\uddf8 Ustedes miran la televisi\u00f3n. | \ud83c\uddf9\ud83c\uddf7 Miran = Onlar/Siz bak\u0131yor. | \ud83c\uddec\ud83c\udde7 Miran = They/You all look.",es:"Ustedes miran la televisi\u00f3n.",tr:"Miran = Onlar/Siz bak\u0131yor.",en:"Miran = They/You all look."},
+{t:"mc",q:"\"Escuchar\" fiilinin \"yo\" \u00e7ekimi hangisidir?",o:["Escuchas", "Escucho", "Escucha", "Escuch\u00e1is"],a:1,exp:"-AR fiillerde yo \u00e7ekimi: k\u00f6k + -o \u2192 escuch + o = escucho. | \ud83c\uddea\ud83c\uddf8 Yo escucho m\u00fasica cada d\u00eda. | \ud83c\uddf9\ud83c\uddf7 Escucho = Ben dinliyorum. | \ud83c\uddec\ud83c\udde7 Escucho = I listen.",es:"Yo escucho m\u00fasica cada d\u00eda.",tr:"Escucho = Ben dinliyorum.",en:"Escucho = I listen."},
+{t:"mc",q:"\u0130spanyolcada ka\u00e7 tane \u015fah\u0131s grubu vard\u0131r?",o:["6", "7", "5", "4"],a:0,exp:"Yo, T\u00fa, \u00c9l/Ella/Usted, Nosotros/Nosotras, Vosotros/Vosotras, Ellos/Ellas/Ustedes \u2192 toplam 6 \u015fah\u0131s grubu vard\u0131r. | \ud83c\uddea\ud83c\uddf8 Hay 6 personas gramaticales. | \ud83c\uddf9\ud83c\uddf7 6 \u015fah\u0131s grubu vard\u0131r. | \ud83c\uddec\ud83c\udde7 There are 6 grammatical persons.",es:"Hay 6 personas gramaticales.",tr:"6 \u015fah\u0131s grubu vard\u0131r.",en:"There are 6 grammatical persons."},
+{t:"mc",q:"\"Hablar\" fiilinin \"ellos\" \u00e7ekimi hangisidir?",o:["Hablo", "Hablas", "Habla", "Hablan"],a:3,exp:"-AR fiillerde ellos/ellas/ustedes \u00e7ekimi: k\u00f6k + -an \u2192 habl + an = hablan. | \ud83c\uddea\ud83c\uddf8 Ellos hablan espa\u00f1ol. | \ud83c\uddf9\ud83c\uddf7 Hablan = Onlar konu\u015fuyor. | \ud83c\uddec\ud83c\udde7 Hablan = They speak.",es:"Ellos hablan espa\u00f1ol.",tr:"Hablan = Onlar konu\u015fuyor.",en:"Hablan = They speak."},
+{t:"mc",q:"\"Hablar\" fiilinin \"yo\" \u00e7ekimi hangisidir?",o:["Hablamos", "Habla", "Hablas", "Hablo"],a:3,exp:"-AR fiillerde yo \u00e7ekimi: k\u00f6k + -o \u2192 habl + o = hablo. | \ud83c\uddea\ud83c\uddf8 Yo hablo con mi amigo. | \ud83c\uddf9\ud83c\uddf7 Hablo = Konu\u015fuyorum. | \ud83c\uddec\ud83c\udde7 Hablo = I speak.",es:"Yo hablo con mi amigo.",tr:"Hablo = Konu\u015fuyorum.",en:"Hablo = I speak."},
+{t:"mc",q:"\"Caminar\" fiilinin \"nosotros\" \u00e7ekimi hangisidir?",o:["Camino", "Caminamos", "Caminas", "Camina"],a:1,exp:"-AR fiillerde nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 camin + amos = caminamos. | \ud83c\uddea\ud83c\uddf8 Nosotros caminamos por el parque. | \ud83c\uddf9\ud83c\uddf7 Caminamos = Biz y\u00fcr\u00fcyoruz. | \ud83c\uddec\ud83c\udde7 Caminamos = We walk.",es:"Nosotros caminamos por el parque.",tr:"Caminamos = Biz y\u00fcr\u00fcyoruz.",en:"Caminamos = We walk."},
+{t:"mc",q:"\"Cantar\" fiilinin \"yo\" \u00e7ekimi hangisidir?",o:["Canto", "Canta", "Cantas", "Cantamos"],a:0,exp:"-AR fiillerde yo \u00e7ekimi: k\u00f6k + -o \u2192 cant + o = canto. | \ud83c\uddea\ud83c\uddf8 Yo canto en la ducha. | \ud83c\uddf9\ud83c\uddf7 Canto = Ben \u015fark\u0131 s\u00f6yl\u00fcyorum. | \ud83c\uddec\ud83c\udde7 Canto = I sing.",es:"Yo canto en la ducha.",tr:"Canto = Ben \u015fark\u0131 s\u00f6yl\u00fcyorum.",en:"Canto = I sing."},
+{t:"mc",q:"\"E\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ei", "E", "Ey", "\u0130"],a:1,exp:"\u0130spanyolca alfabede 'E' harfinin ad\u0131 sadece 'e' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra E se llama 'e'. | \ud83c\uddf9\ud83c\uddf7 E harfinin ad\u0131 = e. | \ud83c\uddec\ud83c\udde7 The name of letter E = e.",es:"La letra E se llama 'e'.",tr:"E harfinin ad\u0131 = e.",en:"The name of letter E = e."},
+{t:"mc",q:"\"Ellas\" ile \"Ellos\" aras\u0131ndaki fark nedir?",o:["Ellas daha resmidir.", "\u0130kisi ayn\u0131 anlama gelir.", "Ellas tekil, Ellos \u00e7o\u011fuldur.", "Ellos erkek/karma grup onlar, Ellas yaln\u0131zca kad\u0131n onlard\u0131r."],a:3,exp:"\"Ellos\" = onlar (erkek ya da karma). \"Ellas\" = onlar (hepsi kad\u0131n). | \ud83c\uddea\ud83c\uddf8 Ellos (chicos) / Ellas (chicas). | \ud83c\uddf9\ud83c\uddf7 Ellos = erkek/karma onlar / Ellas = yaln\u0131zca kad\u0131n onlar. | \ud83c\uddec\ud83c\udde7 Ellos = they (male/mixed) / Ellas = they (female).",es:"Ellos (chicos) / Ellas (chicas).",tr:"Ellos = erkek/karma onlar / Ellas = yaln\u0131zca kad\u0131n onlar.",en:"Ellos = they (male/mixed) / Ellas = they (female)."},
+{t:"mc",q:"\"Viajar\" fiilinin \"t\u00fa\" \u00e7ekimi hangisidir?",o:["Viajo", "Viajan", "Viajas", "Viaja"],a:2,exp:"-AR fiillerde t\u00fa \u00e7ekimi: k\u00f6k + -as \u2192 viaj + as = viajas. | \ud83c\uddea\ud83c\uddf8 T\u00fa viajas mucho. | \ud83c\uddf9\ud83c\uddf7 Viajas = Sen seyahat ediyorsun. | \ud83c\uddec\ud83c\udde7 Viajas = You travel.",es:"T\u00fa viajas mucho.",tr:"Viajas = Sen seyahat ediyorsun.",en:"Viajas = You travel."},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Ellas ______ todos los d\u00edas. (bailar fiili)",o:["bailan", "bailas", "baila", "bailo"],a:0,exp:"Ellas = 3. \u00e7o\u011ful di\u015fil. -AR fiilde ellas \u00e7ekimi: k\u00f6k + -an \u2192 bail + an = bailan. | \ud83c\uddea\ud83c\uddf8 Ellas bailan todos los d\u00edas. | \ud83c\uddf9\ud83c\uddf7 Bailan todos los d\u00edas = Her g\u00fcn dans ediyorlar. | \ud83c\uddec\ud83c\udde7 Bailan todos los d\u00edas = They dance every day.",es:"Ellas bailan todos los d\u00edas.",tr:"Bailan todos los d\u00edas = Her g\u00fcn dans ediyorlar.",en:"Bailan todos los d\u00edas = They dance every day."},
+{t:"mc",q:"A\u015fa\u011f\u0131daki -AR fiil \u00e7ekimlerinden hangisi YANLI\u015e yaz\u0131lm\u0131\u015ft\u0131r?",o:["Vosotros hablan", "\u00c9l habla", "T\u00fa hablas", "Yo hablo"],a:0,exp:"Vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 habl\u00e1is. \"-an\" eki ellos/ellas/ustedes i\u00e7indir. | \ud83c\uddea\ud83c\uddf8 Vosotros habl\u00e1is. (do\u011fru) | \ud83c\uddf9\ud83c\uddf7 Vosotros hablan yanl\u0131\u015f \u2192 do\u011frusu: vosotros habl\u00e1is. | \ud83c\uddec\ud83c\udde7 Vosotros hablan is wrong \u2192 correct: vosotros habl\u00e1is.",es:"Vosotros habl\u00e1is. (do\u011fru)",tr:"Vosotros hablan yanl\u0131\u015f \u2192 do\u011frusu: vosotros habl\u00e1is.",en:"Vosotros hablan is wrong \u2192 correct: vosotros habl\u00e1is."},
+{t:"mc",q:"\"Hablar\" fiilinin t\u00fcm \u015fah\u0131slardaki \u00e7ekimini s\u0131ralay\u0131n:",o:["Hablo / Hablas / Hable / Hablamos / Habl\u00e1is / Hablan", "Hablo / Hablas / Habla / Hablamos / Habl\u00e1is / Hablan", "Hablo / Hablas / Habla / Hablemos / Habl\u00e9is / Hablen", "Hablas / Hablo / Habla / Hablamos / Habl\u00e1is / Hablan"],a:1,exp:"-AR fiil tam \u00e7ekim: yo -o / t\u00fa -as / \u00e9l-ella -a / nosotros -amos / vosotros -\u00e1is / ellos -an. | \ud83c\uddea\ud83c\uddf8 Hablo, hablas, habla, hablamos, habl\u00e1is, hablan. | \ud83c\uddf9\ud83c\uddf7 hablar tam \u00e7ekim: hablo, hablas, habla, hablamos, habl\u00e1is, hablan. | \ud83c\uddec\ud83c\udde7 Full conjugation of hablar: hablo, hablas, habla, hablamos, habl\u00e1is, hablan.",es:"Hablo, hablas, habla, hablamos, habl\u00e1is, hablan.",tr:"hablar tam \u00e7ekim: hablo, hablas, habla, hablamos, habl\u00e1is, hablan.",en:"Full conjugation of hablar: hablo, hablas, habla, hablamos, habl\u00e1is, hablan."},
+{t:"mc",q:"\"Cantar\" fiilinin \"t\u00fa\" \u00e7ekimi hangisidir?",o:["Canto", "Cantas", "Cantamos", "Cantan"],a:1,exp:"-AR fiillerde t\u00fa \u00e7ekimi: k\u00f6k + -as \u2192 cant + as = cantas. | \ud83c\uddea\ud83c\uddf8 T\u00fa cantas muy bien. | \ud83c\uddf9\ud83c\uddf7 Cantas = Sen \u015fark\u0131 s\u00f6yl\u00fcyorsun. | \ud83c\uddec\ud83c\udde7 Cantas = You sing.",es:"T\u00fa cantas muy bien.",tr:"Cantas = Sen \u015fark\u0131 s\u00f6yl\u00fcyorsun.",en:"Cantas = You sing."},
+{t:"mc",q:"\"Mirar\" fiilinin \"vosotros\" \u00e7ekimi hangisidir?",o:["Mira", "Miro", "Miras", "Mir\u00e1is"],a:3,exp:"-AR fiillerde vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 mir + \u00e1is = mir\u00e1is. | \ud83c\uddea\ud83c\uddf8 Vosotros mir\u00e1is la televisi\u00f3n. | \ud83c\uddf9\ud83c\uddf7 Mir\u00e1is = Siz bak\u0131yorsunuz. | \ud83c\uddec\ud83c\udde7 Mir\u00e1is = You all look (Spain).",es:"Vosotros mir\u00e1is la televisi\u00f3n.",tr:"Mir\u00e1is = Siz bak\u0131yorsunuz.",en:"Mir\u00e1is = You all look (Spain)."},
+{t:"mc",q:"\"Escuchar\" fiilinin \"nosotros\" \u00e7ekimi hangisidir?",o:["Escucha", "Escucho", "Escuchamos", "Escuchas"],a:2,exp:"-AR fiillerde nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 escuch + amos = escuchamos. | \ud83c\uddea\ud83c\uddf8 Nosotros escuchamos m\u00fasica cl\u00e1sica. | \ud83c\uddf9\ud83c\uddf7 Escuchamos = Biz dinliyoruz. | \ud83c\uddec\ud83c\udde7 Escuchamos = We listen.",es:"Nosotros escuchamos m\u00fasica cl\u00e1sica.",tr:"Escuchamos = Biz dinliyoruz.",en:"Escuchamos = We listen."},
+{t:"mc",q:"\"Viajar\" fiilinin tam \u00e7ekiminde do\u011fru s\u0131ralama hangisidir?",o:["Viajo / Viajas / Viaja / Viajamos / Viaj\u00e1is / Viajan", "Viajo / Viajas / Viaje / Viajemos / Viaj\u00e9is / Viajen", "Viajo / Viajes / Viaja / Viajamos / Viaj\u00e1is / Viajan", "Viajas / Viajo / Viaja / Viajamos / Viaj\u00e1is / Viajan"],a:0,exp:"-AR fiil tam \u00e7ekim s\u0131ras\u0131: yo -o / t\u00fa -as / \u00e9l-ella -a / nosotros -amos / vosotros -\u00e1is / ellos -an. | \ud83c\uddea\ud83c\uddf8 Viajo, viajas, viaja, viajamos, viaj\u00e1is, viajan. | \ud83c\uddf9\ud83c\uddf7 Tam \u00e7ekim: viajo, viajas, viaja, viajamos, viaj\u00e1is, viajan. | \ud83c\uddec\ud83c\udde7 Full conjugation: viajo, viajas, viaja, viajamos, viaj\u00e1is, viajan.",es:"Viajo, viajas, viaja, viajamos, viaj\u00e1is, viajan.",tr:"Tam \u00e7ekim: viajo, viajas, viaja, viajamos, viaj\u00e1is, viajan.",en:"Full conjugation: viajo, viajas, viaja, viajamos, viaj\u00e1is, viajan."},
+{t:"mc",q:"\"Dibujar\" fiilinin \"yo\" \u00e7ekimi hangisidir?",o:["Dibuja", "Dibujas", "Dibujo", "Dibujamos"],a:2,exp:"-AR fiillerde yo \u00e7ekimi: k\u00f6k + -o \u2192 dibuj + o = dibujo. | \ud83c\uddea\ud83c\uddf8 Yo dibujo un \u00e1rbol. | \ud83c\uddf9\ud83c\uddf7 Dibujo = Ben \u00e7iziyorum. | \ud83c\uddec\ud83c\udde7 Dibujo = I draw.",es:"Yo dibujo un \u00e1rbol.",tr:"Dibujo = Ben \u00e7iziyorum.",en:"Dibujo = I draw."},
+{t:"mc",q:"\"N\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["En", "Na", "Ene", "Ni"],a:2,exp:"\u0130spanyolca alfabede 'N' harfinin ad\u0131 'ene' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra N se llama 'ene'. | \ud83c\uddf9\ud83c\uddf7 N harfinin ad\u0131 = ene. | \ud83c\uddec\ud83c\udde7 The name of letter N = ene.",es:"La letra N se llama 'ene'.",tr:"N harfinin ad\u0131 = ene.",en:"The name of letter N = ene."},
+{t:"mc",q:"\u0130spanyolca alfabede sesli (\u00fcnl\u00fc) harfler hangileridir?",o:["A, I, U", "A, E, I, O, U", "A, E, O", "A, E, I, O, U, Y"],a:1,exp:"\u0130spanyolcada 5 sesli harf vard\u0131r: a, e, i, o, u. Y harfi baz\u0131 durumlarda sesli gibi davranabilir fakat resmi sesli say\u0131lmaz. | \ud83c\uddea\ud83c\uddf8 Las vocales: a, e, i, o, u. | \ud83c\uddf9\ud83c\uddf7 5 sesli harf: a, e, i, o, u. | \ud83c\uddec\ud83c\udde7 5 vowels: a, e, i, o, u.",es:"Las vocales: a, e, i, o, u.",tr:"5 sesli harf: a, e, i, o, u.",en:"5 vowels: a, e, i, o, u."},
+{t:"mc",q:"A\u015fa\u011f\u0131daki c\u00fcmlelerden hangisinde \u00f6zne zamiri DO\u011eRU kullan\u0131lm\u0131\u015ft\u0131r?",o:["El habla mucho.", "Tu eres estudiante.", "\u00c9l habla mucho.", "El libro es interesante."],a:2,exp:"\"\u00c9l\" (aksanl\u0131) = \u00f6zne zamiri. \"el\" (aksans\u0131z) = artikel. \"tu\" (aksans\u0131z) = iyelik, \u00f6zne de\u011fil. | \ud83c\uddea\ud83c\uddf8 \u00c9l habla mucho. (\u00f6zne zamiri) | \ud83c\uddf9\ud83c\uddf7 '\u00c9l habla mucho' = O \u00e7ok konu\u015fuyor. Do\u011fru \u00f6zne zamiri kullan\u0131m\u0131. | \ud83c\uddec\ud83c\udde7 '\u00c9l habla mucho' = He talks a lot. Correct subject pronoun usage.",es:"\u00c9l habla mucho. (\u00f6zne zamiri)",tr:"'\u00c9l habla mucho' = O \u00e7ok konu\u015fuyor. Do\u011fru \u00f6zne zamiri kullan\u0131m\u0131.",en:"'\u00c9l habla mucho' = He talks a lot. Correct subject pronoun usage."},
+{t:"mc",q:"\"Nosotras\" ile \"Nosotros\" aras\u0131ndaki fark nedir?",o:["Nosotros tekil, Nosotras \u00e7o\u011fuldur.", "Nosotros karma/eril grup, Nosotras yaln\u0131zca kad\u0131n gruptur.", "Anlamlar\u0131 tamamen farkl\u0131d\u0131r.", "\u0130kisi ayn\u0131d\u0131r, birbirinin yerine kullan\u0131labilir."],a:1,exp:"Grupta en az bir erkek varsa \"nosotros\" kullan\u0131l\u0131r. Hepsi kad\u0131nsa \"nosotras\" kullan\u0131l\u0131r. | \ud83c\uddea\ud83c\uddf8 Nosotros (karma) / Nosotras (solo mujeres). | \ud83c\uddf9\ud83c\uddf7 Nosotros = karma/eril biz / Nosotras = yaln\u0131zca kad\u0131n biz. | \ud83c\uddec\ud83c\udde7 Nosotros = mixed/male we / Nosotras = female-only we.",es:"Nosotros (karma) / Nosotras (solo mujeres).",tr:"Nosotros = karma/eril biz / Nosotras = yaln\u0131zca kad\u0131n biz.",en:"Nosotros = mixed/male we / Nosotras = female-only we."},
+{t:"mc",q:"\"T\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Te", "Tu", "Ta", "Ti"],a:0,exp:"\u0130spanyolca alfabede 'T' harfinin ad\u0131 'te' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra T se llama 'te'. | \ud83c\uddf9\ud83c\uddf7 T harfinin ad\u0131 = te. | \ud83c\uddec\ud83c\udde7 The name of letter T = te.",es:"La letra T se llama 'te'.",tr:"T harfinin ad\u0131 = te.",en:"The name of letter T = te."},
+{t:"mc",q:"\"Ella\" hangi T\u00fcrk\u00e7e \u00f6zneye kar\u015f\u0131l\u0131k gelir?",o:["Sen", "Biz", "Ben", "O (kad\u0131n)"],a:3,exp:"\"\u00c9l\" = o (erkek), \"Ella\" = o (kad\u0131n). \u0130kisi de 3. tekil \u015fah\u0131st\u0131r. | \ud83c\uddea\ud83c\uddf8 Ella canta muy bien. | \ud83c\uddf9\ud83c\uddf7 Ella = O (kad\u0131n). | \ud83c\uddec\ud83c\udde7 Ella = She.",es:"Ella canta muy bien.",tr:"Ella = O (kad\u0131n).",en:"Ella = She."},
+{t:"mc",q:"\"Abrazar\" fiilinin \"\u00e9l\" \u00e7ekimi hangisidir?",o:["Abrazamos", "Abraza", "Abrazas", "Abrazo"],a:1,exp:"-AR fiillerde \u00e9l/ella/usted \u00e7ekimi: k\u00f6k + -a \u2192 abraz + a = abraza. | \ud83c\uddea\ud83c\uddf8 \u00c9l abraza a su amigo. | \ud83c\uddf9\ud83c\uddf7 Abraza = O sar\u0131l\u0131yor. | \ud83c\uddec\ud83c\udde7 Abraza = He/She hugs.",es:"\u00c9l abraza a su amigo.",tr:"Abraza = O sar\u0131l\u0131yor.",en:"Abraza = He/She hugs."},
+{t:"mc",q:"\"Yo\" \u0130spanyolcada hangi T\u00fcrk\u00e7e \u00f6zneye kar\u015f\u0131l\u0131k gelir?",o:["Sen", "Siz", "Ben", "O"],a:2,exp:"\u0130spanyolcada 1. tekil \u015fah\u0131s zamiri 'yo' = T\u00fcrk\u00e7e 'ben'. | \ud83c\uddea\ud83c\uddf8 Yo hablo espa\u00f1ol. | \ud83c\uddf9\ud83c\uddf7 Yo = Ben. | \ud83c\uddec\ud83c\udde7 Yo = I.",es:"Yo hablo espa\u00f1ol.",tr:"Yo = Ben.",en:"Yo = I."},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Vosotros ______ mucho. (trabajar fiili)",o:["trabajamos", "trabajan", "trabaja", "trabaj\u00e1is"],a:3,exp:"-AR fiillerde vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 trabaj + \u00e1is = trabaj\u00e1is. | \ud83c\uddea\ud83c\uddf8 Vosotros trabaj\u00e1is mucho. | \ud83c\uddf9\ud83c\uddf7 Trabaj\u00e1is mucho = \u00c7ok \u00e7al\u0131\u015f\u0131yorsunuz. | \ud83c\uddec\ud83c\udde7 Trabaj\u00e1is mucho = You all work a lot.",es:"Vosotros trabaj\u00e1is mucho.",tr:"Trabaj\u00e1is mucho = \u00c7ok \u00e7al\u0131\u015f\u0131yorsunuz.",en:"Trabaj\u00e1is mucho = You all work a lot."},
+{t:"mc",q:"\"Hablar\" fiilinin \"t\u00fa\" \u00e7ekimi hangisidir?",o:["Hablo", "Habla", "Hablamos", "Hablas"],a:3,exp:"-AR fiillerde t\u00fa \u00e7ekimi: k\u00f6k + -as \u2192 habl + as = hablas. | \ud83c\uddea\ud83c\uddf8 T\u00fa hablas muy bien. | \ud83c\uddf9\ud83c\uddf7 Hablas = Sen konu\u015fuyorsun. | \ud83c\uddec\ud83c\udde7 Hablas = You speak.",es:"T\u00fa hablas muy bien.",tr:"Hablas = Sen konu\u015fuyorsun.",en:"Hablas = You speak."},
+{t:"mc",q:"\"Cantar\" fiilinin \"vosotros\" \u00e7ekimi hangisidir?",o:["Canto", "Cant\u00e1is", "Canta", "Cantas"],a:1,exp:"-AR fiillerde vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 cant + \u00e1is = cant\u00e1is. | \ud83c\uddea\ud83c\uddf8 Vosotros cant\u00e1is muy bien. | \ud83c\uddf9\ud83c\uddf7 Cant\u00e1is = Siz \u015fark\u0131 s\u00f6yl\u00fcyorsunuz. | \ud83c\uddec\ud83c\udde7 Cant\u00e1is = You all sing (Spain).",es:"Vosotros cant\u00e1is muy bien.",tr:"Cant\u00e1is = Siz \u015fark\u0131 s\u00f6yl\u00fcyorsunuz.",en:"Cant\u00e1is = You all sing (Spain)."},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerden hangisi YANLI\u015e e\u015fle\u015fmedir?",o:["Yo \u2192 hablo", "Ellos \u2192 hablan", "Nosotros \u2192 hablan", "T\u00fa \u2192 hablas"],a:2,exp:"Nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 hablamos. \"-an\" eki ellos/ellas/ustedes i\u00e7indir. | \ud83c\uddea\ud83c\uddf8 Nosotros \u2192 hablamos (do\u011fru). Nosotros \u2192 hablan yanl\u0131\u015f. | \ud83c\uddf9\ud83c\uddf7 Nosotros \u2192 hablamos (do\u011fru). Nosotros \u2192 hablan yanl\u0131\u015f. | \ud83c\uddec\ud83c\udde7 Nosotros \u2192 hablamos (correct). Nosotros \u2192 hablan is wrong.",es:"Nosotros \u2192 hablamos (do\u011fru). Nosotros \u2192 hablan yanl\u0131\u015f.",tr:"Nosotros \u2192 hablamos (do\u011fru). Nosotros \u2192 hablan yanl\u0131\u015f.",en:"Nosotros \u2192 hablamos (correct). Nosotros \u2192 hablan is wrong."},
+{t:"mc",q:"\"Trabajar\" fiilinin \"ella\" \u00e7ekimi hangisidir?",o:["Trabajo", "Trabajamos", "Trabajas", "Trabaja"],a:3,exp:"-AR fiillerde \u00e9l/ella/usted \u00e7ekimi: k\u00f6k + -a \u2192 trabaj + a = trabaja. | \ud83c\uddea\ud83c\uddf8 Ella trabaja en un hospital. | \ud83c\uddf9\ud83c\uddf7 Trabaja = O \u00e7al\u0131\u015f\u0131yor. | \ud83c\uddec\ud83c\udde7 Trabaja = He/She works.",es:"Ella trabaja en un hospital.",tr:"Trabaja = O \u00e7al\u0131\u015f\u0131yor.",en:"Trabaja = He/She works."},
+{t:"mc",q:"\"Dibujar\" fiilinin \"vosotros\" \u00e7ekimi hangisidir?",o:["Dibujas", "Dibujo", "Dibuja", "Dibuj\u00e1is"],a:3,exp:"-AR fiillerde vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 dibuj + \u00e1is = dibuj\u00e1is. | \ud83c\uddea\ud83c\uddf8 Vosotros dibuj\u00e1is muy bien. | \ud83c\uddf9\ud83c\uddf7 Dibuj\u00e1is = Siz \u00e7iziyorsunuz. | \ud83c\uddec\ud83c\udde7 Dibuj\u00e1is = You all draw (Spain).",es:"Vosotros dibuj\u00e1is muy bien.",tr:"Dibuj\u00e1is = Siz \u00e7iziyorsunuz.",en:"Dibuj\u00e1is = You all draw (Spain)."},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerden hangisi \u0130spanyolcada bir \u00f6zne zamiri DE\u011e\u0130LD\u0130R?",o:["Tu", "Nosotros", "Yo", "Ella"],a:0,exp:"Aksans\u0131z \"tu\" = \"senin\" (iyelik). \u00d6zne zamiri olarak kullanmak i\u00e7in \"t\u00fa\" (aksanl\u0131) yaz\u0131lmal\u0131d\u0131r. | \ud83c\uddea\ud83c\uddf8 'tu nombre' (iyelik) \u2260 't\u00fa hablas' (\u00f6zne). | \ud83c\uddf9\ud83c\uddf7 'tu' = senin (iyelik), \u00f6zne zamiri de\u011fil. \u00d6zne zamiri = t\u00fa (aksanl\u0131). | \ud83c\uddec\ud83c\udde7 'tu' = your (possessive), not a subject pronoun.",es:"'tu nombre' (iyelik) \u2260 't\u00fa hablas' (\u00f6zne).",tr:"'tu' = senin (iyelik), \u00f6zne zamiri de\u011fil. \u00d6zne zamiri = t\u00fa (aksanl\u0131).",en:"'tu' = your (possessive), not a subject pronoun."},
+{t:"mc",q:"\"X\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Xe", "Xi", "Equis", "Iks"],a:2,exp:"\u0130spanyolca alfabede 'X' harfinin ad\u0131 'equis' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra X se llama 'equis'. | \ud83c\uddf9\ud83c\uddf7 X harfinin ad\u0131 = equis. | \ud83c\uddec\ud83c\udde7 The name of letter X = equis.",es:"La letra X se llama 'equis'.",tr:"X harfinin ad\u0131 = equis.",en:"The name of letter X = equis."},
+{t:"mc",q:"\"Abrazar\" fiilinin \"nosotros\" \u00e7ekimi hangisidir?",o:["Abrazo", "Abrazan", "Abrazamos", "Abrazas"],a:2,exp:"-AR fiillerde nosotros \u00e7ekimi: k\u00f6k + -amos \u2192 abraz + amos = abrazamos. | \ud83c\uddea\ud83c\uddf8 Nosotros abrazamos a nuestra familia. | \ud83c\uddf9\ud83c\uddf7 Abrazamos = Biz sar\u0131l\u0131yoruz. | \ud83c\uddec\ud83c\udde7 Abrazamos = We hug.",es:"Nosotros abrazamos a nuestra familia.",tr:"Abrazamos = Biz sar\u0131l\u0131yoruz.",en:"Abrazamos = We hug."},
+{t:"mc",q:"\"H\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Ha", "He", "Hi", "Hache"],a:3,exp:"\"H\" harfinin ad\u0131 \"hache\"dir. \u00d6nemli: \u0130spanyolcada H harfi HER ZAMAN sessizdir, okunmaz! | \ud83c\uddea\ud83c\uddf8 La letra H se llama 'hache' \u2014 \u00a1siempre es muda! | \ud83c\uddf9\ud83c\uddf7 H harfinin ad\u0131 = hache (okunmaz!). | \ud83c\uddec\ud83c\udde7 The name of letter H = hache (always silent!).",es:"La letra H se llama 'hache' \u2014 \u00a1siempre es muda!",tr:"H harfinin ad\u0131 = hache (okunmaz!).",en:"The name of letter H = hache (always silent!)."},
+{t:"mc",q:"\u0130spanyolca alfabede \"A\" harfinin ad\u0131 nedir?",o:["Ae", "Ah", "A", "Ay"],a:2,exp:"\u0130spanyolca alfabede 'A' harfinin ad\u0131 sadece 'a' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra A se llama 'a'. | \ud83c\uddf9\ud83c\uddf7 A harfinin ad\u0131 = a. | \ud83c\uddec\ud83c\udde7 The name of letter A = a.",es:"La letra A se llama 'a'.",tr:"A harfinin ad\u0131 = a.",en:"The name of letter A = a."},
+{t:"mc",q:"\"D\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Da", "De", "Du", "Di"],a:1,exp:"\u0130spanyolca alfabede 'D' harfinin ad\u0131 'de' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra D se llama 'de'. | \ud83c\uddf9\ud83c\uddf7 D harfinin ad\u0131 = de. | \ud83c\uddec\ud83c\udde7 The name of letter D = de.",es:"La letra D se llama 'de'.",tr:"D harfinin ad\u0131 = de.",en:"The name of letter D = de."},
+{t:"mc",q:"\"Usted\" zamiri hakk\u0131nda do\u011fru olan hangisidir?",o:["Informal ortamda kullan\u0131l\u0131r.", "Resmi ortamda kullan\u0131lan tekil \"siz\" zamiridir.", "Fiil \u00e7ekiminde t\u00fa ile ayn\u0131 formu kullan\u0131r.", "\u00c7o\u011ful bir zamirdir."],a:1,exp:"Usted = resmi, tekil, sayg\u0131 ifadesi. Fiil \u00e7ekiminde \u00e9l/ella ile ayn\u0131 formu kullan\u0131r. | \ud83c\uddea\ud83c\uddf8 Usted habla muy bien el espa\u00f1ol. | \ud83c\uddf9\ud83c\uddf7 Usted = resmi tekil siz. | \ud83c\uddec\ud83c\udde7 Usted = formal singular you.",es:"Usted habla muy bien el espa\u00f1ol.",tr:"Usted = resmi tekil siz.",en:"Usted = formal singular you."},
+{t:"mc",q:"\"Escuchar\" fiilinin \"vosotros\" \u00e7ekimi hangisidir?",o:["Escucho", "Escuchamos", "Escuchan", "Escuch\u00e1is"],a:3,exp:"-AR fiillerde vosotros \u00e7ekimi: k\u00f6k + -\u00e1is \u2192 escuch + \u00e1is = escuch\u00e1is. | \ud83c\uddea\ud83c\uddf8 Vosotros escuch\u00e1is m\u00fasica cl\u00e1sica. | \ud83c\uddf9\ud83c\uddf7 Escuch\u00e1is = Siz dinliyorsunuz. | \ud83c\uddec\ud83c\udde7 Escuch\u00e1is = You all listen (Spain).",es:"Vosotros escuch\u00e1is m\u00fasica cl\u00e1sica.",tr:"Escuch\u00e1is = Siz dinliyorsunuz.",en:"Escuch\u00e1is = You all listen (Spain)."},
+{t:"mc",q:"\"J\" harfinin \u0130spanyolca ad\u0131 nedir?",o:["Jota", "Je", "Ji", "Ja"],a:0,exp:"\u0130spanyolca alfabede 'J' harfinin ad\u0131 'jota' olarak okunur. | \ud83c\uddea\ud83c\uddf8 La letra J se llama 'jota'. | \ud83c\uddf9\ud83c\uddf7 J harfinin ad\u0131 = jota. | \ud83c\uddec\ud83c\udde7 The name of letter J = jota.",es:"La letra J se llama 'jota'.",tr:"J harfinin ad\u0131 = jota.",en:"The name of letter J = jota."},
+{t:"mc",q:"\"Trabajar\" fiilinin \"ustedes\" \u00e7ekimi hangisidir?",o:["Trabajo", "Trabaja", "Trabajan", "Trabajas"],a:2,exp:"Ustedes ellos/ellas ile ayn\u0131 \u00e7ekimi al\u0131r: k\u00f6k + -an \u2192 trabaj + an = trabajan. | \ud83c\uddea\ud83c\uddf8 Ustedes trabajan mucho. | \ud83c\uddf9\ud83c\uddf7 Trabajan = Onlar/Siz \u00e7al\u0131\u015f\u0131yor. | \ud83c\uddec\ud83c\udde7 Trabajan = They/You all work.",es:"Ustedes trabajan mucho.",tr:"Trabajan = Onlar/Siz \u00e7al\u0131\u015f\u0131yor.",en:"Trabajan = They/You all work."}
+];
+
+let cur=0,score=0,err=0,wrongList=[],state=new Array(Q.length).fill(null);
+
+function startQuiz(){
+  const n=document.getElementById('introName').value;
+  if(!n){alert('Lütfen adınızı seçin!');return;}
+  window._introName=n;
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  render();
+}
+
+function render(){
+  document.getElementById('progFill').style.width=((cur/Q.length)*100)+'%';
+  document.getElementById('progLabel').textContent=(cur+1)+' / '+Q.length;
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  const q=Q[cur];
+  document.getElementById('qArea').innerHTML=WARN+(q.t==='mc'?buildMC(q,cur):buildFill(q,cur));
+  if(state[cur]!==null)restoreState(cur);
+}
+
+function buildMC(q,i){
+  return'<div class="q-card"><div class="q-num">SORU '+(i+1)+'</div><span class="q-type-badge badge-mc">ÇOKTAN SEÇMELİ</span><div class="q-text">'+q.q+'</div><div class="choices" id="ch'+i+'">'+
+  q.o.map((o,j)=>'<button class="choice-btn" id="cb'+i+'_'+j+'" onclick="answerMC('+i+','+j+')"><span class="cletter">'+'abcd'[j]+'</span>'+o+'</button>').join('')+
+  '</div><div class="explanation" id="exp'+i+'"></div>'+navRow(i)+'</div>';
+}
+
+function buildFill(q,i){
+  return'<div class="q-card"><div class="q-num">SORU '+(i+1)+'</div><span class="q-type-badge badge-fill">BOŞLUK DOLDURMA</span><div class="q-text">'+q.q+'</div><div class="fill-wrap"><input class="fill-input" id="fi'+i+'" placeholder="Cevabınızı yazın..." onkeydown="if(event.key===\'Enter\')answerFill('+i+')"><button class="fill-submit" id="fs'+i+'" onclick="answerFill('+i+')">Kontrol Et →</button></div><div class="explanation" id="exp'+i+'"></div>'+navRow(i)+'</div>';
+}
+
+function navRow(i){
+  return'<div class="nav-row"><button class="nav-btn" onclick="skipQ()" '+(state[i]!==null?'disabled':'')+'>Atla</button><button class="nav-btn" onclick="prev()" '+(i===0?'disabled':'')+'>← Geri</button><button class="nav-btn primary" onclick="next()">'+(i===Q.length-1?'Bitir ✓':'İleri →')+'</button></div>';
+}
+
+function showExp(i,ok){
+  const q=Q[i],el=document.getElementById('exp'+i);
+  if(!el)return;
+  el.className='explanation show '+(ok?'exp-ok':'exp-err');
+  el.innerHTML=(ok?'✅ ':'❌ Doğrusu: <strong>'+q.a+'</strong><br>')+q.exp+
+    '<span class="exp-es">🇪🇸 '+q.es+'</span><span class="exp-tr">🇹🇷 '+q.tr+'</span><span class="exp-en">🇬🇧 '+q.en+'</span>';
+}
+
+function answerMC(i,j){
+  if(state[i]!==null)return;
+  const q=Q[i],ok=j===q.a;
+  state[i]={chosen:q.o[j],correct:q.o[q.a],ok};
+  if(ok)score++;else{err++;wrongList.push({idx:i,chosen:q.o[j],correct:q.o[q.a]});}
+  for(let k=0;k<4;k++){
+    const b=document.getElementById('cb'+i+'_'+k);
+    if(!b)continue;b.disabled=true;
+    if(k===q.a)b.classList.add('correct');
+    else if(k===j&&!ok)b.classList.add('wrong');
+  }
+  showExp(i,ok);
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  if(allAnswered())setTimeout(showResult,700);
+}
+
+function answerFill(i){
+  const inp=document.getElementById('fi'+i);
+  if(!inp||state[i]!==null)return;
+  const user=inp.value.trim();if(!user)return;
+  const q=Q[i],ok=user.toLowerCase()===q.a.toLowerCase();
+  state[i]={chosen:user,correct:q.a,ok};
+  if(ok)score++;else{err++;wrongList.push({idx:i,chosen:user,correct:q.a});}
+  inp.classList.add(ok?'correct-input':'wrong-input');
+  inp.disabled=true;
+  document.getElementById('fs'+i).disabled=true;
+  if(!ok){const d=document.createElement('div');d.style.cssText='font-size:.8rem;color:#b5451b;margin-top:.3rem;font-weight:600;';d.textContent='Doğrusu: '+q.a;inp.parentNode.insertBefore(d,inp.nextSibling);}
+  showExp(i,ok);
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  if(allAnswered())setTimeout(showResult,700);
+}
+
+function restoreState(i){
+  const s=state[i],q=Q[i];if(!s)return;
+  if(q.t==='mc'){
+    for(let k=0;k<4;k++){const b=document.getElementById('cb'+i+'_'+k);if(!b)continue;b.disabled=true;if(k===q.a)b.classList.add('correct');else if(q.o[k]===s.chosen&&!s.ok)b.classList.add('wrong');}
+  }else{
+    const inp=document.getElementById('fi'+i);
+    if(inp){inp.value=s.chosen;inp.classList.add(s.ok?'correct-input':'wrong-input');inp.disabled=true;}
+    document.getElementById('fs'+i).disabled=true;
+    if(!s.ok){const d=document.createElement('div');d.style.cssText='font-size:.8rem;color:#b5451b;margin-top:.3rem;font-weight:600;';d.textContent='Doğrusu: '+q.a;if(inp)inp.parentNode.insertBefore(d,inp.nextSibling);}
+  }
+  showExp(i,s.ok);
+}
+
+function allAnswered(){return state.every(s=>s!==null);}
+function skipQ(){next();}
+function prev(){if(cur>0){cur--;render();}}
+function next(){if(cur<Q.length-1){cur++;render();}else showResult();}
+
+function showResult(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('result').style.display='block';
+  const pct=Math.round(score/Q.length*100);
+  window._lastPct=pct;
+  document.getElementById('resPct').textContent=pct;
+  document.getElementById('resIcon').textContent=pct>=90?'🏆':pct>=70?'🎉':pct>=50?'👏':'📚';
+  document.getElementById('stOk').textContent=score;
+  document.getElementById('stErr').textContent=err;
+  document.getElementById('stPct').textContent=pct;
+  document.getElementById('noticeBox').style.display='block';
+  document.getElementById('actionBtns').classList.add('show');
+  if(window._introName){
+    const sel=document.getElementById('studentName');
+    if(sel)for(let i=0;i<sel.options.length;i++)if(sel.options[i].text===window._introName){sel.selectedIndex=i;break;}
+  }
+  // Önceki onay sıfırlansın (tekrar yapıldıysa)
+  document.getElementById('confirmBtn').disabled=false;
+  document.getElementById('confirmBtn').textContent='Onayla ✓';
+  document.getElementById('studentName').disabled=false;
+  document.getElementById('sendStatus').style.display='none';
+  document.getElementById('summaryCard').style.display='none';
+  window.scrollTo(0,0);
+}
+
+function confirmName(){
+  const val=document.getElementById('studentName').value;
+  if(!val){alert('Lütfen adınızı seçin!');return;}
+  const grup=GROUPS[val]||'A1.1';
+  const pct=window._lastPct;
+  document.getElementById('studentName').disabled=true;
+  document.getElementById('confirmBtn').disabled=true;
+  document.getElementById('confirmBtn').textContent='✓ Kaydedildi';
+  document.getElementById('summaryName').textContent=val;
+  document.getElementById('summaryOdev').textContent=ODEV_ADI+' · '+grup;
+  document.getElementById('sumPuan').textContent=pct;
+  document.getElementById('sumDogru').textContent=score;
+  document.getElementById('sumYanlis').textContent=err;
+  document.getElementById('summaryCard').style.display='block';
+  const st=document.getElementById('sendStatus');
+  st.style.display='block';st.style.color='var(--muted)';st.textContent='⏳ Kaydediliyor...';
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ogrenci:val,grup:grup,odev:ODEV_ADI,puan:pct,dogru:score,yanlis:err})})
+  .then(()=>{st.style.display='none';})
+  .catch(()=>{st.style.color='var(--muted)';st.textContent='⚠️ Bağlantı hatası, lütfen tekrar deneyin.';});
+}
+
+function toggleReview(){
+  const sec=document.getElementById('reviewSection');
+  const btn=document.querySelector('.btn-review');
+  if(sec.innerHTML&&sec.style.display!=='none'){sec.style.display='none';btn.textContent='🔍 Hatalarımı gözden geçir';return;}
+  btn.textContent='▲ Kapat';
+  if(wrongList.length===0){sec.innerHTML='<div class="review-title">🎉 Hiç hata yok!</div>';sec.style.display='block';return;}
+  let h='<div class="review-title">❌ Yanlış Sorular ('+wrongList.length+')</div>';
+  wrongList.forEach(w=>{
+    const q=Q[w.idx];
+    h+='<div class="review-card"><div class="review-qnum">SORU '+(w.idx+1)+'</div><div class="review-q">'+q.q+'</div><div class="review-your">❌ Cevabınız: '+w.chosen+'</div><div class="review-correct">✅ Doğru: '+w.correct+'</div><div class="review-exp">'+q.exp+'<br><span style="font-style:italic;color:#1a5276">🇪🇸 '+q.es+'</span><br><strong style="color:#1a5276">🇹🇷 '+q.tr+'</strong><br><span style="color:#555">🇬🇧 '+q.en+'</span></div></div>';
+  });
+  sec.innerHTML=h;sec.style.display='block';sec.scrollIntoView({behavior:'smooth'});
+}
+
+function restart(){
+  cur=0;score=0;err=0;wrongList=[];state=new Array(Q.length).fill(null);
+  document.getElementById('result').style.display='none';
+  document.getElementById('reviewSection').innerHTML='';
+  document.getElementById('reviewSection').style.display='none';
+  document.getElementById('actionBtns').classList.remove('show');
+  document.getElementById('noticeBox').style.display='none';
+  document.querySelector('.btn-review').textContent='🔍 Hatalarımı gözden geçir';
+  document.getElementById('quiz').style.display='block';
+  render();window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
