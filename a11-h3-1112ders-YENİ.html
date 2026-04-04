@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ses Bakımından Düzensiz Fiiller | A1.1 H3 11-12</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f0ff;min-height:100vh;color:#222}
+:root{--pur:#6b21a8;--purL:#9333ea;--purLL:#ede9fe;--acc:#7c3aed;--grn:#16a34a;--red:#dc2626;--muted:#6b7280;--white:#fff;--border:#e5e7eb}
+#introScreen{display:flex;flex-direction:column;align-items:center;padding:2rem 1rem;gap:.9rem;max-width:520px;margin:0 auto}
+.logo-tag{font-size:.75rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+h1.main-title{font-size:1.55rem;font-weight:800;color:var(--pur);text-align:center;line-height:1.25}
+.week-pill{background:var(--pur);color:#fff;border-radius:999px;padding:.35rem 1.1rem;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-align:center}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.chip{background:var(--purLL);color:var(--pur);border-radius:999px;padding:.25rem .75rem;font-size:.75rem;font-weight:600}
+.intro-sub,.intro-desc{font-size:.9rem;color:#555;text-align:center}
+.intro-desc{font-size:.82rem;color:var(--muted)}
+.name-label{font-size:.85rem;font-weight:600;color:var(--pur);align-self:flex-start;width:100%;max-width:360px}
+.name-select{width:100%;max-width:360px;padding:.6rem .9rem;border:2px solid var(--acc);border-radius:.6rem;font-size:.95rem;color:#222;background:#fff;outline:none}
+.start-btn{width:100%;max-width:360px;padding:.8rem;background:var(--pur);color:#fff;border:none;border-radius:.7rem;font-size:1rem;font-weight:700;cursor:pointer;margin-top:.5rem}
+.start-btn:hover{background:var(--purL)}
+.notice{font-size:.78rem;color:var(--muted);text-align:center;max-width:320px;line-height:1.5}
+#quizScreen{display:none;max-width:600px;margin:0 auto;padding:1rem}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.quiz-meta{font-size:.78rem;color:var(--muted)}
+.counters{display:flex;gap:.6rem;font-size:.78rem}
+.cnt-ok{color:var(--grn);font-weight:700}
+.cnt-err{color:var(--red);font-weight:700}
+.prog-bar{width:100%;height:6px;background:#ddd;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:6px;background:var(--pur);border-radius:3px;transition:width .3s}
+.q-card{background:var(--white);border-radius:1rem;padding:1.25rem;box-shadow:0 2px 12px rgba(107,33,168,.08);margin-bottom:1rem}
+.q-type-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:.15rem .55rem;border-radius:999px;margin-bottom:.6rem}
+.badge-mc{background:#ede9fe;color:#6b21a8}
+.badge-fill{background:#fef3c7;color:#92400e}
+.q-text{font-size:1rem;font-weight:600;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.opts{display:flex;flex-direction:column;gap:.5rem;margin-top:.9rem}
+.opt-btn{text-align:left;padding:.65rem .9rem;border:2px solid var(--border);border-radius:.6rem;background:#fff;font-size:.9rem;cursor:pointer;transition:all .15s;line-height:1.4;word-break:break-word}
+.opt-btn:hover:not(:disabled){border-color:var(--acc);background:var(--purLL)}
+.opt-btn.correct{border-color:var(--grn);background:#dcfce7;color:#166534;font-weight:600}
+.opt-btn.wrong{border-color:var(--red);background:#fee2e2;color:#991b1b}
+.opt-btn:disabled{cursor:default}
+.fill-wrap{margin-top:.9rem;display:flex;flex-direction:column;gap:.6rem}
+.fill-input{padding:.65rem .9rem;border:2px solid var(--border);border-radius:.6rem;font-size:.95rem;outline:none;width:100%}
+.fill-input:focus{border-color:var(--acc)}
+.fill-input.correct{border-color:var(--grn);background:#dcfce7}
+.fill-input.wrong{border-color:var(--red);background:#fee2e2}
+.check-btn{padding:.65rem 1.2rem;background:var(--acc);color:#fff;border:none;border-radius:.6rem;font-size:.9rem;font-weight:700;cursor:pointer}
+.check-btn:hover{background:var(--pur)}
+.exp-box{margin-top:.75rem;background:#faf5ff;border-left:4px solid var(--acc);border-radius:.4rem;padding:.75rem .9rem;font-size:.85rem;line-height:1.65;color:#444;display:none;white-space:pre-wrap;word-break:break-word}
+.exp-box.show{display:block}
+.nav-row{display:flex;gap:.6rem;margin-top:.75rem;flex-wrap:wrap}
+.nav-btn{flex:1;min-width:70px;padding:.7rem;border:2px solid var(--border);border-radius:.7rem;background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s;color:#555}
+.nav-btn:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+.nav-btn:disabled{opacity:.35;cursor:default}
+.nav-btn.primary{background:var(--pur);color:#fff;border-color:var(--pur)}
+.nav-btn.primary:hover:not(:disabled){background:var(--purL)}
+.nav-btn.finish{background:#dc2626;color:#fff;border-color:#dc2626;font-weight:800}
+.nav-btn.finish:hover:not(:disabled){background:#b91c1c}
+#resultScreen{display:none;max-width:520px;margin:0 auto;padding:2rem 1rem}
+.res-card{background:#fff;border-radius:1rem;padding:1.5rem;box-shadow:0 2px 16px rgba(107,33,168,.1);text-align:center;margin-bottom:1rem}
+.res-score{font-size:3rem;font-weight:900;color:var(--pur)}
+.res-total{font-size:1rem;color:var(--muted)}
+.res-pill{display:inline-block;background:var(--pur);color:#fff;border-radius:999px;padding:.4rem 1.2rem;font-size:.85rem;font-weight:700;margin:.75rem 0}
+.res-stats{display:flex;justify-content:center;gap:1.5rem;margin:.5rem 0;font-size:.9rem}
+.stat-ok{color:var(--grn);font-weight:700}
+.stat-err{color:var(--red);font-weight:700}
+.submit-btn{width:100%;padding:1rem;background:var(--grn);color:#fff;border:none;border-radius:.8rem;font-size:1.05rem;font-weight:800;cursor:pointer;margin-top:.5rem}
+.submit-btn:hover{background:#15803d}
+.submit-msg{display:none;margin-top:.75rem;padding:.75rem;background:#dcfce7;border-radius:.6rem;font-size:.9rem;color:#166534;font-weight:600;line-height:1.5;text-align:center}
+.review-toggle{width:100%;padding:.7rem;background:#fff;border:2px solid var(--border);border-radius:.7rem;font-size:.88rem;font-weight:600;cursor:pointer;color:#555;margin-top:.5rem}
+.review-toggle:hover{border-color:var(--acc);color:var(--acc)}
+.review-list{margin-top:.75rem;display:flex;flex-direction:column;gap:.75rem}
+.rev-item{background:#fff;border-radius:.8rem;padding:1rem;box-shadow:0 1px 6px rgba(0,0,0,.06);text-align:left}
+.rev-q{font-size:.88rem;font-weight:600;margin-bottom:.4rem;white-space:pre-wrap;word-break:break-word}
+.rev-chosen{font-size:.82rem;color:var(--red)}
+.rev-correct{font-size:.82rem;color:var(--grn);font-weight:600}
+.rev-exp{font-size:.8rem;color:#555;margin-top:.3rem;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.name-select-res{width:100%;padding:.6rem .9rem;border:2px solid var(--acc);border-radius:.6rem;font-size:.92rem;color:#222;background:#fff;margin-bottom:.75rem}
+@media(max-width:480px){h1.main-title{font-size:1.3rem}.res-score{font-size:2.5rem}.nav-row{gap:.4rem}}
+</style>
+</head>
+<body>
+
+<div id="introScreen">
+  <div class="logo-tag">@ispanyolcacim &bull; Profe Hazel</div>
+  <div class="week-pill">3. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (11-12. DERS)</div>
+  <h1 class="main-title">Ses Bakımından Düzensiz Fiiller</h1>
+  <div class="chips">
+    <span class="chip">Kök Değişimi</span>
+    <span class="chip">Fiil Çekimi</span>
+    <span class="chip">A1.1</span>
+  </div>
+  <div class="intro-sub">100 soru &middot; Çoktan seçmeli / Boşluk Doldurma</div>
+  <div class="intro-desc">Tildelere dikkat ediniz!</div>
+  <div class="name-label">Adınızı seçin</div>
+  <select id="introName" class="name-select">
+    <option value="">— Adınızı seçin —</option>
+<option value="Birce S&#252;zen">Birce S&#252;zen</option>
+<option value="Burakhan Kayd&#305;">Burakhan Kayd&#305;</option>
+<option value="Buse Cagmel">Buse Cagmel</option>
+<option value="B&#252;&#351;ra &#199;am">B&#252;&#351;ra &#199;am</option>
+<option value="B&#252;&#351;ra Yurt">B&#252;&#351;ra Yurt</option>
+<option value="Ceren Erdo&#287;an">Ceren Erdo&#287;an</option>
+<option value="Deneme &#214;&#287;rencisi">Deneme &#214;&#287;rencisi</option>
+<option value="Do&#287;a De&#287;irmenci">Do&#287;a De&#287;irmenci</option>
+<option value="Ecem Sukas">Ecem Sukas</option>
+<option value="Elif Ata&#231;">Elif Ata&#231;</option>
+<option value="Elif Atl&#305;">Elif Atl&#305;</option>
+<option value="Elif Bozkurt">Elif Bozkurt</option>
+<option value="Elif &#199;etin">Elif &#199;etin</option>
+<option value="Emel Kanburo&#287;lu">Emel Kanburo&#287;lu</option>
+<option value="Eray Say&#305;l&#305;k">Eray Say&#305;l&#305;k</option>
+<option value="Erdin&#231; Tigin Bilen">Erdin&#231; Tigin Bilen</option>
+<option value="Eyl&#252;l &#350;erbetci">Eyl&#252;l &#350;erbetci</option>
+<option value="Ezgican Tek&#231;orap">Ezgican Tek&#231;orap</option>
+<option value="G&#246;rkem Dursun">G&#246;rkem Dursun</option>
+<option value="G&#252;lce Eyibilir">G&#252;lce Eyibilir</option>
+<option value="Harun &#214;zmen">Harun &#214;zmen</option>
+<option value="Hilal Dilsiz">Hilal Dilsiz</option>
+<option value="&#304;ncilay Dikb&#305;y&#305;k">&#304;ncilay Dikb&#305;y&#305;k</option>
+<option value="Mehtap Keklik">Mehtap Keklik</option>
+<option value="Meltem &#199;iftci">Meltem &#199;iftci</option>
+<option value="Merve Sa&#287;lam">Merve Sa&#287;lam</option>
+<option value="Meryem &#214;zbek">Meryem &#214;zbek</option>
+<option value="Murat Erdem">Murat Erdem</option>
+<option value="Murat &#350;ahin">Murat &#350;ahin</option>
+<option value="Onur Atl&#305;">Onur Atl&#305;</option>
+<option value="Ruh&#351;en &#199;avu&#351;o&#287;lu">Ruh&#351;en &#199;avu&#351;o&#287;lu</option>
+<option value="R&#252;meysa Yatg&#305;n">R&#252;meysa Yatg&#305;n</option>
+<option value="Sedat Zincirk&#305;ran">Sedat Zincirk&#305;ran</option>
+<option value="Seher Akbulat">Seher Akbulat</option>
+<option value="Seher Er&#231;in">Seher Er&#231;in</option>
+<option value="&#350;enay Sezgin">&#350;enay Sezgin</option>
+<option value="Serra Sancakl&#305; I&#351;&#305;k">Serra Sancakl&#305; I&#351;&#305;k</option>
+<option value="&#350;eyma Dereci">&#350;eyma Dereci</option>
+<option value="Sibel Atmaca">Sibel Atmaca</option>
+<option value="Sonay &#199;etinkaya">Sonay &#199;etinkaya</option>
+<option value="Yasemin Kurtu&#351; Tun&#231;">Yasemin Kurtu&#351; Tun&#231;</option>
+<option value="Zehra R&#252;meysa &#199;olak">Zehra R&#252;meysa &#199;olak</option>
+<option value="Zeynep Hediye &#214;zay">Zeynep Hediye &#214;zay</option>
+<option value="Zeynep &#214;zta&#351;k&#305;n">Zeynep &#214;zta&#351;k&#305;n</option>
+<option value="Zeynep S&#246;ylemez">Zeynep S&#246;ylemez</option>
+<option value="Zeynep Su Ali&#351;an">Zeynep Su Ali&#351;an</option>
+  </select>
+  <button class="start-btn" onclick="startQuiz()">Teste Başla</button>
+  <div class="notice">Soruları yanıtladıktan sonra &ldquo;Testi Bitir&rdquo; butonuna basarak ödevinizi teslim edebilirsiniz.</div>
+</div>
+
+<div id="quizScreen">
+  <div class="quiz-header">
+    <div class="quiz-meta" id="qMeta">Soru 1 / 100</div>
+    <div class="counters">
+      <span class="cnt-ok" id="cntOk">✅ 0</span>
+      <span class="cnt-err" id="cntErr">❌ 0</span>
+    </div>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <div class="q-card" id="qCard"></div>
+  <div class="nav-row">
+    <button class="nav-btn" id="btnBack" onclick="goBack()" disabled>← Geri</button>
+    <button class="nav-btn" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
+    <button class="nav-btn primary" id="btnNext" onclick="goNext()" disabled>İleri →</button>
+    <button class="nav-btn finish" id="btnFinish" onclick="confirmFinish()">Testi Bitir</button>
+  </div>
+</div>
+
+<div id="resultScreen">
+  <div class="res-card">
+    <div class="res-pill">3. HAFTA ÖDEVİ | A1.1 (11-12. DERS)</div>
+    <div class="res-score" id="resScore">0</div>
+    <div class="res-total">/ 100 puan</div>
+    <div class="res-stats">
+      <span class="stat-ok" id="resOk">✅ 0 doğru</span>
+      <span class="stat-err" id="resErr">❌ 0 yanlış</span>
+    </div>
+  </div>
+  <select id="resName" class="name-select-res">
+    <option value="">— Adınızı seçin —</option>
+<option value="Birce S&#252;zen">Birce S&#252;zen</option>
+<option value="Burakhan Kayd&#305;">Burakhan Kayd&#305;</option>
+<option value="Buse Cagmel">Buse Cagmel</option>
+<option value="B&#252;&#351;ra &#199;am">B&#252;&#351;ra &#199;am</option>
+<option value="B&#252;&#351;ra Yurt">B&#252;&#351;ra Yurt</option>
+<option value="Ceren Erdo&#287;an">Ceren Erdo&#287;an</option>
+<option value="Deneme &#214;&#287;rencisi">Deneme &#214;&#287;rencisi</option>
+<option value="Do&#287;a De&#287;irmenci">Do&#287;a De&#287;irmenci</option>
+<option value="Ecem Sukas">Ecem Sukas</option>
+<option value="Elif Ata&#231;">Elif Ata&#231;</option>
+<option value="Elif Atl&#305;">Elif Atl&#305;</option>
+<option value="Elif Bozkurt">Elif Bozkurt</option>
+<option value="Elif &#199;etin">Elif &#199;etin</option>
+<option value="Emel Kanburo&#287;lu">Emel Kanburo&#287;lu</option>
+<option value="Eray Say&#305;l&#305;k">Eray Say&#305;l&#305;k</option>
+<option value="Erdin&#231; Tigin Bilen">Erdin&#231; Tigin Bilen</option>
+<option value="Eyl&#252;l &#350;erbetci">Eyl&#252;l &#350;erbetci</option>
+<option value="Ezgican Tek&#231;orap">Ezgican Tek&#231;orap</option>
+<option value="G&#246;rkem Dursun">G&#246;rkem Dursun</option>
+<option value="G&#252;lce Eyibilir">G&#252;lce Eyibilir</option>
+<option value="Harun &#214;zmen">Harun &#214;zmen</option>
+<option value="Hilal Dilsiz">Hilal Dilsiz</option>
+<option value="&#304;ncilay Dikb&#305;y&#305;k">&#304;ncilay Dikb&#305;y&#305;k</option>
+<option value="Mehtap Keklik">Mehtap Keklik</option>
+<option value="Meltem &#199;iftci">Meltem &#199;iftci</option>
+<option value="Merve Sa&#287;lam">Merve Sa&#287;lam</option>
+<option value="Meryem &#214;zbek">Meryem &#214;zbek</option>
+<option value="Murat Erdem">Murat Erdem</option>
+<option value="Murat &#350;ahin">Murat &#350;ahin</option>
+<option value="Onur Atl&#305;">Onur Atl&#305;</option>
+<option value="Ruh&#351;en &#199;avu&#351;o&#287;lu">Ruh&#351;en &#199;avu&#351;o&#287;lu</option>
+<option value="R&#252;meysa Yatg&#305;n">R&#252;meysa Yatg&#305;n</option>
+<option value="Sedat Zincirk&#305;ran">Sedat Zincirk&#305;ran</option>
+<option value="Seher Akbulat">Seher Akbulat</option>
+<option value="Seher Er&#231;in">Seher Er&#231;in</option>
+<option value="&#350;enay Sezgin">&#350;enay Sezgin</option>
+<option value="Serra Sancakl&#305; I&#351;&#305;k">Serra Sancakl&#305; I&#351;&#305;k</option>
+<option value="&#350;eyma Dereci">&#350;eyma Dereci</option>
+<option value="Sibel Atmaca">Sibel Atmaca</option>
+<option value="Sonay &#199;etinkaya">Sonay &#199;etinkaya</option>
+<option value="Yasemin Kurtu&#351; Tun&#231;">Yasemin Kurtu&#351; Tun&#231;</option>
+<option value="Zehra R&#252;meysa &#199;olak">Zehra R&#252;meysa &#199;olak</option>
+<option value="Zeynep Hediye &#214;zay">Zeynep Hediye &#214;zay</option>
+<option value="Zeynep &#214;zta&#351;k&#305;n">Zeynep &#214;zta&#351;k&#305;n</option>
+<option value="Zeynep S&#246;ylemez">Zeynep S&#246;ylemez</option>
+<option value="Zeynep Su Ali&#351;an">Zeynep Su Ali&#351;an</option>
+  </select>
+  <button class="submit-btn" onclick="submitResult()">ÖDEVİNİZİ TESLIM EDIN</button>
+  <div class="submit-msg" id="submitMsg"></div>
+  <button class="review-toggle" onclick="toggleReview()">Yanlış Soruları Gözden Geçir ▾</button>
+  <div class="review-list" id="reviewList" style="display:none"></div>
+</div>
+
+<script>
+const Q=[
+{t:"mc",q:"Yo ______ (querer) un caf\u00e9 con leche.",o:["quiero","querero","quero","qui\u00e9ro"],a:0,exp:"Querer / e\u2192ie de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: quer\u2192quier.\nYo quiero un caf\u00e9 con leche.\nI want a coffee with milk.\nBen s\u00fctl\u00fc bir kahve istiyorum."},
+{t:"mc",q:"Ella ______ (pensar) que tienes raz\u00f3n.",o:["pensa","piensa","pensara","pensea"],a:1,exp:"Pensar / e\u2192ie de\u011fi\u015fimi, ella formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: pens\u2192piens.\nElla piensa que tienes raz\u00f3n.\nShe thinks that you are right.\nO senin hakl\u0131 oldu\u011funu d\u00fc\u015f\u00fcn\u00fcyor."},
+{t:"mc",q:"Nosotros ______ (pensar) ir al cine esta noche.",o:["piensamos","piensemos","pensamos","pensemos"],a:2,exp:"Pensar / Nosotros formunda e\u2192ie de\u011fi\u015fimi OLMAZ. Nosotros her zaman d\u00fczenlid ir.\nNosotros pensamos ir al cine esta noche.\nWe plan to go to the cinema tonight.\nBiz bu ak\u015fam sinemaya gitmeyi d\u00fc\u015f\u00fcn\u00fcyoruz."},
+{t:"mc",q:"Vosotros ______ (entender) la lecci\u00f3n muy bien.",o:["entendeis","entendi\u00e9is","entend\u00eds","entend\u00e9is"],a:3,exp:"Entender / Vosotros formunda de\u011fi\u015fim olmaz. Do\u011fru yaz\u0131m: entend\u00e9is (aksan i\u015fareti \u015fart).\nVosotros entend\u00e9is la lecci\u00f3n muy bien.\nYou (plural, Spain) understand the lesson very well.\nSiz (\u0130spanya) dersi \u00e7ok iyi anl\u0131yorsunuz."},
+{t:"mc",q:"\u00bfT\u00fa ______ (preferir) el t\u00e9 o el caf\u00e9?",o:["preferes","prefires","prefieres","preferes"],a:2,exp:"Preferir / e\u2192ie de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: prefer\u2192prefier.\n\u00bfT\u00fa prefieres el t\u00e9 o el caf\u00e9?\nDo you prefer tea or coffee?\nSen \u00e7ay\u0131 m\u0131 yoksa kahveyi mi tercih edersin?"},
+{t:"mc",q:"Ellos ______ (querer) comprar una casa nueva.",o:["queren","querren","qui\u00e9ren","quieren"],a:3,exp:"Querer / e\u2192ie de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nEllos quieren comprar una casa nueva.\nThey want to buy a new house.\nOnlar yeni bir ev almak istiyorlar."},
+{t:"mc",q:"Yo ______ (entender) el espa\u00f1ol bastante bien.",o:["entiendo","entendo","entendero","enteindo"],a:0,exp:"Entender / e\u2192ie de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: entend\u2192entiend.\nYo entiendo el espa\u00f1ol bastante bien.\nI understand Spanish quite well.\n\u0130spanyolcay\u0131 olduk\u00e7a iyi anl\u0131yorum."},
+{t:"mc",q:"El ni\u00f1o no ______ (querer) comer las verduras.",o:["quere","quiere","quierr","querere"],a:1,exp:"Querer / e\u2192ie de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r.\nEl ni\u00f1o no quiere comer las verduras.\nThe child does not want to eat vegetables.\n\u00c7ocuk sebze yemek istemiyor."},
+{t:"mc",q:"Nosotros ______ (preferir) vivir en el campo.",o:["prefierimos","preferimos","preferemos","preferamos"],a:1,exp:"Preferir / Nosotros formunda e\u2192ie de\u011fi\u015fimi olmaz.\nNosotros preferimos vivir en el campo.\nWe prefer to live in the countryside.\nBiz k\u0131rsalda ya\u015famay\u0131 tercih ediyoruz."},
+{t:"mc",q:"Ella ______ (cerrar) la ventana porque hace fr\u00edo.",o:["cierra","cerra","cierras","cerrara"],a:0,exp:"Cerrar / e\u2192ie de\u011fi\u015fimi, ella formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: cerr\u2192cierr.\nElla cierra la ventana porque hace fr\u00edo.\nShe closes the window because it is cold.\nO, hava so\u011fuk oldu\u011fu i\u00e7in pencereyi kapatir."},
+{t:"mc",q:"Yo ______ (comenzar) las clases el lunes.",o:["comienso","comenzo","comenzaro","comienzo"],a:3,exp:"Comenzar / e\u2192ie de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: comenz\u2192comienz.\nYo comienzo las clases el lunes.\nI start the classes on Monday.\nBen derslere pazartesi ba\u015fl\u0131yorum."},
+{t:"mc",q:"T\u00fa ______ (perder) siempre las llaves.",o:["perdes","perderes","pierdes","pirdes"],a:2,exp:"Perder / e\u2192ie de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: perd\u2192pierd.\nT\u00fa pierdes siempre las llaves.\nYou always lose the keys.\nSen anahtarlar\u0131 her zaman kaybedersin."},
+{t:"mc",q:"Ellos ______ (empezar) el partido a las ocho.",o:["empezan","empezaran","iempezan","empiezan"],a:3,exp:"Empezar / e\u2192ie de\u011fi\u015fimi, ellos formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: empez\u2192empiez.\nEllos empiezan el partido a las ocho.\nThey start the match at eight.\nOnlar ma\u00e7a saat sekizde ba\u015fl\u0131yorlar."},
+{t:"mc",q:"\u00c9l ______ (defender) a sus amigos siempre.",o:["defende","difiende","defiende","defendere"],a:2,exp:"Defender / e\u2192ie de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: defend\u2192defiend.\n\u00c9l defiende a sus amigos siempre.\nHe always defends his friends.\nO her zaman arkada\u015flar\u0131n\u0131 savunur."},
+{t:"mc",q:"Yo ______ (despertar) a las seis de la ma\u00f1ana.",o:["desperto","despierto","despirto","despeirto"],a:1,exp:"Despertar / e\u2192ie de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: despert\u2192despiert.\nYo despierto a las seis de la ma\u00f1ana.\nI wake up at six in the morning.\nBen sabah saat alt\u0131da uyan\u0131r\u0131m."},
+{t:"mc",q:"T\u00fa ______ (mentir) todo el tiempo.",o:["mientes","mentes","mentires","meintes"],a:0,exp:"Mentir / e\u2192ie de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: ment\u2192mient.\nT\u00fa mientes todo el tiempo.\nYou lie all the time.\nSen her zaman yalan s\u00f6ylersin."},
+{t:"mc",q:"Nosotros ______ (sentir) mucho fr\u00edo aqu\u00ed.",o:["sentimos","sientimos","sintimos","sentemos"],a:0,exp:"Sentir / Nosotros formunda e\u2192ie de\u011fi\u015fimi olmaz.\nNosotros sentimos mucho fr\u00edo aqu\u00ed.\nWe feel very cold here.\nBiz burada \u00e7ok \u00fc\u015f\u00fcyoruz."},
+{t:"mc",q:"Ella no ______ (entender) la pregunta.",o:["entende","entendere","entiende","enteinde"],a:2,exp:"Entender \u2192 e\u2192ie de\u011fi\u015fimi yapar. \"Ella\" formunda k\u00f6k de\u011fi\u015fimi uygulan\u0131r: entend \u2192 entiend \u2192 entiende\n\u0130spanyolca: Ella no entiende la pregunta.\n\u0130ngilizce: She does not understand the question.\nT\u00fcrk\u00e7e: O soruyu anlam\u0131yor."},
+{t:"mc",q:"\u00bfVosotros ______ (querer) venir a la fiesta?",o:["quier\u00e9is","quer\u00e9is","quier\u00eds","quiereis"],a:1,exp:"Querer / Vosotros formunda de\u011fi\u015fim olmaz. Do\u011fru form: quer\u00e9is.\n\u00bfVosotros quer\u00e9is venir a la fiesta?\nDo you (plural, Spain) want to come to the party?\nSiz (\u0130spanya) partiye gelmek istiyor musunuz?"},
+{t:"mc",q:"\u00bfT\u00fa ______ (encender) la luz, por favor?",o:["encendes","encendies","enceindes","enciendes"],a:3,exp:"Encender / e\u2192ie de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: encend\u2192enciend.\n\u00bfT\u00fa enciendes la luz, por favor?\nDo you turn on the light, please?\nSen \u0131\u015f\u0131\u011f\u0131 a\u00e7ar m\u0131s\u0131n l\u00fctfen?"},
+{t:"mc",q:"Ellos ______  (venir) a la reuni\u00f3n ma\u00f1ana.",o:["venen","vienen","veniren","venin"],a:1,exp:"Venir / e\u2192ie de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nEllos vienen a la reuni\u00f3n ma\u00f1ana.\nThey come to the meeting tomorrow.\nOnlar yar\u0131n toplant\u0131ya geliyor."},
+{t:"mc",q:"Los estudiantes ______ (entender) la gram\u00e1tica.",o:["entenden","entienderen","ientenden","entienden"],a:3,exp:"Entender / e\u2192ie de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nLos estudiantes entienden la gram\u00e1tica.\nThe students understand the grammar.\n\u00d6\u011frenciler dilbilgisini anl\u0131yor."},
+{t:"mc",q:"Yo ______ (perder) el autob\u00fas cada ma\u00f1ana.",o:["perdero","perdo","pierdo","peirdo"],a:2,exp:"Perder / e\u2192ie de\u011fi\u015fimi, yo formunda uygulan\u0131r.\nYo pierdo el autob\u00fas cada ma\u00f1ana.\nI miss the bus every morning.\nBen her sabah otob\u00fcs\u00fc ka\u00e7\u0131r\u0131r\u0131m."},
+{t:"mc",q:"Mi madre ______ (pensar) en nosotros cada d\u00eda.",o:["piensa","pensara","piensar","pensa"],a:0,exp:"Pensar / e\u2192ie de\u011fi\u015fimi, ella formunda uygulan\u0131r.\nMi madre piensa en nosotros cada d\u00eda.\nMy mother thinks about us every day.\nAnnem her g\u00fcn bizi d\u00fc\u015f\u00fcn\u00fcyor."},
+{t:"mc",q:"T\u00fa ______ (querer) un helado de chocolate.",o:["queres","quereres","quieres","queires"],a:2,exp:"Querer / e\u2192ie de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r.\nT\u00fa quieres un helado de chocolate.\nYou want a chocolate ice cream.\nSen \u00e7ikolatal\u0131 dondurma istiyorsun."},
+{t:"mc",q:"Yo ______ (poder) hablar cinco idiomas.",o:["puedo","podo","podero","peudero"],a:0,exp:"Poder / o\u2192ue de\u011fi\u015fimi, yo formunda uygulan\u0131r. Kal\u0131p: poder + infinitivo = bir \u015feyi yapabilmek.\nYo puedo hablar cinco idiomas.\nI can speak five languages.\nBen be\u015f dil konu\u015fabilirim."},
+{t:"mc",q:"Ella ______ (volver) a casa muy tarde.",o:["volve","volvere","volvie","vuelve"],a:3,exp:"Volver / o\u2192ue de\u011fi\u015fimi, ella formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: volv\u2192vuelv.\nElla vuelve a casa muy tarde.\nShe returns home very late.\nO eve \u00e7ok ge\u00e7 d\u00f6ner."},
+{t:"mc",q:"Nosotros ______ (dormir) ocho horas cada noche.",o:["duermimos","dormimos","deurmemos","deurmimos"],a:1,exp:"Dormir / Nosotros formunda o\u2192ue de\u011fi\u015fimi olmaz.\nNosotros dormimos ocho horas cada noche.\nWe sleep eight hours every night.\nBiz her gece sekiz saat uyuruz."},
+{t:"mc",q:"\u00bfCu\u00e1nto ______ (costar) este libro?",o:["costa","cuestara","ceusta","cuesta"],a:3,exp:"Costar / o\u2192ue de\u011fi\u015fimi, \u00e9l/ello formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: cost\u2192cuest.\n\u00bfCu\u00e1nto cuesta este libro?\nHow much does this book cost?\nBu kitap ne kadar?"},
+{t:"mc",q:"\u00bfT\u00fa ______ (encontrar) las llaves?",o:["encontras","encuentras","encontraras","enceuntras"],a:1,exp:"Encontrar / o\u2192ue de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: encontr\u2192encuentr.\n\u00bfT\u00fa encuentras las llaves?\nDo you find the keys?\nSen anahtarlar\u0131 buluyor musun?"},
+{t:"mc",q:"Ellos ______ (poder) venir a la fiesta.",o:["pueden","poderen","peuden","peuderen"],a:0,exp:"Poder / o\u2192ue de\u011fi\u015fimi, ellos formunda uygulan\u0131r. Kal\u0131p: poder + infinitivo = bir \u015feyi yapabilmek.\nEllos pueden venir a la fiesta.\nThey can come to the party.\nOnlar partiye gelebilir."},
+{t:"mc",q:"Vosotros ______ (volver) pronto a casa.",o:["olver\u00e9is","veulv\u00e9is","volv\u00e9is","vuelv\u00e9is"],a:2,exp:"Volver / Vosotros formunda de\u011fi\u015fim olmaz. Do\u011fru yaz\u0131m: volv\u00e9is.\nVosotros volv\u00e9is pronto a casa.\nYou (plural, Spain) return home soon.\nSiz (\u0130spanya) yak\u0131nda eve d\u00f6nersiniz."},
+{t:"mc",q:"Mi abuelo ______ (dormir) en el sof\u00e1 despu\u00e9s de comer.",o:["duerme","deurme","deurmire","dormire"],a:0,exp:"Dormir / o\u2192ue de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: dorm\u2192duerm.\nMi abuelo duerme en el sof\u00e1 despu\u00e9s de comer.\nMy grandfather sleeps on the sofa after eating.\nDedem yemekten sonra koltukta uyur."},
+{t:"mc",q:"Yo ______ (recordar) todo lo que me dices.",o:["recordo","recuerdo","recordaro","receurdo"],a:1,exp:"Recordar / o\u2192ue de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: record\u2192recuerd.\nYo recuerdo todo lo que me dices.\nI remember everything you tell me.\nSenin bana s\u00f6yledi\u011fin her \u015feyi hat\u0131rl\u0131yorum."},
+{t:"mc",q:"\u00bfT\u00fa ______ (soler) desayunar en casa?",o:["soles","seules","sueleres","sueles"],a:3,exp:"Soler / o\u2192ue de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. Kal\u0131p: soler + infinitivo = bir \u015feyi al\u0131\u015fkanl\u0131k olarak yapmak.\n\u00bfT\u00fa sueles desayunar en casa?\nDo you usually have breakfast at home?\nSen genelde evde kahvalt\u0131 yapar m\u0131s\u0131n?"},
+{t:"mc",q:"El tren ______ (mover) muy r\u00e1pido.",o:["muve","move","mueve","meuve"],a:2,exp:"Mover / o\u2192ue de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: mov\u2192muev.\nEl tren mueve muy r\u00e1pido.\nThe train moves very fast.\nTren \u00e7ok h\u0131zl\u0131 hareket eder."},
+{t:"mc",q:"Nosotros ______ (poder) solucionar este problema.",o:["puedemos","peudemos","podemos","poderemos"],a:2,exp:"Poder / Nosotros formunda o\u2192ue de\u011fi\u015fimi olmaz.\nNosotros podemos solucionar este problema.\nWe can solve this problem.\nBiz bu problemi \u00e7\u00f6zebiliriz."},
+{t:"mc",q:"Yo ______ (morder) la manzana con fuerza.",o:["mordo","meurdo","muerdero","muerdo"],a:3,exp:"Morder / o\u2192ue de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: mord\u2192muerd.\nYo muerdo la manzana con fuerza.\nI bite the apple hard.\nBen elmay\u0131 g\u00fc\u00e7l\u00fc bir \u015fekilde \u0131s\u0131r\u0131r\u0131m."},
+{t:"mc",q:"\u00bfCu\u00e1nto ______ (costar) los zapatos?",o:["custan","cuestan","costan","cuestaran"],a:1,exp:"Costar / o\u2192ue de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\n\u00bfCu\u00e1nto cuestan los zapatos?\nHow much do the shoes cost?\nAyakkab\u0131lar ne kadar?"},
+{t:"mc",q:"T\u00fa ______ (contar) muy bien los chistes.",o:["cuentas","conteras","contas","cuentaras"],a:0,exp:"Contar / o\u2192ue de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: cont\u2192cuent.\nT\u00fa cuentas muy bien los chistes.\nYou tell jokes very well.\nSen f\u0131kralar\u0131 \u00e7ok iyi anlat\u0131rs\u0131n."},
+{t:"mc",q:"Yo ______ (jugar) al f\u00fatbol todos los s\u00e1bados.",o:["jugo","juego","jeugo","jugaro"],a:1,exp:"Jugar / u\u2192ue de\u011fi\u015fimi, yo formunda uygulan\u0131r. \u0130spanyolcada u\u2192ue de\u011fi\u015fimi yapan tek fiildir!\nYo juego al f\u00fatbol todos los s\u00e1bados.\nI play football every Saturday.\nBen her cumartesi futbol oynar\u0131m."},
+{t:"mc",q:"Los perros ______ (morder) cuando tienen miedo.",o:["meurden","morden","muerden","meurderen"],a:2,exp:"Morder / o\u2192ue de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nLos perros muerden cuando tienen miedo.\nDogs bite when they are afraid.\nK\u00f6pekler korktu\u011fular\u0131nda \u0131s\u0131r\u0131r."},
+{t:"mc",q:"\u00bfVosotros ______ (recordar) la direcci\u00f3n?",o:["record\u00e1is","record\u00e9is","recuerd\u00e1is","recordais"],a:0,exp:"Recordar / Vosotros formunda de\u011fi\u015fim olmaz. Do\u011fru yaz\u0131m: record\u00e1is (aksan \u015fart).\n\u00bfVosotros record\u00e1is la direcci\u00f3n?\nDo you (plural, Spain) remember the address?\nSiz (\u0130spanya) adresi hat\u0131rl\u0131yor musunuz?"},
+{t:"mc",q:"Mi hermana ______ (soler) leer por las noches.",o:["sole","suelere","seule","suele"],a:3,exp:"Soler / o\u2192ue de\u011fi\u015fimi, ella formunda uygulan\u0131r. Kal\u0131p: soler + infinitivo = bir \u015feyi al\u0131\u015fkanl\u0131k olarak yapmak.\nMi hermana suele leer por las noches.\nMy sister usually reads at night.\nK\u0131z karde\u015fim geceleri genelde kitap okur."},
+{t:"mc",q:"Yo ______ (volver) de vacaciones el domingo.",o:["volvo","vuelveo","volveo","vuelvo"],a:3,exp:"Volver / o\u2192ue de\u011fi\u015fimi, yo formunda uygulan\u0131r.\nYo vuelvo de vacaciones el domingo.\nI return from vacation on Sunday.\nBen pazar g\u00fcn\u00fc tatilden d\u00f6n\u00fcyorum."},
+{t:"mc",q:"\u00bfT\u00fa ______ (poder) ayudarme con esto?",o:["puedes","podes","poderes","puederes"],a:0,exp:"Poder / o\u2192ue de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. Kal\u0131p: poder + infinitivo = bir \u015feyi yapabilmek.\n\u00bfT\u00fa puedes ayudarme con esto?\nCan you help me with this?\nBana bununla yard\u0131m edebilir misin?"},
+{t:"mc",q:"El beb\u00e9 ______ (dormir) todo el d\u00eda.",o:["dormie","duermie","duerme","deurme"],a:2,exp:"Dormir / o\u2192ue de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r.\nEl beb\u00e9 duerme todo el d\u00eda.\nThe baby sleeps all day.\nBebek b\u00fctt\u00fcn g\u00fcn uyur."},
+{t:"mc",q:"Nosotros ______ (encontrar) una soluci\u00f3n juntos.",o:["encu\u00e9ntramos","encontramos","encuentramos","encontraramos"],a:1,exp:"Encontrar / Nosotros formunda o\u2192ue de\u011fi\u015fimi olmaz.\nNosotros encontramos una soluci\u00f3n juntos.\nWe find a solution together.\nBiz birlikte bir \u00e7\u00f6z\u00fcm buluruz."},
+{t:"mc",q:"T\u00fa ______ (jugar) muy bien al tenis.",o:["juegas","joges","jugas","juegaras"],a:0,exp:"Jugar / u\u2192ue de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r.\nT\u00fa juegas muy bien al tenis.\nYou play tennis very well.\nSen tenisi \u00e7ok iyi oynarsin."},
+{t:"mc",q:"Ellos ______ (volver) a intentarlo otra vez.",o:["veulven","volven","volveren","vuelven"],a:3,exp:"Volver / o\u2192ue de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nEllos vuelven a intentarlo otra vez.\nThey try it again.\nOnlar tekrar deniyor."},
+{t:"mc",q:"Yo ______ (pedir) un vaso de agua.",o:["pedo","pido","pediro","pedio"],a:1,exp:"Pedir / e\u2192i de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: ped\u2192pid.\nYo pido un vaso de agua.\nI ask for a glass of water.\nBen bir bardak su istiyorum."},
+{t:"mc",q:"Ella ______ (servir) la cena a las nueve.",o:["sirve","serve","servie","servire"],a:0,exp:"Servir / e\u2192i de\u011fi\u015fimi, ella formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: serv\u2192sirv.\nElla sirve la cena a las nueve.\nShe serves dinner at nine.\nO ak\u015fam yeme\u011fini saat dokuzda servis eder."},
+{t:"mc",q:"Nosotros ______ (repetir) la canci\u00f3n dos veces.",o:["repitimos","repetemos","repetimos","repitamos"],a:2,exp:"Repetir / Nosotros formunda e\u2192i de\u011fi\u015fimi olmaz.\nNosotros repetimos la canci\u00f3n dos veces.\nWe repeat the song twice.\nBiz \u015fark\u0131y\u0131 iki kez tekrar ederiz."},
+{t:"mc",q:"\u00bfT\u00fa ______ (seguir) trabajando aqu\u00ed?",o:["segues","sigueses","seguies","sigues"],a:3,exp:"Seguir / e\u2192i de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. \u26a0\ufe0f gu\u2192g olur: segu\u2192sig.\n\u00bfT\u00fa sigues trabajando aqu\u00ed?\nDo you continue working here?\nSen burada \u00e7al\u0131\u015fmaya devam ediyor musun?"},
+{t:"mc",q:"Ellos ______ (pedir) m\u00e1s informaci\u00f3n.",o:["peden","pidien","pidein","piden"],a:3,exp:"Pedir / e\u2192i de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nEllos piden m\u00e1s informaci\u00f3n.\nThey ask for more information.\nOnlar daha fazla bilgi istiyorlar."},
+{t:"mc",q:"El camarero ______ (servir) el vino tinto.",o:["serve","sirva","sirve","servire"],a:2,exp:"Servir / e\u2192i de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r.\nEl camarero sirve el vino tinto.\nThe waiter serves the red wine.\nGarson k\u0131rm\u0131z\u0131 \u015farab\u0131 servis eder."},
+{t:"mc",q:"Vosotros ______ (pedir) la cuenta, por favor.",o:["ped\u00eds","ped\u00e9is","pid\u00eds","pedeis"],a:0,exp:"Pedir / Vosotros formunda e\u2192i de\u011fi\u015fimi olmaz. Do\u011fru form: ped\u00eds.\nVosotros ped\u00eds la cuenta, por favor.\nYou (plural, Spain) ask for the bill, please.\nSiz (\u0130spanya) hesab\u0131 istiyorsunuz."},
+{t:"mc",q:"Yo ______ (repetir) las palabras para aprender.",o:["repeto","repito","repetiro","ripeto"],a:1,exp:"Repetir / e\u2192i de\u011fi\u015fimi, yo formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: repet\u2192repit.\nYo repito las palabras para aprender.\nI repeat the words to learn.\nBen \u00f6\u011frenmek i\u00e7in kelimeleri tekrar ederim."},
+{t:"mc",q:"T\u00fa ______ (medir) la habitaci\u00f3n para el mueble.",o:["mides","medes","midas","midires"],a:0,exp:"Medir / e\u2192i de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r. K\u00f6k de\u011fi\u015fimi: med\u2192mid.\nT\u00fa mides la habitaci\u00f3n para el mueble.\nYou measure the room for the furniture.\nSen mobilya i\u00e7in oday\u0131 \u00f6l\u00e7ersin."},
+{t:"mc",q:"Ella ______ (repetir) la misma palabra muchas veces.",o:["repete","repita","repite","repetie"],a:2,exp:"Repetir \u2192 e\u2192i de\u011fi\u015fimi yapar. \"Ella\" formunda k\u00f6k de\u011fi\u015fimi uygulan\u0131r: repet \u2192 repit \u2192 repite\n\u0130spanyolca: Ella repite la misma palabra muchas veces.\n\u0130ngilizce: She repeats the same word many times.\nT\u00fcrk\u00e7e: O ayn\u0131 kelimeyi bir\u00e7ok kez tekrar eder."},
+{t:"mc",q:"Nosotros ______ (seguir) las instrucciones con cuidado.",o:["sigimos","seguimos","segimos","siguemos"],a:1,exp:"Seguir / Nosotros formunda e\u2192i de\u011fi\u015fimi olmaz.\nNosotros seguimos las instrucciones con cuidado.\nWe follow the instructions carefully.\nBiz talimatlar\u0131 dikkatlice takip ederiz."},
+{t:"mc",q:"Ella ______ (medir) los ingredientes para la receta.",o:["mede","medie","mida","mide"],a:3,exp:"Medir / e\u2192i de\u011fi\u015fimi, ella formunda uygulan\u0131r.\nElla mide los ingredientes para la receta.\nShe measures the ingredients for the recipe.\nO tarif i\u00e7in malzemeleri \u00f6l\u00e7er."},
+{t:"mc",q:"\u00bfVosotros ______ (repetir) los ejercicios cada d\u00eda?",o:["repet\u00e9is","repetis","repit\u00eds","repet\u00eds"],a:3,exp:"Repetir / Vosotros formunda de\u011fi\u015fim olmaz. Do\u011fru form: repet\u00eds.\n\u00bfVosotros repet\u00eds los ejercicios cada d\u00eda?\nDo you (plural, Spain) repeat the exercises every day?\nSiz (\u0130spanya) her g\u00fcn egzersizleri tekrar eder misiniz?"},
+{t:"mc",q:"Yo ______ (seguir) el camino correcto.",o:["sigoe","segio","sigo","seguo"],a:2,exp:"Seguir / e\u2192i de\u011fi\u015fimi, yo formunda uygulan\u0131r. \u26a0\ufe0f gu\u2192g olur: yo sigo.\nYo sigo el camino correcto.\nI follow the correct path.\nBen do\u011fru yolu takip ederim."},
+{t:"mc",q:"T\u00fa ______ (pedir) siempre lo mismo en el restaurante.",o:["pides","pedes","pidies","pedis"],a:0,exp:"Pedir / e\u2192i de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r.\nT\u00fa pides siempre lo mismo en el restaurante.\nYou always order the same thing at the restaurant.\nSen restoranda her zaman ayn\u0131 \u015feyi s\u00f6ylersin."},
+{t:"mc",q:"Ellos ______ (servir) el desayuno a las ocho.",o:["serven","sirven","sirviren","servien"],a:1,exp:"Servir / e\u2192i de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nEllos sirven el desayuno a las ocho.\nThey serve breakfast at eight.\nOnlar kahvalt\u0131y\u0131 saat sekizde servis ederler."},
+{t:"mc",q:"Yo ______ (medir) dos metros de tela.",o:["mido","medo","mideo","medio"],a:0,exp:"Medir / e\u2192i de\u011fi\u015fimi, yo formunda uygulan\u0131r.\nYo mido dos metros de tela.\nI measure two meters of fabric.\nBen iki metre kuma\u015f \u00f6l\u00e7erim."},
+{t:"mc",q:"Ella ______ (pedir) ayuda a su profesora.",o:["pede","pide","pidire","pedie"],a:1,exp:"Pedir / e\u2192i de\u011fi\u015fimi, ella formunda uygulan\u0131r.\nElla pide ayuda a su profesora.\nShe asks her teacher for help.\nO \u00f6\u011fretmeninden yard\u0131m ister."},
+{t:"mc",q:"T\u00fa ______ (construir) una casa en el campo.",o:["construes","construis","construyes","construias"],a:2,exp:"Construir \u2192 +Y tipi fiildir. \"T\u00fa\" formunda araya Y girer: constru \u2192 construy \u2192 construyes. Bu fiilde k\u00f6k de\u011fi\u015fimi de\u011fil, Y eklenmesi s\u00f6z konusudur.\n\u0130spanyolca: T\u00fa construyes una casa en el campo.\n\u0130ngilizce: You build a house in the countryside.\nT\u00fcrk\u00e7e: Sen k\u0131rsalda bir ev in\u015fa edersin."},
+{t:"mc",q:"Ellos ______ (seguir) las noticias todos los d\u00edas.",o:["seguen","segan","siguien","siguen"],a:3,exp:"Seguir / e\u2192i de\u011fi\u015fimi, ellos formunda uygulan\u0131r.\nEllos siguen las noticias todos los d\u00edas.\nThey follow the news every day.\nOnlar her g\u00fcn haberleri takip eder."},
+{t:"fill",q:"Nosotros ______ (servir) la comida a los invitados.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"servimos",exp:"Servir / Nosotros formunda e\u2192i de\u011fi\u015fimi olmaz.\nNosotros servimos la comida a los invitados.\nWe serve the food to the guests.\nBiz davetlilere yeme\u011fi servis ederiz."},
+{t:"fill",q:"\u00c9l ______ (repetir) el experimento en el laboratorio.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"repite",exp:"Repetir / e\u2192i de\u011fi\u015fimi, \u00e9l formunda uygulan\u0131r.\n\u00c9l repite el experimento en el laboratorio.\nHe repeats the experiment in the laboratory.\nO laboratuvarda deneyi tekrar eder."},
+{t:"fill",q:"Vosotros ______ (seguir) al gu\u00eda tur\u00edstico.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"segu\u00eds",exp:"Seguir / Vosotros formunda de\u011fi\u015fim olmaz. Do\u011fru form: segu\u00eds.\nVosotros segu\u00eds al gu\u00eda tur\u00edstico.\nYou (plural, Spain) follow the tour guide.\nSiz (\u0130spanya) tur rehberini takip edersiniz."},
+{t:"fill",q:"T\u00fa ______ (repetir) el mismo error siempre.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"repites",exp:"Repetir / e\u2192i de\u011fi\u015fimi, t\u00fa formunda uygulan\u0131r.\nT\u00fa repites el mismo error siempre.\nYou repeat the same mistake all the time.\nSen her zaman ayn\u0131 hata y\u0131 tekrarlars\u0131n."},
+{t:"fill",q:"Yo ______ (pedir) permiso para salir antes.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"pido",exp:"Pedir / e\u2192i de\u011fi\u015fimi, yo formunda uygulan\u0131r.\nYo pido permiso para salir antes.\nI ask for permission to leave early.\nBen erken \u00e7\u0131kmak i\u00e7in izin isterim."},
+{t:"fill",q:"Yo ______ (construir) una casa de madera.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"construyo",exp:"Construir / +Y tipi, yo formunda araya Y eklenir. construir \u2192 construyo.\nYo construyo una casa de madera.\nI build a wooden house.\nBen ah\u015fap bir ev in\u015fa ederim."},
+{t:"fill",q:"Ella ______ (incluir) todos los datos en el informe.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"incluye",exp:"Incluir / +Y tipi, ella formunda araya Y eklenir. incluir \u2192 incluye.\nElla incluye todos los datos en el informe.\nShe includes all the data in the report.\nO rapora t\u00fcm verileri dahil eder."},
+{t:"fill",q:"Nosotros ______ (destruir) los documentos viejos.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"destruimos",exp:"Destruir / Nosotros formunda +Y eklenmez, normal \u00e7ekim yap\u0131l\u0131r.\nNosotros destruimos los documentos viejos.\nWe destroy the old documents.\nBiz eski belgeleri yok ederiz."},
+{t:"fill",q:"\u00bfT\u00fa ______ (huir) de tus responsabilidades?\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"huyes",exp:"Huir / +Y tipi, t\u00fa formunda araya Y eklenir. huir \u2192 huyes.\n\u00bfT\u00fa huyes de tus responsabilidades?\nDo you run away from your responsibilities?\nSen sorumluluklar\u0131ndan ka\u00e7\u0131yor musun?"},
+{t:"fill",q:"Ellos ______ (construir) el nuevo puente.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"construyen",exp:"Construir / +Y tipi, ellos formunda araya Y eklenir. construir \u2192 construyen.\nEllos construyen el nuevo puente.\nThey build the new bridge.\nOnlar yeni k\u00f6pr\u00fcy\u00fc in\u015fa ederler."},
+{t:"fill",q:"Vosotros ______ (incluir) los gastos en la factura.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"inclu\u00eds",exp:"Incluir / Vosotros formunda +Y eklenmez. Do\u011fru form: inclu\u00eds.\nVosotros inclu\u00eds los gastos en la factura.\nYou (plural, Spain) include the expenses in the invoice.\nSiz (\u0130spanya) masraflar\u0131 faturaya dahil edersiniz."},
+{t:"fill",q:"Yo ______ (destruir) el papel con informaci\u00f3n secreta.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"destruyo",exp:"Destruir / +Y tipi, yo formunda araya Y eklenir. destruir \u2192 destruyo.\nYo destruyo el papel con informaci\u00f3n secreta.\nI destroy the paper with secret information.\nBen gizli bilgi i\u00e7eren ka\u011f\u0131d\u0131 yok ederim."},
+{t:"fill",q:"Ella ______ (huir) del peligro r\u00e1pidamente.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"huye",exp:"Huir / +Y tipi, ella formunda araya Y eklenir. huir \u2192 huye.\nElla huye del peligro r\u00e1pidamente.\nShe escapes from danger quickly.\nO tehlikeden h\u0131zl\u0131ca ka\u00e7ar."},
+{t:"fill",q:"Nosotros ______ (construir) el futuro juntos.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"construimos",exp:"Construir / Nosotros formunda +Y eklenmez.\nNosotros construimos el futuro juntos.\nWe build the future together.\nBiz gelece\u011fi birlikte in\u015fa ederiz."},
+{t:"fill",q:"\u00bfT\u00fa ______ (construir) muebles en tu tiempo libre?\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"construyes",exp:"Construir / +Y tipi, t\u00fa formunda araya Y eklenir.\n\u00bfT\u00fa construyes muebles en tu tiempo libre?\nDo you build furniture in your free time?\nSen bo\u015f zamaninda mobilya yapar m\u0131s\u0131n?"},
+{t:"fill",q:"El incendio ______ (destruir) el bosque entero.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"destruye",exp:"Destruir / +Y tipi, \u00e9l formunda araya Y eklenir. destruir \u2192 destruye.\nEl incendio destruye el bosque entero.\nThe fire destroys the whole forest.\nYang\u0131n t\u00fcm orman\u0131 yok eder."},
+{t:"fill",q:"Ellos ______ (huir) del pa\u00eds por la guerra.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"huyen",exp:"Huir / +Y tipi, ellos formunda araya Y eklenir. huir \u2192 huyen.\nEllos huyen del pa\u00eds por la guerra.\nThey flee the country because of the war.\nOnlar sava\u015f y\u00fczy\u00fcnden \u00fclkeden ka\u00e7arlar."},
+{t:"fill",q:"Vosotros ______ (huir) del problema sin hablar.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"hu\u00eds",exp:"Huir / Vosotros formunda +Y eklenmez. Do\u011fru form: hu\u00eds.\nVosotros hu\u00eds del problema sin hablar.\nYou (plural, Spain) run away from the problem without talking.\nSiz (\u0130spanya) konu\u015fmadan problemden ka\u00e7ars\u0131n\u0131z."},
+{t:"fill",q:"Yo ______ (incluir) tu nombre en la lista.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"incluyo",exp:"Incluir / +Y tipi, yo formunda araya Y eklenir. incluir \u2192 incluyo.\nYo incluyo tu nombre en la lista.\nI include your name on the list.\nBen ad\u0131n\u0131 listeye dahil ederim."},
+{t:"fill",q:"T\u00fa ______ (destruir) todo lo que tocas.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"destruyes",exp:"Destruir / +Y tipi, t\u00fa formunda araya Y eklenir.\nT\u00fa destruyes todo lo que tocas.\nYou destroy everything you touch.\nSen dokundu\u011fun her \u015feyi yok edersin."},
+{t:"fill",q:"La empresa ______ (incluir) beneficios extra para los empleados.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"incluye",exp:"Incluir / +Y tipi, ella/\u00e9l formunda araya Y eklenir.\nLa empresa incluye beneficios extra para los empleados.\nThe company includes extra benefits for employees.\n\u015eirket \u00e7al\u0131\u015fanlar i\u00e7in ek avantajlar sunar."},
+{t:"fill",q:"Nosotros ______ (huir) de la lluvia corriendo.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"huimos",exp:"Huir / Nosotros formunda +Y eklenmez. Do\u011fru form: huimos.\nNosotros huimos de la lluvia corriendo.\nWe run away from the rain.\nBiz ya\u011fmurdan ka\u00e7ar\u0131z."},
+{t:"fill",q:"\u00bfVosotros ______ (destruir) los archivos antiguos?\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"destru\u00eds",exp:"Destruir / Vosotros formunda +Y eklenmez. Do\u011fru form: destru\u00eds.\n\u00bfVosotros destru\u00eds los archivos antiguos?\nDo you (plural, Spain) destroy the old files?\nSiz (\u0130spanya) eski dosyalar\u0131 yok eder misiniz?"},
+{t:"fill",q:"Yo ______ (huir) del ruido de la ciudad.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"huyo",exp:"Huir / +Y tipi, yo formunda araya Y eklenir. huir \u2192 huyo.\nYo huyo del ruido de la ciudad.\nI escape from the noise of the city.\nBen \u015fehrin g\u00fcr\u00fclt\u00fcs\u00fcnden ka\u00e7ar\u0131m."},
+{t:"fill",q:"Ellos ______ (incluir) m\u00fasica en su presentaci\u00f3n.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"incluyen",exp:"Incluir / +Y tipi, ellos formunda araya Y eklenir.\nEllos incluyen m\u00fasica en su presentaci\u00f3n.\nThey include music in their presentation.\nOnlar sunumlar\u0131na m\u00fczik ekler."},
+{t:"fill",q:"T\u00fa ______ (incluir) fotos en el \u00e1lbum.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"incluyes",exp:"Incluir / +Y tipi, t\u00fa formunda araya Y eklenir.\nT\u00fa incluyes fotos en el \u00e1lbum.\nYou include photos in the album.\nSen alb\u00fcme foto\u011fraflar eklersin."},
+{t:"fill",q:"El arquitecto ______ (construir) edificios modernos.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"construye",exp:"Construir / +Y tipi, \u00e9l formunda araya Y eklenir.\nEl arquitecto construye edificios modernos.\nThe architect builds modern buildings.\nMimar modern binalar in\u015fa eder."},
+{t:"fill",q:"Vosotros ______ (construir) la valla del jard\u00edn.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"constru\u00eds",exp:"Construir / Vosotros formunda +Y eklenmez. Do\u011fru form: constru\u00eds.\nVosotros constru\u00eds la valla del jard\u00edn.\nYou (plural, Spain) build the garden fence.\nSiz (\u0130spanya) bah\u00e7e \u00e7itini in\u015fa edersiniz."},
+{t:"fill",q:"Ellos ______ (destruir) las malas ideas y crean nuevas.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"destruyen",exp:"Destruir / +Y tipi, ellos formunda araya Y eklenir.\nEllos destruyen las malas ideas y crean nuevas.\nThey destroy bad ideas and create new ones.\nOnlar k\u00f6t\u00fc fikirleri yok eder ve yenilerini yarat\u0131r."},
+{t:"fill",q:"Yo ______ (construir) mis sue\u00f1os cada d\u00eda.\nYukar\u0131daki c\u00fcmledeki doldurunuz. Bo\u015flu\u011fu doldururken tildelere e\u011fer gerekiyorsa l\u00fctfen dikkat ediniz.",a:"construyo",exp:"Construir / +Y tipi, yo formunda araya Y eklenir.\nYo construyo mis sue\u00f1os cada d\u00eda.\nI build my dreams every day.\nBen her g\u00fcn hayallerimi in\u015fa ederim."}
+];
+var GROUPS={
+  "Birce S\u00fczen":"A1.1",
+  "Burakhan Kayd\u0131":"A1.1 (2)",
+  "Buse Cagmel":"A1.1 (3)",
+  "B\u00fc\u015fra \u00c7am":"A1.1 (3)",
+  "B\u00fc\u015fra Yurt":"A1.1",
+  "Ceren Erdo\u011fan":"A1.1 (3)",
+  "Deneme \u00d6\u011frencisi":"A1.1",
+  "Do\u011fa De\u011firmenci":"A1.1",
+  "Ecem Sukas":"A1.1 (2)",
+  "Elif Ata\u00e7":"A1.1",
+  "Elif Atl\u0131":"A1.1 (3)",
+  "Elif Bozkurt":"A1.1 (2)",
+  "Elif \u00c7etin":"A1.1",
+  "Emel Kanburo\u011flu":"A1.1 (3)",
+  "Eray Say\u0131l\u0131k":"A1.1",
+  "Erdin\u00e7 Tigin Bilen":"A1.1 (3)",
+  "Eyl\u00fcl \u015eerbetci":"A1.1 (2)",
+  "Ezgican Tek\u00e7orap":"A1.1 (2)",
+  "G\u00f6rkem Dursun":"A1.1 (3)",
+  "G\u00fclce Eyibilir":"A1.1",
+  "Harun \u00d6zmen":"A1.1",
+  "Hilal Dilsiz":"A1.1 (2)",
+  "\u0130ncilay Dikb\u0131y\u0131k":"A1.1 (3)",
+  "Mehtap Keklik":"A1.1",
+  "Meltem \u00c7iftci":"A1.1 (2)",
+  "Merve Sa\u011flam":"A1.1 (2)",
+  "Meryem \u00d6zbek":"A1.1 (2)",
+  "Murat Erdem":"A1.1 (3)",
+  "Murat \u015eahin":"A1.1 (3)",
+  "Onur Atl\u0131":"A1.1 (3)",
+  "Ruh\u015fen \u00c7avu\u015fo\u011flu":"A1.1 (3)",
+  "R\u00fcmeysa Yatg\u0131n":"A1.1 (2)",
+  "Sedat Zincirk\u0131ran":"A1.1 (3)",
+  "Seher Akbulat":"A1.1",
+  "Seher Er\u00e7in":"A1.1 (3)",
+  "\u015eenay Sezgin":"A1.1 (2)",
+  "Serra Sancakl\u0131 I\u015f\u0131k":"A1.1",
+  "\u015eeyma Dereci":"A1.1 (2)",
+  "Sibel Atmaca":"A1.1 (3)",
+  "Sonay \u00c7etinkaya":"A1.1 (2)",
+  "Yasemin Kurtu\u015f Tun\u00e7":"A1.1",
+  "Zehra R\u00fcmeysa \u00c7olak":"A1.1",
+  "Zeynep Hediye \u00d6zay":"A1.1",
+  "Zeynep \u00d6zta\u015fk\u0131n":"A1.1 (2)",
+  "Zeynep S\u00f6ylemez":"A1.1 (2)",
+  "Zeynep Su Ali\u015fan":"A1.1"
+};
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbwbAQtk4nhM73aqYCKwg0z5s5qxPaCAWeLncNVHtSQ2jHbuo7SomG4PJpOBN8C0sXzTQw/exec';
+var ODEV_ADI='H3 \u2013 11-12.Ders';
+var cur=0,score=0,err=0;
+var state=[];
+for(var _i=0;_i<Q.length;_i++) state.push(null);
+var studentName='';
+
+function startQuiz(){
+  var sel=document.getElementById('introName');
+  if(!sel.value){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in!');return;}
+  studentName=sel.value;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+
+function escH(s){
+  if(s===null||s===undefined) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderQ(){
+  var q=Q[cur];
+  document.getElementById('qMeta').textContent='Soru '+(cur+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=(Math.round(cur/Q.length*100))+'%';
+  document.getElementById('cntOk').textContent='\u2705 '+score;
+  document.getElementById('cntErr').textContent='\u274c '+err;
+  var badge=(q.t==='mc')
+    ?'<span class="q-type-badge badge-mc">\u00c7oktan Se\u00e7meli</span>'
+    :'<span class="q-type-badge badge-fill">Bo\u015fluk Doldurma</span>';
+  var html=badge+'<div class="q-text">'+escH(q.q)+'</div>';
+  if(q.t==='mc'){
+    html+='<div class="opts">';
+    for(var i=0;i<q.o.length;i++){
+      var cls='opt-btn';var dis='';
+      if(state[cur]!==null){
+        if(i===q.a) cls+=' correct';
+        else if(state[cur].chosen===i) cls+=' wrong';
+        dis=' disabled';
+      }
+      html+='<button class="'+cls+'"'+dis+' onclick="answerMC('+cur+','+i+')">'+escH(q.o[i])+'</button>';
+    }
+    html+='</div>';
+  } else {
+    var inpCls='fill-input';var inpDis='';var inpVal='';
+    if(state[cur]!==null){
+      inpCls+=(state[cur].ok?' correct':' wrong');
+      inpDis=' disabled';inpVal=escH(state[cur].chosen);
+    }
+    html+='<div class="fill-wrap"><input id="fillInp" class="'+inpCls+'" type="text" placeholder="Cevab\u0131n\u0131z\u0131 yaz\u0131n..." value="'+inpVal+'"'+inpDis+'>';
+    if(state[cur]===null) html+='<button class="check-btn" onclick="checkFill()">Kontrol Et</button>';
+    html+='</div>';
+  }
+  var expShow=(state[cur]!==null)?' show':'';
+  html+='<div class="exp-box'+expShow+'">'+escH(q.exp)+'</div>';
+  document.getElementById('qCard').innerHTML=html;
+  updateNav();
+  if(q.t==='fill'&&state[cur]===null){var inp=document.getElementById('fillInp');if(inp) inp.focus();}
+}
+
+function answerMC(qi,j){
+  if(state[qi]!==null) return;
+  var q=Q[qi];var ok=(j===q.a);
+  state[qi]={chosen:j,ok:ok};
+  if(ok) score++;else err++;
+  renderQ();
+}
+
+function checkFill(){
+  var inp=document.getElementById('fillInp');
+  if(!inp||!inp.value.trim()) return;
+  var q=Q[cur];var user=inp.value.trim();
+  var ok=(user.toLowerCase()===q.a.toLowerCase());
+  state[cur]={chosen:user,ok:ok};
+  if(ok) score++;else err++;
+  renderQ();
+}
+
+function updateNav(){
+  var q=Q[cur];
+  var answered=(state[cur]!==null);
+  var isFill=(q.t==='fill');
+  var btnBack=document.getElementById('btnBack');
+  var btnSkip=document.getElementById('btnSkip');
+  var btnNext=document.getElementById('btnNext');
+  var btnFinish=document.getElementById('btnFinish');
+
+  // MC: atla ve ileri her zaman a\u00e7\u0131k (cevap verilmemi\u015fse de atlanabilir)
+  // Fill: kontrol edilmeden navigasyon kapal\u0131
+  if(isFill && !answered){
+    btnBack.disabled=true;
+    btnSkip.disabled=true;
+    btnNext.disabled=true;
+  } else {
+    btnBack.disabled=(cur===0);
+    // Atla: sadece cevap verilmemi\u015fse aktif (MC i\u00e7in her zaman atlanabilir)
+    btnSkip.disabled=(answered || cur===Q.length-1);
+    btnNext.disabled=(cur===Q.length-1);
+  }
+
+  // Testi Bitir: her zaman g\u00f6r\u00fcn\u00fcr, t\u0131klan\u0131nca onay sorar
+  btnFinish.style.display='block';
+}
+
+function goNext(){if(cur<Q.length-1){cur++;renderQ();}}
+function goBack(){if(cur>0){cur--;renderQ();}}
+function skipQ(){
+  var q=Q[cur];
+  if(q.t==='fill'&&state[cur]===null) return;
+  if(cur<Q.length-1){cur++;renderQ();}
+}
+
+function confirmFinish(){
+  var answered=0;
+  for(var i=0;i<state.length;i++){if(state[i]!==null) answered++;}
+  var unanswered=Q.length-answered;
+  var txt=unanswered>0
+    ?unanswered+' soru yan\u0131ts\u0131z kald\u0131. Yine de bitirmek istiyor musunuz?'
+    :'100 soruyu da yan\u0131tlad\u0131n\u0131z. Testi bitirmek istiyor musunuz?';
+  document.getElementById('confirmMsg').textContent=txt;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+function doFinish(){document.getElementById('confirmOverlay').style.display='none';showResult();}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  var pct=Math.round(score/Q.length*100);
+  document.getElementById('resScore').textContent=pct;
+  document.getElementById('resOk').textContent='\u2705 '+score+' do\u011fru';
+  document.getElementById('resErr').textContent='\u274c '+err+' yanl\u0131\u015f';
+  var resSel=document.getElementById('resName');
+  for(var i=0;i<resSel.options.length;i++){if(resSel.options[i].value===studentName){resSel.selectedIndex=i;break;}}
+  var rl=document.getElementById('reviewList');var rhtml='';
+  for(var i=0;i<state.length;i++){
+    var s=state[i];
+    if(s&&!s.ok){
+      var q=Q[i];
+      var correctText=(q.t==='mc'?q.o[q.a]:q.a);
+      var chosenText=(q.t==='mc'?q.o[s.chosen]:s.chosen);
+      rhtml+='<div class="rev-item"><div class="rev-q">S'+(i+1)+': '+escH(q.q)+'</div>';
+      rhtml+='<div class="rev-chosen">\u274c Senin cevab\u0131n: '+escH(chosenText)+'</div>';
+      rhtml+='<div class="rev-correct">\u2705 Do\u011fru: '+escH(correctText)+'</div>';
+      rhtml+='<div class="rev-exp">'+escH(q.exp)+'</div></div>';
+    }
+  }
+  if(!rhtml) rhtml='<div style="text-align:center;color:#16a34a;padding:1rem;font-weight:600">Hatali soru yok!</div>';
+  rl.innerHTML=rhtml;
+}
+
+function submitResult(){
+  var resSel=document.getElementById('resName');
+  var name=resSel.value||studentName;
+  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in!');return;}
+  var grup=GROUPS[name]||'A1.1';
+  var pct=Math.round(score/Q.length*100);
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ogrenci:name,grup:grup,odev:ODEV_ADI,puan:pct,dogru:score,yanlis:err})
+  });
+  var msg=document.getElementById('submitMsg');
+  msg.style.display='block';
+  msg.textContent=name+' \u2014 '+ODEV_ADI+' \u00f6deviniz teslim edildi. \u2705';
+}
+
+function toggleReview(){
+  var rl=document.getElementById('reviewList');
+  rl.style.display=(rl.style.display==='none'?'flex':'none');
+}
+
+</script>
+
+<div id="confirmOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:1rem">
+  <div style="background:#fff;border-radius:1rem;padding:1.5rem;max-width:380px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.2)">
+    <div style="font-size:1.1rem;font-weight:700;color:#222;margin-bottom:.75rem">Testi Bitir</div>
+    <div id="confirmMsg" style="font-size:.9rem;color:#555;margin-bottom:1.25rem;line-height:1.5"></div>
+    <div style="display:flex;gap:.75rem">
+      <button onclick="closeConfirm()" style="flex:1;padding:.75rem;border:2px solid #e5e7eb;border-radius:.7rem;background:#fff;font-size:.9rem;font-weight:600;cursor:pointer;color:#555">Geri Dön</button>
+      <button onclick="doFinish()" style="flex:1;padding:.75rem;border:none;border-radius:.7rem;background:#dc2626;color:#fff;font-size:.9rem;font-weight:700;cursor:pointer">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
