@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kişisel Tanıtım | A1.1 H3 9-10.Ders</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f0fa;--card:#fff;--card2:#ede8f7;
+  --accent:#6c3fc5;--accent2:#9b59b6;--blue:#1a5276;
+  --green:#1a7a45;--text:#2d3436;--muted:#7a7060;
+  --border:#dfe6e9;--radius:14px;--shadow:0 4px 24px rgba(108,92,231,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Plus Jakarta Sans",sans-serif;
+  min-height:100vh;max-width:620px;margin:0 auto;
+  box-shadow:0 0 60px rgba(0,0,0,.08);
+  background-image:radial-gradient(ellipse at 5% 10%,#ede8f7 0%,transparent 45%),
+                   radial-gradient(ellipse at 95% 90%,#d6eaf8 0%,transparent 45%);
+}
+/* INTRO */
+#intro{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2.5rem 1.5rem;text-align:center;}
+.week-pill{display:inline-block;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.4rem;border-radius:50px;margin-bottom:1rem;}
+.intro-icon{font-size:3.5rem;margin-bottom:.8rem;display:block;animation:sway 3s ease-in-out infinite;}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+#intro h1{font-family:"Fraunces",serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;color:var(--accent);margin-bottom:.3rem;line-height:1.1;}
+.intro-sub{color:var(--blue);font-weight:700;font-size:.95rem;margin-bottom:.3rem;}
+.intro-desc{color:var(--muted);font-size:.85rem;margin-bottom:1.4rem;}
+.teacher-badge{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid var(--border);background:var(--card);border-radius:50px;padding:.4rem 1.1rem;margin-bottom:1.4rem;font-size:.83rem;}
+.teacher-badge .handle{color:var(--blue);font-weight:700;}
+.topic-chips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.8rem;}
+.chip{background:var(--card);border:1.5px solid var(--border);color:var(--accent);font-size:.75rem;font-weight:600;padding:.22rem .7rem;border-radius:50px;}
+.name-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin-bottom:1.2rem;width:100%;max-width:400px;text-align:left;box-shadow:var(--shadow);}
+.name-box label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+.name-select{width:100%;border:1.5px solid var(--border);background:var(--card2);border-radius:10px;padding:.7rem 1rem;font-size:.93rem;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);outline:none;}
+.start-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.95rem 2.8rem;font-size:1rem;font-weight:700;border-radius:50px;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;box-shadow:0 4px 20px rgba(181,69,27,.3);transition:transform .2s;}
+.start-btn:hover{transform:translateY(-3px);}
+/* QUIZ */
+#quiz{display:none;padding:1.8rem 1.2rem 4rem;}
+.top-bar{display:flex;align-items:center;gap:1rem;margin-bottom:.4rem;}
+.prog-wrap{flex:1;background:var(--border);border-radius:50px;height:7px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:50px;transition:width .4s ease;}
+.prog-label{font-size:.8rem;color:var(--muted);white-space:nowrap;}
+.score-bar{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;margin-bottom:1.3rem;}
+.s-correct{color:#1a7a45;font-weight:600;}
+.s-wrong{color:var(--accent);font-weight:600;}
+.finish-btn-sm{background:var(--accent);color:#fff;border:none;border-radius:50px;padding:.35rem 1rem;font-size:.75rem;font-weight:700;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.warn-box{background:#fff8e1;border:2px solid #f9a825;border-radius:10px;padding:.65rem .9rem;font-size:.8rem;color:#5a3a00;margin-bottom:.85rem;line-height:1.6;}
+.warn-box strong{color:var(--accent);}
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.5rem 1.2rem;box-shadow:var(--shadow);animation:slideUp .3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;}
+.q-type-badge{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .65rem;border-radius:50px;display:inline-block;margin-bottom:.45rem;}
+.badge-mc{background:#e8f0fb;color:var(--blue);}
+.badge-fill{background:#fef3e2;color:#a05a00;}
+.q-text{font-family:"Fraunces",serif;font-size:clamp(.95rem,2.4vw,1.12rem);font-weight:700;line-height:1.5;margin-bottom:1rem;}
+.choices{display:flex;flex-direction:column;gap:.5rem;}
+.choice-btn{background:var(--card2);border:2px solid transparent;color:var(--text);padding:.62rem .9rem;border-radius:10px;cursor:pointer;font-size:.87rem;text-align:left;font-family:"Plus Jakarta Sans",sans-serif;display:flex;align-items:flex-start;gap:.6rem;transition:all .17s;line-height:1.4;}
+.choice-btn:hover:not(:disabled){border-color:var(--accent2);background:#fdf3e8;}
+.choice-btn.correct{border-color:#1a7a45;background:#eafaf2;color:#1a7a45;}
+.choice-btn.wrong{border-color:var(--accent);background:#fdf0ec;color:var(--accent);}
+.choice-btn:disabled{cursor:default;}
+.cletter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--border);font-size:.68rem;font-weight:700;flex-shrink:0;color:var(--muted);margin-top:1px;}
+.correct .cletter{background:#1a7a45;color:#fff;}
+.wrong .cletter{background:var(--accent);color:#fff;}
+.fill-wrap{display:flex;flex-direction:column;gap:.5rem;}
+.fill-input{border:2px solid var(--border);background:var(--card2);border-radius:10px;padding:.72rem 1rem;font-size:.97rem;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);outline:none;transition:border-color .2s;width:100%;}
+.fill-input:focus{border-color:var(--accent2);}
+.fill-input.correct-input{border-color:#1a7a45;background:#eafaf2;color:#1a7a45;font-weight:600;}
+.fill-input.wrong-input{border-color:var(--accent);background:#fdf0ec;color:var(--accent);}
+.fill-submit{background:linear-gradient(135deg,var(--blue),#2471a3);color:#fff;border:none;padding:.62rem 1.5rem;border-radius:10px;font-size:.87rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;align-self:flex-start;}
+.fill-submit:disabled{opacity:.5;cursor:default;}
+.explanation{display:none;margin-top:.85rem;padding:.8rem 1rem;border-radius:10px;font-size:.83rem;line-height:1.75;}
+.explanation.show{display:block;animation:slideUp .22s ease;}
+.exp-ok{background:#eafaf2;border-left:4px solid #1a7a45;color:#0d4a28;}
+.exp-err{background:#fdf0ec;border-left:4px solid var(--accent);color:#6b1a0a;}
+.exp-es{font-style:italic;margin-top:.4rem;display:block;}
+.exp-tr{font-weight:700;color:var(--blue);display:block;}.exp-en{font-style:italic;color:var(--muted);display:block;}
+.nav-row{display:flex;gap:.65rem;margin-top:1rem;flex-wrap:wrap;}
+.nav-btn{flex:1;min-width:80px;padding:.62rem .9rem;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-size:.83rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;transition:all .17s;}
+.nav-btn:hover{border-color:var(--accent2);color:var(--accent);}
+.nav-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;}
+.nav-btn:disabled{opacity:.35;cursor:default;}
+/* RESULT */
+#result{display:none;padding:2rem 1.2rem 4rem;}
+.result-hero{text-align:center;margin-bottom:1.8rem;}
+.result-icon{font-size:3.5rem;display:block;margin-bottom:.6rem;}
+.result-score{font-family:"Fraunces",serif;font-size:5rem;font-weight:900;color:var(--blue);line-height:1;}
+.result-sub{color:var(--muted);font-size:.87rem;margin-top:.3rem;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.2rem;}
+.stat-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:.85rem;text-align:center;box-shadow:var(--shadow);}
+.stat-val{font-family:"Fraunces",serif;font-size:1.9rem;font-weight:900;line-height:1;}
+.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:.2rem;font-weight:600;}
+.clr-g{color:#1a7a45;}.clr-r{color:var(--accent);}.clr-b{color:var(--blue);}
+.name-section{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.name-section label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+.name-row{display:flex;gap:.6rem;flex-wrap:wrap;}
+.name-confirm{background:var(--blue);color:#fff;border:none;border-radius:10px;padding:.65rem 1.2rem;font-size:.87rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.name-confirm:disabled{opacity:.6;}
+#sendStatus{font-size:.79rem;margin-top:.4rem;display:none;}
+.summary-card{display:none;background:linear-gradient(135deg,var(--blue),#2471a3);color:#fff;border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:.85rem;}
+.summary-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:.25rem;}
+.summary-name{font-family:"Fraunces",serif;font-size:1.2rem;font-weight:900;margin-bottom:.65rem;}
+.summary-scores{display:flex;gap:.8rem;}
+.sum-box{background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .9rem;text-align:center;flex:1;}
+.sum-val{font-family:"Fraunces",serif;font-size:1.5rem;font-weight:900;}
+.sum-lbl{font-size:.66rem;opacity:.8;margin-top:.1rem;}
+.notice-box{display:none;background:#fff8e1;border:2px solid #f9a825;border-radius:var(--radius);padding:.85rem 1.1rem;font-size:.85rem;color:#5a3a00;line-height:1.7;margin-bottom:.85rem;}
+.action-btns{display:none;flex-direction:column;gap:.6rem;margin-bottom:.85rem;}
+.action-btns.show{display:flex;}
+.btn-review{background:var(--card);border:1.5px solid var(--border);color:var(--text);padding:.78rem;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.btn-restart{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.78rem;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.review-title{font-family:"Fraunces",serif;font-size:1.1rem;font-weight:900;color:var(--accent);margin-bottom:.85rem;}
+.review-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:.65rem;box-shadow:var(--shadow);}
+.review-qnum{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.22rem;}
+.review-q{font-weight:700;margin-bottom:.38rem;line-height:1.5;font-size:.88rem;}
+.review-your{color:var(--accent);font-size:.83rem;margin-bottom:.22rem;}
+.review-correct{color:#1a7a45;font-size:.83rem;margin-bottom:.33rem;}
+.review-exp{background:var(--card2);border-radius:8px;padding:.5rem .72rem;font-size:.8rem;line-height:1.65;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <span class="intro-icon">📚</span>
+  <div class="week-pill">3. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (9–10. DERS)</div>
+  <h1>Kişisel Tanıtım</h1>
+  <div class="intro-sub">Presentación Personal</div>
+  <div class="intro-desc">100 soru &middot; Çoktan seçmeli (a–d)</div>
+  <p class="intro-desc">100 soru · Çoktan seçmeli</p>
+  <div class="teacher-badge"><span class="handle">@ispanyolcacim</span><span style="color:var(--border)">•</span><span style="color:var(--muted)">Profe Hazel</span></div>
+  <div class="name-box">
+    <label>👤 Adınızı seçin</label>
+    <select id="introName" class="name-select">
+    <option value="">— Adınızı seçin —</option>
+    <option value="Birce Süzen">Birce Süzen</option>
+    <option value="Büşra Çam">Büşra Çam</option>
+    <option value="Büşra Yurt">Büşra Yurt</option>
+    <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+    <option value="Buse Cagmel">Buse Cagmel</option>
+    <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+    <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+    <option value="Ecem Sukas">Ecem Sukas</option>
+    <option value="Elif Ataç">Elif Ataç</option>
+    <option value="Elif Atlı">Elif Atlı</option>
+    <option value="Elif Bozkurt">Elif Bozkurt</option>
+    <option value="Elif Çetin">Elif Çetin</option>
+    <option value="Emel Kanburoğlu">Emel Kanburoğlu</option>
+    <option value="Eray Sayılık">Eray Sayılık</option>
+    <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+    <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+    <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+    <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+    <option value="Görkem Dursun">Görkem Dursun</option>
+    <option value="Harun Özmen">Harun Özmen</option>
+    <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+    <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+    <option value="Mehtap Keklik">Mehtap Keklik</option>
+    <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+    <option value="Merve Sağlam">Merve Sağlam</option>
+    <option value="Meryem Özbek">Meryem Özbek</option>
+    <option value="Murat Erdem">Murat Erdem</option>
+    <option value="Murat Şahin">Murat Şahin</option>
+    <option value="Onur Atlı">Onur Atlı</option>
+    <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+    <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+    <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+    <option value="Seher Akbulat">Seher Akbulat</option>
+    <option value="Seher Erçin">Seher Erçin</option>
+    <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+    <option value="Sibel Atmaca">Sibel Atmaca</option>
+    <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+    <option value="Şenay Sezgin">Şenay Sezgin</option>
+    <option value="Şeyma Dereci">Şeyma Dereci</option>
+    <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+    <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+    <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+    <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+    <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+    <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+    <option value="Deneme Öğrencisi">Deneme Öğrencisi</option>
+  </select>
+  </div>
+  <button class="start-btn" onclick="startQuiz()">Teste Başla →</button>
+</div>
+
+<div id="quiz">
+  <div class="top-bar">
+    <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-label" id="progLabel">1 / 100</div>
+  </div>
+  <div class="score-bar">
+    <span class="s-correct">✓ <span id="sCorrect">0</span> doğru</span>
+    <button class="finish-btn-sm" onclick="showResult()">Testi Bitir →</button>
+    <span class="s-wrong">✗ <span id="sWrong">0</span> yanlış</span>
+  </div>
+  <div id="qArea"></div>
+</div>
+
+<div id="result">
+  <div class="result-hero">
+    <span class="result-icon" id="resIcon">🎉</span>
+    <div class="week-pill">2. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (7–8. DERS)</div>
+    <div class="result-score" id="resPct">0</div>
+    <div class="result-sub">/ 100 puan</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-val clr-g" id="stOk">0</div><div class="stat-lbl">✓ Doğru</div></div>
+    <div class="stat-box"><div class="stat-val clr-r" id="stErr">0</div><div class="stat-lbl">✗ Yanlış</div></div>
+    <div class="stat-box"><div class="stat-val clr-b" id="stPct">0</div><div class="stat-lbl">Puan</div></div>
+  </div>
+  <div class="name-section">
+    <label>👤 Adınızı onaylayın — ödev çizelgesine işlenecek</label>
+    <div class="name-row">
+      <select class="name-select" id="studentName" style="flex:1;min-width:160px;">
+    <option value="">— Adınızı seçin —</option>
+    <option value="Birce Süzen">Birce Süzen</option>
+    <option value="Büşra Çam">Büşra Çam</option>
+    <option value="Büşra Yurt">Büşra Yurt</option>
+    <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+    <option value="Buse Cagmel">Buse Cagmel</option>
+    <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+    <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+    <option value="Ecem Sukas">Ecem Sukas</option>
+    <option value="Elif Ataç">Elif Ataç</option>
+    <option value="Elif Atlı">Elif Atlı</option>
+    <option value="Elif Bozkurt">Elif Bozkurt</option>
+    <option value="Elif Çetin">Elif Çetin</option>
+    <option value="Emel Kanburoğlu">Emel Kanburoğlu</option>
+    <option value="Eray Sayılık">Eray Sayılık</option>
+    <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+    <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+    <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+    <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+    <option value="Görkem Dursun">Görkem Dursun</option>
+    <option value="Harun Özmen">Harun Özmen</option>
+    <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+    <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+    <option value="Mehtap Keklik">Mehtap Keklik</option>
+    <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+    <option value="Merve Sağlam">Merve Sağlam</option>
+    <option value="Meryem Özbek">Meryem Özbek</option>
+    <option value="Murat Erdem">Murat Erdem</option>
+    <option value="Murat Şahin">Murat Şahin</option>
+    <option value="Onur Atlı">Onur Atlı</option>
+    <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+    <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+    <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+    <option value="Seher Akbulat">Seher Akbulat</option>
+    <option value="Seher Erçin">Seher Erçin</option>
+    <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+    <option value="Sibel Atmaca">Sibel Atmaca</option>
+    <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+    <option value="Şenay Sezgin">Şenay Sezgin</option>
+    <option value="Şeyma Dereci">Şeyma Dereci</option>
+    <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+    <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+    <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+    <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+    <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+    <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+    <option value="Deneme Öğrencisi">Deneme Öğrencisi</option>
+  </select>
+      <button class="name-confirm" id="confirmBtn" onclick="confirmName()">Onayla ✓</button>
+    </div>
+    <div id="sendStatus"></div>
+  </div>
+  <div class="summary-card" id="summaryCard">
+    <div class="summary-label">✅ Ödeviniz teslim edildi!</div>
+    <div class="summary-name" id="summaryName"></div>
+    <div style="font-size:.82rem;opacity:.8;margin-bottom:.7rem;" id="summaryOdev"></div>
+    <div class="summary-scores">
+      <div class="sum-box"><div class="sum-val" id="sumPuan">0</div><div class="sum-lbl">Puan / 100</div></div>
+      <div class="sum-box"><div class="sum-val" id="sumDogru">0</div><div class="sum-lbl">✓ Doğru</div></div>
+      <div class="sum-box"><div class="sum-val" id="sumYanlis">0</div><div class="sum-lbl">✗ Yanlış</div></div>
+    </div>
+  </div>
+  <div class="notice-box" id="noticeBox">
+    🎉 <strong>Test tamamlandı!</strong><br>
+    Yanlışlarınız için <strong>WhatsApp grubundan</strong> sorun!
+  </div>
+  <div class="action-btns" id="actionBtns">
+    <button class="btn-review" onclick="toggleReview()">🔍 Hatalarımı gözden geçir</button>
+    <button class="btn-restart" onclick="restart()">🔄 Testi Tekrar Çöz</button>
+  </div>
+  <div id="reviewSection"></div>
+</div>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwbAQtk4nhM73aqYCKwg0z5s5qxPaCAWeLncNVHtSQ2jHbuo7SomG4PJpOBN8C0sXzTQw/exec";
+const RESULT_TITLE="3. HAFTA \u00d6DEV\u0130 | A1.1 (9\u201310. DERS)";
+const ODEV_ADI="H3 \u2013 9-10.Ders";
+const GROUPS={
+  "Birce S\u00fczen":"A1.1",
+  "B\u00fc\u015fra \u00c7am":"A1.1 (3)",
+  "B\u00fc\u015fra Yurt":"A1.1",
+  "Burakhan Kayd\u0131":"A1.1 (2)",
+  "Buse Cagmel":"A1.1 (3)",
+  "Ceren Erdo\u011fan":"A1.1 (3)",
+  "Do\u011fa De\u011firmenci":"A1.1",
+  "Ecem Sukas":"A1.1 (2)",
+  "Elif Ata\u00e7":"A1.1",
+  "Elif Atl\u0131":"A1.1 (3)",
+  "Elif Bozkurt":"A1.1 (2)",
+  "Elif \u00c7etin":"A1.1",
+  "Emel Kanburo\u011flu":"A1.1 (3)",
+  "Eray Say\u0131l\u0131k":"A1.1",
+  "Erdin\u00e7 Tigin Bilen":"A1.1 (3)",
+  "Eyl\u00fcl \u015eerbet\u00e7i":"A1.1 (2)",
+  "Ezgican Tek\u00e7orap":"A1.1 (2)",
+  "G\u00fclce Eyibilir":"A1.1",
+  "G\u00f6rkem Dursun":"A1.1 (3)",
+  "Harun \u00d6zmen":"A1.1",
+  "Hilal Dilsiz":"A1.1 (2)",
+  "\u0130ncilay Dikb\u0131y\u0131k":"A1.1 (3)",
+  "Mehtap Keklik":"A1.1",
+  "Meltem \u00c7ift\u00e7i":"A1.1 (2)",
+  "Merve Sa\u011flam":"A1.1 (2)",
+  "Meryem \u00d6zbek":"A1.1 (2)",
+  "Murat Erdem":"A1.1 (3)",
+  "Murat \u015eahin":"A1.1 (3)",
+  "Onur Atl\u0131":"A1.1 (3)",
+  "Ruh\u015fen \u00c7avu\u015fo\u011flu":"A1.1 (3)",
+  "R\u00fcmeysa Yatg\u0131n":"A1.1 (2)",
+  "Sedat Zincirk\u0131ran":"A1.1 (3)",
+  "Seher Akbulat":"A1.1",
+  "Seher Er\u00e7in":"A1.1 (3)",
+  "Serra Sancakl\u0131 I\u015f\u0131k":"A1.1",
+  "Sibel Atmaca":"A1.1 (3)",
+  "Sonay \u00c7etinkaya":"A1.1 (2)",
+  "\u015eenay Sezgin":"A1.1 (2)",
+  "\u015eeyma Dereci":"A1.1 (2)",
+  "Yasemin Kurtulu\u015f Tun\u00e7":"A1.1",
+  "Zehra R\u00fcmeysa \u00c7olak":"A1.1",
+  "Zeynep Hediye \u00d6zay":"A1.1",
+  "Zeynep S\u00f6ylemez":"A1.1 (2)",
+  "Zeynep Su Ali\u015fan":"A1.1",
+  "Zeynep \u00d6zta\u015fk\u0131n":"A1.1 (2)",
+  "Deneme \u00d6\u011frencisi":"A1.1"
+};
+
+const WARN='';
+
+const Q=[
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Ben \u0130stanbul'da ya\u015f\u0131yorum.'",o:["Tengo Estambul.", "Soy de Estambul.", "Vivo en Estambul.", "Estoy en Estambul."],a:2,exp:"'Vivo en Estambul' = \u0130stanbul'da ya\u015f\u0131yorum. 'Soy de' k\u00f6ken belirtir!",es:"",tr:"",en:""},
+{t:"mc",q:"'Telefon' kavram\u0131n\u0131 \u0130spanyolcada nas\u0131l s\u00f6yleriz?",o:["La edad", "El tel\u00e9fono", "La profesi\u00f3n", "El nombre"],a:1,exp:"'El tel\u00e9fono' kelimesi 'telefon' anlam\u0131na gelir.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u2014 \u00bfCu\u00e1l es tu n\u00famero de tel\u00e9fono? \u2014 ______ el 612 345 678.",o:["Hay", "Son", "Est\u00e1", "Es"],a:3,exp:"Telefon numaras\u0131n\u0131 belirtirken 'Es el + numara' yap\u0131s\u0131 kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfCu\u00e1ntos a\u00f1os tienes? \u2014 ______",o:["Me llamo Pedro.", "Tengo 19 a\u00f1os.", "Soy turco.", "Vivo en Sevilla."],a:1,exp:"'Tengo + say\u0131 + a\u00f1os' = ... ya\u015f\u0131nday\u0131m.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal ortamda 'Nerede ya\u015f\u0131yorsunuz?' sorusu nas\u0131l sorulur?",o:["\u00bfD\u00f3nde vivimos?", "\u00bfD\u00f3nde viv\u00eds?", "\u00bfD\u00f3nde vive usted?", "\u00bfD\u00f3nde vives?"],a:2,exp:"Resmi ortamda 'usted' kullan\u0131l\u0131r. VIVIR'de usted \u2192 'vive' olur.",es:"",tr:"",en:""},
+{t:"mc",q:"\u00bfDe d\u00f3nde eres? sorusuna en uygun cevap hangisidir?",o:["Vivo en Madrid", "Soy espa\u00f1ol", "Tengo 25 a\u00f1os", "Me llamo Juan"],a:1,exp:"\u00bfDe d\u00f3nde eres? sorusu k\u00f6keni / milliyeti sorar. Soy espa\u00f1ol \u2192 Soy + nacionalidad.",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Nerelisiniz?' (formal)",o:["\u00bfDe d\u00f3nde es usted?", "\u00bfDe d\u00f3nde ven\u00eds?", "\u00bfDe d\u00f3nde eres?", "\u00bfDe d\u00f3nde son?"],a:0,exp:"SER fiilinde usted \u2192 'es'. '\u00bfDe d\u00f3nde eres?' = informal.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy enfermera' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Hem\u015fireyi tan\u0131yorum.", "Hem\u015fire olmak istiyorum.", "Hastanede \u00e7al\u0131\u015f\u0131yorum.", "Ben hem\u015fireyim. (kad\u0131n)"],a:3,exp:"Meslek adlar\u0131 cinsiyete g\u00f6re de\u011fi\u015febilir: enfermero (erkek), enfermera (kad\u0131n).",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Ad\u0131n\u0131z ne?' (formal)",o:["\u00bfC\u00f3mo te llamas?", "\u00bfC\u00f3mo se llama usted?", "\u00bfC\u00f3mo nos llamamos?", "\u00bfC\u00f3mo os llam\u00e1is?"],a:1,exp:"'\u00bfC\u00f3mo se llama usted?' = ad\u0131n\u0131z ne? (resmi). '\u00bfC\u00f3mo te llamas?' = informal.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u00bfCu\u00e1l es ______ n\u00famero de tel\u00e9fono? (informal)",o:["su", "mi", "tu", "el"],a:2,exp:"'tu' = senin (informal iyelik). 'su' = onun / sizin (formal).",es:"",tr:"",en:""},
+{t:"mc",q:"'Es espa\u00f1ola' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["\u0130spanya'ya gidiyor.", "\u0130spanya'y\u0131 seviyor.", "O \u0130spanyol (kad\u0131n).", "\\.spanyolca konu\u015fuyor."],a:2,exp:"Milliyet s\u0131fatlar\u0131: erkek \u2192 espa\u00f1ol, kad\u0131n \u2192 espa\u00f1ola.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u2014 \u00bfC\u00f3mo te llamas? \u2014 ______ llamo Diego.",o:["Le", "Te", "Se", "Me"],a:3,exp:"'Me llamo' = benim ad\u0131m. Se llama = onun ad\u0131, te llamas = senin ad\u0131n.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131daki sorulardan hangisiyle ileti\u015fim bilgisi alabiliriz?",o:["\u00bfD\u00f3nde vives?", "\u00bfC\u00f3mo te llamas?", "\u00bfCu\u00e1l es tu n\u00famero de tel\u00e9fono?", "\u00bfDe d\u00f3nde eres?"],a:2,exp:"\u00bfCu\u00e1l es tu n\u00famero de tel\u00e9fono? = telefon numaras\u0131 sorusu \u2192 ileti\u015fim bilgisi.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy abogado' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Ben avukat\u0131m.", "Avukata gidiyorum.", "Avukat\u0131 tan\u0131yorum.", "Avukat ar\u0131yorum."],a:0,exp:"'Soy + profesi\u00f3n' = Ben ... im. \u0130spanyolcada meslekte artikel kullan\u0131lmaz!",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerden hangisi informal tan\u0131t\u0131ma aittir?",o:["\u00bfDe d\u00f3nde eres?", "\u00bfCu\u00e1ntos a\u00f1os tiene usted?", "\u00bfA qu\u00e9 se dedica?", "\u00bfC\u00f3mo se llama?"],a:0,exp:"'eres' = t\u00fa \u2192 informal. 'es' = usted \u2192 formal.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfA qu\u00e9 se dedica usted?' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Ne i\u015f yaparsin?", "Mesle\u011fin nedir?", "Nerede \u00e7al\u0131\u015f\u0131rs\u0131n?", "Ne i\u015f yap\u0131yorsunuz? (formal)"],a:3,exp:"'\u00bfA qu\u00e9 se dedica usted?' formal versiyondur. 'se dedica' = usted \u00e7ekimi.",es:"",tr:"",en:""},
+{t:"mc",q:"'Tiene 23 a\u00f1os. Es espa\u00f1ol. Vive en Madrid. Es m\u00fasico.' Bu c\u00fcmleler hangi \u015fahsi anlat\u0131yor?",o:["\u00c9l / Ella / Usted", "Nosotros (biz)", "T\u00fa (sen)", "Yo (ben)"],a:0,exp:"'Tiene / Es / Vive' = 3. tekil \u015fahis \u00e7ekimleri.",es:"",tr:"",en:""},
+{t:"mc",q:"Hangi c\u00fcmle 'ben' (yo) i\u00e7in YANLI\u015e kurulmu\u015ftur?",o:["Me llamo Pablo.", "Tengo 25 a\u00f1os.", "Se llama Pablo.", "Vivo en Madrid."],a:2,exp:"'Ben' i\u00e7in 'Me llamo Pablo' do\u011frudur. 'Se llama' = onun ad\u0131 Pablo (3. tekil).",es:"",tr:"",en:""},
+{t:"mc",q:"'Tengo 23 a\u00f1os' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Ben 23 ya\u015f\u0131nday\u0131m.", "23 y\u0131ld\u0131r buradayim.", "23 arkada\u015f\u0131m var.", "23. s\u0131n\u0131ftay\u0131m."],a:0,exp:"\u0130spanyolcada ya\u015f 'tener' fiiliyle belirtilir: yo \u2192 tengo.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal ortamda 'Nerelisiniz?' sorusu nas\u0131l sorulur?",o:["\u00bfDe d\u00f3nde eres?", "\u00bfDe d\u00f3nde es usted?", "\u00bfDe d\u00f3nde son?", "\u00bfDe d\u00f3nde ven\u00eds?"],a:1,exp:"SER fiilinde usted \u2192 'es' olur.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfD\u00f3nde vive usted? \u2014 ______",o:["Soy m\u00e9dico.", "Tengo 40 a\u00f1os.", "Soy de Argentina.", "Vivo en Buenos Aires."],a:3,exp:"\u0130kamet sorusuna 'Vivo en + ciudad' ile cevap verilir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Vivo en Madrid' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Madrid'den geliyorum.", "Madrid'de ya\u015f\u0131yorum.", "Madrid'i seviyorum.", "Madrid'e gidiyorum."],a:1,exp:"'Vivo en + \u015fehir' = ...de/da ya\u015f\u0131yorum.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Ella ______ m\u00e9dica.",o:["tengo", "tiene", "es", "tienes"],a:2,exp:"SER: yo soy, t\u00fa eres, \u00e9l/ella/usted es...",es:"",tr:"",en:""},
+{t:"mc",q:"'Telefon numaran nedir?' sorusu \u0130spanyolcada nas\u0131l sorulur? (informal)",o:["\u00bfTienes n\u00famero?", "\u00bfCu\u00e1l es su n\u00famero de tel\u00e9fono?", "\u00bfCu\u00e1l es el tel\u00e9fono?", "\u00bfCu\u00e1l es tu n\u00famero de tel\u00e9fono?"],a:3,exp:"'tu' = senin (informal iyelik). Formal i\u00e7in 'su' kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy turca' c\u00fcmlesinde neden 'turco' de\u011fil de 'turca' kullan\u0131l\u0131r?",o:["\u00c7\u00fcnk\u00fc \u00e7o\u011fuldur", "\u00c7\u00fcnk\u00fc fiildir", "\u00c7\u00fcnk\u00fc s\u0131fat \u00f6znenin cinsiyetine uyum sa\u011flar", "\u00c7\u00fcnk\u00fc ge\u00e7mi\u015f zamand\u0131r"],a:2,exp:"Milliyet s\u0131fatlar\u0131 cinsiyete uyum sa\u011flar: erkek \u2192 turco, kad\u0131n \u2192 turca.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfC\u00f3mo se llama?' sorusu hangi durumda kullan\u0131l\u0131r?",o:["Sadece samimi (informal) durumda", "Sadece \u00e7o\u011ful ki\u015filer i\u00e7in", "Sadece erkekler i\u00e7in kullan\u0131l\u0131r", "Resmi (formal) ya da \u00fc\u00e7\u00fcnc\u00fc tekil ki\u015fi i\u00e7in"],a:3,exp:"'\u00bfC\u00f3mo se llama?' yap\u0131s\u0131 hem formal (usted) hem de 3. tekil ki\u015fi (o) i\u00e7in kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131daki c\u00fcmlelerden hangisi YANLI\u015e kurulmu\u015ftur?",o:["Me llamo Paco.", "Tengo 30 a\u00f1os.", "Tengo m\u00fasico.", "Vivo en Madrid."],a:2,exp:"Meslek i\u00e7in 'Soy + profesi\u00f3n' kullan\u0131l\u0131r. 'Tengo m\u00fasico' dilbilgisi bak\u0131m\u0131ndan yanl\u0131\u015ft\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerden hangisi do\u011frudur?",o:["'Soy de' k\u00f6keni belirtir, 'Vivo en' \u015fu an ya\u015fan\u0131lan yeri belirtir", "\u0130kisi ayn\u0131 anlama gelir", "\u0130kisi de ya\u015f belirtir", "\u0130kisi de meslek belirtir"],a:0,exp:"'Soy de + yer' \u2192 k\u00f6ken. 'Vivo en + yer' \u2192 ikamet. Birbirine kar\u0131\u015ft\u0131r\u0131lmamal\u0131d\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Onun ad\u0131 Carmen, 35 ya\u015f\u0131nda, \u0130spanyol.'",o:["Te llamas Carmen. Tienes 35 a\u00f1os. Eres espa\u00f1ola.", "Nos llamamos Carmen. Tenemos 35 a\u00f1os.", "Me llamo Carmen. Tengo 35 a\u00f1os. Soy espa\u00f1ola.", "Se llama Carmen. Tiene 35 a\u00f1os. Es espa\u00f1ola."],a:3,exp:"3. tekil: se llama / tiene / es. Hepsi tutarl\u0131 olmal\u0131.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy espa\u00f1ol' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["\u0130spanya'y\u0131 seviyorum.", "Ben \u0130spanyolum.", "\u0130spanya'da ya\u015f\u0131yorum.", "\u0130spanyolca konu\u015fuyorum."],a:1,exp:"'Soy + nacionalidad' = ...milletindenim yap\u0131s\u0131 kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"'Ka\u00e7 ya\u015f\u0131ndasin?' sorusu \u0130spanyolcada nas\u0131l sorulur? (informal)",o:["\u00bfCu\u00e1ntos a\u00f1os tiene?", "\u00bfCu\u00e1ntos a\u00f1os tienes?", "\u00bfCu\u00e1ntos a\u00f1os tenemos?", "\u00bfCu\u00e1ntos a\u00f1os ten\u00e9is?"],a:1,exp:"'\u00bfCu\u00e1ntos a\u00f1os tienes?' = ka\u00e7 ya\u015f\u0131ndasin? informal = t\u00fa \u2192 tienes.",es:"",tr:"",en:""},
+{t:"mc",q:"'Tiene 23 a\u00f1os' c\u00fcmlesindeki 'tiene' hangi \u015fahis i\u00e7in kullan\u0131lmaktad\u0131r?",o:["Yo", "Nosotros", "\u00c9l / Ella / Usted", "T\u00fa"],a:2,exp:"TENER: yo tengo, t\u00fa tienes, \u00e9l/ella/usted tiene...",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy de M\u00e9xico' c\u00fcmlesinde 'de' ne anlama gelir?",o:["\u0130\u00e7in", "Hakk\u0131nda", "\u0130le", "...den / ...dan (k\u00f6ken belirtir)"],a:3,exp:"'de' burada k\u00f6ken / mensubiyet belirtir. 'Soy de M\u00e9xico' = Meksika'dan\u0131m.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfCu\u00e1ntos a\u00f1os tienes?' sorusu hangi konu kategorisine girer?",o:["La edad", "El nombre", "La profesi\u00f3n", "La residencia"],a:0,exp:"'\u00bfCu\u00e1ntos a\u00f1os tienes?' = ya\u015f sorusudur \u2192 La edad kategorisi.",es:"",tr:"",en:""},
+{t:"mc",q:"'Benim ad\u0131m Paco' c\u00fcmlesi \u0130spanyolcada nas\u0131l s\u00f6ylenir?",o:["Nos llamamos Paco.", "Me llamo Paco.", "Te llamas Paco.", "Se llama Paco."],a:1,exp:"'Me llamo' = benim ad\u0131m. 'Se llama' = onun ad\u0131 (3. tekil).",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfCu\u00e1l es su n\u00famero de tel\u00e9fono?' c\u00fcmlesindeki 'su' neyi ifade eder?",o:["Sadece 'o (erkek)'", "Sadece 'o (kad\u0131n)'", "Ba\u011flama g\u00f6re 'siz (formal)' veya 'onun' anlam\u0131na gelir", "Bizim"],a:2,exp:"'su' iyelik zamiri ba\u011flama g\u00f6re: onun (erkek/kad\u0131n) veya sizin (formal - usted) anlam\u0131na gelir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Informal - t\u00fa' ve 'Formal - usted' fark\u0131 nedir?",o:["Ya\u015fl\u0131lara t\u00fa, gen\u00e7lere usted kullan\u0131l\u0131r.", "Arkada\u015flara / yak\u0131nlara t\u00fa, resmi ortamda / yabanc\u0131lara usted.", "\u0130spanya'da t\u00fa, Latin Amerika'da usted.", "Fark yoktur."],a:1,exp:"'t\u00fa' = informal (arkada\u015f, aile, \u00e7ocuk), 'usted' = formal (patron, yabanc\u0131, ya\u015fl\u0131).",es:"",tr:"",en:""},
+{t:"mc",q:"\u00bfC\u00f3mo te llamas? sorusuna do\u011fru cevap hangisidir?",o:["Tengo 20 a\u00f1os.", "Vivo en Espa\u00f1a.", "Me llamo Carlos.", "Soy de Madrid."],a:2,exp:"'\u00bfC\u00f3mo te llamas?' = ad\u0131n ne? \u2192 'Me llamo + isim' yap\u0131s\u0131yla cevap verilir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Milliyet' kavram\u0131n\u0131 \u0130spanyolcada nas\u0131l s\u00f6yleriz?",o:["La edad", "La nacionalidad", "La profesi\u00f3n", "La residencia"],a:1,exp:"'La nacionalidad' kelimesi 'milliyet / uyruk' anlam\u0131na gelir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Ya\u015f' kavram\u0131n\u0131 \u0130spanyolcada nas\u0131l s\u00f6yleriz?",o:["La residencia", "La profesi\u00f3n", "El nombre", "La edad"],a:3,exp:"'La edad' kelimesi 'ya\u015f' anlam\u0131na gelir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy de Turqu\u00eda' c\u00fcmlesinin do\u011fru anlam\u0131 nedir?",o:["T\u00fcrkiye'de ya\u015f\u0131yorum", "T\u00fcrkiye'de \u00e7al\u0131\u015f\u0131yorum", "T\u00fcrkiye kokenli yim / T\u00fcrkiye'denim", "T\u00fcrkiye'ye gidiyorum"],a:2,exp:"'Soy de Turqu\u00eda' = T\u00fcrkiye'denim / k\u00f6ken. 'Vivo en Turqu\u00eda' = T\u00fcrkiye'de ya\u015f\u0131yorum.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Me llamo Paco. ______ espa\u00f1ol. Vivo en Madrid.",o:["Es", "Tengo", "Vivo", "Soy"],a:3,exp:"Milliyet i\u00e7in 'ser' kullan\u0131l\u0131r. yo \u2192 soy.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfC\u00f3mo se llama usted? \u2014 ______",o:["Me llamo Se\u00f1or Garc\u00eda.", "Soy de Espa\u00f1a.", "Tengo 50 a\u00f1os.", "Vivo en Madrid."],a:0,exp:"\u0130sim sorusuna 1. \u015fahis olarak 'Me llamo + isim' ile cevap verilir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy estudiante' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["\u00d6\u011frencileri seviyorum.", "\u00d6\u011frenciyim.", "Okula gidiyorum.", "\u00d6\u011frenci de\u011filim."],a:1,exp:"'Soy estudiante' = Ben \u00f6\u011frenciyim. \u0130spanyolcada meslekte artikel kullan\u0131lmaz!",es:"",tr:"",en:""},
+{t:"mc",q:"'Tiene 23 a\u00f1os' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["23 y\u0131ld\u0131r \u00e7al\u0131\u015f\u0131yor.", "23 arkada\u015f\u0131 var.", "O 23 ya\u015f\u0131nda.", "23 karde\u015fi var."],a:2,exp:"'Tiene' = \u00e9l/ella/usted i\u00e7in TENER fiilinin \u00e7ekimi.",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Nerede ya\u015f\u0131yorsunuz?' (formal)",o:["\u00bfD\u00f3nde vive usted?", "\u00bfD\u00f3nde viv\u00eds?", "\u00bfD\u00f3nde vives?", "\u00bfD\u00f3nde vivimos?"],a:0,exp:"Formal sormak i\u00e7in usted kullan\u0131l\u0131r. VIVIR'de usted \u2192 'vive'.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u2014 \u00bfCu\u00e1ntos a\u00f1os ______ usted? \u2014 Tengo 45 a\u00f1os.",o:["tenemos", "tienes", "ten\u00e9is", "tiene"],a:3,exp:"TENER: yo tengo, t\u00fa tienes, \u00e9l/ella/usted tiene, nosotros tenemos...",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Benim ad\u0131m Elena, 27 ya\u015f\u0131nday\u0131m, Madrid'de ya\u015f\u0131yorum, Meksikal\u0131y\u0131m.'",o:["Me llamo Elena. Tengo 27 a\u00f1os. Vivo en Madrid. Soy mexicana.", "Nos llamamos Elena. Tenemos 27 a\u00f1os. Vivimos en Madrid.", "Te llamas Elena. Tienes 27 a\u00f1os. Vives en Madrid. Eres mexicana.", "Se llama Elena. Tiene 27 a\u00f1os. Vive en Madrid. Es mexicana."],a:0,exp:"1. tekil \u015fahis: me llamo / tengo / vivo / soy. Hepsi ayn\u0131 \u015fahis i\u00e7in tutarl\u0131 olmal\u0131.",es:"",tr:"",en:""},
+{t:"mc",q:"'Nerelisin?' sorusu \u0130spanyolcada nas\u0131l sorulur? (informal)",o:["\u00bfDe d\u00f3nde eres?", "\u00bfDe d\u00f3nde es usted?", "\u00bfD\u00f3nde vives?", "\u00bfDe d\u00f3nde eres t\u00fa?"],a:0,exp:"'\u00bfDe d\u00f3nde eres?' = nerelisin? (arkada\u015f\u00e7a). 't\u00fa' zamiri s\u00f6ylenmeyebilir.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfA qu\u00e9 se dedica usted? \u2014 ______",o:["Tengo 50 a\u00f1os.", "Vivo en Par\u00eds.", "Soy ingeniero.", "Soy de Jap\u00f3n."],a:2,exp:"Meslek sorusuna 'Soy + profesi\u00f3n' yap\u0131s\u0131yla cevap verilir.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal ortamda birine 'Ad\u0131n\u0131z ne?' diye sormak i\u00e7in hangi ifadeyi kullan\u0131r\u0131z?",o:["\u00bfC\u00f3mo te llamas?", "\u00bfC\u00f3mo se llama usted?", "\u00bfCu\u00e1l es tu nombre?", "\u00bfQui\u00e9n eres?"],a:1,exp:"Resmi ortamda 't\u00fa' yerine 'usted' kullan\u0131l\u0131r. Fiil \u2192 'se llama' olur.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerden hangisi DO\u011eRU bir ki\u015fisel tan\u0131t\u0131m \u00f6rne\u011fidir?",o:["Me llamo Ana. Tengo 25 a\u00f1os. Vivo en Madrid. Soy espa\u00f1ola.", "Soy llamo Ana. Tengo el 25 a\u00f1os.", "Me llamo Ana, tengo de Madrid y vivo 25 a\u00f1os.", "Me llamo en Ana. Tengo a\u00f1os 25. Vivo Madrid."],a:0,exp:"Do\u011fru yap\u0131: Me llamo + isim / Tengo + say\u0131 + a\u00f1os / Vivo en + \u015fehir / Soy + milliyet.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131daki ifadelerden hangisi YANLI\u015e kullan\u0131md\u0131r?",o:["Tengo 22 a\u00f1os.", "Soy de Francia.", "Me llamo Sara.", "Vivo en espa\u00f1ol."],a:3,exp:"'Vivo en + \u015fehir/\u00fclke' yap\u0131s\u0131nda dil ad\u0131 kullan\u0131lmaz. Do\u011frusu: 'Vivo en Espa\u00f1a'.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy m\u00fasico' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["M\u00fczisyeni tan\u0131yorum.", "M\u00fczik dinliyorum.", "Ben m\u00fczisyenim.", "M\u00fczik okuyorum."],a:2,exp:"'Soy + profesi\u00f3n' yap\u0131s\u0131 mesle\u011fi belirtmek i\u00e7in kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfCu\u00e1ntos a\u00f1os tienes?' sorusuna 'Tengo quince a\u00f1os' cevab\u0131n\u0131 veren ki\u015fi ka\u00e7 ya\u015f\u0131ndad\u0131r?",o:["15", "5", "50", "51"],a:0,exp:"'quince' = 15. 'Tengo quince a\u00f1os' = 15 ya\u015f\u0131nday\u0131m.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u00bfDe d\u00f3nde ______ t\u00fa?",o:["eres", "somos", "son", "soy"],a:0,exp:"SER: yo soy, t\u00fa eres, \u00e9l/ella/usted es, nosotros somos...",es:"",tr:"",en:""},
+{t:"mc",q:"Tam bir ki\u015fisel tan\u0131t\u0131mda hangi s\u0131ra en do\u011fald\u0131r?",o:["Nombre \u2192 Edad \u2192 Residencia \u2192 Nacionalidad \u2192 Profesi\u00f3n", "Residencia \u2192 Edad \u2192 Profesi\u00f3n \u2192 Nombre", "Profesi\u00f3n \u2192 Nombre \u2192 Edad \u2192 Residencia", "Edad \u2192 Nombre \u2192 Residencia \u2192 Profesi\u00f3n"],a:0,exp:"Tipik tan\u0131t\u0131m s\u0131ras\u0131: isim \u2192 ya\u015f \u2192 ikamet \u2192 milliyet \u2192 meslek.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfA qu\u00e9 te dedicas?' sorusuna YANLI\u015e cevap hangisidir?",o:["Soy estudiante.", "Soy cocinero.", "Soy profesora.", "Soy de M\u00e9xico."],a:3,exp:"'\u00bfA qu\u00e9 te dedicas?' = ne i\u015f yap\u0131yorsun? Cevap meslek olmal\u0131d\u0131r. 'Soy de M\u00e9xico' milliyet cevab\u0131d\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfDe d\u00f3nde eres? \u2014 ______",o:["Vivo en Ankara.", "Tengo 30 a\u00f1os.", "Soy turco.", "Me llamo Mehmet."],a:2,exp:"'\u00bfDe d\u00f3nde eres?' = nerelisin? \u2192 'Soy turco' = T\u00fcrk\u00fcm. Soy + nacionalidad.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal ortamda 'Ka\u00e7 ya\u015f\u0131ndasin\u0131z?' sorusu nas\u0131l sorulur?",o:["\u00bfQu\u00e9 edad tienes?", "\u00bfCu\u00e1ntos a\u00f1os ten\u00e9is?", "\u00bfCu\u00e1ntos a\u00f1os tiene usted?", "\u00bfCu\u00e1ntos a\u00f1os tienes?"],a:2,exp:"Resmi sormak i\u00e7in 'usted' kullan\u0131l\u0131r, fiil 'tiene' olur.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Se llama Paco. ______ 23 a\u00f1os.",o:["Tenemos", "Tiene", "Tienen", "Ten\u00e9is"],a:1,exp:"'Se llama' = 3. tekil \u2192 devam\u0131nda da 'tiene' (3. tekil) kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"Me llamo Merve. ______ en Ankara.",o:["Soy", "Vivo", "Es", "Tengo"],a:1,exp:"VIVIR: yo \u2192 vivo + en + \u015fehir. 'Vivo en + \u015fehir' = ...de ya\u015f\u0131yorum.",es:"",tr:"",en:""},
+{t:"mc",q:"Me llamo Hakan. Bo\u015flu\u011fu doldurun: ______ turco.",o:["Soy", "Vivo", "Tengo", "Es"],a:0,exp:"Milliyet ve meslek belirtmek i\u00e7in 'ser' fiili kullan\u0131l\u0131r. yo \u2192 soy.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal tan\u0131t\u0131mda 'Ne i\u015f yap\u0131yorsunuz?' sorusu nas\u0131l sorulur?",o:["\u00bfCu\u00e1l es tu trabajo?", "\u00bfQu\u00e9 haces t\u00fa?", "\u00bfA qu\u00e9 se dedica usted?", "\u00bfA qu\u00e9 te dedicas?"],a:2,exp:"'\u00bfA qu\u00e9 se dedica usted?' = ne i\u015f yap\u0131yorsunuz? (resmi). formal = usted \u2192 se dedica.",es:"",tr:"",en:""},
+{t:"mc",q:"'Nerede ya\u015f\u0131yorsun?' sorusunun \u0130spanyolcas\u0131 hangisidir? (informal)",o:["\u00bfD\u00f3nde vive?", "\u00bfDe d\u00f3nde eres?", "\u00bfD\u00f3nde viv\u00eds?", "\u00bfD\u00f3nde vives?"],a:3,exp:"'\u00bfD\u00f3nde vives?' = nerede ya\u015f\u0131yorsun? (arkada\u015f\u00e7a). informal = t\u00fa \u2192 vives.",es:"",tr:"",en:""},
+{t:"mc",q:"Eksiksiz bir formal / 3. tekil tan\u0131t\u0131m hangisidir?",o:["Nos llamamos Paco. Tenemos 23 a\u00f1os. Vivimos en Madrid.", "Me llamo Paco. Tengo 23 a\u00f1os. Vivo en Madrid. Soy espa\u00f1ol. Soy m\u00fasico.", "Se llama Paco. Tiene 23 a\u00f1os. Vive en Madrid. Es espa\u00f1ol. Es m\u00fasico.", "Te llamas Paco. Tienes 23 a\u00f1os. Vives en Madrid. Eres espa\u00f1ol."],a:2,exp:"3. tekil / formal tan\u0131t\u0131m: se llama / tiene / vive / es. Hepsi tutarl\u0131 olmal\u0131.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfCu\u00e1l es tu n\u00famero de tel\u00e9fono?' sorusunda 'tu' ne anlama gelir?",o:["O", "Onun", "Senin", "Sizin"],a:2,exp:"'tu' = senin (informal iyelik zamiri). 'su' = onun / sizin (formal).",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u2014 \u00bfC\u00f3mo se llama? \u2014 ______ llama Sof\u00eda.",o:["Le", "Me", "Se", "Te"],a:2,exp:"'Se llama' = onun ad\u0131 / ad\u0131n\u0131z (formal). 'Me llamo' = benim ad\u0131m.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfD\u00f3nde vives?' sorusu hangi konu kategorisine girer?",o:["La profesi\u00f3n", "El nombre", "La residencia", "La edad"],a:2,exp:"'\u00bfD\u00f3nde vives?' = ikamet sorusu \u2192 La residencia kategorisi.",es:"",tr:"",en:""},
+{t:"mc",q:"'Soy de M\u00e9xico. Vivo en Madrid.' Bu iki c\u00fcmle hakk\u0131nda do\u011fru yorum hangisidir?",o:["Ki\u015fi ne Meksikali ne Madrid'de.", "Bu iki c\u00fcmle \u00e7eli\u015fkilidir.", "Ki\u015fi Meksika k\u00f6kenli ama \u015fu an Madrid'de ya\u015f\u0131yor.", "Ki\u015fi hem Meksikali hem Madrid'de ya\u015f\u0131yor, bu imk\u00e2ns\u0131z."],a:2,exp:"'Soy de M\u00e9xico' = Meksika k\u00f6kenliyim. 'Vivo en Madrid' = Madrid'de ya\u015f\u0131yorum. K\u00f6ken ve ikamet farkl\u0131 \u015feylerdir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Meslek' kavram\u0131n\u0131 \u0130spanyolcada nas\u0131l s\u00f6yleriz?",o:["La nacionalidad", "El nombre", "La profesi\u00f3n", "La edad"],a:2,exp:"'La profesi\u00f3n' kelimesi 'meslek / i\u015f' anlam\u0131na gelir.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal ortamda birine mesle\u011fini sorarken hangi c\u00fcmleyi kullan\u0131r\u0131z?",o:["\u00bfTienes trabajo?", "\u00bfD\u00f3nde trabajas?", "\u00bfA qu\u00e9 se dedica usted?", "\u00bfQu\u00e9 haces?"],a:2,exp:"Formal ortamda 'se dedica' kullan\u0131l\u0131r. 'te dedicas' informald\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"'Telefon numaras\u0131' hangi \u0130spanyolca kategori ad\u0131na girer?",o:["La edad", "La profesi\u00f3n", "La residencia", "El tel\u00e9fono"],a:3,exp:"'El tel\u00e9fono' = telefon kategorisi.",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Telefon numaram 555 123 456'd\u0131r.'",o:["Mi n\u00famero tiene 555 123 456.", "Tengo el n\u00famero 555 123 456.", "Es el 555 123 456.", "Hay 555 123 456."],a:2,exp:"Telefon numaras\u0131 verilirken 'Es el + numara' yap\u0131s\u0131 kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u0130kamet' kavram\u0131n\u0131 \u0130spanyolcada nas\u0131l s\u00f6yleriz?",o:["La profesi\u00f3n", "El nombre", "La edad", "La residencia"],a:3,exp:"'La residencia' kelimesi 'ikamet / oturma yeri' anlam\u0131na gelir.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfD\u00f3nde vive usted?' sorusuna do\u011fru cevap hangisidir?",o:["Vivo en Estambul.", "Me llamo Ahmet.", "Soy de Turqu\u00eda.", "Tengo 40 a\u00f1os."],a:0,exp:"'\u00bfD\u00f3nde vive usted?' = nerede ya\u015f\u0131yorsunuz? \u2192 'Vivo en Estambul.'",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Ne i\u015f yap\u0131yorsun?' (informal)",o:["\u00bfA qu\u00e9 se dedica usted?", "\u00bfD\u00f3nde trabajas?", "\u00bfA qu\u00e9 te dedicas?", "\u00bfTienes trabajo?"],a:2,exp:"'\u00bfA qu\u00e9 te dedicas?' = ne i\u015f yap\u0131yorsun? (informal). '\u00bfA qu\u00e9 se dedica?' = formal.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfDe d\u00f3nde es usted? \u2014 ______",o:["Soy de Colombia.", "Me llamo Carmen.", "Tengo 35 a\u00f1os.", "Vivo en Madrid."],a:0,exp:"Milliyet sorusuna 'Soy de + pa\u00eds' ya da 'Soy + nacionalidad' ile cevap verilebilir.",es:"",tr:"",en:""},
+{t:"mc",q:"Formal tan\u0131t\u0131mda 'Onun ad\u0131 Paco' c\u00fcmlesi \u0130spanyolcada nas\u0131l s\u00f6ylenir?",o:["Te llamas Paco.", "Nos llamamos Paco.", "Me llamo Paco.", "Se llama Paco."],a:3,exp:"Birini tan\u0131t\u0131rken veya formal tan\u0131t\u0131mda 'Se llama' kullan\u0131l\u0131r. 3. tekil \u015fahis = se llama.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u00bfCu\u00e1ntos a\u00f1os ______ t\u00fa? (informal)",o:["tienes", "tenemos", "tiene", "ten\u00e9is"],a:0,exp:"TENER: yo tengo, t\u00fa tienes, \u00e9l/ella/usted tiene, nosotros tenemos...",es:"",tr:"",en:""},
+{t:"mc",q:"Hangi c\u00fcmle 'milliyet' sorusuna do\u011fru cevap de\u011fildir?",o:["Soy turco.", "Soy de Turqu\u00eda.", "Vivo en Madrid.", "Soy italiana."],a:2,exp:"'Vivo en Madrid' = Madrid'de ya\u015f\u0131yorum (ikamet). Milliyet sorusuna uygun de\u011fildir.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfA qu\u00e9 se dedica usted?' sorusunun T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Ne i\u015f yap\u0131yorsunuz?", "Ka\u00e7 ya\u015f\u0131ndasin\u0131z?", "Nerede ya\u015f\u0131yorsunuz?", "Nerelisiniz?"],a:0,exp:"'\u00bfA qu\u00e9 se dedica?' = ne i\u015f yap\u0131yorsunuz? (formal meslek sorusu).",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Onun ad\u0131 ne?'",o:["\u00bfC\u00f3mo se llama?", "\u00bfC\u00f3mo te llamas?", "\u00bfC\u00f3mo nos llamamos?", "\u00bfC\u00f3mo me llamo?"],a:0,exp:"'\u00bfC\u00f3mo se llama?' = onun ad\u0131 ne? / ad\u0131n\u0131z ne? (formal).",es:"",tr:"",en:""},
+{t:"mc",q:"T\u00fcrk\u00e7e'den \u0130spanyolcaya \u00e7evirin: 'Ben 30 ya\u015f\u0131nday\u0131m.'",o:["Tengo 30 a\u00f1os.", "Tiene 30 a\u00f1os.", "Estoy 30 a\u00f1os.", "Soy 30 a\u00f1os."],a:0,exp:"\u0130spanyolcada ya\u015f 'tener' fiiliyle ifade edilir. 'Soy 30 a\u00f1os' yanl\u0131\u015ft\u0131r!",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Me llamo Juan. ______ 28 a\u00f1os.",o:["Estoy", "Soy", "Es", "Tengo"],a:3,exp:"'Tengo 28 a\u00f1os' = 28 ya\u015f\u0131nday\u0131m. \u0130spanyolcada ya\u015f i\u00e7in 'tener' kullan\u0131l\u0131r, 'ser' de\u011fil!",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfCu\u00e1ntos a\u00f1os tiene?' sorusu kime sorulabilir?",o:["Yo", "\u00c9l / Ella / Usted (formal)", "Nosotros", "T\u00fa"],a:1,exp:"'Tiene' = \u00e9l/ella/usted i\u00e7in TENER \u00e7ekimi. 'Tienes' = t\u00fa (informal) olurdu.",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: Me llamo Luc\u00eda. Tengo 22 a\u00f1os. ______ en Valencia. Soy espa\u00f1ola.",o:["Tengo", "Es", "Vivo", "Soy"],a:2,exp:"'Vivo en Valencia' = Valencia'da ya\u015f\u0131yorum. \u0130kamet i\u00e7in yo \u2192 vivo kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131dakilerden hangisi DO\u011eRU telefon numaras\u0131 verme bi\u00e7imidir?",o:["Mi tel\u00e9fono tiene 555 234 567.", "Es el 555 234 567.", "Tengo el 555 234 567.", "Hay el 555 234 567."],a:1,exp:"Telefon numaras\u0131 verme form\u00fcl\u00fc: 'Es el + numara.'",es:"",tr:"",en:""},
+{t:"mc",q:"Hangi soru 'La profesi\u00f3n' kategorisine aittir?",o:["\u00bfDe d\u00f3nde eres?", "\u00bfD\u00f3nde vives?", "\u00bfCu\u00e1ntos a\u00f1os tienes?", "\u00bfA qu\u00e9 te dedicas?"],a:3,exp:"'\u00bfA qu\u00e9 te dedicas?' = ne i\u015f yap\u0131yorsun? \u2192 La profesi\u00f3n kategorisi.",es:"",tr:"",en:""},
+{t:"mc",q:"'Me llamo' ifadesindeki 'llamo' hangi fiilden gelir?",o:["Llamar", "Leer", "Llegar", "Llevar"],a:0,exp:"'Llamarse' d\u00f6n\u00fc\u015fl\u00fc fiildir: me llamo (ben), te llamas (sen), se llama (o/usted)...",es:"",tr:"",en:""},
+{t:"mc",q:"Bo\u015flu\u011fu doldurun: \u2014 \u00bfDe d\u00f3nde ______ usted? \u2014 Soy de Italia.",o:["es", "somos", "eres", "son"],a:0,exp:"SER: yo soy, t\u00fa eres, \u00e9l/ella/usted es, nosotros somos...",es:"",tr:"",en:""},
+{t:"mc",q:"'Ne i\u015f yap\u0131yorsun?' sorusu \u0130spanyolcada nas\u0131l sorulur? (informal)",o:["\u00bfA qu\u00e9 te dedicas?", "\u00bfTienes trabajo?", "\u00bfD\u00f3nde trabajas?", "\u00bfCu\u00e1l es tu trabajo?"],a:0,exp:"'\u00bfA qu\u00e9 te dedicas?' = ne i\u015f yap\u0131yorsun? / ne ile u\u011fra\u015f\u0131yorsun?",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfC\u00f3mo te llamas? \u2014 ______",o:["Me llamo Ana.", "Vivo en Valencia.", "Tengo 25 a\u00f1os.", "Soy de Barcelona."],a:0,exp:"'\u00bfC\u00f3mo te llamas?' = ad\u0131n ne? \u2192 'Me llamo Ana' = ad\u0131m Ana.",es:"",tr:"",en:""},
+{t:"mc",q:"'Vive en Madrid' c\u00fcmlesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Biz Madrid'de ya\u015f\u0131yoruz.", "O Madrid'e gidiyor.", "Ben Madrid'de ya\u015f\u0131yorum.", "O Madrid'de ya\u015f\u0131yor."],a:3,exp:"'Vive en' = ...de ya\u015f\u0131yor. Formal tan\u0131t\u0131mda usted i\u00e7in de kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"Diyalogu tamamlay\u0131n: \u2014 \u00bfA qu\u00e9 te dedicas? \u2014 ______",o:["Soy profesora.", "Vivo en Barcelona.", "Soy de M\u00e9xico.", "Tengo 28 a\u00f1os."],a:0,exp:"'\u00bfA qu\u00e9 te dedicas?' = ne i\u015f yap\u0131yorsun? \u2192 'Soy + profesi\u00f3n' yap\u0131s\u0131yla cevap verilir.",es:"",tr:"",en:""},
+{t:"mc",q:"'Es m\u00fasico' ve 'Soy m\u00fasico' aras\u0131ndaki fark nedir?",o:["Soy = ben m\u00fczisyenim (1. tekil), Es = o m\u00fczisyen (3. tekil).", "Anlam olarak tamamen farkl\u0131d\u0131r.", "Es daha resmidir.", "Soy daha resmidir."],a:0,exp:"SER: soy = yo (ben), es = \u00e9l/ella/usted. Formal tan\u0131t\u0131mda ba\u015fkas\u0131 i\u00e7in 'es' kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"'Es espa\u00f1ola' ve 'Soy espa\u00f1ola' aras\u0131ndaki fark nedir?",o:["Es formal, Soy informal.", "Anlam ayn\u0131d\u0131r.", "Es \u00e7o\u011ful, Soy tekil.", "Es = 3. tekil 'o', Soy = 1. tekil 'ben'."],a:3,exp:"SER: soy = yo (ben), es = \u00e9l/ella/usted (o/siz resmi).",es:"",tr:"",en:""},
+{t:"mc",q:"'Es el 530 219 492' ifadesinin T\u00fcrk\u00e7e anlam\u0131 nedir?",o:["Posta kodu 530 219 492'dir.", "O 530 219 492 adreste oturuyor.", "Telefon numaras\u0131 530 219 492'dir.", "Oda numaras\u0131 530 219 492'dir."],a:2,exp:"Telefon numaras\u0131n\u0131 belirtirken 'Es el + numara' yap\u0131s\u0131 kullan\u0131l\u0131r.",es:"",tr:"",en:""},
+{t:"mc",q:"A\u015fa\u011f\u0131daki sorular\u0131n hangisi 'ikamet' ile ilgilidir?",o:["\u00bfC\u00f3mo te llamas?", "\u00bfD\u00f3nde vives?", "\u00bfDe d\u00f3nde eres?", "\u00bfCu\u00e1ntos a\u00f1os tienes?"],a:1,exp:"'\u00bfD\u00f3nde vives?' ikamet sorusudur. '\u00bfDe d\u00f3nde eres?' ise milliyet sorusudur.",es:"",tr:"",en:""},
+{t:"mc",q:"'\u00bfC\u00f3mo te llamas?' sorusu hangi konu kategorisine girer?",o:["El nombre", "La edad", "La profesi\u00f3n", "La residencia"],a:0,exp:"'\u00bfC\u00f3mo te llamas?' = ad\u0131n ne? \u2192 El nombre (isim) kategorisine girer.",es:"",tr:"",en:""}
+];
+
+let cur=0,score=0,err=0,wrongList=[],state=new Array(Q.length).fill(null);
+
+function startQuiz(){
+  const n=document.getElementById('introName').value;
+  if(!n){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in!');return;}
+  window._introName=n;
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  render();
+}
+
+function render(){
+  document.getElementById('progFill').style.width=((cur/Q.length)*100)+'%';
+  document.getElementById('progLabel').textContent=(cur+1)+' / '+Q.length;
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  const q=Q[cur];
+  document.getElementById('qArea').innerHTML=WARN+(q.t==='mc'?buildMC(q,cur):buildFill(q,cur));
+  if(state[cur]!==null)restoreState(cur);
+}
+
+function buildMC(q,i){
+  return'<div class="q-card"><div class="q-num">SORU '+(i+1)+'</div><span class="q-type-badge badge-mc">\u00c7OKTAN SE\u00c7MEL\u0130</span><div class="q-text">'+q.q+'</div><div class="choices" id="ch'+i+'">'+
+  q.o.map((o,j)=>'<button class="choice-btn" id="cb'+i+'_'+j+'" onclick="answerMC('+i+','+j+')"><span class="cletter">'+'abcd'[j]+'</span>'+o+'</button>').join('')+
+  '</div><div class="explanation" id="exp'+i+'"></div>'+navRow(i)+'</div>';
+}
+
+function buildFill(q,i){
+  return'<div class="q-card"><div class="q-num">SORU '+(i+1)+'</div><span class="q-type-badge badge-fill">BO\u015eLUK DOLDURMA</span><div class="q-text">'+q.q+'</div><div class="fill-wrap"><input class="fill-input" id="fi'+i+'" placeholder="Cevab\u0131n\u0131z\u0131 yaz\u0131n..." onkeydown="if(event.key===\'Enter\')answerFill('+i+')"><button class="fill-submit" id="fs'+i+'" onclick="answerFill('+i+')">Kontrol Et \u2192</button></div><div class="explanation" id="exp'+i+'"></div>'+navRow(i)+'</div>';
+}
+
+function navRow(i){
+  return'<div class="nav-row"><button class="nav-btn" onclick="skipQ()" '+(state[i]!==null?'disabled':'')+'>Atla</button><button class="nav-btn" onclick="prev()" '+(i===0?'disabled':'')+'>\u2190 Geri</button><button class="nav-btn primary" onclick="next()">'+(i===Q.length-1?'Bitir \u2713':'\u0130leri \u2192')+'</button></div>';
+}
+
+function showExp(i,ok){
+  const q=Q[i],el=document.getElementById('exp'+i);
+  if(!el)return;
+  el.className='explanation show '+(ok?'exp-ok':'exp-err');
+  el.innerHTML=(ok?'\u2705 ':'\u274c Do\u011frusu: <strong>'+q.o[q.a]+'</strong><br>')+q.exp+'';
+}
+
+function answerMC(i,j){
+  if(state[i]!==null)return;
+  const q=Q[i],ok=j===q.a;
+  state[i]={chosen:q.o[j],correct:q.o[q.a],ok};
+  if(ok)score++;else{err++;wrongList.push({idx:i,chosen:q.o[j],correct:q.o[q.a]});}
+  for(let k=0;k<4;k++){
+    const b=document.getElementById('cb'+i+'_'+k);
+    if(!b)continue;b.disabled=true;
+    if(k===q.a)b.classList.add('correct');
+    else if(k===j&&!ok)b.classList.add('wrong');
+  }
+  showExp(i,ok);
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  if(allAnswered())setTimeout(showResult,700);
+}
+
+function answerFill(i){
+  const inp=document.getElementById('fi'+i);
+  if(!inp||state[i]!==null)return;
+  const user=inp.value.trim();if(!user)return;
+  const q=Q[i],ok=user.toLowerCase()===q.a.toLowerCase();
+  state[i]={chosen:user,correct:q.a,ok};
+  if(ok)score++;else{err++;wrongList.push({idx:i,chosen:user,correct:q.a});}
+  inp.classList.add(ok?'correct-input':'wrong-input');
+  inp.disabled=true;
+  document.getElementById('fs'+i).disabled=true;
+  if(!ok){const d=document.createElement('div');d.style.cssText='font-size:.8rem;color:#6c5ce7;margin-top:.3rem;font-weight:600;';d.textContent='Do\u011frusu: '+q.a;inp.parentNode.insertBefore(d,inp.nextSibling);}
+  showExp(i,ok);
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  if(allAnswered())setTimeout(showResult,700);
+}
+
+function restoreState(i){
+  const s=state[i],q=Q[i];if(!s)return;
+  if(q.t==='mc'){
+    for(let k=0;k<4;k++){const b=document.getElementById('cb'+i+'_'+k);if(!b)continue;b.disabled=true;if(k===q.a)b.classList.add('correct');else if(q.o[k]===s.chosen&&!s.ok)b.classList.add('wrong');}
+  }else{
+    const inp=document.getElementById('fi'+i);
+    if(inp){inp.value=s.chosen;inp.classList.add(s.ok?'correct-input':'wrong-input');inp.disabled=true;}
+    document.getElementById('fs'+i).disabled=true;
+    if(!s.ok){const d=document.createElement('div');d.style.cssText='font-size:.8rem;color:#6c5ce7;margin-top:.3rem;font-weight:600;';d.textContent='Do\u011frusu: '+q.a;if(inp)inp.parentNode.insertBefore(d,inp.nextSibling);}
+  }
+  showExp(i,s.ok);
+}
+
+function allAnswered(){return state.every(s=>s!==null);}
+function skipQ(){next();}
+function prev(){if(cur>0){cur--;render();}}
+function next(){if(cur<Q.length-1){cur++;render();}else showResult();}
+
+function showResult(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('result').style.display='block';
+  const pct=Math.round(score/Q.length*100);
+  window._lastPct=pct;
+  document.getElementById('resPct').textContent=pct;
+  document.getElementById('resIcon').textContent=pct>=90?'\u1f3c6':pct>=70?'\u1f389':pct>=50?'\u1f44f':'\u1f4da';
+  document.getElementById('stOk').textContent=score;
+  document.getElementById('stErr').textContent=err;
+  document.getElementById('stPct').textContent=pct;
+  document.getElementById('noticeBox').style.display='block';
+  document.getElementById('actionBtns').classList.add('show');
+  if(window._introName){
+    const sel=document.getElementById('studentName');
+    if(sel)for(let i=0;i<sel.options.length;i++)if(sel.options[i].text===window._introName){sel.selectedIndex=i;break;}
+  }
+  // \u00d6nceki onay s\u0131f\u0131rlans\u0131n (tekrar yap\u0131ld\u0131ysa)
+  document.getElementById('confirmBtn').disabled=false;
+  document.getElementById('confirmBtn').textContent='Onayla \u2713';
+  document.getElementById('studentName').disabled=false;
+  document.getElementById('sendStatus').style.display='none';
+  document.getElementById('summaryCard').style.display='none';
+  window.scrollTo(0,0);
+}
+
+function confirmName(){
+  const val=document.getElementById('studentName').value;
+  if(!val){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in!');return;}
+  const grup=GROUPS[val]||'A1.1';
+  const pct=window._lastPct;
+  document.getElementById('studentName').disabled=true;
+  document.getElementById('confirmBtn').disabled=true;
+  document.getElementById('confirmBtn').textContent='\u2713 Kaydedildi';
+  document.getElementById('summaryName').textContent=val;
+  document.getElementById('summaryOdev').textContent=ODEV_ADI+' \u00b7 '+grup;
+  document.getElementById('sumPuan').textContent=pct;
+  document.getElementById('sumDogru').textContent=score;
+  document.getElementById('sumYanlis').textContent=err;
+  document.getElementById('summaryCard').style.display='block';
+  const st=document.getElementById('sendStatus');
+  st.style.display='block';st.style.color='var(--muted)';st.textContent='\u23f3 Kaydediliyor...';
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ogrenci:val,grup:grup,odev:ODEV_ADI,puan:pct,dogru:score,yanlis:err})})
+  .then(()=>{st.style.display='none';})
+  .catch(()=>{st.style.color='var(--muted)';st.textContent='\u26a0\ufe0f Ba\u011flant\u0131 hatas\u0131, l\u00fctfen tekrar deneyin.';});
+}
+
+function toggleReview(){
+  const sec=document.getElementById('reviewSection');
+  const btn=document.querySelector('.btn-review');
+  if(sec.innerHTML&&sec.style.display!=='none'){sec.style.display='none';btn.textContent='\u1f50d Hatalar\u0131m\u0131 g\u00f6zden ge\u00e7ir';return;}
+  btn.textContent='\u25b2 Kapat';
+  if(wrongList.length===0){sec.innerHTML='<div class="review-title">\u1f389 Hi\u00e7 hata yok!</div>';sec.style.display='block';return;}
+  let h='<div class="review-title">\u274c Yanl\u0131\u015f Sorular ('+wrongList.length+')</div>';
+  wrongList.forEach(w=>{
+    const q=Q[w.idx];
+    h+='<div class="review-card"><div class="review-qnum">SORU '+(w.idx+1)+'</div><div class="review-q">'+q.q+'</div><div class="review-your">\u274c Cevab\u0131n\u0131z: '+w.chosen+'</div><div class="review-correct">\u2705 Do\u011fru: '+w.correct+'</div><div class="review-exp">'+q.exp+'<br><span style="font-style:italic;color:#1a5276">\u1f1ea\u1f1f8 '+q.es+'</span><br><strong style="color:#1a5276">\u1f1f9\u1f1f7 '+q.tr+'</strong><br><span style="color:#555">\u1f1ec\u1f1e7 '+q.en+'</span></div></div>';
+  });
+  sec.innerHTML=h;sec.style.display='block';sec.scrollIntoView({behavior:'smooth'});
+}
+
+function restart(){
+  cur=0;score=0;err=0;wrongList=[];state=new Array(Q.length).fill(null);
+  document.getElementById('result').style.display='none';
+  document.getElementById('reviewSection').innerHTML='';
+  document.getElementById('reviewSection').style.display='none';
+  document.getElementById('actionBtns').classList.remove('show');
+  document.getElementById('noticeBox').style.display='none';
+  document.querySelector('.btn-review').textContent='\u1f50d Hatalar\u0131m\u0131 g\u00f6zden ge\u00e7ir';
+  document.getElementById('quiz').style.display='block';
+  render();window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
