@@ -212,6 +212,8 @@ select:focus{border-color:#6c4eb8}
       <option value="Şenay Sezgin">Şenay Sezgin</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
+    
+    <div id="debugPanel" style="display:none;background:#f0f0f0;border:1px solid #ccc;border-radius:6px;padding:.5rem;font-size:.72rem;color:#333;margin-top:.5rem;word-break:break-all;font-family:monospace"></div>
     <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLIM EDIN</button>
     <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
     <div class="review-list" id="reviewList"></div>
@@ -340,7 +342,7 @@ function toggleReview(){
 
 function submitResult(){
   var name=document.getElementById('resName').value;
-  if(!name){alert('Lütfen adınızı seçin.');return;}
+  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
   var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
   var pct=total*2;if(pct>100)pct=100;
   var grup=GROUPS[name]||'A1.1';
@@ -351,15 +353,34 @@ function submitResult(){
   });
   document.getElementById('submitWarning').style.display='none';
   document.getElementById('submitMsg').style.display='block';
-  document.getElementById('submitMsg').textContent='Gönderiliyor...';
+  document.getElementById('submitMsg').style.background='#fff3cd';
+  document.getElementById('submitMsg').style.color='#856404';
+  document.getElementById('submitMsg').style.border='1px solid #ffc107';
+  document.getElementById('submitMsg').textContent='G\u00f6nderiliyor... (Grup: '+grup+')';
   document.getElementById('btnSubmit').disabled=true;
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:payload})
-    .then(function(){
-      document.getElementById('submitMsg').textContent=name+' öğrencisinin "'+ODEV_ADI+'" ödevi teslim edildi. Puan: '+pct+'/100.';
-    })
-    .catch(function(){
-      document.getElementById('submitMsg').textContent=name+' öğrencisinin "'+ODEV_ADI+'" ödevi teslim edildi. Puan: '+pct+'/100.';
-    });
+  var msgEl=document.getElementById('submitMsg');
+  document.getElementById('debugPanel').style.display='block';
+  document.getElementById('debugPanel').textContent='PAYLOAD: '+payload;
+
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'text/plain'},
+    body:payload
+  })
+  .then(function(){
+    msgEl.style.background='#e6f9f0';
+    msgEl.style.color='#1a5c3a';
+    msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' \u00f6\u011frencisinin "\u201c'+ODEV_ADI+'\u201d \u00f6devi teslim edildi. Puan: '+pct+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';
+    msgEl.style.color='#8b1a1a';
+    msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message+' | Payload: '+payload;
+    document.getElementById('btnSubmit').disabled=false;
+  });
 }
 </script>
 </body>
