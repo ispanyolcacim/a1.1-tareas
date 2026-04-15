@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1.1 4. Hafta Ödevi | 15-16. Ders</title>
+<style>
+:root {
+  --primary: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-dark: #5b21b6;
+  --primary-bg: #f5f3ff;
+  --accent: #c4b5fd;
+  --success: #059669;
+  --success-bg: #d1fae5;
+  --error: #dc2626;
+  --error-bg: #fee2e2;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --text: #1e1b4b;
+  --text-muted: #6b7280;
+  --border: #ddd6fe;
+  --white: #ffffff;
+  --radius: 16px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(124,58,237,0.10);
+  --shadow-lg: 0 8px 40px rgba(124,58,237,0.18);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #ddd6fe 100%);
+  min-height: 100vh;
+  color: var(--text);
+}
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+#cover { align-items: center; justify-content: flex-start; padding: 24px 16px 32px; }
+.cover-inner { width: 100%; max-width: 520px; margin: 0 auto; }
+.pill-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  padding: 6px 18px; border-radius: 999px; margin-bottom: 18px; text-transform: uppercase;
+}
+.cover-card {
+  background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  padding: 32px 28px 28px; margin-bottom: 22px; border: 1.5px solid var(--border);
+}
+.cover-title { font-size: 26px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px; letter-spacing: -0.02em; }
+.cover-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 18px; }
+.teacher-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--primary-bg); border: 1px solid var(--accent); border-radius: 999px;
+  padding: 5px 14px; font-size: 12px; font-weight: 600; color: var(--primary-dark); margin-bottom: 24px;
+}
+.student-list-label { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.student-select {
+  width: 100%; padding: 12px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 15px; color: var(--text); background: var(--white); outline: none; margin-bottom: 22px;
+  cursor: pointer; font-family: inherit;
+}
+.student-select:focus { border-color: var(--primary); }
+.start-btn {
+  width: 100%; padding: 15px;
+  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 0.04em; transition: opacity 0.15s;
+}
+.start-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.notice-bar {
+  background: var(--warning-bg); border: 1.5px solid #fcd34d; border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 12px; color: #92400e; line-height: 1.5; margin-bottom: 18px;
+}
+#quiz { padding: 0; flex-direction: column; }
+.quiz-header { background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%); padding: 14px 16px 10px; color: #fff; }
+.quiz-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.quiz-title-small { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; opacity: 0.92; }
+.score-badges { display: flex; gap: 8px; }
+.badge { background: rgba(255,255,255,0.18); border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; }
+.badge.correct { background: rgba(5,150,105,0.32); }
+.badge.wrong { background: rgba(220,38,38,0.32); }
+.progress-bar-wrap { background: rgba(255,255,255,0.22); border-radius: 999px; height: 6px; overflow: hidden; }
+.progress-bar { height: 100%; background: #fff; border-radius: 999px; transition: width 0.3s; }
+.progress-label { font-size: 11px; opacity: 0.82; margin-top: 4px; text-align: right; }
+.quiz-body { flex: 1; padding: 18px 16px 8px; overflow-y: auto; max-width: 600px; margin: 0 auto; width: 100%; }
+.q-number { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.q-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 18px; line-height: 1.6; }
+.input-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.answer-input {
+  flex: 1; min-width: 200px; padding: 12px 14px; border: 2px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 15px; color: var(--text); background: var(--white);
+  outline: none; transition: border-color 0.15s; font-family: inherit;
+}
+.answer-input:focus { border-color: var(--primary); }
+.answer-input.correct-input { border-color: var(--success); background: var(--success-bg); }
+.answer-input.wrong-input { border-color: var(--error); background: var(--error-bg); }
+.check-btn {
+  padding: 12px 20px; background: var(--primary); color: #fff; border: none;
+  border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: opacity 0.15s; white-space: nowrap;
+}
+.check-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.feedback-box { border-radius: var(--radius-sm); padding: 13px 15px; margin-bottom: 14px; display: none; font-size: 14px; line-height: 1.6; }
+.feedback-box.correct { background: var(--success-bg); border: 1.5px solid #6ee7b7; color: #065f46; }
+.feedback-box.wrong { background: var(--error-bg); border: 1.5px solid #fca5a5; color: #7f1d1d; }
+.feedback-label { font-weight: 800; margin-bottom: 4px; font-size: 15px; }
+.correct-answer-line { margin-top: 5px; font-size: 13px; }
+.explanation-box {
+  background: #f5f3ff; border: 1.5px solid var(--accent); border-radius: var(--radius-sm);
+  padding: 12px 14px; margin-top: 8px; font-size: 13px; color: var(--primary-dark); line-height: 1.65;
+}
+.explanation-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 5px; }
+.nav-row { display: flex; gap: 8px; padding: 14px 16px 20px; max-width: 600px; margin: 0 auto; width: 100%; flex-wrap: wrap; }
+.nav-btn {
+  flex: 1; min-width: 60px; padding: 12px 8px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--white); font-size: 14px; font-weight: 600; color: var(--primary-dark);
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.nav-btn.next-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
+.nav-btn.finish-btn { background: #059669; color: #fff; border-color: #059669; }
+.nav-btn.end-btn { background: #7f1d1d; color: #fff; border-color: #7f1d1d; flex: 2; }
+#result { padding: 0; align-items: stretch; }
+.result-inner { max-width: 600px; margin: 0 auto; width: 100%; padding: 24px 16px 40px; }
+.result-header-banner {
+  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff; border-radius: var(--radius); padding: 24px 22px 20px; margin-bottom: 20px; text-align: center;
+}
+.result-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.result-student-name { font-size: 15px; opacity: 0.88; margin-bottom: 14px; }
+.result-score-big { font-size: 52px; font-weight: 900; line-height: 1; }
+.result-score-sub { font-size: 14px; opacity: 0.80; margin-top: 4px; }
+.result-stats { display: flex; gap: 10px; margin-bottom: 18px; }
+.stat-card { flex: 1; background: var(--white); border-radius: var(--radius-sm); padding: 14px 10px; text-align: center; border: 1.5px solid var(--border); box-shadow: var(--shadow); }
+.stat-num { font-size: 26px; font-weight: 800; color: var(--primary-dark); }
+.stat-num.green { color: var(--success); }
+.stat-num.red { color: var(--error); }
+.stat-label { font-size: 11px; color: var(--text-muted); margin-top: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.submit-warning {
+  background: #fef9c3; border: 2px solid #facc15; border-radius: var(--radius-sm);
+  padding: 16px 18px; text-align: center; font-size: 15px; font-weight: 700; color: #78350f; margin-bottom: 18px;
+}
+.submit-btn-big {
+  width: 100%; padding: 18px;
+  background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 18px; font-weight: 800; cursor: pointer; letter-spacing: 0.04em;
+  margin-bottom: 18px; box-shadow: 0 4px 20px rgba(5,150,105,0.3); transition: opacity 0.15s;
+}
+.submit-btn-big:disabled { opacity: 0.5; cursor: not-allowed; }
+.submitted-msg {
+  display: none; background: var(--success-bg); border: 1.5px solid #6ee7b7;
+  border-radius: var(--radius-sm); padding: 16px; text-align: center;
+  font-size: 15px; font-weight: 700; color: #065f46; margin-bottom: 18px;
+}
+.review-section { margin-top: 20px; }
+.review-section-title { font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.review-item { background: var(--white); border-radius: var(--radius-sm); border: 1.5px solid var(--border); padding: 14px; margin-bottom: 12px; }
+.review-q-num { font-size: 11px; color: var(--primary); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+.review-q-text { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.review-your-ans { font-size: 13px; color: var(--error); margin-bottom: 4px; }
+.review-correct-ans { font-size: 13px; color: var(--success); font-weight: 700; margin-bottom: 6px; }
+.review-explanation { font-size: 12px; color: var(--primary-dark); background: var(--primary-bg); border-radius: 6px; padding: 8px 10px; }
+.result-student-section { margin-top: 20px; }
+.result-student-label { font-size: 13px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.result-student-list { display: flex; flex-direction: column; gap: 5px; }
+.result-student-item { padding: 9px 14px; border-radius: var(--radius-sm); background: var(--primary-bg); border: 1.5px solid var(--border); font-size: 14px; color: var(--primary-dark); font-weight: 500; }
+.result-student-item.active-student { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 700; }
+@media (max-width: 420px) {
+  .cover-card { padding: 22px 16px 18px; }
+  .cover-title { font-size: 21px; }
+  .result-score-big { font-size: 40px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cover" class="screen active">
+  <div class="cover-inner">
+    <div class="pill-badge">4. HAFTA ÖDEVİ | A1.1 (15-16. DERS)</div>
+    <div class="cover-card">
+      <div class="cover-title">GENEL TEKRAR</div>
+      <div class="cover-sub">90 soru · Boşluk Doldurma</div>
+      <div class="teacher-tag">@ispanyolcacim · Profe Hazel</div>
+      <div class="notice-bar">Eğer bu sekmeyi bilgisayarınızda ya da telefonunuzda kapatmadan ara verirseniz kaldığınız yerden soruları çözmeye devam edebilirsiniz. Elbette ki cihazınızı da kapatmamanız gerekmektedir.</div>
+      <div class="student-list-label">Adınızı seçin</div>
+      <select class="student-select" id="studentSelect" onchange="onSelectChange()">
+        <option value="">-- Adınızı seçin --</option>
+      </select>
+      <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">Ödeve Başla</button>
+    </div>
+  </div>
+</div>
+
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-header-top">
+      <div class="quiz-title-small">GENEL TEKRAR — A1.1 4. Hafta</div>
+      <div class="score-badges">
+        <div class="badge correct" id="correctBadge">D: 0</div>
+        <div class="badge wrong" id="wrongBadge">Y: 0</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">1 / 90</div>
+  </div>
+  <div class="notice-bar" style="margin:10px 16px 0;max-width:600px;align-self:center;width:calc(100% - 32px);">Eğer bu sekmeyi bilgisayarınızda ya da telefonunuzda kapatmadan ara verirseniz kaldığınız yerden soruları çözmeye devam edebilirsiniz. Elbette ki cihazınızı da kapatmamanız gerekmektedir.</div>
+  <div class="quiz-body" id="quizBody"></div>
+  <div class="nav-row">
+    <button class="nav-btn" id="prevBtn" disabled onclick="goPrev()">Geri</button>
+    <button class="nav-btn" id="skipBtn" disabled onclick="goSkip()">Atla</button>
+    <button class="nav-btn next-btn" id="nextBtn" disabled onclick="goNext()">İleri</button>
+    <button class="nav-btn finish-btn" id="finishBtn" style="display:none" onclick="finishQuiz()">Sonucu Gör</button>
+    <button class="nav-btn end-btn" id="endBtn" onclick="confirmEnd()">Testi Bitir</button>
+  </div>
+</div>
+
+<div id="result" class="screen">
+  <div class="result-inner">
+    <div class="result-header-banner">
+      <div class="result-title">GENEL TEKRAR</div>
+      <div class="result-student-name" id="resultStudentName"></div>
+      <div class="result-score-big" id="resultScore">0</div>
+      <div class="result-score-sub" id="resultScoreSub"></div>
+    </div>
+    <div class="result-stats">
+      <div class="stat-card"><div class="stat-num green" id="statCorrect">0</div><div class="stat-label">Doğru</div></div>
+      <div class="stat-card"><div class="stat-num red" id="statWrong">0</div><div class="stat-label">Yanlış</div></div>
+      <div class="stat-card"><div class="stat-num" id="statTotal">90</div><div class="stat-label">Toplam</div></div>
+    </div>
+    <div class="submit-warning" id="submitWarning">ÖDEVİNİZ HENÜZ TESLİM EDİLMEDİ!</div>
+    <button class="submit-btn-big" id="submitBtn" onclick="submitHomework()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <div class="submitted-msg" id="submittedMsg"></div>
+    <div class="review-section">
+      <div class="review-section-title">Yanlış Cevaplanan Sorular</div>
+      <div id="reviewList"></div>
+    </div>
+    <div class="result-student-section">
+      <div class="result-student-label">Sınıf Listesi</div>
+      <div class="result-student-list" id="resultStudentList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var STUDENTS_DISPLAY = {
+  "A1.1": ["Birce S\u00fczen","B\u00fc\u015fra Yurt","Do\u011fa De\u011firmenci","Elif Ata\u00e7","Elif \u00c7etin","Eray Say\u0131l\u0131k","G\u00fclce Eyibilir","Harun \u00d6zmen","Mehtap Keklik","Seher Akbulat","Serra Sancakl\u0131 I\u015f\u0131k","Yasemin Kurtulu\u015f Tun\u00e7","Zehra R\u00fcmeysa \u00c7olak","Zeynep Hediye \u00d6zay","Zeynep Su Ali\u015fan"],
+  "A1.1(2)": ["Burakhan Kayd\u0131","Ecem Sukas","Elif Bozkurt","Eyl\u00fcl \u015eerbetci","Ezgican Tek\u00e7orap","Hilal Dilsiz","Meltem \u00c7ift\u00e7i","Merve Sa\u011flam","Meryem \u00d6zbek","R\u00fcmeysa Yatg\u0131n","\u015eenay Sezgin","\u015eeyma Dereci","Sonay \u00c7etinkaya","Zeynep \u00d6zta\u015fk\u0131n","Zeynep S\u00f6ylemez"],
+  "A1.1(3)": ["Buse Cagmel","B\u00fc\u015fra \u00c7am","Ceren Erdo\u011fan","Elif Atl\u0131","Emel Kanburoglu","Erdin\u00e7 Tigin Bilen","G\u00f6rkem Dursun","\u0130ncilay Dikb\u0131y\u0131k","Murat Erdem","Murat \u015eahin","Onur Atl\u0131","Ruh\u015fen \u00c7avu\u015fo\u011flu","Sedat Zincirk\u0131ran","Seher Er\u00e7in","Sibel Atmaca"]
+};
+
+var SCRIPT_URLS = {
+  "A1.1":    "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec",
+  "A1.1(2)": "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec",
+  "A1.1(3)": "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec"
+};
+
+var QUESTIONS = [
+  {n:1,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBen (Yo) otob\u00fcs dura\u011f\u0131nda bekleyebilirim. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Yo puedo esperar en la parada de autob\u00fas.",explanation:"\"Ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR yap\u0131s\u0131 kullan\u0131l\u0131r. \"Ben\" \u015fahs\u0131 i\u00e7in \"Yo puedo\" \u00e7ekimi yap\u0131l\u0131r. \"Durakt a\" anlam\u0131 i\u00e7in bulunma edat\u0131 olan en kullan\u0131lmal\u0131d\u0131r."},
+  {n:2,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSen (T\u00fa) k\u00fctp\u00fchanede ilgin\u00e7 bir kitap okumak istiyorsun. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"T\u00fa quieres leer un libro interesante en la biblioteca.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR kullan\u0131l\u0131r. \u0130spanyolcada s\u0131fatlar (interesante) genellikle isimden (libro) sonra gelir."},
+  {n:3,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - erkek (\u00c9l) bir bilet sat\u0131n almay\u0131 biliyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"\u00c9l sabe comprar un billete.",explanation:"Bir \u015feyi yapmay\u0131 bilmek (beceri) i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"Saber\" fiili \"\u00c9l\" \u015fahs\u0131na g\u00f6re \"sabe\" olarak \u00e7ekimlenir."},
+  {n:4,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - k\u0131z (Ella) tren istasyonundan \u00e7\u0131kmay\u0131 tercih ediyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ella prefiere salir de la estaci\u00f3n de tren.",explanation:"Tercih etmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. \"-den ayr\u0131lma\" anlam\u0131 i\u00e7in de edat\u0131 kullan\u0131l\u0131r (de la estaci\u00f3n)."},
+  {n:5,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSiz - nezaket (Usted) d\u00fcr\u00fcst olmay\u0131 tercih ediyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Usted prefiere ser honesto.",explanation:"\"Usted\" zamiri 3. tekil \u015fahs gibi \u00e7ekimlenir. Olmak (karakter \u00f6zelli\u011fi) i\u00e7in \"ser\" mastar\u0131 tercih edilir."},
+  {n:6,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBiz - erkek (Nosotros) parkta y\u00fcr\u00fcyebiliriz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Nosotros podemos caminar en el parque.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR yap\u0131s\u0131 kullan\u0131l\u0131r. \"Parkta\" bulunma anlam\u0131 verdi\u011fi i\u00e7in en edat\u0131 kullan\u0131l\u0131r: en el parque."},
+  {n:7,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSiz - erkek (Vosotros) s\u00fcpermarkette al\u0131\u015fveri\u015f yapmak istiyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Vosotros quer\u00e9is hacer la compra en el supermercado.",explanation:"\"Sizler\" (samimi) \u015fahs\u0131 i\u00e7in \"quer\u00e9is\" \u00e7ekimi kullan\u0131l\u0131r. \"En\" edat\u0131 konum belirtir."},
+  {n:8,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - erkek (Ellos) mektup yazmay\u0131 biliyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellos saben escribir cartas.",explanation:"Bir eylemi yapmay\u0131 bilmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. Genel bir beceri ifade edildi\u011fi i\u00e7in \"mektup\" kelimesi \u00e7o\u011ful ve belirsiz kullan\u0131l\u0131r: escribir cartas."},
+  {n:9,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - k\u0131z (Ellas) sar\u0131 bir elbise sat\u0131n almak istiyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellas quieren comprar un vestido amarillo.",explanation:"Renk s\u0131fatlar\u0131 isimden sonra gelir. \"Vestido\" eril oldu\u011fu i\u00e7in s\u0131fat \"amarillo\" olarak kal\u0131r."},
+  {n:10,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler (Ustedes) eczaneye gidebilirsiniz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ustedes pueden ir a la farmacia.",explanation:"\u00c7o\u011ful nezaket veya genel \"sizler\" i\u00e7in \"Ustedes\" kullan\u0131l\u0131r. Y\u00f6nelme i\u00e7in \"a la\" yap\u0131s\u0131 kullan\u0131l\u0131r."},
+  {n:11,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nS\u00fct olmadan kahve i\u00e7meyi tercih ederim. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Prefiero beber caf\u00e9 sin leche.",explanation:"\"-s\u0131z/-siz\" anlam\u0131 i\u00e7in sin edat\u0131 kullan\u0131l\u0131r. \"Prefiero\" \u00e7ekimi zaten \"Yo\" (ben) \u015fahs\u0131n\u0131 kar\u015f\u0131lar."},
+  {n:12,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nHavalimanr\u0131na gitmek i\u00e7in bir pasaporta ihtiyac\u0131m var. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Necesito un pasaporte para ir al aeropuerto.",explanation:"\"İhtiyacım var\" ifadesi i\u00e7in necesitar fiili kullan\u0131l\u0131r: necesito. Ama\u00e7 bildirmek i\u00e7in para + mastar kullan\u0131l\u0131r: para ir. \"A + el\" birle\u015ferek al olur: al aeropuerto."},
+  {n:13,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nZay\u0131f adam buralarda y\u00fcr\u00fcmeyi biliyor. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"El hombre delgado sabe caminar por aqu\u00ed.",explanation:"\"Delgado\" s\u0131fat\u0131 isimden sonra gelir. \"Por aqu\u00ed\" bir yer y\u00f6n kal\u0131b\u0131d\u0131r."},
+  {n:14,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\n\u015eehirde ye\u015fil bir a\u011fa\u00e7 g\u00f6rebilirsin. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Puedes ver un \u00e1rbol verde en la ciudad.",explanation:"\"Ver\" (g\u00f6rmek) fiili \"puedes\" (ebilmek-t\u00fa) ile birle\u015fmi\u015ftir."},
+  {n:15,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nKad\u0131n\u0131n \u00e7antas\u0131 masan\u0131n \u00fczerinde. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"El bolso de la mujer est\u00e1 en la mesa.",explanation:"\u0130sim tamla mas\u0131 olu\u015fturmak i\u00e7in de edat\u0131 kullan\u0131l\u0131r (Kad\u0131n\u0131n \u00e7antas\u0131: El bolso de la mujer)."},
+  {n:16,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\nBiz (Nosotros) g\u00fcnde iki kez s\u00fct i\u00e7mek istiyoruz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Nosotros queremos beber leche dos veces al d\u00eda.",explanation:"\"Dos veces\" (iki kez) kal\u0131b\u0131 ve \"querer + mastar\" yap\u0131s\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:17,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\nSen (T\u00fa) gordo (\u015fi\u015fman) bir k\u00f6pek g\u00f6rebilirsin. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"T\u00fa puedes ver un perro gordo.",explanation:"\"Poder + mastar\" yap\u0131s\u0131 ve s\u0131fat\u0131n isimden sonra gelme kural\u0131 uygulanm\u0131\u015ft\u0131r."},
+  {n:18,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - erkek (\u00c9l) sa\u011fl\u0131kl\u0131 olmay\u0131 tercih eder. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"\u00c9l prefiere estar sano.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. \"Sa\u011fl\u0131kl\u0131 olmak\" ge\u00e7ici durum olarak ifade edildi\u011fi i\u00e7in estar kullan\u0131l\u0131r: estar sano."},
+  {n:19,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\nSiz (Vosotros) buzdolab\u0131ndan bir elma alabilirsiniz (\u00e7\u0131kartabilirsiniz). (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Vosotros pod\u00e9is sacar una manzana de la nevera.",explanation:"\"-den\" anlam\u0131 i\u00e7in de edat\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:20,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar (Ellos) dikkatli y\u00fcr\u00fcmeyi biliyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellos saben caminar con cuidado.",explanation:"Bir eylemi yapmay\u0131 bilmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"Dikkatli bir \u015fekilde\" anlam\u0131 i\u00e7in con cuidado kullan\u0131l\u0131r."},
+  {n:21,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBen (Yo) turuncu bir \u015fi\u015fe sat\u0131n almak istiyorum. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Yo quiero comprar una botella naranja.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR yap\u0131s\u0131 kullan\u0131l\u0131r. \"Naranja\" (turuncu) kelimesi hem eril hem di\u015fil isimler i\u00e7in de\u011fi\u015fmez, ancak isimden sonra yaz\u0131l\u0131r."},
+  {n:22,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSen (T\u00fa) k\u00fctp\u00fchanede ilgin\u00e7 bir kitap okuyabilirsin. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"T\u00fa puedes leer un libro interesante en la biblioteca.",explanation:"\"Ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR yap\u0131s\u0131 kullan\u0131l\u0131r. Yer bildirmek i\u00e7in \"en\" edat\u0131, niteleme i\u00e7in ise isimden sonra gelen \"interesante\" s\u0131fat\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:23,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - erkek (\u00c9l) bir bilet sat\u0131n almay\u0131 biliyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"\u00c9l sabe comprar un billete.",explanation:"Bir eylemi yapmay\u0131 bilmek (beceri) i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"Saber\" fiili \"\u00c9l\" \u015fahs\u0131na g\u00f6re \"sabe\" olarak \u00e7ekimlenir."},
+  {n:24,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - k\u0131z (Ella) pembe bir elbise sat\u0131n almay\u0131 tercih ediyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ella prefiere comprar un vestido rosa.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. \"Rosa\" (pembe) s\u0131fat\u0131 isimden sonra gelir ve de\u011fi\u015fmez."},
+  {n:25,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSiz - nezaket (Usted) \u015fehirde y\u00fcr\u00fcyebilirsiniz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Usted puede caminar en la ciudad.",explanation:"\"Usted\" zamiri 3. tekil \u015fahs \u00e7ekimi al\u0131r. Bulunma anlam\u0131 i\u00e7in \"en\" edat\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:26,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBiz (Nosotros) s\u00fcpermarketten \u00e7\u0131kmak istiyoruz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Nosotros queremos salir del supermercado.",explanation:"Bir yerden ayr\u0131lma/\u00e7\u0131kma anlam\u0131nda \"salir de\" kullan\u0131l\u0131r. \"De\" edat\u0131 \"el supermercado\" ile birle\u015ferek del halini al\u0131r."},
+  {n:27,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - samimi/erkek (Vosotros) mektup yazmay\u0131 biliyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Vosotros sab\u00e9is escribir cartas.",explanation:"Bir eylemi yapmay\u0131 bilmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. Genel anlam verildi\u011fi i\u00e7in \"mektup\" \u00e7o\u011ful kullan\u0131l\u0131r: cartas."},
+  {n:28,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - erkek (Ellos) bankada beklemeyi tercih ediyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellos prefieren esperar en el banco.",explanation:"\"Preferir\" fiili \"onlar\" \u015fahs\u0131 i\u00e7in \"prefieren\" olur. \"Esperar\" (beklemek) mastar halindedir."},
+  {n:29,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - k\u0131z (Ellas) \u00fc\u00e7 kez k\u00fctp\u00fchaneye gidebilirler. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellas pueden ir a la biblioteca tres veces.",explanation:"\"Gidebilirler\" ifadesi i\u00e7in PODER + MASTAR (pueden ir) kullan\u0131l\u0131r. Y\u00f6nelme i\u00e7in \"a\" edat\u0131 eklenir."},
+  {n:30,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - nezaket (Ustedes) otob\u00fcs dura\u011f\u0131nda beklemek istiyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ustedes quieren esperar en la parada de autob\u00fas.",explanation:"\"Ustedes\" \u015fahs\u0131 3. \u00e7o\u011ful \u015fahs \u00e7ekimi (quieren) al\u0131r. \"Otob\u00fcs dura\u011f\u0131\" bir isim tamla mas\u0131d\u0131r: \"la parada de autob\u00fas\"."},
+  {n:31,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nS\u00fct olmadan kahve i\u00e7meyi tercih ederim. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Prefiero beber caf\u00e9 sin leche.",explanation:"Tercih etmek (Prefiero) ve i\u00e7mek (beber) fiilleri birle\u015fir. \"-siz/-s\u0131z\" anlam\u0131 katan sin edat\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:32,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOkumak i\u00e7in bir kitap sat\u0131n almak istiyorsun. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Quieres comprar un libro para leer.",explanation:"Ama\u00e7 bildirmek i\u00e7in PARA + MASTAR (para leer) yap\u0131s\u0131 c\u00fcmlenin sonuna eklenmi\u015ftir."},
+  {n:33,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nAdam\u0131n k\u00f6pe\u011fi caddede y\u00fcr\u00fcyebilir. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"El perro del hombre puede caminar en la calle.",explanation:"\"Adam\u0131n k\u00f6pe\u011fi\" tamamlas\u0131nda \"de + el\" birle\u015ferek del olmu\u015ftur. \"Poder + mastar\" yap\u0131s\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:34,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nK\u0131z \u00e7ocu\u011fu d\u00fcr\u00fcst olmak istiyor. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"La ni\u00f1a quiere ser honesta.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR kullan\u0131l\u0131r. \"D\u00fcr\u00fcst olmak\" ifadesi ser honesta \u015feklinde kullan\u0131l\u0131r."},
+  {n:35,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\n\u015eehir merkezine gitmeyi tercih ediyoruz. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Preferimos ir al centro de la ciudad.",explanation:"Y\u00f6nelme edat\u0131 \"a\", eril artikel \"el\" ile birle\u015ferek al olmu\u015ftur. \"\u015eehrin merkezi\" tamla mas\u0131 \"de la\" ile kurulur."},
+  {n:36,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nHavalimanr\u0131nda beklemek istiyorsunuz (vosotros). (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Quer\u00e9is esperar en el aeropuerto.",explanation:"\"Vosotros\" \u015fahs\u0131na g\u00f6re \"querer\" fiili quer\u00e9is olarak \u00e7ekimlenmi\u015ftir."},
+  {n:37,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nMavi bir \u00e7anta sat\u0131n alabilirler. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Pueden comprar un bolso azul.",explanation:"\"Onlar\" \u015fahs\u0131 i\u00e7in \"pueden\" \u00e7ekimi kullan\u0131l\u0131r. Renkler isimden sonra gelir."},
+  {n:38,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBuzdolab\u0131nda bir yumurta g\u00f6rebilirim. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Puedo ver un huevo en la nevera.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r: puedo ver. Yer belirtmek i\u00e7in bulunma edat\u0131 olan en kullan\u0131l\u0131r: en la nevera. \"Yumurta\" say\u0131labilir oldu\u011fu i\u00e7in un kullan\u0131l\u0131r."},
+  {n:39,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nD\u00f6rt kez k\u00fctp\u00fchaneye gidebilirsin. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Puedes ir a la biblioteca cuatro veces.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. \"D\u00f6rt kez\" ifadesi cuatro veces \u015feklinde kullan\u0131l\u0131r."},
+  {n:40,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSigara i\u00e7meden ya\u015famak sa\u011fl\u0131kl\u0131d\u0131r. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Vivir sin fumar es saludable.",explanation:"\"-meden\" anlam\u0131 i\u00e7in sin + mastar kullan\u0131l\u0131r: sin fumar. C\u00fcmle \u00f6zne olarak mastar (vivir) ile ba\u015flar."},
+  {n:51,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBen (Yo) k\u0131\u015f\u0131n evde olmay\u0131 tercih ederim. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Yo prefiero estar en casa en el invierno.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. Mevsimlerde \"-de\" anlam\u0131 i\u00e7in en kullan\u0131l\u0131r: en el invierno."},
+  {n:52,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSen (T\u00fa) bir macera ya\u015famak istiyorsun. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"T\u00fa quieres tener una aventura.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR kullan\u0131l\u0131r. \"Macera ya\u015famak\" ifadesi A1 seviyesinde tener una aventura \u015feklinde verilebilir."},
+  {n:53,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - erkek (\u00c9l) havalimanr\u0131na gitmeyi biliyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"\u00c9l sabe ir al aeropuerto.",explanation:"Bir yerin yolunu veya bir i\u015fi yapmay\u0131 bilmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"A + el\" birle\u015ferek al olur."},
+  {n:54,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - k\u0131z (Ella) ilkbaharda \u00e7i\u00e7ekleri g\u00f6rmeyi tercih ediyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ella prefiere ver las flores en la primavera.",explanation:"Mevsimlerde bulunma durumu i\u00e7in \"en\" edat\u0131 kullan\u0131l\u0131r. \"\u00c7i\u00e7ekler\" (las flores) \u00e7o\u011ful yap\u0131s\u0131yla kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:55,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSiz - nezaket (Usted) bir tavsiye verebilirsiniz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Usted puede dar un consejo.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. \"Tavsiye vermek\" ifadesi dar un consejo \u015feklinde kullan\u0131l\u0131r."},
+  {n:56,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBiz (Nosotros) ba\u015far\u0131ya ula\u015fmak i\u00e7in \u00e7al\u0131\u015fmak istiyoruz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Nosotros queremos trabajar para tener \u00e9xito.",explanation:"\"-mek i\u00e7in\" anlam\u0131 veren PARA + MASTAR yap\u0131s\u0131 kullan\u0131lm\u0131\u015ft\u0131r. \"Ba\u015far\u0131\" kelimesi \"el \u00e9xito\" olarak kullan\u0131l\u0131r."},
+  {n:57,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - samimi/erkek (Vosotros) bu dilde yazmay\u0131 biliyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Vosotros sab\u00e9is escribir en este idioma.",explanation:"Bir dilde yazmak i\u00e7in \"en\" edat\u0131 kullan\u0131l\u0131r. \"Saber\" fiili \"vosotros\" i\u00e7in sab\u00e9is olur."},
+  {n:58,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - erkek (Ellos) do\u011fada y\u00fcr\u00fcmeyi tercih ediyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellos prefieren caminar en la naturaleza.",explanation:"\"Do\u011fa\" kelimesi \"la naturaleza\" di\u015fil bir isimdir. \u00c7o\u011ful \u00e7ekim prefieren \u015feklinde yap\u0131l\u0131r."},
+  {n:59,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - k\u0131z (Ellas) bir problem olmadan seyahat edebilirler. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellas pueden viajar sin un problema.",explanation:"\"-s\u0131z/-siz\" anlam\u0131 katan sin edat\u0131 kullan\u0131lm\u0131\u015ft\u0131r. \"Problem\" kelimesi -a ile bitmesine ra\u011fmen erildir (el problema)."},
+  {n:60,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - nezaket (Ustedes) otelde (odada) bir ayna istiyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ustedes quieren un espejo en la habitaci\u00f3n.",explanation:"\"Ayna\" kelimesi \"el espejo\"dur. \"Ustedes\" \u015fahs\u0131 i\u00e7in fiil quieren \u015feklinde \u00e7ekimlenir."},
+  {n:61,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nAlkol i\u00e7meden ya\u015famay\u0131 tercih ederim. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Prefiero vivir sin beber alcohol.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. \"-meden\" anlam\u0131 i\u00e7in sin + mastar kullan\u0131l\u0131r: sin beber alcohol."},
+  {n:62,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOkumak i\u00e7in ilgin\u00e7 bir roman sat\u0131n almak istiyorsun. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Quieres comprar una novela interesante para leer.",explanation:"\"Novela\" (roman) di\u015fil oldu\u011fu i\u00e7in s\u0131fat de\u011fi\u015fmez (interesante). PARA + MASTAR ama\u00e7 bildirir."},
+  {n:63,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\n\u00c7ocuk(erkek) okulda bir bilgisayara sahip olabilir. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"El ni\u00f1o puede tener un ordenador en la escuela.",explanation:"\"Poder + Mastar\" yap\u0131s\u0131 ihtimal/yetenek bildirir. \"Ordenador\" bilgisayar demektir."},
+  {n:64,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nK\u0131z \u00e7ocu\u011fu bir d\u00f6vme sahibi olmak istiyor. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"La ni\u00f1a quiere tener un tatuaje.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR kullan\u0131l\u0131r. \"D\u00f6vme sahibi olmak\" ifadesi tener un tatuaje \u015feklinde verilir."},
+  {n:65,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\n\u015eehrin dezavantajlar\u0131n\u0131 bilmeyi tercih ediyoruz. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Preferimos saber las desventajas de la ciudad.",explanation:"\u0130sim tamla mas\u0131 i\u00e7in de la kullan\u0131lm\u0131\u015ft\u0131r. \"Desventaja\" kelimesi \u00e7o\u011ful yap\u0131lm\u0131\u015ft\u0131r."},
+  {n:66,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nHavalimanr\u0131ndan (vosotros) \u00e7\u0131kabilirsiniz. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Pod\u00e9is salir del aeropuerto.",explanation:"\"De + el\" birle\u015ferek del olmu\u015ftur. \"Pod\u00e9is\" ikinci \u00e7o\u011ful \u015fahs \u00e7ekimidir."},
+  {n:67,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar bir heykel g\u00f6rebilirler. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Pueden ver una estatua.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. \"Heykel\" kelimesi estatua olup di\u015fildir."},
+  {n:68,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nParkta y\u00fcr\u00fcmeyi biliyorum. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"S\u00e9 caminar en el parque.",explanation:"\"Bilmek\" anlam\u0131 i\u00e7in saber + mastar kullan\u0131l\u0131r: s\u00e9 caminar. Yer belirtmek i\u00e7in en kullan\u0131l\u0131r: en el parque."},
+  {n:69,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nHaftada bir kez bir film izleyebilirsin. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Puedes ver una pel\u00edcula una vez a la semana.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. \"Haftada bir kez\" ifadesi una vez a la semana \u015feklinde kurulur."},
+  {n:70,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nKameral\u0131y\u0131 kutunun i\u00e7inden (i\u00e7inden = de) \u00e7\u0131karmak istiyorsunuz (ustedes). (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Quieren sacar la c\u00e1mara de la caja.",explanation:"\"-den \u00e7\u0131karmak\" anlam\u0131nda \"sacar de\" kal\u0131b\u0131 kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:71,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBen (Yo) T\u00fcrk Liras\u0131 ile bir bilet sat\u0131n almak istiyorum. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Yo quiero comprar un billete con la lira turca.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR kullan\u0131l\u0131r. \"\u0130le\" anlam\u0131 i\u00e7in con kullan\u0131l\u0131r: con la lira turca."},
+  {n:72,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSen (T\u00fa) gece y\u0131ld\u0131zlar\u0131 g\u00f6rebilirsin. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"T\u00fa puedes ver las estrellas en la noche.",explanation:"\"Ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR (puedes ver) kullan\u0131l\u0131r. Zaman dilimlerinde (geceleyin) \"en la noche\" kal\u0131b\u0131 tercih edilir."},
+  {n:73,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - erkek (\u00c9l) buz olmadan bir bira i\u00e7meyi tercih eder. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"\u00c9l prefiere beber una cerveza sin hielo.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. \"-s\u0131z/-siz\" anlam\u0131 i\u00e7in sin edat\u0131 (sin hielo) kullan\u0131lm\u0131\u015ft\u0131r."},
+  {n:74,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - k\u0131z (Ella) bir enstr\u00fcman \u00e7almay\u0131 (kullanmay\u0131) biliyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ella sabe usar un instrumento.",explanation:"Bir yetene\u011fi ifade etmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"Instrumento\" eril bir isimdir."},
+  {n:75,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSiz - nezaket (Usted) parktaki heykeli g\u00f6rebilirsiniz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Usted puede ver la estatua en el parque.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. \"Parktaki\" ifadesi bulunma anlam\u0131 verdi\u011fi i\u00e7in en kullan\u0131l\u0131r: en el parque."},
+  {n:76,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBiz (Nosotros) para olmadan ya\u015famak istemiyoruz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Nosotros no queremos vivir sin dinero.",explanation:"Olumsuzluk i\u00e7in no fiilden \u00f6nce gelir. \"\u0130stemek\" i\u00e7in querer + mastar kullan\u0131l\u0131r. \"-s\u0131z/-siz\" anlam\u0131 i\u00e7in sin kullan\u0131l\u0131r: sin dinero."},
+  {n:77,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - samimi/erkek (Vosotros) beyaz k\u0131yafetler sat\u0131n almay\u0131 tercih ediyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Vosotros prefer\u00eds comprar ropa blanca.",explanation:"\"Preferir\" fiili \"vosotros\" i\u00e7in prefer\u00eds (tildeli) olur. \"Ropa\" kelimesi \u0130spanyolcada genellikle tekil kullan\u0131l\u0131r, s\u0131fat (blanca) ona uyar."},
+  {n:78,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - erkek (Ellos) bilgisayarda bir mesaj yazmay\u0131 biliyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellos saben escribir un mensaje en el ordenador.",explanation:"\"Saber + Mastar\" yap\u0131s\u0131 kullan\u0131lm\u0131\u015ft\u0131r. \"Mensaje\" eril bir isimdir."},
+  {n:79,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - k\u0131z (Ellas) bir \u015femsiye ile y\u00fcr\u00fcmek istiyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellas quieren caminar con un paraguas.",explanation:"\"Paraguas\" kelimesi -s ile bitmesine ra\u011fmen tekildir ve erildir (un paraguas)."},
+  {n:80,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - nezaket (Ustedes) r\u00fczgar\u0131 duyabilirsiniz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ustedes pueden escuchar el viento.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. \"Duymak\" fiili escuchar ile ifade edilir."},
+  {n:81,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nK\u00fctp\u00fchanede bir roman okumak istiyorum. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Quiero leer una novela en la biblioteca.",explanation:"\"Quiero\" \u00e7ekimi \"Yo\" \u015fahs\u0131n\u0131 kar\u015f\u0131lar. \"Novela\" di\u015fil bir isimdir."},
+  {n:82,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nHavalimanr\u0131nda bir ajans g\u00f6rebilirsin. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Puedes ver una agencia en el aeropuerto.",explanation:"\"Poder + Mastar\" yap\u0131s\u0131 kullan\u0131lm\u0131\u015ft\u0131r. Havalimanr\u0131 (aeropuerto) eril oldu\u011fu i\u00e7in \"en el\" kullan\u0131l\u0131r."},
+  {n:83,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSabah bir yumurta yemeyi tercih eder. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Prefiere comer un huevo en la ma\u00f1ana.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. \"Yemek\" fiili comer ile ifade edilir."},
+  {n:84,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nRehberi okumay\u0131 biliyor. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Sabe leer la gu\u00eda.",explanation:"Bir eylemi yapmay\u0131 bilmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"Okumak\" fiili leer ile ifade edilir."},
+  {n:85,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nYaz\u0131n do\u011fay\u0131 g\u00f6rmek istiyoruz. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Queremos ver la naturaleza en el verano.",explanation:"\"Queremos\" biz \u015fahs\u0131n\u0131 ifade eder. Mevsim belirtirken \"en el\" kullan\u0131l\u0131r."},
+  {n:86,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nA\u011fa\u00e7larda r\u00fczgar\u0131 duyabilirsiniz (vosotros). (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Pod\u00e9is escuchar el viento en los \u00e1rboles.",explanation:"\"Árbol\" kelimesi \u00e7o\u011ful yap\u0131larak \"\u00e1rboles\" olmu\u015ftur. \"Pod\u00e9is\" ikinci \u00e7o\u011ful \u015fahs \u00e7ekimidir."},
+  {n:87,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\n\u015eehirde bir kariyer sahibi olmay\u0131 tercih ediyorlar. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Prefieren tener una carrera en la ciudad.",explanation:"\"Preferir\" fiili 3. \u00e7o\u011ful \u015fahs \u00e7ekimi (prefieren) alm\u0131\u015ft\u0131r. \"Carrera\" (kariyer) di\u015fil bir isimdir."},
+  {n:88,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSamimi olmak iyidir. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Es bueno ser sincero.",explanation:"Genel yarg\u0131 bildiren c\u00fcmlelerde es bueno + mastar yap\u0131s\u0131 kullan\u0131l\u0131r. \"Samimi olmak\" ifadesi ser sincero \u015feklinde verilir."},
+  {n:89,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBir arkada\u015f ile ye\u015fil \u00e7ay i\u00e7ebilirim. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Puedo beber un t\u00e9 verde con un amigo.",explanation:"\"Puedo\" birinci tekil \u015fahs\u0131 kar\u015f\u0131lar. \"T\u00e9 verde\" tamla mas\u0131nda s\u0131fat isimden sonra gelir."},
+  {n:90,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nGece istasyondan \u00e7\u0131kmak istiyorsun. (\u00d6zne belirtmeden cevab\u0131n\u0131z\u0131 yaz\u0131n)",answer:"Quieres salir de la estaci\u00f3n en la noche.",explanation:"Ayr\u0131lma anlam\u0131 i\u00e7in de edat\u0131 kullan\u0131lm\u0131\u015ft\u0131r (salir de). Zaman ifadesi olarak \"en la noche\" eklenmi\u015ftir."},
+  {n:91,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBen (Yo) restoranda bir bira i\u00e7meyi tercih ederim. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Yo prefiero beber una cerveza en el restaurante.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR yap\u0131s\u0131 kullan\u0131l\u0131r. \"Cerveza\" di\u015fil, \"restaurante\" eril bir isimdir."},
+  {n:92,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSen (T\u00fa) \u00e7al\u0131\u015fmak i\u00e7in bir laptop (port\u00e1til) sat\u0131n almak istiyorsun. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"T\u00fa quieres comprar un port\u00e1til para trabajar.",explanation:"Ama\u00e7 bildirmek i\u00e7in PARA + MASTAR (para trabajar) yap\u0131s\u0131 kullan\u0131l\u0131r. \u0130stek i\u00e7in \"Querer\" fiili \u00e7ekimlenmi\u015ftir."},
+  {n:93,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - erkek (\u00c9l) kalede r\u00fczgar\u0131 duyabilir. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"\u00c9l puede escuchar el viento en el castillo.",explanation:"\"-ebilmek\" anlam\u0131 i\u00e7in PODER + MASTAR kullan\u0131l\u0131r. Yer belirtmek i\u00e7in en kullan\u0131l\u0131r: en el castillo."},
+  {n:94,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nO - k\u0131z (Ella) derste (clase) bir enstr\u00fcman kullanmay\u0131 biliyor. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ella sabe usar un instrumento en la clase.",explanation:"Bir yetene\u011fi ifade etmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"En la clase\" ifadesi bulunma hali bildirir."},
+  {n:95,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSiz - nezaket (Usted) bir kutlama yapmak istiyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Usted quiere hacer una celebraci\u00f3n.",explanation:"\u0130stek belirtmek i\u00e7in QUERER + MASTAR kullan\u0131l\u0131r. \"Kutlama yapmak\" ifadesi hacer una celebraci\u00f3n \u015feklinde kullan\u0131l\u0131r."},
+  {n:96,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nBiz (Nosotros) yolculuk i\u00e7in bir \u00e7anta sat\u0131n almay\u0131 tercih ediyoruz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Nosotros preferimos comprar un bolso para el viaje.",explanation:"Tercih belirtmek i\u00e7in PREFERIR + MASTAR kullan\u0131l\u0131r. Ama\u00e7 bildirmek i\u00e7in para + isim kullan\u0131l\u0131r: para el viaje."},
+  {n:97,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - samimi/erkek (Vosotros) ma\u011farada (cueva) y\u0131ld\u0131zlar\u0131 g\u00f6rebilirsiniz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Vosotros pod\u00e9is ver las estrellas en la cueva.",explanation:"\"Pod\u00e9is\" ikinci \u00e7o\u011ful \u015fahs \u00e7ekimidir. \"Estrellas\" \u00e7o\u011ful ve di\u015fil oldu\u011fu i\u00e7in \"las\" artikeli al\u0131r."},
+  {n:98,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - erkek (Ellos) k\u0131z\u0131n ya\u015f\u0131n\u0131 bilmek istiyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellos quieren saber la edad de la ni\u00f1a.",explanation:"\u0130sim tamla mas\u0131 (k\u0131z\u0131n ya\u015f\u0131) i\u00e7in de la yap\u0131s\u0131 kullan\u0131lm\u0131\u015ft\u0131r. \"Saber\" fiili bilgi edinmek anlam\u0131ndad\u0131r."},
+  {n:99,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nOnlar - k\u0131z (Ellas) durakt a (parada) beklemeyi biliyorlar. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ellas saben esperar en la parada.",explanation:"\"Saber + Mastar\" yap\u0131s\u0131 bir eylemi yapmay\u0131 bilmek anlam\u0131ndad\u0131r. \"En\" edat\u0131 konum bildirir."},
+  {n:100,text:"A\u015fa\u011f\u0131daki c\u00fcmleyi \u0130spanyolcaya \u00e7eviriniz.\n(Tilde duyarl\u0131l\u0131\u011f\u0131 vard\u0131r, l\u00fctfen tildelerinize dikkat ediniz.)\nSizler - nezaket (Ustedes) telefonsuz ya\u015famay\u0131 biliyorsunuz. (L\u00fctfen \u00f6zne kullan\u0131n)",answer:"Ustedes saben vivir sin un celular.",explanation:"Bir eylemi yapmay\u0131 bilmek i\u00e7in SABER + MASTAR kullan\u0131l\u0131r. \"-s\u0131z/-siz\" anlam\u0131 i\u00e7in sin kullan\u0131l\u0131r: sin un celular."}
+];
+
+var TOTAL = QUESTIONS.length;
+var selectedStudent = null, selectedGroup = null;
+var currentIndex = 0, answers = {}, checked = {};
+var correctCount = 0, wrongCount = 0, submitted = false;
+
+function buildStudentDropdown() {
+  var all = [];
+  ['A1.1','A1.1(2)','A1.1(3)'].forEach(function(grp) {
+    STUDENTS_DISPLAY[grp].forEach(function(name) { all.push({name:name,group:grp}); });
+  });
+  all.sort(function(a,b){ return a.name.localeCompare(b.name,'tr'); });
+  var sel = document.getElementById('studentSelect');
+  all.forEach(function(s) {
+    var opt = document.createElement('option');
+    opt.value = s.name + '|||' + s.group;
+    opt.textContent = s.name;
+    sel.appendChild(opt);
+  });
+}
+
+function onSelectChange() {
+  var val = document.getElementById('studentSelect').value;
+  if (!val) { selectedStudent = null; selectedGroup = null; document.getElementById('startBtn').disabled = true; return; }
+  var parts = val.split('|||');
+  selectedStudent = parts[0]; selectedGroup = parts[1];
+  document.getElementById('startBtn').disabled = false;
+}
+
+function startQuiz() {
+  currentIndex = 0; answers = {}; checked = {}; correctCount = 0; wrongCount = 0; submitted = false;
+  showScreen('quiz'); renderQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+function renderQuestion() {
+  var q = QUESTIONS[currentIndex];
+  var pct = Math.round((currentIndex / TOTAL) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = (currentIndex+1) + ' / ' + TOTAL;
+  document.getElementById('correctBadge').textContent = 'D: ' + correctCount;
+  document.getElementById('wrongBadge').textContent = 'Y: ' + wrongCount;
+  var alreadyChecked = checked[currentIndex] !== undefined;
+  var qTextHtml = esc(q.text).replace(/\n/g,'<br>');
+  document.getElementById('quizBody').innerHTML =
+    '<div class="q-number">Soru ' + q.n + ' / ' + TOTAL + '</div>' +
+    '<div class="q-text">' + qTextHtml + '</div>' +
+    '<div class="input-row">' +
+      '<input type="text" class="answer-input" id="answerInput" placeholder="Cevab\u0131n\u0131z\u0131 buraya yaz\u0131n..." value="' + escA(answers[currentIndex]||'') + '"' +
+        (alreadyChecked?' disabled':'') + ' autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>' +
+      '<button class="check-btn" id="checkBtn" onclick="checkAnswer()"' + (alreadyChecked?' disabled':'') + '>Kontrol Et</button>' +
+    '</div>' +
+    '<div class="feedback-box ' + (alreadyChecked?(checked[currentIndex]?'correct':'wrong'):'') + '" id="feedbackBox" style="display:' + (alreadyChecked?'block':'none') + '">' +
+      (alreadyChecked?buildFeedback(q,checked[currentIndex]):'') +
+    '</div>';
+  if (alreadyChecked) {
+    document.getElementById('answerInput').classList.add(checked[currentIndex]?'correct-input':'wrong-input');
+  }
+  updateNavButtons(alreadyChecked);
+}
+
+function buildFeedback(q, isCorrect) {
+  var expHtml = esc(q.explanation).replace(/\n/g,'<br>');
+  if (isCorrect) {
+    return '<div class="feedback-label">Do\u011fru!</div>' +
+      '<div class="explanation-label" style="margin-top:8px">A\u00e7\u0131klama</div>' +
+      '<div class="explanation-box">' + expHtml + '</div>';
+  } else {
+    return '<div class="feedback-label">Yanl\u0131\u015f!</div>' +
+      '<div class="correct-answer-line">Do\u011fru cevap: <strong>' + esc(q.answer) + '</strong></div>' +
+      '<div class="explanation-label" style="margin-top:8px">A\u00e7\u0131klama</div>' +
+      '<div class="explanation-box">' + expHtml + '</div>';
+  }
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escA(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function norm(s) {
+  return s.trim().toLowerCase()
+    .replace(/\u00e1/g,'a').replace(/\u00e9/g,'e').replace(/\u00ed/g,'i')
+    .replace(/\u00f3/g,'o').replace(/\u00fa/g,'u').replace(/\u00fc/g,'u')
+    .replace(/\u00f1/g,'n').replace(/\s+/g,' ');
+}
+
+function checkAnswer() {
+  var q = QUESTIONS[currentIndex];
+  var inp = document.getElementById('answerInput');
+  if (!inp.value.trim()) return;
+  answers[currentIndex] = inp.value;
+  var ok = norm(inp.value) === norm(q.answer);
+  checked[currentIndex] = ok;
+  if (ok) { correctCount++; inp.classList.add('correct-input'); }
+  else { wrongCount++; inp.classList.add('wrong-input'); }
+  inp.disabled = true;
+  document.getElementById('checkBtn').disabled = true;
+  var fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box ' + (ok?'correct':'wrong');
+  fb.innerHTML = buildFeedback(q, ok);
+  fb.style.display = 'block';
+  document.getElementById('correctBadge').textContent = 'D: ' + correctCount;
+  document.getElementById('wrongBadge').textContent = 'Y: ' + wrongCount;
+  updateNavButtons(true);
+}
+
+function updateNavButtons(unlocked) {
+  var isLast = currentIndex === TOTAL - 1;
+  var isFirst = currentIndex === 0;
+  document.getElementById('prevBtn').disabled = !unlocked || isFirst;
+  document.getElementById('skipBtn').disabled = !unlocked;
+  document.getElementById('nextBtn').disabled = !unlocked || isLast;
+  document.getElementById('nextBtn').style.display = isLast ? 'none' : 'inline-block';
+  document.getElementById('finishBtn').style.display = (unlocked && isLast) ? 'inline-block' : 'none';
+}
+
+function goPrev() { if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
+function goNext() { if (currentIndex < TOTAL-1) { currentIndex++; renderQuestion(); } }
+function goSkip() { if (currentIndex < TOTAL-1) { currentIndex++; renderQuestion(); } }
+function confirmEnd() {
+  if (confirm('Testi bitirmek istedi\u011finize emin misiniz?')) { finishQuiz(); }
+}
+function finishQuiz() { buildResultScreen(); showScreen('result'); }
+
+function buildResultScreen() {
+  var answered = Object.keys(checked).length;
+  var score = answered > 0 ? Math.round((correctCount / answered) * 100) : 0;
+  document.getElementById('resultStudentName').textContent = selectedStudent + ' (' + selectedGroup + ')';
+  document.getElementById('resultScore').textContent = '%' + score;
+  document.getElementById('resultScoreSub').textContent = correctCount + ' do\u011fru / ' + answered + ' cevaplanm\u0131\u015f (' + TOTAL + ' toplam soru)';
+  document.getElementById('statCorrect').textContent = correctCount;
+  document.getElementById('statWrong').textContent = wrongCount;
+  document.getElementById('statTotal').textContent = TOTAL;
+
+  var rl = document.getElementById('reviewList');
+  rl.innerHTML = '';
+  var hasWrong = false;
+  QUESTIONS.forEach(function(q, idx) {
+    if (checked[idx] === false) {
+      hasWrong = true;
+      var d = document.createElement('div');
+      d.className = 'review-item';
+      d.innerHTML = '<div class="review-q-num">Soru ' + q.n + '</div>' +
+        '<div class="review-q-text">' + esc(q.text).replace(/\n/g,'<br>') + '</div>' +
+        '<div class="review-your-ans">Sizin cevab\u0131n\u0131z: ' + esc(answers[idx]||'(bo\u015f)') + '</div>' +
+        '<div class="review-correct-ans">Do\u011fru cevap: ' + esc(q.answer) + '</div>' +
+        '<div class="review-explanation">' + esc(q.explanation).replace(/\n/g,'<br>') + '</div>';
+      rl.appendChild(d);
+    }
+  });
+  if (!hasWrong) rl.innerHTML = '<div style="color:var(--success);font-weight:700;padding:10px 0;">Tebrikler! Hi\u00e7 yanl\u0131\u015f yapmad\u0131n\u0131z.</div>';
+
+  var all = [];
+  ['A1.1','A1.1(2)','A1.1(3)'].forEach(function(grp) {
+    STUDENTS_DISPLAY[grp].forEach(function(n) { all.push(n); });
+  });
+  all.sort(function(a,b){ return a.localeCompare(b,'tr'); });
+  var rsl = document.getElementById('resultStudentList');
+  rsl.innerHTML = '';
+  all.forEach(function(name) {
+    var d = document.createElement('div');
+    d.className = 'result-student-item' + (name === selectedStudent ? ' active-student' : '');
+    d.textContent = name;
+    rsl.appendChild(d);
+  });
+}
+
+function submitHomework() {
+  if (submitted) return;
+  var answered = Object.keys(checked).length;
+  var score = answered > 0 ? Math.round((correctCount / answered) * 100) : 0;
+  var url = SCRIPT_URLS[selectedGroup] || SCRIPT_URLS['A1.1'];
+  var payload = {
+    odevAdi: 'A1.1 4. Hafta Odevi (15-16. Ders) - GENEL TEKRAR',
+    ogrenci: selectedStudent, grup: selectedGroup,
+    dogru: correctCount, yanlis: wrongCount, toplam: TOTAL,
+    cevaplanmis: answered, puan: score,
+    tarih: new Date().toLocaleString('tr-TR')
+  };
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'G\u00f6nderiliyor...';
+  var img = new Image();
+  img.src = url + '?callback=x&data=' + encodeURIComponent(JSON.stringify(payload));
+  setTimeout(function() {
+    submitted = true;
+    document.getElementById('submitWarning').style.display = 'none';
+    document.getElementById('submitBtn').style.display = 'none';
+    var msg = document.getElementById('submittedMsg');
+    msg.style.display = 'block';
+    msg.textContent = '\u00d6deviniz teslim edildi. Te\u015fekk\u00fcrler, ' + selectedStudent + '! (A1.1 4. Hafta \u00d6devi \u2014 15-16. Ders)';
+  }, 1800);
+}
+
+buildStudentDropdown();
+</script>
+</body>
+</html>
