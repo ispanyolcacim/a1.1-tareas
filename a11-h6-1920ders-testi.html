@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H6 – 19-20.Ders | A1.1 Ödevi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+.screen{display:none}.screen.active{display:block}
+.week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
+.intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
+.intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
+.intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1.5rem;font-weight:600}
+select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
+select:focus{border-color:#6c4eb8}
+.btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#5a3ea0}
+.prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:1rem}
+.cnt{padding:.2rem .6rem;border-radius:6px;font-weight:600}
+.cnt-ok{background:#e6f9f0;color:#2e9e6b}
+.cnt-err{background:#fde8e8;color:#d94040}
+.q-badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:.8rem;background:#e8e0f8;color:#6c4eb8}
+.q-text{font-size:.95rem;color:#333;line-height:1.7;margin-bottom:1rem;white-space:pre-wrap}
+.opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.opt-btn{text-align:left;padding:.7rem 1rem;border:2px solid #d0c8f0;border-radius:9px;background:#fff;cursor:pointer;font-size:.9rem;color:#333;transition:all .15s;font-family:inherit}
+.opt-btn:hover:not(:disabled){background:#f3effb;border-color:#9b7de0}
+.opt-btn.correct{background:#e6f9f0;border-color:#2e9e6b;color:#1a5c3a;font-weight:600}
+.opt-btn.wrong{background:#fde8e8;border-color:#d94040;color:#8b1a1a}
+.opt-btn:disabled{cursor:default}
+.fill-wrap{margin-bottom:1rem}
+.fill-input{width:100%;padding:.75rem 1rem;border:2px solid #d0c8f0;border-radius:9px;font-size:.95rem;font-family:inherit;color:#333;outline:none;transition:border-color .15s}
+.fill-input:focus{border-color:#6c4eb8}
+.fill-input.correct{border-color:#2e9e6b;background:#e6f9f0;color:#1a5c3a;font-weight:600}
+.fill-input.wrong{border-color:#d94040;background:#fde8e8;color:#8b1a1a}
+.fill-input:disabled{cursor:default}
+.btn-check{width:100%;padding:.7rem;background:#6c4eb8;color:#fff;border:none;border-radius:9px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:.75rem}
+.btn-check:hover{background:#5a3ea0}
+.btn-check:disabled{opacity:.4;cursor:not-allowed}
+.exp-box{display:none;background:#f8f5ff;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:.83rem;color:#444;line-height:1.7;white-space:pre-wrap;margin-bottom:1rem}
+.exp-box.show{display:block}
+.nav{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
+.btn-back{background:#e8e0f8;color:#6c4eb8}
+.btn-skip{background:#e8e0f8;color:#6c4eb8}
+.btn-next{background:#6c4eb8;color:#fff}
+.btn-finish{background:#e05c5c;color:#fff}
+.nav button:disabled{opacity:.4;cursor:not-allowed}
+.res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
+.res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
+.res-score{text-align:center;font-size:3.5rem;font-weight:800;color:#6c4eb8;margin:.75rem 0}
+.res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem}
+.res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
+.res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
+.submit-warning-sub{font-size:.85rem;color:#856404}
+.btn-submit{width:100%;padding:1.1rem;background:#2e9e6b;color:#fff;border:none;border-radius:10px;font-size:1.15rem;font-weight:800;cursor:pointer;margin-bottom:.75rem;letter-spacing:.3px;font-family:inherit}
+.btn-submit:hover{background:#257a55}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-review{width:100%;padding:.7rem;background:#e8e0f8;color:#6c4eb8;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.submit-msg{background:#e6f9f0;border:1px solid #b8f0d8;border-radius:8px;padding:.85rem;font-size:.9rem;color:#1a5c3a;display:none;margin-bottom:.75rem;text-align:center;font-weight:600;line-height:1.6}
+.review-list{display:none;flex-direction:column;gap:.75rem;margin-top:1rem}
+.rev-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;font-size:.82rem}
+.rev-q{font-weight:600;color:#333;margin-bottom:.3rem;white-space:pre-wrap}
+.rev-chosen{color:#d94040;margin-bottom:.2rem}
+.rev-correct{color:#2e9e6b;margin-bottom:.3rem;font-weight:600}
+.rev-exp{color:#555;line-height:1.7;white-space:pre-wrap}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.6}
+.confirm-btns{display:flex;gap:.75rem}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8}
+.btn-ok{background:#e05c5c;color:#fff}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- INTRO -->
+  <div id="introScreen" class="screen active">
+    <div class="week-pill">6. HAFTA ODEVi &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
+    <div class="intro-title">ESTAR SER TENER FiILLERi</div>
+    <div class="intro-sub">100 soru &middot; Karma (Her soru 1 puan)</div>
+    <div class="intro-teacher">@ispanyolcacim &bull; Profe Hazel</div>
+    <select id="introName">
+      <option value="">-- Adinizi Secin --</option>
+      <option value="Birce Süzen">Birce Süzen</option>
+      <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+      <option value="Buse Cagmel">Buse Cagmel</option>
+      <option value="Büşra Çam">Büşra Çam</option>
+      <option value="Büşra Yurt">Büşra Yurt</option>
+      <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+      <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+      <option value="Ecem Sukas">Ecem Sukas</option>
+      <option value="Elif Ataç">Elif Ataç</option>
+      <option value="Elif Atlı">Elif Atlı</option>
+      <option value="Elif Bozkurt">Elif Bozkurt</option>
+      <option value="Elif Çetin">Elif Çetin</option>
+      <option value="Emel Kanburoğlu">Emel Kanburoğlu</option>
+      <option value="Eray Sayılık">Eray Sayılık</option>
+      <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+      <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+      <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+      <option value="Görkem Dursun">Görkem Dursun</option>
+      <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+      <option value="Harun Özmen">Harun Özmen</option>
+      <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+      <option value="Mehtap Keklik">Mehtap Keklik</option>
+      <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+      <option value="Merve Sağlam">Merve Sağlam</option>
+      <option value="Meryem Özbek">Meryem Özbek</option>
+      <option value="Murat Erdem">Murat Erdem</option>
+      <option value="Murat Şahin">Murat Şahin</option>
+      <option value="Onur Atlı">Onur Atlı</option>
+      <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+      <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+      <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+      <option value="Seher Akbulat">Seher Akbulat</option>
+      <option value="Seher Erçin">Seher Erçin</option>
+      <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+      <option value="Sibel Atmaca">Sibel Atmaca</option>
+      <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+      <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+      <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+      <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+      <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+      <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+      <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+      <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+      <option value="Şenay Sezgin">Şenay Sezgin</option>
+      <option value="Şeyma Dereci">Şeyma Dereci</option>
+    </select>
+    <button class="btn-start" onclick="startQuiz()">Teste Basla</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="screen">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="q-meta">
+      <span id="qMeta">Soru 1 / 100</span>
+      <span><span class="cnt cnt-ok" id="cntOk">0 Dogru</span>&nbsp;<span class="cnt cnt-err" id="cntErr">0 Yanlis</span></span>
+    </div>
+    <div id="qCard"></div>
+    <div class="nav">
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
+      <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>Ileri</button>
+      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <input type="hidden" id="resName" value="">
+    <div style="text-align:center">
+      <div class="res-pill">6. HAFTA ODEVi &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
+    </div>
+    <div class="res-title">ESTAR SER TENER FiILLERi</div>
+    <div class="res-score"><span id="resScore">0</span>/100</div>
+    <div class="res-stats">
+      <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
+      <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
+    </div>
+    <div class="res-note" id="resNote"></div>
+    <div class="submit-warning" id="submitWarning">
+      <div class="submit-warning-title">ODEVINI TESLIM ETMEDIN</div>
+      <div class="submit-warning-sub">Lutfen asagidaki listeden adinizi secip gonderin.</div>
+    </div>
+    <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
+      <option value="">-- Adinizi Secin --</option>
+      <option value="Birce Süzen">Birce Süzen</option>
+      <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+      <option value="Buse Cagmel">Buse Cagmel</option>
+      <option value="Büşra Çam">Büşra Çam</option>
+      <option value="Büşra Yurt">Büşra Yurt</option>
+      <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+      <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+      <option value="Ecem Sukas">Ecem Sukas</option>
+      <option value="Elif Ataç">Elif Ataç</option>
+      <option value="Elif Atlı">Elif Atlı</option>
+      <option value="Elif Bozkurt">Elif Bozkurt</option>
+      <option value="Elif Çetin">Elif Çetin</option>
+      <option value="Emel Kanburoğlu">Emel Kanburoğlu</option>
+      <option value="Eray Sayılık">Eray Sayılık</option>
+      <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+      <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+      <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+      <option value="Görkem Dursun">Görkem Dursun</option>
+      <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+      <option value="Harun Özmen">Harun Özmen</option>
+      <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+      <option value="Mehtap Keklik">Mehtap Keklik</option>
+      <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+      <option value="Merve Sağlam">Merve Sağlam</option>
+      <option value="Meryem Özbek">Meryem Özbek</option>
+      <option value="Murat Erdem">Murat Erdem</option>
+      <option value="Murat Şahin">Murat Şahin</option>
+      <option value="Onur Atlı">Onur Atlı</option>
+      <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+      <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+      <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+      <option value="Seher Akbulat">Seher Akbulat</option>
+      <option value="Seher Erçin">Seher Erçin</option>
+      <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+      <option value="Sibel Atmaca">Sibel Atmaca</option>
+      <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+      <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+      <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+      <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+      <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+      <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+      <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+      <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+      <option value="Şenay Sezgin">Şenay Sezgin</option>
+      <option value="Şeyma Dereci">Şeyma Dereci</option>
+    </select>
+    <div class="submit-msg" id="submitMsg"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ODEVINIZI TESLIM EDIN</button>
+    <button class="btn-review" onclick="toggleReview()">Yanlislari Gor</button>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">Iptal</button>
+      <button class="btn-ok" onclick="doFinish()">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
+var ODEV_ADI='H6 \u2013 19-20.Ders';
+var GROUPS={
+"Harun \u00d6zmen":"A1.1","Yasemin Kurtulu\u015f Tun\u00e7":"A1.1","Zeynep Hediye \u00d6zay":"A1.1","G\u00fclce Eyibilir":"A1.1","Serra Sancakl\u0131 I\u015f\u0131k":"A1.1","B\u00fc\u015fra Yurt":"A1.1","Elif \u00c7etin":"A1.1","Mehtap Keklik":"A1.1","Elif Ata\u00e7":"A1.1","Do\u011fa De\u011firmenci":"A1.1","Zehra R\u00fcmeysa \u00c7olak":"A1.1","Zeynep Su Ali\u015fan":"A1.1","Eray Say\u0131l\u0131k":"A1.1","Birce S\u00fczen":"A1.1","Seher Akbulat":"A1.1",
+"\u015eeyma Dereci":"A1.1 (2)","Zeynep S\u00f6ylemez":"A1.1 (2)","Ecem Sukas":"A1.1 (2)","Burakhan Kayd\u0131":"A1.1 (2)","\u015eenay Sezgin":"A1.1 (2)","Zeynep \u00d6zta\u015fk\u0131n":"A1.1 (2)","Sonay \u00c7etinkaya":"A1.1 (2)","Ezgican Tek\u00e7orap":"A1.1 (2)","Merve Sa\u011flam":"A1.1 (2)","Meryem \u00d6zbek":"A1.1 (2)","Elif Bozkurt":"A1.1 (2)","Meltem \u00c7ift\u00e7i":"A1.1 (2)","Hilal Dilsiz":"A1.1 (2)","R\u00fcmeysa Yatg\u0131n":"A1.1 (2)","Eyl\u00fcl \u015eerbet\u00e7i":"A1.1 (2)",
+"Sedat Zincirk\u0131ran":"A1.1 (3)","\u0130ncilay Dikb\u0131y\u0131k":"A1.1 (3)","Ruh\u015fen \u00c7avu\u015fo\u011flu":"A1.1 (3)","Murat Erdem":"A1.1 (3)","Ceren Erdo\u011fan":"A1.1 (3)","Erdin\u00e7 Tigin Bilen":"A1.1 (3)","Seher Er\u00e7in":"A1.1 (3)","B\u00fc\u015fra \u00c7am":"A1.1 (3)","G\u00f6rkem Dursun":"A1.1 (3)","Sibel Atmaca":"A1.1 (3)","Onur Atl\u0131":"A1.1 (3)","Elif Atl\u0131":"A1.1 (3)","Emel Kanburo\u011flu":"A1.1 (3)","Murat \u015eahin":"A1.1 (3)","Buse Cagmel":"A1.1 (3)"
+};
+
+var Q=[
+{t:"fill",q:"1\nMe llamo Laura. Trabajo en una escuela.\n___ profesora de espa\u00f1ol.\nCevap: soy\nT\u00fcrk\u00e7e:\nBenim ad\u0131m Laura. Bir okulda \u00e7al\u0131\u015f\u0131yorum. \u0130spanyolca \u00f6\u011fretmeniyim.\nEnglish:\nMy name is Laura. I work in a school. I am a Spanish teacher.",a:"soy",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencinin yakalaması gereken ipucu \"trabajo en una escuela\". Yani ki\u015fi okulda \u00e7al\u0131\u015f\u0131yor. Bu bize meslek bilgisini d\u00fc\u015f\u00fcnd\u00fcr\u00fcr. Meslekler, kimlik ve tan\u0131mlay\u0131c\u0131 \u00f6zellikler kal\u0131c\u0131 bilgi kategorisine girer. Bu y\u00fczden burada \"ge\u00e7ici bir durum\" anlatm\u0131yoruz. Dolay\u0131s\u0131yla estar de\u011fil, ser kullan\u0131l\u0131r.\nBu tarz sorularda \u00f6\u011frenciler bazen \"\u015fu an \u00e7al\u0131\u015f\u0131yor \u2192 ge\u00e7ici\" diye d\u00fc\u015f\u00fcnerek estar'a kayabiliyor. Ama odak nokta \"meslek\"tir. Meslek \u2192 her zaman SER."},
+{t:"fill",q:"2\nHace mucho calor hoy. Estoy en la playa con mis amigos.\n___ en la playa ahora.\nCevap: estoy\nT\u00fcrk\u00e7e:\nBug\u00fcn hava \u00e7ok s\u0131cak. Arkada\u015flar\u0131mla plajday\u0131m. \u015eu an plajday\u0131m.\nEnglish:\nIt is very hot today. I am at the beach with my friends. I am at the beach now.",a:"estoy",exp:"A\u00e7\u0131klama:\nBurada \u00e7ok net bir ipucu var: \"ahora\" yani \"\u015fu an\". Bu kelime g\u00f6rd\u00fc\u011f\u00fcm\u00fcz anda zihnimizde alarm \u00e7almal\u0131: ge\u00e7ici durum \u2192 ESTAR. Ayr\u0131ca \"plajda olmak\" bir konumdur. \u0130nsan konumunu s\u00fcrekli de\u011fi\u015ftirebilir. Bu y\u00fczden bu tip yer bildiren c\u00fcclelerde her zaman ESTAR kullan\u0131yoruz.\nK\u0131saca: yer + \u015fu an = ESTAR"},
+{t:"fill",q:"3\nMi padre trabaja en un hospital. Ayuda a los pacientes.\nMi padre ___ m\u00e9dico.\nCevap: es\nT\u00fcrk\u00e7e:\nBabam bir hastanede \u00e7al\u0131\u015f\u0131yor. Hastalara yard\u0131m ediyor. Babam doktordur.\nEnglish:\nMy father works in a hospital. He helps patients. My father is a doctor.",a:"es",exp:"A\u00e7\u0131klama:\n\"Trabaja en un hospital\" ve \"ayuda a los pacientes\" bize ki\u015finin ne i\u015f yapt\u0131\u011f\u0131n\u0131 a\u00e7\u0131k\u00e7a anlat\u0131yor. Yani bu bir meslek \u00e7\u0131kar\u0131m\u0131 sorusu. Meslekler de\u011fi\u015fmeyen, kal\u0131c\u0131 kimliklerdir. Bu y\u00fczden burada SER kullan\u0131l\u0131r \u2192 es.\nBu tip sorular asl\u0131nda dolayl\u0131 anlat\u0131m i\u00e7erir: meslek do\u011frudan verilmez, ipuçlar\u0131ndan \u00e7\u0131kar\u0131l\u0131r. Bu da \u00f6\u011frencinin ger\u00e7ekten anlamas\u0131n\u0131 sa\u011flar."},
+{t:"fill",q:"4\nTengo 22 a\u00f1os. Estudio en la universidad.\n___ 22 a\u00f1os.\nCevap: tengo\nT\u00fcrk\u00e7e:\n22 ya\u015f\u0131nday\u0131m. \u00dcniversitede okuyorum. 22 ya\u015f\u0131nday\u0131m.\nEnglish:\nI am 22 years old. I study at university. I am 22 years old.",a:"tengo",exp:"A\u00e7\u0131klama:\n\u0130spanyolcada ya\u015f s\u00f6ylemek T\u00fcrk\u00e7eden farkl\u0131d\u0131r. T\u00fcrk\u00e7ede \"22 ya\u015f\u0131nday\u0131m\" diyoruz ama \u0130spanyolcada bu yap\u0131 tener ile kurulur. Yani \"ya\u015fa sahip olmak\" mant\u0131\u011f\u0131 vard\u0131r.\nBu y\u00fczden asla \"soy 22\" ya da \"estoy 22\" denmez. Do\u011fru yap\u0131: tengo 22 a\u00f1os.\nBu konu A1'de en \u00e7ok yap\u0131lan hatalardan biridir, \u00f6zellikle \u0130ngilizce bilen \u00f6\u011frenciler \"I am 22\" mant\u0131\u011f\u0131yla ser kullanmaya \u00e7al\u0131\u015f\u0131r. Bu yanl\u0131\u015f."},
+{t:"fill",q:"5\nEstoy en casa. No salgo hoy porque estudio.\n___ en casa todo el d\u00eda.\nCevap: estoy\nT\u00fcrk\u00e7e:\nEvdeyim. Bug\u00fcn d\u0131\u015far\u0131 \u00e7\u0131km\u0131yorum \u00e7\u00fcnk\u00fc ders \u00e7al\u0131\u015f\u0131yorum. T\u00fcm g\u00fcn evdeyim.\nEnglish:\nI am at home. I do not go out today because I study. I am at home all day.",a:"estoy",exp:"A\u00e7\u0131klama:\n\"Evde olmak\" bir konumdur. Ayr\u0131ca \"todo el d\u00eda\" ifadesi bile ge\u00e7ici bir s\u00fcreyi anlat\u0131r. Yani bu durum kal\u0131c\u0131 de\u011fil, sadece bug\u00fcn i\u00e7in ge\u00e7erli. Bu y\u00fczden ESTAR kullan\u0131yoruz.\nBurada \u00f6\u011frencinin fark etmesi gereken \u015fey \u015fu: zaman s\u0131n\u0131rlamas\u0131 varsa (hoy, ahora, todo el d\u00eda) \u2192 b\u00fcy\u00fck ihtimalle ESTAR"},
+{t:"fill",q:"6\nMi coche es rojo. Es muy r\u00e1pido.\nMi coche ___ rojo.\nCevap: es\nT\u00fcrk\u00e7e:\nArabam k\u0131rm\u0131z\u0131. \u00c7ok h\u0131zl\u0131. Arabam k\u0131rm\u0131z\u0131.\nEnglish:\nMy car is red. It is very fast. My car is red.",a:"es",exp:"A\u00e7\u0131klama:\nRenk, \u015fekil, fiziksel \u00f6zellikler \u2192 bunlar kal\u0131c\u0131d\u0131r. Bir araba s\u00fcrekli k\u0131rm\u0131z\u0131ysa bu de\u011fi\u015fmeyen bir \u00f6zelliktir. Bu y\u00fczden SER kullan\u0131l\u0131r.\nBurada \u00f6\u011frenciler bazen \"g\u00f6r\u00fcn\u00fcm\" diye d\u00fc\u015f\u00fcn\u00fcp estar'a kayabiliyor. Ama bu ge\u00e7ici bir g\u00f6r\u00fcn\u00fcm de\u011fil, kal\u0131c\u0131 \u00f6zellik \u2192 SER"},
+{t:"fill",q:"7\nNo como nada hoy. Trabajo mucho.\n___ hambre.\nCevap: tengo\nT\u00fcrk\u00e7e:\nBug\u00fcn hi\u00e7bir \u015fey yemiyorum. \u00c7ok \u00e7al\u0131\u015f\u0131yorum. A\u00e7\u0131m.\nEnglish:\nI do not eat anything today. I work a lot. I am hungry.",a:"tengo",exp:"A\u00e7\u0131klama:\nA\u00e7l\u0131k, susuzluk, s\u0131cak, so\u011fuk gibi fiziksel hisler \u0130spanyolcada tener ile ifade edilir.\nT\u00fcrk\u00e7ede \"a\u00e7\u0131m\" diyoruz ama \u0130spanyolcada \"a\u00e7l\u0131\u011fa sahibim\" mant\u0131\u011f\u0131 vard\u0131r \u2192 tengo hambre\nBu yap\u0131 tamamen ezberlenmesi gereken bir kal\u0131pt\u0131r."},
+{t:"fill",q:"8\nEs un d\u00eda especial. Todos trabajan.\nHoy ___ lunes.\nCevap: es\nT\u00fcrk\u00e7e:\n\u00d6zel bir g\u00fcn. Herkes \u00e7al\u0131\u015f\u0131yor. Bug\u00fcn pazartesi.\nEnglish:\nIt is a special day. Everyone works. Today is Monday.",a:"es",exp:"A\u00e7\u0131klama:\nG\u00fcnler, tarihler ve saatler her zaman SER ile kullan\u0131l\u0131r. Bu kural \u00e7ok nettir ve istisnas\u0131 yoktur.\n\"Hoy es lunes\", \"Es el 5 de mayo\" gibi yap\u0131lar tamamen ser grubuna girer.\nBurada \u00f6\u011frencinin \"zaman\" g\u00f6rd\u00fc\u011f\u00fcnde otomatik olarak SER se\u00e7mesi gerekir."},
+{t:"fill",q:"9\nTrabajo mucho hoy. No descanso.\n___ muy cansado.\nCevap: estoy\nT\u00fcrk\u00e7e:\nBug\u00fcn \u00e7ok \u00e7al\u0131\u015f\u0131yorum. Dinlenmiyorum. \u00c7ok yorgunum.\nEnglish:\nI work a lot today. I do not rest. I am very tired.",a:"estoy",exp:"A\u00e7\u0131klama:\nYorgunluk ge\u00e7ici bir durumdur. \u0130nsan bug\u00fcn yorgun olabilir ama yar\u0131n olmayabilir. Bu y\u00fczden bu tip duygular ve fiziksel durumlar ESTAR ile kullan\u0131l\u0131r.\nBurada \u00f6\u011frencinin ipucu: \"hoy\" ve \"\u00e7ok \u00e7al\u0131\u015f\u0131yorum\" \u2192 ge\u00e7ici durum \u2192 ESTAR"},
+{t:"fill",q:"10\nTengo un perro. Vive conmigo.\n___ un perro.\nCevap: tengo\nT\u00fcrk\u00e7e:\nBir k\u00f6pe\u011fim var. Benimle ya\u015f\u0131yor. Bir k\u00f6pe\u011fim var.\nEnglish:\nI have a dog. It lives with me. I have a dog.",a:"tengo",exp:"A\u00e7\u0131klama:\nSahiplik ifade ederken her zaman TENER kullan\u0131l\u0131r.\n\"Benim var\" mant\u0131\u011f\u0131 \u2192 \"I have\" \u2192 tengo\nBurada kesinlikle ser ya da estar kullan\u0131lamaz.\nBu konu da A1'de temel ve \u00e7ok kritik bir konudur."},
+{t:"fill",q:"11\nMarta trabaja en un hospital grande. Lleva uniforme blanco cada d\u00eda.\nMarta ___ enfermera.\nCevap: es\nT\u00fcrk\u00e7e \u00e7eviri:\nMarta b\u00fcy\u00fck bir hastanede \u00e7al\u0131\u015f\u0131yor. Her g\u00fcn beyaz \u00fcniforma giyiyor. Marta hem\u015firedir.\nEnglish translation:\nMarta works in a big hospital. She wears a white uniform every day. Marta is a nurse.",a:"es",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencilerimin \u00f6zellikle \u015funu fark etmesini istiyorum: \u0130lk iki c\u00fcmle bize do\u011frudan cevab\u0131 vermiyor ama \u00e7ok net ipuçlar\u0131 veriyor. \"Hastanede \u00e7al\u0131\u015f\u0131yor\" ve \"beyaz \u00fcniforma giyiyor\" ifadeleri bize bir mesle\u011fi d\u00fc\u015f\u00fcnd\u00fcr\u00fcyor. Son c\u00fcmlede art\u0131k o ki\u015finin mesle\u011fini s\u00f6yl\u00fcyoruz. Meslek bildiren yap\u0131larda \u0130spanyolcada ser fiilini kullan\u0131r\u0131z. \u00c7\u00fcnk\u00fc meslek, ki\u015fiyi tan\u0131mlayan bir bilgidir. Yani burada ge\u00e7ici bir durumdan ya da o anki bir ruh halinden de\u011fil, ki\u015finin kimli\u011fini anlatan bir \u00f6zellikten s\u00f6z ediyoruz. Bu y\u00fczden do\u011fru cevap es."},
+{t:"fill",q:"12\nPablo vive en Ankara con su familia. Su colegio tambi\u00e9n est\u00e1 en Ankara.\nPablo ___ de Ankara.\nCevap: es\nT\u00fcrk\u00e7e \u00e7eviri:\nPablo ailesiyle Ankara'da ya\u015f\u0131yor. Onun okulu da Ankara'da. Pablo Ankaral\u0131d\u0131r.\nEnglish translation:\nPablo lives in Ankara with his family. His school is also in Ankara. Pablo is from Ankara.",a:"es",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencilerimin \"yer\" g\u00f6r\u00fcnce hemen estar d\u00fc\u015f\u00fcnmemesi gerekiyor. \u00c7\u00fcnk\u00fc her yer ifadesi ayn\u0131 de\u011fildir. \u0130lk iki c\u00fcmlede Ankara ile ilgili bilgiler var, ama son c\u00fcmlede \"nerede?\" sorusunu de\u011fil, \"nereli?\" sorusunu cevapl\u0131yoruz. K\u00f6ken, memleket, milliyet gibi bilgilerde ser kullan\u0131r\u0131z. Yani \"Ankara'da\" olmak ile \"Ankaral\u0131 olmak\" ayn\u0131 \u015fey de\u011fildir. \"En Ankara\" konumdur, \"de Ankara\" ise k\u00f6ken bildirir. Bu y\u00fczden burada do\u011fru cevap es."},
+{t:"fill",q:"13\nAhora estoy con mis amigos en un caf\u00e9. Tomamos t\u00e9 y hablamos mucho.\nYo ___ en un caf\u00e9.\nCevap: estoy\nT\u00fcrk\u00e7e \u00e7eviri:\n\u015eu anda arkada\u015flar\u0131mla bir kafedeyim. \u00c7ay i\u00e7iyoruz ve \u00e7ok konu\u015fuyoruz. Ben bir kafe\u00addeyim.\nEnglish translation:\nNow I am with my friends in a caf\u00e9. We drink tea and talk a lot. I am in a caf\u00e9.",a:"estoy",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencilerimin dikkat etmesini istedi\u011fim \u015fey \"ahora\" kelimesi ve konum bilgisidir. Kafede olmak ge\u00e7ici bir durumdur; biraz sonra ki\u015fi evine, okuluna ya da ba\u015fka bir yere gidebilir. Yani bu c\u00fcmlede bir kimlik ya da kal\u0131c\u0131 \u00f6zellik yok. Sadece ki\u015finin bulundu\u011fu yeri s\u00f6yl\u00fcyoruz. Yer ve konum bildiren yap\u0131larda estar kullan\u0131l\u0131r. Bu y\u00fczden burada do\u011fru cevap estoy."},
+{t:"fill",q:"14\nLuc\u00eda tiene 19 a\u00f1os. Su hermano tiene 21.\nLuc\u00eda ___ 19 a\u00f1os.\nCevap: tiene\nT\u00fcrk\u00e7e \u00e7eviri:\nLuc\u00eda 19 ya\u015f\u0131nda. Erkek karde\u015fi 21 ya\u015f\u0131nda. Luc\u00eda 19 ya\u015f\u0131ndad\u0131r.\nEnglish translation:\nLuc\u00eda is 19 years old. Her brother is 21 years old. Luc\u00eda is 19 years old.",a:"tiene",exp:"A\u00e7\u0131klama:\nYa\u015f konusu A1 seviyesinde en \u00f6nemli ba\u015fl\u0131klardan biridir ve burada \u00f6\u011frencilerimin \u00e7ok net bir kural\u0131 hat\u0131rlamas\u0131n\u0131 istiyorum: \u0130spanyolcada ya\u015f s\u00f6ylerken tener kullan\u0131r\u0131z. T\u00fcrk\u00e7ede \"19 ya\u015f\u0131nday\u0131m\" diyoruz, \u0130ngilizcede \"I am 19\" deniyor, ama \u0130spanyolcada yap\u0131 farkl\u0131d\u0131r: \"tengo / tiene ... a\u00f1os\". O y\u00fczden burada ser ya da estar kullan\u0131lamaz. Ya\u015f = tener. Bu nedenle do\u011fru cevap tiene."},
+{t:"fill",q:"15\nHoy no como nada en la escuela. Tengo clase hasta las cuatro.\nYo ___ hambre.\nCevap: tengo\nT\u00fcrk\u00e7e \u00e7eviri:\nBug\u00fcn okulda hi\u00e7bir \u015fey yemiyorum. Saat d\u00f6rde kadar dersim var. Ben a\u00e7\u0131m.\nEnglish translation:\nToday I do not eat anything at school. I have class until four o'clock. I am hungry.",a:"tengo",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencilerimin \u015funu g\u00f6rmesini istiyorum: \u0130lk iki c\u00fcmle \"a\u00e7l\u0131k\" sonucuna g\u00f6t\u00fcren mant\u0131kl\u0131 ipuçlar\u0131 veriyor. Ki\u015fi hi\u00e7bir \u015fey yemiyor ve uzun s\u00fcre dersi var. Son c\u00fcmlede bu fiziksel his ifade ediliyor. \u0130spanyolcada a\u00e7l\u0131k, susuzluk, s\u0131cak, so\u011fuk gibi fiziksel hislerde tener kullan\u0131l\u0131r. Yani \"estoy hambre\" asla denmez. Do\u011fru yap\u0131 \"tengo hambre\"dir. Bu y\u00fczden cevap tengo."},
+{t:"fill",q:"16\nMa\u00f1ana no hay clase. Todos descansan en casa.\nMa\u00f1ana ___ domingo.\nCevap: es\nT\u00fcrk\u00e7e \u00e7eviri:\nYar\u0131n ders yok. Herkes evde dinleniyor. Yar\u0131n pazard\u0131r.\nEnglish translation:\nTomorrow there is no class. Everyone rests at home. Tomorrow is Sunday.",a:"es",exp:"A\u00e7\u0131klama:\nBurada g\u00fcnlerden bahsediyoruz. G\u00fcnler, tarihler ve saatler konusu senin notlar\u0131nda da a\u00e7\u0131k\u00e7a ser ile veriliyor. \u00d6\u011frencilerimin bunu otomatikle\u015ftirmesini istiyorum. \"Pazartesidir, sal\u0131d\u0131r, yar\u0131n pazard\u0131r\" gibi ifadelerde her zaman ser kullan\u0131r\u0131z. Burada ne bir konum var ne de ge\u00e7ici ruh hali. Sadece g\u00fcn bildiriyoruz. Bu nedenle do\u011fru cevap es."},
+{t:"fill",q:"17\nEl libro est\u00e1 en la mesa del sal\u00f3n. Es un libro nuevo y muy interesante.\nEl libro ___ en la mesa.\nCevap: est\u00e1\nT\u00fcrk\u00e7e \u00e7eviri:\nKitap salon masas\u0131n\u0131n \u00fcst\u00fcnde. Yeni ve \u00e7ok ilgin\u00e7 bir kitap. Kitap masan\u0131n \u00fcst\u00fcndedir.\nEnglish translation:\nThe book is on the table in the living room. It is a new and very interesting book. The book is on the table.",a:"est\u00e1",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencilerimin dikkat etmesi gereken \u015fey nesnenin konumudur. Kitap bir yerde bulunuyor. Yani biz \"kitap nas\u0131l bir \u015fey?\" demiyoruz, \"kitap nerede?\" diyoruz. Konum bildiren t\u00fcm yap\u0131larda estar kullan\u0131l\u0131r. \u0130lk c\u00fcmlede de zaten bu mant\u0131\u011f\u0131 g\u00f6r\u00fcyoruz. Son c\u00fcmlede ayn\u0131 mant\u0131\u011f\u0131 bo\u015flukla \u00f6l\u00e7\u00fcyoruz. O y\u00fczden do\u011fru cevap est\u00e1."},
+{t:"fill",q:"18\nEse coche es de mi padre. Mi padre lo usa para ir al trabajo.\nEl coche ___ de mi padre.\nCevap: es\nT\u00fcrk\u00e7e \u00e7eviri:\nO araba babama ait. Babam onu i\u015fe gitmek i\u00e7in kullan\u0131yor. Araba babam\u0131nd\u0131r.\nEnglish translation:\nThat car belongs to my father. My father uses it to go to work. The car is my father's.",a:"es",exp:"A\u00e7\u0131klama:\nBurada sahiplik ve aidiyet bildiriyoruz. Senin notlar\u0131nda da bu b\u00f6l\u00fcm \"posesi\u00f3n-relaci\u00f3n\" ba\u015fl\u0131\u011f\u0131 alt\u0131nda ser ile verilmi\u015fti. \u00c7ok \u00f6nemli bir ayr\u0131m var: \"Bir \u015feye sahip olmak\" i\u00e7in tener kullan\u0131r\u0131z; ama \"bir \u015fey birine aittir\" derken ser de yap\u0131s\u0131n\u0131 kullan\u0131r\u0131z. Yani \"Mi padre tiene un coche\" ba\u015fka bir yap\u0131d\u0131r, \"El coche es de mi padre\" ba\u015fka bir yap\u0131d\u0131r. Bu soruda istenen aidiyet yap\u0131s\u0131d\u0131r, bu y\u00fczden do\u011fru cevap es."},
+{t:"fill",q:"19\nSara sonr\u00ede mucho hoy. Habla con todos en clase.\nSara ___ muy contenta.\nCevap: est\u00e1\nT\u00fcrk\u00e7e \u00e7eviri:\nSara bug\u00fcn \u00e7ok g\u00fclms\u00fcyor. S\u0131n\u0131fta herkesle konu\u015fuyor. Sara \u00e7ok mutludur / \u00e7ok memnundur.\nEnglish translation:\nSara smiles a lot today. She talks to everyone in class. Sara is very happy.",a:"est\u00e1",exp:"A\u00e7\u0131klama:\nBurada ruh hali anlat\u0131yoruz. Mutlu olmak, \u00fczg\u00fcn olmak, yorgun olmak gibi durumlar genellikle ge\u00e7ici kabul edilir ve bu y\u00fczden estar ile kullan\u0131l\u0131r. \u0130lk iki c\u00fcmle de bize Sara'n\u0131n bug\u00fcnk\u00fc ruh halini g\u00f6steriyor. Burada \"bug\u00fcn\" anlam\u0131 \u00f6nemli; yani bu onun kal\u0131c\u0131 ki\u015fili\u011fi de\u011fil, o anki durumudur. Bu nedenle do\u011fru cevap est\u00e1."},
+{t:"fill",q:"20\nEn esta tienda venden fruta y verdura. Las manzanas son muy baratas hoy.\nLas manzanas ___ a dos euros el kilo.\nCevap: est\u00e1n\nT\u00fcrk\u00e7e \u00e7eviri:\nBu d\u00fckk\u00e2nda meyve ve sebze sat\u0131yorlar. Elmalar bug\u00fcn \u00e7ok ucuz. Elmalar kilosu iki eurodur.\nEnglish translation:\nIn this shop they sell fruit and vegetables. The apples are very cheap today. The apples are at two euros per kilo.",a:"est\u00e1n",exp:"A\u00e7\u0131klama:\nBu soru do\u011frudan senin notlar\u0131ndaki \"el precio con la preposici\u00f3n a\" k\u0131sm\u0131na dayan\u0131yor. Fiyat s\u00f6ylerken \u00f6zellikle \u00fcr\u00fcnler i\u00e7in estar a + fiyat yap\u0131s\u0131 kullan\u0131labiliyor. Yani burada klasik \"ser\" mant\u0131\u011f\u0131na gitmiyoruz. \"Las manzanas est\u00e1n a dos euros el kilo\" ifadesi A1-A2 d\u00fczeyinde \u00e7ok temel ve kullan\u0131\u015fl\u0131 bir kal\u0131pt\u0131r. \u00d6\u011frencilerimin bunu kal\u0131p olarak \u00f6\u011frenmesini istiyorum. Bu y\u00fczden do\u011fru cevap est\u00e1n."},
+{t:"mc",q:"21. Mi mejor amigo tiene mucho trabajo hoy en su oficina. Por eso, \u00e9l __________ en la cafeter\u00eda con su ordenador.\nA) estamos\nB) estoy\nC) est\u00e1\nD) est\u00e1n",o:["estamos","estoy","est\u00e1","est\u00e1n"],a:2,exp:"A\u00e7\u0131klama: 21. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Arkada\u015f\u0131m\u0131n o anki \"konum\"unu (notlardaki 6. madde) anlatmak i\u00e7in 3. tekil \u015fahsS\u0131 \u00e7ekimi olan \"est\u00e1\" kullan\u0131l\u0131r."},
+{t:"mc",q:"22. No puedo abrir la puerta de mi casa. Mis llaves no __________ en mi bolso.\nA) est\u00e1\nB) est\u00e1s\nC) estamos\nD) est\u00e1n",o:["est\u00e1","est\u00e1s","estamos","est\u00e1n"],a:3,exp:"A\u00e7\u0131klama: 22. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \u00c7o\u011ful bir nesne olan anahtarlar\u0131n (llaves) \"konum\"unu (notlardaki 6. madde) belirtti\u011fimiz i\u00e7in \u00e7ekim \"est\u00e1n\" olmal\u0131d\u0131r."},
+{t:"mc",q:"23. T\u00fa caminas mucho por la ciudad para buscar las llaves. \u00bf__________ muy cansado ahora?\nA) est\u00e1is\nB) est\u00e1s\nC) est\u00e1\nD) estamos",o:["est\u00e1is","est\u00e1s","est\u00e1","estamos"],a:1,exp:"A\u00e7\u0131klama: 23. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Do\u011frudan kar\u015f\u0131daki ki\u015fiye (t\u00fa) hitap ederek onun fiziksel \"durum/yorgunluk\" halini (notlardaki 1. madde) sordu\u011fumuz i\u00e7in \u00e7ekim \"est\u00e1s\" olur."},
+{t:"mc",q:"24. Hoy es el primer d\u00eda de la semana laboral. Por eso, hoy __________ a lunes.\nA) estamos\nB) est\u00e1n\nC) est\u00e1is\nD) est\u00e1",o:["estamos","est\u00e1n","est\u00e1is","est\u00e1"],a:0,exp:"A\u00e7\u0131klama: 24. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 7. maddeye g\u00f6re; tarih bildirirken (g\u00fcn s\u00f6ylerken) her zaman \"estamos a + g\u00fcn\" kal\u0131b\u0131 kullan\u0131l\u0131r."},
+{t:"mc",q:"25. Normalmente soy profesor de espa\u00f1ol en una okul. Pero este verano __________ de camarero en un restaurante.\nA) estoy\nB) est\u00e1s\nC) est\u00e1is\nD) estamos",o:["estoy","est\u00e1s","est\u00e1is","estamos"],a:0,exp:"A\u00e7\u0131klama: 25. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 5. maddeye g\u00f6re; ge\u00e7ici veya d\u00f6nemsel bir meslekten bahsederken \"estar de + meslek\" kal\u0131b\u0131n\u0131 kullan\u0131r\u0131z."},
+{t:"mc",q:"26. Mi perro juega en el sal\u00f3n y golpea la mesa con fuerza. Ahora, el jarr\u00f3n de mi abuela __________ roto en el suelo.\nA) est\u00e1n\nB) estoy\nC) est\u00e1\nD) estamos",o:["est\u00e1n","estoy","est\u00e1","estamos"],a:2,exp:"A\u00e7\u0131klama: 26. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 2. maddeye g\u00f6re; bir s\u00fcrecin veya olay\u0131n \"sonucu\"nu (k\u0131r\u0131k olma durumu) anlatmak i\u00e7in \"est\u00e1\" kullan\u0131l\u0131r."},
+{t:"mc",q:"27. Mi marido y yo celebramos hoy nuestro aniversario. Nosotros __________ casados desde hace diez a\u00f1os.\nA) est\u00e1\nB) est\u00e1n\nC) est\u00e1is\nD) estamos",o:["est\u00e1","est\u00e1n","est\u00e1is","estamos"],a:3,exp:"A\u00e7\u0131klama: 27. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 3. maddeye g\u00f6re; medeni durumlar\u0131 (evli, bekar, s\u00f6zl\u00fc) ifade ederken \"estamos\" (nosotros \u00e7ekimi) kullan\u0131l\u0131r."},
+{t:"mc",q:"28. La clase de espa\u00f1ol en la academia empieza a las nueve. Vosotros ya __________ en el aula con el libro.\nA) estamos\nB) est\u00e1is\nC) est\u00e1n\nD) est\u00e1s",o:["estamos","est\u00e1is","est\u00e1n","est\u00e1s"],a:1,exp:"A\u00e7\u0131klama: 28. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Siz\" (vosotros) \u00f6znesinin s\u0131n\u0131ftaki \"konum\"unu (notlardaki 6. madde) belirtmek i\u00e7in \u00e7ekim \"est\u00e1is\" olmal\u0131d\u0131r."},
+{t:"mc",q:"29. No voy a la fiesta de cumplea\u00f1os de mi amiga Elena. Lo siento, pero yo __________ muy enfermo hoy.\nA) est\u00e1\nB) estoy\nC) estamos\nD) est\u00e1s",o:["est\u00e1","estoy","estamos","est\u00e1s"],a:1,exp:"A\u00e7\u0131klama: 29. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Yo\" (ben) \u00f6znesinin g\u00fcncel sa\u011fl\u0131k \"durum\"unu veya ruh halini (notlardaki 1. madde) belirtmek i\u00e7in \"estoy\" kullan\u0131l\u0131r."},
+{t:"mc",q:"30. Hay una cena con muchos invitados en mi casa. Por eso, todos los platos __________ sucios en la cocina.\nA) est\u00e1\nB) estamos\nC) est\u00e1s\nD) est\u00e1n",o:["est\u00e1","estamos","est\u00e1s","est\u00e1n"],a:3,exp:"A\u00e7\u0131klama: 30. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \u00c7o\u011ful nesnelerin (platos) bir olay sonras\u0131 \"durum\"unu (kirli olmalar\u0131) anlatmak i\u00e7in \"est\u00e1n\" \u00e7ekimi uygundur."},
+{t:"mc",q:"31. Quiero comprar un kilo de pl\u00e1tanos en el mercado local. \u00bfA cu\u00e1nto __________ la fruta hoy?\nA) est\u00e1\nB) estoy\nC) estamos\nD) est\u00e1n",o:["est\u00e1","estoy","estamos","est\u00e1n"],a:0,exp:"A\u00e7\u0131klama: 31. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 8. maddeye g\u00f6re; bir \u00fcr\u00fcn\u00fcn \"fiyat\"\u0131n\u0131 sormak i\u00e7in \"estar a\" kal\u0131b\u0131 kullan\u0131l\u0131r. Meyve tekil bir grup olarak soruldu\u011fu i\u00e7in \"est\u00e1\" gelir."},
+{t:"mc",q:"32. Los \u00e1rboles del jard\u00edn tienen muchas flores bonitas. Nosotros ya __________ en primavera.\nA) est\u00e1is\nB) estoy\nC) estamos\nD) est\u00e1n",o:["est\u00e1is","estoy","estamos","est\u00e1n"],a:2,exp:"A\u00e7\u0131klama: 32. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 7. maddeye g\u00f6re; i\u00e7inde bulunulan mevsimi belirtirken her zaman \"estamos en + mevsim\" kal\u0131b\u0131 kullan\u0131l\u0131r."},
+{t:"mc",q:"33. Mis t\u00edos ya no viven juntos en la misma casa. Ellos __________ divorciados desde el mes pasado.\nA) est\u00e1\nB) est\u00e1s\nC) est\u00e1is\nD) est\u00e1n",o:["est\u00e1","est\u00e1s","est\u00e1is","est\u00e1n"],a:3,exp:"A\u00e7\u0131klama: 33. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \u00c7o\u011ful \u00f6znelerin (amcalar\u0131m/teyzemler) \"medeni durum\"unu (notlardaki 3. madde) anlatmak i\u00e7in \"est\u00e1n\" \u00e7ekimi kullan\u0131l\u0131r."},
+{t:"mc",q:"34. Quiero entrar en mi habitaci\u00f3n para dormir un poco. Pero la puerta __________ cerrada con llave.\nA) estamos\nB) est\u00e1\nC) est\u00e1n\nD) estoy",o:["estamos","est\u00e1","est\u00e1n","estoy"],a:1,exp:"A\u00e7\u0131klama: 34. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Kap\u0131n\u0131n \"kapal\u0131 olma\" durumu bir eylemin \"sonucu\"dur (notlardaki 2. madde) ve tekil oldu\u011fu i\u00e7in \"est\u00e1\" gerektirir."},
+{t:"mc",q:"35. Te llamo muchas veces por tel\u00e9fono pero no respondes. \u00bfD\u00f3nde __________ t\u00fa en este momento?\nA) est\u00e1n\nB) est\u00e1is\nC) est\u00e1s\nD) estoy",o:["est\u00e1n","est\u00e1is","est\u00e1s","estoy"],a:2,exp:"A\u00e7\u0131klama: 35. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Kar\u015f\u0131daki ki\u015fiye (t\u00fa) nerede oldu\u011fu yani \"konum\"u (notlardaki 6. madde) soruldu\u011fu i\u00e7in \u00e7ekim \"est\u00e1s\" olur."},
+{t:"mc",q:"36. Tengo un anillo de oro muy bonito en mi dedo. Yo __________ prometido con mi novia Laura.\nA) estoy\nB) estamos\nC) est\u00e1n\nD) est\u00e1is",o:["estoy","estamos","est\u00e1n","est\u00e1is"],a:0,exp:"A\u00e7\u0131klama: 36. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Ben\" (yo) \u00f6znesinin \"s\u00f6zl\u00fc\" olma yani \"medeni durum\"unu (notlardaki 3. madde) ifade etmek i\u00e7in \"estoy\" kullan\u0131l\u0131r."},
+{t:"mc",q:"37. Vosotros no sonre\u00eds en las fotos de las vacaciones. \u00bfPor qu\u00e9 __________ tristes, chicos?\nA) est\u00e1n\nB) est\u00e1is\nC) estamos\nD) est\u00e1s",o:["est\u00e1n","est\u00e1is","estamos","est\u00e1s"],a:1,exp:"A\u00e7\u0131klama: 37. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Siz\" (vosotros) \u00f6znesinin o anki \"ruh hali\"ni (notlardaki 1. madde) sormak i\u00e7in \u00e7ekim \"est\u00e1is\" \u015feklinde yap\u0131l\u0131r."},
+{t:"mc",q:"38. Hoy tengo una cita m\u00e9dica pero no s\u00e9 la fecha. \u00bfA qu\u00e9 d\u00eda __________ hoy?\nA) est\u00e1n\nB) estoy\nC) est\u00e1is\nD) estamos",o:["est\u00e1n","estoy","est\u00e1is","estamos"],a:3,exp:"A\u00e7\u0131klama: 38. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 7. maddeye g\u00f6re; tarih/g\u00fcn sorulurken her zaman \"estamos\"(biz) \u00e7ekimi \u00fczerinden soru sorulur."},
+{t:"mc",q:"39. No me gusta comer la comida si no tiene calor. Por eso, mi sopa __________ fr\u00eda.\nA) est\u00e1\nB) estamos\nC) est\u00e1n\nD) estoy",o:["est\u00e1","estamos","est\u00e1n","estoy"],a:0,exp:"A\u00e7\u0131klama: 39. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \u00c7orban\u0131n o anki fiziksel \"durum\"unu (so\u011fuk olmas\u0131) belirtmek i\u00e7in tekil \u00e7ekim olan \"est\u00e1\" kullan\u0131l\u0131r."},
+{t:"mc",q:"40. Los ni\u00f1os juegan con la pelota fuera de casa. Ellos __________ en el parque ahora.\nA) estamos\nB) est\u00e1s\nC) est\u00e1n\nD) est\u00e1is",o:["estamos","est\u00e1s","est\u00e1n","est\u00e1is"],a:2,exp:"A\u00e7\u0131klama: 40. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \u00c7o\u011ful \u00f6znelerin (\u00e7ocuklar) o anki \"konum\"unu (notlardaki 6. madde) belirtmek i\u00e7in \u00e7ekim \"est\u00e1n\" olmal\u0131d\u0131r."},
+{t:"mc",q:"41. Juan es un chico muy inteligente. \u00c9l ya __________ listo para el examen de ma\u00f1ana.\nA) eres\nB) somos\nC) es\nD) est\u00e1",o:["eres","somos","es","est\u00e1"],a:3,exp:"A\u00e7\u0131klama: 41. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Listo\" s\u0131fat\u0131 Ser ile \"zeki\", Estar ile \"haz\u0131r\" demektir. C\u00fcmlede s\u0131nava \"haz\u0131r\" olma durumundan (ge\u00e7ici hal) bahsedildi\u011fi i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"42. Esta tarta de chocolate __________ muy rica, me encanta. Bill Gates es un hombre muy rico.\nA) soy\nB) est\u00e1\nC) eres\nD) son",o:["soy","est\u00e1","eres","son"],a:1,exp:"A\u00e7\u0131klama: 42. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Rico\" s\u0131fat\u0131 Ser ile \"zengin\", Estar ile yemekler i\u00e7in \"lezzetli\" demektir. Pstan\u0131n tad\u0131ndan bahsedildi\u011fi i\u00e7in est\u00e1 do\u011fru tercihtir."},
+{t:"mc",q:"43. Esta pel\u00edcula de terror __________ muy aburrida. Yo no quiero verla m\u00e1s.\nA) es\nB) est\u00e1\nC) estamos\nD) estoy",o:["es","est\u00e1","estamos","estoy"],a:0,exp:"A\u00e7\u0131klama: 43. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Aburrido\" s\u0131fat\u0131 Ser ile \"s\u0131k\u0131c\u0131\" (kal\u0131c\u0131 \u00f6zellik), Estar ile \"s\u0131k\u0131lm\u0131\u015f\" (ruh hali) demektir. Filmin karakteri \"s\u0131k\u0131c\u0131\" oldu\u011fu i\u00e7in es kullan\u0131l\u0131r."},
+{t:"mc",q:"44. Mar\u00eda es una persona muy alegre y simp\u00e1tica. Pero hoy ella __________ alegre porque tiene una buena noticia.\nA) somos\nB) es\nC) est\u00e1\nD) eres",o:["somos","es","est\u00e1","eres"],a:2,exp:"A\u00e7\u0131klama: 44. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \"Alegre\" s\u0131fat\u0131 Ser ile \"ne\u015feli biri\", Estar ile \"\u015fu an mutlu\" demektir. Maria'n\u0131n ald\u0131\u011f\u0131 haberle o anki mutlulu\u011fu anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"45. Brad Pitt es un actor muy guapo. T\u00fa __________ muy guapo con esa camisa nueva.\nA) es\nB) est\u00e1s\nC) somos\nD) soy",o:["es","est\u00e1s","somos","soy"],a:1,exp:"A\u00e7\u0131klama: 45. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Guapo\" s\u0131fat\u0131 Ser ile \"yak\u0131\u015f\u0131kl\u0131\", Estar ile \"o an yak\u0131\u015f\u0131kl\u0131 g\u00f6r\u00fcnmek\" demektir. G\u00f6mlekle o anki g\u00f6r\u00fcn\u00fc\u015f\u00fc anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1s kullan\u0131l\u0131r."},
+{t:"mc",q:"46. La nieve es de color blanco. \u00bfQu\u00e9 te pasa? Sen __________ muy blanco, \u00bfest\u00e1s enfermo?\nA) eres\nB) es\nC) somos\nD) est\u00e1s",o:["eres","es","somos","est\u00e1s"],a:3,exp:"A\u00e7\u0131klama: 46. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Blanco\" s\u0131fat\u0131 Ser ile \"beyaz renk\", Estar ile \"solgun g\u00f6r\u00fcnmek\" demektir. Hastal\u0131ktan dolay\u0131 solgun g\u00f6r\u00fcnme hali anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1s kullan\u0131l\u0131r."},
+{t:"mc",q:"47. Mi padre es un hombre muy bueno. Esta cena __________ muy buena, gracias mam\u00e1.\nA) eres\nB) soy\nC) est\u00e1\nD) somos",o:["eres","soy","est\u00e1","somos"],a:2,exp:"A\u00e7\u0131klama: 47. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \"Bueno\" s\u0131fat\u0131 Ser ile \"iyi bir insan\", Estar ile (yemekler i\u00e7in) \"lezzetli/g\u00fczel\" demektir. Ak\u015fam yeme\u011finin tad\u0131 \u00f6v\u00fcld\u00fc\u011f\u00fc i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"48. El jefe __________ muy orgulloso, nunca dice \"gracias\". Yo estoy orgulloso de mi hermano.\nA) es\nB) est\u00e1\nC) estamos\nD) eres",o:["es","est\u00e1","estamos","eres"],a:0,exp:"A\u00e7\u0131klama: 48. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Orgulloso\" s\u0131fat\u0131 Ser ile \"kibirli\", Estar ile \"gurur duymak\" demektir. Patronun kal\u0131c\u0131 bir karakter \u00f6zelli\u011fi (kibir) anlat\u0131ld\u0131\u011f\u0131 i\u00e7in es kullan\u0131l\u0131r."},
+{t:"mc",q:"49. Mi jefe es un hombre de negocios muy despierto. El beb\u00e9 ya __________ despierto en su cama.\nA) soy\nB) eres\nC) es\nD) est\u00e1",o:["soy","eres","es","est\u00e1"],a:3,exp:"A\u00e7\u0131klama: 49. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Despierto\" s\u0131fat\u0131 Ser ile \"kurnaz/a\u00e7\u0131kg\u00f6z\", Estar ile \"uyan\u0131k\" demektir. Bebe\u011fin uyanm\u0131\u015f olma hali (uyumuyor olmas\u0131) anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"50. La hierba es de color verde. Esta fruta __________ verde, no podemos comerla ahora.\nA) es\nB) est\u00e1\nC) eres\nD) soy",o:["es","est\u00e1","eres","soy"],a:1,exp:"A\u00e7\u0131klama: 50. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Verde\" s\u0131fat\u0131 Ser ile \"ye\u015fil renk\", Estar ile meyveler i\u00e7in \"ham/olgunla\u015fmam\u0131\u015f\" demektir. Meyvenin hen\u00fcz yenemeye\u00e7ek durumda olmas\u0131 anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"51. Este trabajo en la oficina __________ muy cansado. Yo estoy muy cansado ahora.\nA) es\nB) est\u00e1\nC) estamos\nD) son",o:["es","est\u00e1","estamos","son"],a:0,exp:"A\u00e7\u0131klama: 51. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Cansado\" s\u0131fat\u0131 Ser ile \"yorucu\" (i\u015fin niteli\u011fi), Estar ile \"yorulmu\u015f\" (ki\u015finin durumu) demektir. \u0130\u015fin yorucu karakteri anlat\u0131ld\u0131\u011f\u0131 i\u00e7in es kullan\u0131l\u0131r."},
+{t:"mc",q:"52. Mi t\u00edo es un hombre muy divertido, siempre cuenta chistes. Nosotros __________ muy divertidos en la fiesta.\nA) somos\nB) es\nC) eres\nD) estamos",o:["somos","es","eres","estamos"],a:3,exp:"A\u00e7\u0131klama: 52. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Divertido\" s\u0131fat\u0131 Ser ile \"e\u011flenceli biri\", Estar ile \"e\u011fleniyor olmak\" demektir. Partide e\u011flenme eylemi anlat\u0131ld\u0131\u011f\u0131 i\u00e7in Estar (estamos) kullan\u0131l\u0131r."},
+{t:"mc",q:"53. \u00c9l es una persona muy perezosa, nunca limpia su casa. Hoy \u00e9l __________ perezoso y no quiere trabajar.\nA) es\nB) eres\nC) est\u00e1\nD) soy",o:["es","eres","est\u00e1","soy"],a:2,exp:"A\u00e7\u0131klama: 53. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \"Perezoso\" s\u0131fat\u0131 Ser ile \"tembel biri\", Estar ile \"anl\u0131k tembellik yapmak\" demektir. Ki\u015finin o g\u00fcnk\u00fc miskinlik hali anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"54. Las fresas son de color rojo. Ella __________ roja porque tiene mucha verg\u00fcenza.\nA) es\nB) est\u00e1\nC) soy\nD) somos",o:["es","est\u00e1","soy","somos"],a:1,exp:"A\u00e7\u0131klama: 54. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Rojo\" s\u0131fat\u0131 Ser ile \"k\u0131rm\u0131z\u0131 renk\", Estar ile \"utan\u0131\u015f\u0131ndan k\u0131zarmak\" demektir. Utan\u00e7tan dolay\u0131 y\u00fczn\u00fcn k\u0131zarmas\u0131 anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"55. Mi abuelo es un hombre muy viejo. Esta ropa __________ vieja, necesito comprar ropa nueva.\nA) es\nB) est\u00e1\nC) eres\nD) soy",o:["es","est\u00e1","eres","soy"],a:1,exp:"A\u00e7\u0131klama: 55. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Viejo\" s\u0131fat\u0131 Ser ile \"ya\u015fl\u0131 insan\", Estar ile e\u015fyalar i\u00e7in \"eskimi\u015f/y\u0131pranm\u0131\u015f\" demektir. K\u0131yafetlerin eskimi\u015f oldu\u011fu belirtildi\u011fi i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"56. \u00c9l __________ ciego de nacimiento, no puede ver nada. Yo estoy ciego y no veo mis gafas.\nA) es\nB) est\u00e1\nC) estamos\nD) eres",o:["es","est\u00e1","estamos","eres"],a:0,exp:"A\u00e7\u0131klama: 56. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Ciego\" s\u0131fat\u0131 Ser ile \"g\u00f6rme engelli\" (kal\u0131c\u0131), Estar ile \"anl\u0131k bir \u015feyi fark etmemek/g\u00f6rmemek\" demektir. Do\u011fu\u015ftan gelen engel anlat\u0131ld\u0131\u011f\u0131 i\u00e7in es kullan\u0131l\u0131r."},
+{t:"mc",q:"57. Los jugadores de baloncesto son muy altos. Este ni\u00f1o __________ muy alto para su edad.\nA) soy\nB) eres\nC) es\nD) est\u00e1",o:["soy","eres","es","est\u00e1"],a:3,exp:"A\u00e7\u0131klama: 57. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Alto\" s\u0131fat\u0131 Ser ile \"uzun boylu\", Estar ile \"ya\u015f\u0131na g\u00f6re uzun g\u00f6r\u00fcnmek\" demektir. \u00c7ocu\u011fun ya\u015f\u0131na k\u0131yasla durumu anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131l\u0131r."},
+{t:"mc",q:"58. Mi hermano es una persona muy alegre. Yo __________ muy alegre hoy por el examen.\nA) es\nB) eres\nC) estoy\nD) somos",o:["es","eres","estoy","somos"],a:2,exp:"A\u00e7\u0131klama: 58. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Notlar\u0131ndaki 44. soruya benzer \u015fekilde, anl\u0131k mutluluk/sevin\u00e7 hali anlat\u0131ld\u0131\u011f\u0131 i\u00e7in Estar fiili tercih edilir."},
+{t:"mc",q:"59. Juan es muy listo, siempre sabe todo. \u00bfT\u00fa ya __________ listo para salir de casa?\nA) es\nB) eres\nC) est\u00e1s\nD) soy",o:["es","eres","est\u00e1s","soy"],a:2,exp:"A\u00e7\u0131klama: 59. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Kar\u015f\u0131daki ki\u015fiye evden \u00e7\u0131kmak i\u00e7in \"haz\u0131r\" olup olmad\u0131\u011f\u0131 soruldu\u011fu i\u00e7in (ge\u00e7ici durum) est\u00e1s kullan\u0131l\u0131r."},
+{t:"mc",q:"60. Bill Gates es un hombre muy rico. Este plato de sopa __________ muy rico.\nA) es\nB) est\u00e1\nC) eres\nD) soy",o:["es","est\u00e1","eres","soy"],a:1,exp:"A\u00e7\u0131klama: 60. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \u00c7orban\u0131n o anki lezzeti (rico) anlat\u0131ld\u0131\u011f\u0131 i\u00e7in est\u00e1 kullan\u0131m\u0131 do\u011frudur."},
+{t:"mc",q:"61. Yo __________ un gato negro en mi casa de Antalya.\nA) tengo\nB) tienes\nC) tiene\nD) tenemos",o:["tengo","tienes","tiene","tenemos"],a:0,exp:"A\u00e7\u0131klama: 61. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Yo\" (ben) \u00f6znesi i\u00e7in Tener fiili \"tengo\" olarak \u00e7ekimlenir. Burada bir hayvana sahip olma (aidiyet/ili\u015fki) durumu anlat\u0131lmaktad\u0131r."},
+{t:"mc",q:"62. Mis abuelos __________ ochenta a\u00f1os y viven en un pueblo.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:3,exp:"A\u00e7\u0131klama: 62. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Mis abuelos\" (dedemler/onlar) \u00e7o\u011ful bir \u00f6zne oldu\u011fu i\u00e7in \u00e7ekim \"tienen\" olmal\u0131d\u0131r. \u0130spanyolcada ya\u015f belirtirken Tener fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"63. \u00bf__________ (t\u00fa) que trabajar este s\u00e1bado por la ma\u00f1ana?\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:1,exp:"A\u00e7\u0131klama: 63. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Kar\u015f\u0131daki ki\u015fiye (t\u00fa) bir zorunlulu\u011fu sordu\u011fumuz i\u00e7in \"tienes\" kullan\u0131l\u0131r. \"Tener + que + Mastar\" yap\u0131s\u0131 gereklilik bildirir."},
+{t:"mc",q:"64. Nosotros __________ mucha sed porque hace mucho calor en la calle.\nA) tengo\nB) tienes\nC) tenemos\nD) tienen",o:["tengo","tienes","tenemos","tienen"],a:2,exp:"A\u00e7\u0131klama: 64. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \"Nosotros\" (biz) \u00f6znesi i\u00e7in do\u011fru \u00e7ekim \"tenemos\" \u015feklindedir. Susama (sed) gibi fiziksel hisler Tener ile ifade edilir."},
+{t:"mc",q:"65. Los ni\u00f1os __________ sue\u00f1o despu\u00e9s de jugar todo el d\u00eda en el parque.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:3,exp:"A\u00e7\u0131klama: 65. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Los ni\u00f1os\" (\u00e7ocuklar/onlar) \u00f6znesi \u00e7o\u011ful oldu\u011fu i\u00e7in fiil \"tienen\" olmal\u0131d\u0131r. Uyku gelmesi durumu (sue\u00f1o) Tener ile anlat\u0131l\u0131r."},
+{t:"mc",q:"66. Yo __________ los ojos marrones y el pelo corto.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:0,exp:"A\u00e7\u0131klama: 66. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Ki\u015fisel fiziksel \u00f6zelliklerden bahsederken \"Yo\" \u00f6znesine g\u00f6re \"tengo\" \u00e7ekimi tercih edilir."},
+{t:"mc",q:"67. Hoy __________ (yo) que limpiar toda mi habitaci\u00f3n.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:0,exp:"A\u00e7\u0131klama: 67. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Ki\u015finin kendi yapmas\u0131 gereken bir zorunlulu\u011fu (tener que) ifade etmesi i\u00e7in \"tengo\" \u00e7ekimi uygundur."},
+{t:"mc",q:"68. \u00bfCu\u00e1ntos a\u00f1os __________ t\u00fa? Yo no lo s\u00e9.\nA) tengo\nB) tienes\nC) tiene\nD) tenemos",o:["tengo","tienes","tiene","tenemos"],a:1,exp:"A\u00e7\u0131klama: 68. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Kar\u015f\u0131daki ki\u015fiye (t\u00fa) do\u011frudan ya\u015f\u0131n\u0131 sormak i\u00e7in \"tienes\" \u00e7ekimi kullan\u0131l\u0131r."},
+{t:"mc",q:"69. Antonio __________ una familia muy grande y simp\u00e1tica.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:2,exp:"A\u00e7\u0131klama: 69. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Antonio (o/\u00e9l) tekil bir \u00f6zne oldu\u011fu i\u00e7in \"tiene\" \u00e7ekimiyle ailesine sahip oldu\u011fu (ili\u015fki) belirtilir."},
+{t:"mc",q:"70. Ellos __________ fr\u00edo en invierno en esta ciudad.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:3,exp:"A\u00e7\u0131klama: 70. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \u00c7o\u011ful bir grup (onlar) i\u00e7in \u00fc\u015f\u00fcme (fr\u00edo) hissi \"tienen\" \u00e7ekimiyle ifade edilir."},
+{t:"mc",q:"71. Los estudiantes __________ que practicar m\u00e1s espa\u00f1ol en clase.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:3,exp:"A\u00e7\u0131klama: 71. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \u00c7o\u011ful \u00f6zne (estudiantes) i\u00e7in zorunluluk bildiren \"tienen que\" yap\u0131s\u0131 kullan\u0131l\u0131r."},
+{t:"mc",q:"72. El beb\u00e9 __________ fiebre, por eso llora mucho.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:2,exp:"A\u00e7\u0131klama: 72. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Bebek (tekil/o) \u00f6znesi i\u00e7in ate\u015finin olmas\u0131 (fiebre) durumu \"tiene\" ile anlat\u0131l\u0131r."},
+{t:"mc",q:"73. Yo __________ mucha hambre, \u00bfvamos a comer ahora?\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:0,exp:"A\u00e7\u0131klama: 73. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Kendi a\u00e7l\u0131k (hambre) hissimizi ifade ederken \"Yo\" \u00f6znesiyle \"tengo\" kullan\u0131l\u0131r."},
+{t:"mc",q:"74. \u00bf__________ (t\u00fa) calor con este abrigo en la oficina?\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:1,exp:"A\u00e7\u0131klama: 74. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Sen s\u0131cakland\u0131n m\u0131?\" sorusu i\u00e7in \"t\u00fa\" \u00f6znesine g\u00f6re \"tienes\" \u00e7ekimi ve \"calor\" kullan\u0131l\u0131r."},
+{t:"mc",q:"75. \u00bf__________ (t\u00fa) tos? Tienes que beber mucha agua.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:1,exp:"A\u00e7\u0131klama: 75. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \u00d6ks\u00fcr\u00fc\u011f\u00fcn olmas\u0131 (tos) bir fiziksel durumdur ve kar\u015f\u0131daki ki\u015fiye \"tienes\" ile sorulur."},
+{t:"mc",q:"76. Ustedes __________ una casa muy bonita en la playa.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:3,exp:"A\u00e7\u0131klama: 76. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"Ustedes\" (sizler) \u00f6znesi \u00e7o\u011ful oldu\u011fu i\u00e7in m\u00fclkiyet belirten \u00e7ekim \"tienen\" olmal\u0131d\u0131r."},
+{t:"mc",q:"77. Antonio __________ dolor de est\u00f3mago despu\u00e9s de la cena.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:2,exp:"A\u00e7\u0131klama: 77. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Antonio (o) \u00f6znesi i\u00e7in bir fiziksel ac\u0131 (dolor de...) \"tiene\" \u00e7ekimiyle verilir."},
+{t:"mc",q:"78. Yo __________ veintid\u00f3s a\u00f1os y estudio en la universidad.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:0,exp:"A\u00e7\u0131klama: 78. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Kendi ya\u015f\u0131m\u0131z\u0131 s\u00f6ylerken \"Yo\" \u00f6znesine uygun olarak \"tengo\" kullan\u0131l\u0131r."},
+{t:"mc",q:"79. Yo __________ sue\u00f1o todas las ma\u00f1anas muy temprano.\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:0,exp:"A\u00e7\u0131klama: 79. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Uyku var\" (sue\u00f1o) fiziksel hissi i\u00e7in \"Yo\" \u00f6znesiyle \"tengo\" \u00e7ekimi kullan\u0131l\u0131r."},
+{t:"mc",q:"80. \u00bf__________ (t\u00fa) que escribir los ejercicios en el libro?\nA) tengo\nB) tienes\nC) tiene\nD) tienen",o:["tengo","tienes","tiene","tienen"],a:1,exp:"A\u00e7\u0131klama: 80. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Kar\u015f\u0131daki ki\u015fiye (t\u00fa) bir \u015feyi yapmak zorunda olup olmad\u0131\u011f\u0131n\u0131 sormak i\u00e7in \"tienes que\" yap\u0131s\u0131 kullan\u0131l\u0131r."},
+{t:"mc",q:"81. Yo __________ mucha sed porque hace mucho calor en la calle.\nA) soy\nB) estoy\nC) tienes\nD) tengo",o:["soy","estoy","tienes","tengo"],a:3,exp:"A\u00e7\u0131klama: 81. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \u0130spanyolcada susama (sed), a\u00e7l\u0131k (hambre) gibi fiziksel hisler \"Tener\" fiili ile ifade edilir. \u00d6zne \"Yo\" oldu\u011fu i\u00e7in \u00e7ekim \"tengo\" olur."},
+{t:"mc",q:"82. \u00bfSabes d\u00f3nde __________ mi libro de espa\u00f1ol?\nA) es\nB) est\u00e1s\nC) est\u00e1\nD) tienes",o:["es","est\u00e1s","est\u00e1","tienes"],a:2,exp:"A\u00e7\u0131klama: 82. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Bir e\u015fyan\u0131n veya ki\u015finin o anki \"konum\"unu sormak i\u00e7in \"Estar\" fiili kullan\u0131l\u0131r. Kitap tekil bir nesne oldu\u011fu i\u00e7in \u00e7ekim \"est\u00e1\" olur."},
+{t:"mc",q:"83. Cuando __________ a casa, ll\u00e1mame por favor.\nA) llegas\nB) llegues\nC) llegar\nD) llegaste",o:["llegas","llegues","llegar","llegaste"],a:1,exp:"A\u00e7\u0131klama: 83. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Gele\u00e7e\u011fe y\u00f6nelik, hen\u00fcz ger\u00e7ekle\u015fmemi\u015f \"cuando\" (oldu\u011funda) c\u00fcmlelerinde Subjuntivo kullan\u0131l\u0131r."},
+{t:"mc",q:"84. Hoy __________ lunes y tengo mucho trabajo en la oficina.\nA) es\nB) est\u00e1\nC) estamos\nD) tengo",o:["es","est\u00e1","estamos","tengo"],a:0,exp:"A\u00e7\u0131klama: 84. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Haftan\u0131n g\u00fcnlerini s\u00f6ylerken (e\u011fer 'estamos a' kal\u0131b\u0131 yoksa) do\u011frudan \"Ser\" fiili (es) kullan\u0131l\u0131r."},
+{t:"mc",q:"85. \u00bfCu\u00e1ntos a\u00f1os __________ tu hermano menor?\nA) es\nB) est\u00e1\nC) tiene\nD) tienes",o:["es","est\u00e1","tiene","tienes"],a:2,exp:"A\u00e7\u0131klama: 85. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \u0130spanyolcada ya\u015f belirtirken \"Tener\" kullan\u0131l\u0131r. \u00d6zne \"senin karde\u015fin\" (o) oldu\u011fu i\u00e7in \u00e7ekim \"tiene\" olmal\u0131d\u0131r."},
+{t:"mc",q:"86. Ella __________ de Madrid, pero ahora vive en Barcelona.\nA) est\u00e1\nB) soy\nC) estamos\nD) es",o:["est\u00e1","soy","estamos","es"],a:3,exp:"A\u00e7\u0131klama: 86. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. Birinin k\u00f6kenini (nereli oldu\u011funu) belirtmek i\u00e7in her zaman \"Ser\" fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"87. Te explico la gram\u00e1tica para que la __________ mejor.\nA) entiendas\nB) entiendes\nC) entender\nD) entienda",o:["entiendas","entiendes","entender","entienda"],a:0,exp:"A\u00e7\u0131klama: 87. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Ama\u00e7 bildiren \"para que\" (-sin diye) ba\u011flac\u0131 istisnasiz Subjuntivo gerektirir."},
+{t:"mc",q:"88. No puedo entrar en la oficina porque la puerta __________ cerrada.\nA) es\nB) est\u00e1\nC) son\nD) tienes",o:["es","est\u00e1","son","tienes"],a:1,exp:"A\u00e7\u0131klama: 88. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Kap\u0131n\u0131n o anki fiziksel \"durum/sonu\u00e7\" halini (notlardaki 2. madde) anlatmak i\u00e7in \"Estar\" fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"89. El ni\u00f1o no va a la escuela porque __________ fiebre.\nA) es\nB) est\u00e1\nC) tienen\nD) tiene",o:["es","est\u00e1","tienen","tiene"],a:3,exp:"A\u00e7\u0131klama: 89. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. Ate\u015f (fiebre), a\u011fr\u0131 veya \u00f6ks\u00fcr\u00fck gibi fiziksel semptomlar \"Tener\" fiili ile ifade edilir."},
+{t:"mc",q:"90. Espero que t\u00fa __________ muy feliz en tu nuevo trabajo.\nA) eres\nB) es\nC) seas\nD) ser",o:["eres","es","seas","ser"],a:2,exp:"A\u00e7\u0131klama: 90. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \"Espero que\" (umuyorum ki) yap\u0131s\u0131 bir istek/umut bildirir ve \u00f6zne de\u011fi\u015fti\u011fi i\u00e7in Subjuntivo \u00e7ekimi gerektirir."},
+{t:"mc",q:"91. Madrid __________ en el centro de Espa\u00f1a.\nA) es\nB) soy\nC) est\u00e1\nD) tienes",o:["es","soy","est\u00e1","tienes"],a:2,exp:"A\u00e7\u0131klama: 91. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. \u015eehirlerin veya \u00fclkelerin co\u011frafi konumu belirtilirken her zaman \"Estar\" fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"92. Nosotros __________ casados desde hace cinco a\u00f1os.\nA) estamos\nB) somos\nC) est\u00e1n\nD) tenemos",o:["estamos","somos","est\u00e1n","tenemos"],a:0,exp:"A\u00e7\u0131klama: 92. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Medeni durumlar (evli, bekar, bo\u015fanm\u0131\u015f vb.) \"Estar\" fiili ile anlat\u0131l\u0131r. \"Biz\" \u00f6znesi i\u00e7in \u00e7ekim \"estamos\" olur."},
+{t:"mc",q:"93. Mi padre __________ m\u00e9dico en un hospital grande.\nA) est\u00e1\nB) es\nC) tiene\nD) soy",o:["est\u00e1","es","tiene","soy"],a:1,exp:"A\u00e7\u0131klama: 93. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Kal\u0131c\u0131 meslek bildirimlerinde (kimlik bilgisi) \"Ser\" fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"94. No salgas a la calle a menos que __________ sol.\nA) hace\nB) hacer\nC) hizo\nD) haga",o:["hace","hacer","hizo","haga"],a:3,exp:"A\u00e7\u0131klama: 94. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. \"A menos que\" (-medik\u00e7e) ba\u011flac\u0131 notlar\u0131nda da oldu\u011fu gibi her zaman Subjuntivo ile kullan\u0131l\u0131r."},
+{t:"mc",q:"95. Yo __________ que estudiar mucho para el examen de ma\u00f1ana.\nA) tengo\nB) he\nC) estoy\nD) soy",o:["tengo","he","estoy","soy"],a:0,exp:"A\u00e7\u0131klama: 95. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. \"Tener + que + Mastar\" yap\u0131s\u0131 bir zorunlulu\u011fu ifade eder. \"Ben\" \u00f6znesi i\u00e7in \u00e7ekim \"tengo\" olur."},
+{t:"mc",q:"96. La mesa de la cocina __________ de madera.\nA) est\u00e1\nB) son\nC) es\nD) tiene",o:["est\u00e1","son","es","tiene"],a:2,exp:"A\u00e7\u0131klama: 96. sorunun cevab\u0131 C \u015f\u0131kk\u0131d\u0131r. Bir nesnenin hangi maddeden (malzeme) yap\u0131ld\u0131\u011f\u0131n\u0131 belirtmek i\u00e7in \"Ser\" fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"97. Por favor, \u00a1no __________ mentiras!\nA) di\nB) dices\nC) decir\nD) digas",o:["di","dices","decir","digas"],a:3,exp:"A\u00e7\u0131klama: 97. sorunun cevab\u0131 D \u015f\u0131kk\u0131d\u0131r. Olumsuz emirlerde (Imperativo Negativo) her zaman Subjuntivo \u00e7ekimi kullan\u0131l\u0131r."},
+{t:"mc",q:"98. Ella __________ muy triste porque su perro est\u00e1 enfermo.\nA) es\nB) est\u00e1\nC) tienes\nD) soy",o:["es","est\u00e1","tienes","soy"],a:1,exp:"A\u00e7\u0131klama: 98. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. Ge\u00e7ici bir ruh halini (\u00fczg\u00fcn olmak) anlatmak i\u00e7in \"Estar\" fiili kullan\u0131l\u0131r."},
+{t:"mc",q:"99. Juan __________ muy listo, siempre sabe todas las respuestas.\nA) est\u00e1\nB) es\nC) tienes\nD) somos",o:["est\u00e1","es","tienes","somos"],a:1,exp:"A\u00e7\u0131klama: 99. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Listo\" s\u0131fat\u0131 \"Ser\" ile kullan\u0131ld\u0131\u011f\u0131nda \"zeki\" (kimlik), \"Estar\" ile kullan\u0131ld\u0131\u011f\u0131nda \"haz\u0131r\" (durum) demektir. C\u00fcmlede zekadan bahsediliyor."},
+{t:"mc",q:"100. La sopa que prepar\u00f3 mi madre __________ muy rica.\nA) est\u00e1\nB) es\nC) tienen\nD) soy",o:["est\u00e1","es","tienen","soy"],a:0,exp:"A\u00e7\u0131klama: 100. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Yemeklerin o anki lezzetini (tad\u0131 g\u00fczel) belirtmek i\u00e7in \"Estar\" fiili kullan\u0131l\u0131r."}
+];
+
+var state={cur:0,answered:[],scores:[],okCount:0,errCount:0,checked:[]};
+
+function startQuiz(){
+  var name=document.getElementById('introName').value;
+  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
+  document.getElementById('resName').value=name;
+  document.getElementById('resName2').value=name;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+
+function syncResName(){
+  document.getElementById('resName').value=document.getElementById('resName2').value;
+}
+
+function esc(s){
+  if(!s)return'';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function normalizeAns(s){
+  return s.trim().toLowerCase()
+    .replace(/\u00e1/g,'a').replace(/\u00e9/g,'e').replace(/\u00ed/g,'i').replace(/\u00f3/g,'o').replace(/\u00fa/g,'u')
+    .replace(/\u00fc/g,'u').replace(/\u00f1/g,'n');
+}
+
+function renderQ(){
+  var i=state.cur;var q=Q[i];var html='';
+  var isFill=(q.t==='fill');
+  html+='<span class="q-badge">'+(isFill?'BOSLUK DOLDURMA':'COKTAN SECMELI')+'</span>';
+  var qDisplay=q.q;
+  if(isFill){
+    var cevapIdx=q.q.indexOf('\nCevap:');
+    if(cevapIdx===-1)cevapIdx=q.q.indexOf('\nT\u00fcrk\u00e7e:');
+    if(cevapIdx!==-1)qDisplay=q.q.substring(0,cevapIdx);
+  }
+  html+='<div class="q-text">'+esc(qDisplay)+'</div>';
+
+  if(isFill){
+    var done=state.checked[i]===true;
+    var userAns=state.answered[i]!==undefined?state.answered[i]:'';
+    var cls='fill-input'+(done?(state.scores[i]?' correct':' wrong'):'');
+    html+='<div class="fill-wrap">';
+    html+='<input type="text" class="'+cls+'" id="fillInput" value="'+esc(userAns)+'" '+(done?'disabled':'')+' placeholder="Cevab\u0131n\u0131z\u0131 yaz\u0131n..." oninput="onFillInput()" />';
+    html+='</div>';
+    if(!done){
+      html+='<button class="btn-check" id="btnCheck" onclick="checkFill()" '+(userAns?'':'disabled')+'>Kontrol Et</button>';
+    }
+  } else {
+    var L=['A','B','C','D'];
+    html+='<div class="opts">';
+    for(var j=0;j<q.o.length;j++){
+      var cls2='opt-btn';var dis='';var ans=state.answered[i];
+      if(ans!==undefined){
+        dis='disabled';
+        if(j===q.a)cls2+=' correct';
+        else if(j===ans&&ans!==q.a)cls2+=' wrong';
+      }
+      html+='<button class="'+cls2+'" '+dis+' onclick="checkAns('+j+')"><strong>'+L[j]+')</strong> '+esc(q.o[j])+'</button>';
+    }
+    html+='</div>';
+  }
+
+  html+='<div class="exp-box'+((isFill?state.checked[i]:state.answered[i]!==undefined)?' show':'')+'" id="expBox">'+esc(q.exp)+'</div>';
+  document.getElementById('qCard').innerHTML=html;
+
+  var done2=(isFill?state.checked[i]===true:state.answered[i]!==undefined);
+  document.getElementById('btnBack').disabled=(i===0||!done2);
+  document.getElementById('btnNext').disabled=(!done2||i===Q.length-1);
+  document.getElementById('btnSkip').disabled=(!done2||i>=Q.length-1);
+  document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
+  document.getElementById('cntOk').textContent=state.okCount+' Do\u011fru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanl\u0131\u015f';
+}
+
+function onFillInput(){
+  var btn=document.getElementById('btnCheck');
+  if(btn){
+    var val=document.getElementById('fillInput').value.trim();
+    btn.disabled=!val;
+  }
+}
+
+function checkFill(){
+  var i=state.cur;
+  if(state.checked[i])return;
+  var val=document.getElementById('fillInput').value.trim();
+  if(!val)return;
+  var q=Q[i];
+  state.answered[i]=val;
+  state.checked[i]=true;
+  var correct=normalizeAns(val)===normalizeAns(q.a);
+  if(correct){state.okCount++;state.scores[i]=1;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+
+function checkAns(j){
+  var i=state.cur;
+  if(state.answered[i]!==undefined)return;
+  var q=Q[i];state.answered[i]=j;
+  if(j===q.a){state.okCount++;state.scores[i]=1;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+
+function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function goBack(){if(state.cur>0){state.cur--;renderQ();}}
+function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+
+function confirmFinish(){
+  var answered=0;for(var i=0;i<Q.length;i++){if(Q[i].t==='fill'?state.checked[i]:state.answered[i]!==undefined)answered++;}
+  var unanswered=Q.length-answered;
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevaplad\u0131n\u0131z.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevaps\u0131z kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istedi\u011finize emin misiniz?';
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+function doFinish(){closeConfirm();showResult();}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
+  document.getElementById('resScore').textContent=total;
+  document.getElementById('resOk').textContent=state.okCount+' Do\u011fru';
+  document.getElementById('resErr').textContent=state.errCount+' Yanl\u0131\u015f';
+  document.getElementById('resNote').textContent='100 sorudan '+state.okCount+' tanesi do\u011fru (her soru 1 puan)';
+  var L=['A','B','C','D'];var html2='';
+  for(var i=0;i<Q.length;i++){
+    var q=Q[i];var wrong=false;
+    if(q.t==='fill'){
+      if(state.checked[i]&&state.scores[i]===0)wrong=true;
+    } else {
+      if(state.answered[i]!==undefined&&state.answered[i]!==q.a)wrong=true;
+    }
+    if(!wrong)continue;
+    html2+='<div class="rev-item">';
+    html2+='<div class="rev-q">'+esc(q.q)+'</div>';
+    if(q.t==='fill'){
+      html2+='<div class="rev-chosen">Verdi\u011finiz cevap: '+esc(state.answered[i])+'</div>';
+      html2+='<div class="rev-correct">Do\u011fru cevap: '+esc(q.a)+'</div>';
+    } else {
+      html2+='<div class="rev-chosen">Verdi\u011finiz cevap: '+esc(q.o[state.answered[i]])+'</div>';
+      html2+='<div class="rev-correct">Do\u011fru cevap: '+esc(q.o[q.a])+'</div>';
+    }
+    html2+='<div class="rev-exp">'+esc(q.exp)+'</div>';
+    html2+='</div>';
+  }
+  document.getElementById('reviewList').innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanl\u0131\u015f soru bulunamad\u0131.</div>';
+}
+
+function toggleReview(){
+  var rv=document.getElementById('reviewList');
+  rv.style.display=(rv.style.display==='flex'?'none':'flex');
+}
+
+function submitResult(){
+  var name=document.getElementById('resName').value;
+  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
+  var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
+  var grup=GROUPS[name]||'A1.1';
+  var jsonPayload=JSON.stringify({
+    ogrenci:name,odev:ODEV_ADI,grup:grup,
+    puan:total,dogru:state.okCount,yanlis:state.errCount,
+    tarih:new Date().toLocaleDateString('tr-TR')
+  });
+  document.getElementById('submitWarning').style.display='none';
+  document.getElementById('submitMsg').style.display='block';
+  document.getElementById('submitMsg').style.background='#fff3cd';
+  document.getElementById('submitMsg').style.color='#856404';
+  document.getElementById('submitMsg').style.border='1px solid #ffc107';
+  document.getElementById('submitMsg').textContent='G\u00f6nderiliyor... (Grup: '+grup+')';
+  document.getElementById('btnSubmit').disabled=true;
+  var msgEl=document.getElementById('submitMsg');
+
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'data='+encodeURIComponent(jsonPayload)
+  })
+  .then(function(){
+    msgEl.style.background='#e6f9f0';
+    msgEl.style.color='#1a5c3a';
+    msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' \u00f6\u011frencisinin "\u201c'+ODEV_ADI+'\u201d \u00f6devi teslim edildi. Puan: '+total+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';
+    msgEl.style.color='#8b1a1a';
+    msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message;
+    document.getElementById('btnSubmit').disabled=false;
+  });
+}
+</script>
+</body>
+</html>
