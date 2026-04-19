@@ -84,12 +84,12 @@ select:focus{border-color:#6c4eb8}
 
   <!-- INTRO -->
   <div id="introScreen" class="screen active">
-    <div class="week-pill">6. HAFTA ODEVi &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
-    <div class="intro-title">ESTAR SER TENER FiILLERi</div>
-    <div class="intro-sub">100 soru &middot; Karma (Her soru 1 puan)</div>
+    <div class="week-pill">5. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
+    <div class="intro-title">ESTAR SER TENER FİİLLERİ</div>
+    <div class="intro-sub">100 soru · Karma (Her soru 1 puan)</div>
     <div class="intro-teacher">@ispanyolcacim &bull; Profe Hazel</div>
     <select id="introName">
-      <option value="">-- Adinizi Secin --</option>
+      <option value="">-- Adınızı Seçin --</option>
       <option value="Birce Süzen">Birce Süzen</option>
       <option value="Burakhan Kaydı">Burakhan Kaydı</option>
       <option value="Buse Cagmel">Buse Cagmel</option>
@@ -136,7 +136,7 @@ select:focus{border-color:#6c4eb8}
       <option value="Şenay Sezgin">Şenay Sezgin</option>
       <option value="Şeyma Dereci">Şeyma Dereci</option>
     </select>
-    <button class="btn-start" onclick="startQuiz()">Teste Basla</button>
+    <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
   </div>
 
   <!-- QUIZ -->
@@ -159,9 +159,9 @@ select:focus{border-color:#6c4eb8}
   <div id="resultScreen" class="screen">
     <input type="hidden" id="resName" value="">
     <div style="text-align:center">
-      <div class="res-pill">6. HAFTA ODEVi &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
+      <div class="res-pill">5. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
     </div>
-    <div class="res-title">ESTAR SER TENER FiILLERi</div>
+    <div class="res-title">ESTAR SER TENER FİİLLERİ</div>
     <div class="res-score"><span id="resScore">0</span>/100</div>
     <div class="res-stats">
       <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
@@ -169,11 +169,11 @@ select:focus{border-color:#6c4eb8}
     </div>
     <div class="res-note" id="resNote"></div>
     <div class="submit-warning" id="submitWarning">
-      <div class="submit-warning-title">ODEVINI TESLIM ETMEDIN</div>
-      <div class="submit-warning-sub">Lutfen asagidaki listeden adinizi secip gonderin.</div>
+      <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
+      <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
     </div>
     <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
-      <option value="">-- Adinizi Secin --</option>
+      <option value="">-- Adınızı Seçin --</option>
       <option value="Birce Süzen">Birce Süzen</option>
       <option value="Burakhan Kaydı">Burakhan Kaydı</option>
       <option value="Buse Cagmel">Buse Cagmel</option>
@@ -221,8 +221,8 @@ select:focus{border-color:#6c4eb8}
       <option value="Şeyma Dereci">Şeyma Dereci</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
-    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ODEVINIZI TESLIM EDIN</button>
-    <button class="btn-review" onclick="toggleReview()">Yanlislari Gor</button>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
     <div class="review-list" id="reviewList"></div>
   </div>
 </div>
@@ -232,7 +232,7 @@ select:focus{border-color:#6c4eb8}
   <div class="confirm-box">
     <div class="confirm-msg" id="confirmMsg"></div>
     <div class="confirm-btns">
-      <button class="btn-cancel" onclick="closeConfirm()">Iptal</button>
+      <button class="btn-cancel" onclick="closeConfirm()">İptal</button>
       <button class="btn-ok" onclick="doFinish()">Evet, Bitir</button>
     </div>
   </div>
@@ -372,15 +372,35 @@ function esc(s){
 }
 
 function normalizeAns(s){
-  return s.trim().toLowerCase()
-    .replace(/\u00e1/g,'a').replace(/\u00e9/g,'e').replace(/\u00ed/g,'i').replace(/\u00f3/g,'o').replace(/\u00fa/g,'u')
-    .replace(/\u00fc/g,'u').replace(/\u00f1/g,'n');
+  var r=s.trim().toLowerCase()
+    .replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u')
+    .replace(/ü/g,'u').replace(/ñ/g,'n');
+  return r;
+}
+// Cevap kontrolü: hem tam eşleşme hem de içinde geçme (özne+fiil durumu)
+function checkFillCorrect(val, correctAns){
+  var v=normalizeAns(val);
+  var c=normalizeAns(correctAns);
+  // Tam eşleşme
+  if(v===c) return true;
+  // Öğrenci "yo soy", "soy yo" gibi yazdıysa: doğru cevap kelimeleri hepsini içeriyor mu?
+  var cWords=c.split(/\s+/);
+  var vWords=v.split(/\s+/);
+  // Doğru cevaptaki her kelime, öğrencinin cevabında var mı?
+  var allFound=true;
+  for(var wi=0;wi<cWords.length;wi++){
+    if(vWords.indexOf(cWords[wi])===-1){allFound=false;break;}
+  }
+  if(allFound) return true;
+  // Öğrencinin cevabı doğru cevabı içeriyor mu? (ek kelimeler olabilir)
+  if(v.indexOf(c)!==-1) return true;
+  return false;
 }
 
 function renderQ(){
   var i=state.cur;var q=Q[i];var html='';
   var isFill=(q.t==='fill');
-  html+='<span class="q-badge">'+(isFill?'BOSLUK DOLDURMA':'COKTAN SECMELI')+'</span>';
+  html+='<span class="q-badge">'+(isFill?'BOŞLUK DOLDURMA':'ÇOKTAN SEÇMELİ')+'</span>';
   var qDisplay=q.q;
   if(isFill){
     var cevapIdx=q.q.indexOf('\nCevap:');
@@ -394,7 +414,7 @@ function renderQ(){
     var userAns=state.answered[i]!==undefined?state.answered[i]:'';
     var cls='fill-input'+(done?(state.scores[i]?' correct':' wrong'):'');
     html+='<div class="fill-wrap">';
-    html+='<input type="text" class="'+cls+'" id="fillInput" value="'+esc(userAns)+'" '+(done?'disabled':'')+' placeholder="Cevab\u0131n\u0131z\u0131 yaz\u0131n..." oninput="onFillInput()" />';
+    html+='<input type="text" class="'+cls+'" id="fillInput" value="'+esc(userAns)+'" '+(done?'disabled':'')+' placeholder="Cevabınızı yazın..." oninput="onFillInput()" />';
     html+='</div>';
     if(!done){
       html+='<button class="btn-check" id="btnCheck" onclick="checkFill()" '+(userAns?'':'disabled')+'>Kontrol Et</button>';
@@ -443,7 +463,7 @@ function checkFill(){
   var q=Q[i];
   state.answered[i]=val;
   state.checked[i]=true;
-  var correct=normalizeAns(val)===normalizeAns(q.a);
+  var correct=checkFillCorrect(val,q.a);
   if(correct){state.okCount++;state.scores[i]=1;}
   else{state.errCount++;state.scores[i]=0;}
   renderQ();
