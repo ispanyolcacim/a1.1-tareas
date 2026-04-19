@@ -346,11 +346,14 @@ function submitResult(){
   var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
   var pct=total*2;if(pct>100)pct=100;
   var grup=GROUPS[name]||'A1.1';
-  var payload=JSON.stringify({
-    ogrenci:name,odev:ODEV_ADI,grup:grup,
-    puan:pct,dogru:state.okCount,yanlis:state.errCount,
-    tarih:new Date().toLocaleDateString('tr-TR')
-  });
+  var params=new URLSearchParams();
+  params.append('ogrenci',name);
+  params.append('odev',ODEV_ADI);
+  params.append('grup',grup);
+  params.append('puan',pct);
+  params.append('dogru',state.okCount);
+  params.append('yanlis',state.errCount);
+  params.append('tarih',new Date().toLocaleDateString('tr-TR'));
   document.getElementById('submitWarning').style.display='none';
   document.getElementById('submitMsg').style.display='block';
   document.getElementById('submitMsg').style.background='#fff3cd';
@@ -359,14 +362,12 @@ function submitResult(){
   document.getElementById('submitMsg').textContent='G\u00f6nderiliyor... (Grup: '+grup+')';
   document.getElementById('btnSubmit').disabled=true;
   var msgEl=document.getElementById('submitMsg');
-  document.getElementById('debugPanel').style.display='block';
-  document.getElementById('debugPanel').textContent='PAYLOAD: '+payload;
 
   fetch(SCRIPT_URL,{
     method:'POST',
     mode:'no-cors',
-    headers:{'Content-Type':'text/plain'},
-    body:payload
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:params.toString()
   })
   .then(function(){
     msgEl.style.background='#e6f9f0';
@@ -378,7 +379,7 @@ function submitResult(){
     msgEl.style.background='#fde8e8';
     msgEl.style.color='#8b1a1a';
     msgEl.style.border='1px solid #d94040';
-    msgEl.textContent='HATA: '+err.message+' | Payload: '+payload;
+    msgEl.textContent='HATA: '+err.message;
     document.getElementById('btnSubmit').disabled=false;
   });
 }
