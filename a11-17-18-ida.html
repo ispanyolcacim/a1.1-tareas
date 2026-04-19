@@ -410,14 +410,11 @@ function submitResult(){
   var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
   var pct=total*2;if(pct>100)pct=100;
   var grup=GROUPS[name]||'A1.1';
-  var params=new URLSearchParams();
-  params.append('ogrenci',name);
-  params.append('odev',ODEV_ADI);
-  params.append('grup',grup);
-  params.append('puan',pct);
-  params.append('dogru',state.okCount);
-  params.append('yanlis',state.errCount);
-  params.append('tarih',new Date().toLocaleDateString('tr-TR'));
+  var jsonPayload=JSON.stringify({
+    ogrenci:name,odev:ODEV_ADI,grup:grup,
+    puan:pct,dogru:state.okCount,yanlis:state.errCount,
+    tarih:new Date().toLocaleDateString('tr-TR')
+  });
   document.getElementById('submitWarning').style.display='none';
   document.getElementById('submitMsg').style.display='block';
   document.getElementById('submitMsg').style.background='#fff3cd';
@@ -431,7 +428,7 @@ function submitResult(){
     method:'POST',
     mode:'no-cors',
     headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:params.toString()
+    body:'data='+encodeURIComponent(jsonPayload)
   })
   .then(function(){
     msgEl.style.background='#e6f9f0';
