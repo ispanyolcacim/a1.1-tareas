@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H5 – 17-18.Ders | A1.1 Ödevi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+.screen{display:none}.screen.active{display:block}
+.week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
+.intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
+.intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
+.intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1rem;font-weight:600}
+.video-label{font-size:.82rem;color:#555;font-weight:600;margin-bottom:.4rem}
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:1rem}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:10px}
+.video-note{background:#f3effb;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.7rem 1rem;font-size:.82rem;color:#444;line-height:1.7;margin-bottom:1.25rem}
+select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
+select:focus{border-color:#6c4eb8}
+.btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#5a3ea0}
+.prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:1rem}
+.cnt{padding:.2rem .6rem;border-radius:6px;font-weight:600}
+.cnt-ok{background:#e6f9f0;color:#2e9e6b}
+.cnt-err{background:#fde8e8;color:#d94040}
+.q-badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:.8rem;background:#e8e0f8;color:#6c4eb8}
+.q-text{font-size:.95rem;color:#333;line-height:1.7;margin-bottom:1rem;white-space:pre-wrap}
+.opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.opt-btn{text-align:left;padding:.7rem 1rem;border:2px solid #d0c8f0;border-radius:9px;background:#fff;cursor:pointer;font-size:.9rem;color:#333;transition:all .15s;font-family:inherit}
+.opt-btn:hover:not(:disabled){background:#f3effb;border-color:#9b7de0}
+.opt-btn.correct{background:#e6f9f0;border-color:#2e9e6b;color:#1a5c3a;font-weight:600}
+.opt-btn.wrong{background:#fde8e8;border-color:#d94040;color:#8b1a1a}
+.opt-btn:disabled{cursor:default}
+.exp-box{display:none;background:#f8f5ff;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:.83rem;color:#444;line-height:1.7;white-space:pre-wrap;margin-bottom:1rem}
+.exp-box.show{display:block}
+.nav{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
+.btn-back{background:#e8e0f8;color:#6c4eb8}
+.btn-skip{background:#e8e0f8;color:#6c4eb8}
+.btn-next{background:#6c4eb8;color:#fff}
+.btn-finish{background:#e05c5c;color:#fff}
+.nav button:disabled{opacity:.4;cursor:not-allowed}
+.res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
+.res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
+.res-score{text-align:center;font-size:3.5rem;font-weight:800;color:#6c4eb8;margin:.75rem 0}
+.res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem}
+.res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
+.res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
+.submit-warning-sub{font-size:.85rem;color:#856404}
+.btn-submit{width:100%;padding:1.1rem;background:#2e9e6b;color:#fff;border:none;border-radius:10px;font-size:1.15rem;font-weight:800;cursor:pointer;margin-bottom:.75rem;letter-spacing:.3px;font-family:inherit}
+.btn-submit:hover{background:#257a55}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-review{width:100%;padding:.7rem;background:#e8e0f8;color:#6c4eb8;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.submit-msg{background:#e6f9f0;border:1px solid #b8f0d8;border-radius:8px;padding:.85rem;font-size:.9rem;color:#1a5c3a;display:none;margin-bottom:.75rem;text-align:center;font-weight:600;line-height:1.6}
+.review-list{display:none;flex-direction:column;gap:.75rem;margin-top:1rem}
+.rev-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;font-size:.82rem}
+.rev-q{font-weight:600;color:#333;margin-bottom:.3rem;white-space:pre-wrap}
+.rev-chosen{color:#d94040;margin-bottom:.2rem}
+.rev-correct{color:#2e9e6b;margin-bottom:.3rem;font-weight:600}
+.rev-exp{color:#555;line-height:1.7;white-space:pre-wrap}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.6}
+.confirm-btns{display:flex;gap:.75rem}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8}
+.btn-ok{background:#e05c5c;color:#fff}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- INTRO -->
+  <div id="introScreen" class="screen active">
+    <div class="week-pill">5. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (17-18. DERS)</div>
+    <div class="intro-title">HAY + İSİM / SIFAT UYUMU</div>
+    <div class="intro-sub">50 soru &middot; Çoktan seçmeli (Her soru 2 puan)</div>
+    <div class="intro-teacher">@ispanyolcacim &bull; Profe Hazel</div>
+    <div class="video-label">Dersin Videosu</div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/MhFPmfNzEeM?si=x42qYjax5XGLR6Y1" allowfullscreen></iframe>
+    </div>
+    <div class="video-note">Lütfen videoyu detaylıca izleyin, gerekirse tekrarlayın. Bilmediğiniz kelimeler için durdurup sözlükten yararlanın ve cümleleri anlamaya çalışın. Videoyu izlemeyi bitirdikten sonra soruları çözün.</div>
+    <select id="introName">
+      <option value="">-- Adınızı Seçin --</option>
+      <option value="Birce Süzen">Birce Süzen</option>
+      <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+      <option value="Buse Cagmel">Buse Cagmel</option>
+      <option value="Büşra Çam">Büşra Çam</option>
+      <option value="Büşra Yurt">Büşra Yurt</option>
+      <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+      <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+      <option value="Ecem Sukas">Ecem Sukas</option>
+      <option value="Elif Ataç">Elif Ataç</option>
+      <option value="Elif Atlı">Elif Atlı</option>
+      <option value="Elif Bozkurt">Elif Bozkurt</option>
+      <option value="Elif Çetin">Elif Çetin</option>
+      <option value="Emel Kanburoğlu">Emel Kanburoğlu</option>
+      <option value="Eray Sayılık">Eray Sayılık</option>
+      <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+      <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+      <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+      <option value="Görkem Dursun">Görkem Dursun</option>
+      <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+      <option value="Harun Özmen">Harun Özmen</option>
+      <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+      <option value="Mehtap Keklik">Mehtap Keklik</option>
+      <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+      <option value="Merve Sağlam">Merve Sağlam</option>
+      <option value="Meryem Özbek">Meryem Özbek</option>
+      <option value="Murat Erdem">Murat Erdem</option>
+      <option value="Murat Şahin">Murat Şahin</option>
+      <option value="Onur Atlı">Onur Atlı</option>
+      <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+      <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+      <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+      <option value="Seher Akbulat">Seher Akbulat</option>
+      <option value="Seher Erçin">Seher Erçin</option>
+      <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+      <option value="Sibel Atmaca">Sibel Atmaca</option>
+      <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+      <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+      <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+      <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+      <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+      <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+      <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+      <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+      <option value="Şenay Sezgin">Şenay Sezgin</option>
+      <option value="Şeyma Dereci">Şeyma Dereci</option>
+    </select>
+    <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="screen">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="q-meta">
+      <span id="qMeta">Soru 1 / 50</span>
+      <span><span class="cnt cnt-ok" id="cntOk">0 Doğru</span>&nbsp;<span class="cnt cnt-err" id="cntErr">0 Yanlış</span></span>
+    </div>
+    <div id="qCard"></div>
+    <div class="nav">
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
+      <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
+      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <input type="hidden" id="resName" value="">
+    <div style="text-align:center">
+      <div class="res-pill">5. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (17-18. DERS)</div>
+    </div>
+    <div class="res-title">HAY + İSİM / SIFAT UYUMU</div>
+    <div class="res-score"><span id="resScore">0</span>/100</div>
+    <div class="res-stats">
+      <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
+      <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
+    </div>
+    <div class="res-note" id="resNote"></div>
+    <div class="submit-warning" id="submitWarning">
+      <div class="submit-warning-title">ODEVINI TESLIM ETMEDIN</div>
+      <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
+    </div>
+    <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
+      <option value="">-- Adınızı Seçin --</option>
+      <option value="Birce Süzen">Birce Süzen</option>
+      <option value="Burakhan Kaydı">Burakhan Kaydı</option>
+      <option value="Buse Cagmel">Buse Cagmel</option>
+      <option value="Büşra Çam">Büşra Çam</option>
+      <option value="Büşra Yurt">Büşra Yurt</option>
+      <option value="Ceren Erdoğan">Ceren Erdoğan</option>
+      <option value="Doğa Değirmenci">Doğa Değirmenci</option>
+      <option value="Ecem Sukas">Ecem Sukas</option>
+      <option value="Elif Ataç">Elif Ataç</option>
+      <option value="Elif Atlı">Elif Atlı</option>
+      <option value="Elif Bozkurt">Elif Bozkurt</option>
+      <option value="Elif Çetin">Elif Çetin</option>
+      <option value="Emel Kanburoğlu">Emel Kanburoğlu</option>
+      <option value="Eray Sayılık">Eray Sayılık</option>
+      <option value="Erdinç Tigin Bilen">Erdinç Tigin Bilen</option>
+      <option value="Eylül Şerbetçi">Eylül Şerbetçi</option>
+      <option value="Ezgican Tekçorap">Ezgican Tekçorap</option>
+      <option value="Görkem Dursun">Görkem Dursun</option>
+      <option value="Gülce Eyibilir">Gülce Eyibilir</option>
+      <option value="Harun Özmen">Harun Özmen</option>
+      <option value="Hilal Dilsiz">Hilal Dilsiz</option>
+      <option value="Mehtap Keklik">Mehtap Keklik</option>
+      <option value="Meltem Çiftçi">Meltem Çiftçi</option>
+      <option value="Merve Sağlam">Merve Sağlam</option>
+      <option value="Meryem Özbek">Meryem Özbek</option>
+      <option value="Murat Erdem">Murat Erdem</option>
+      <option value="Murat Şahin">Murat Şahin</option>
+      <option value="Onur Atlı">Onur Atlı</option>
+      <option value="Ruhşen Çavuşoğlu">Ruhşen Çavuşoğlu</option>
+      <option value="Rümeysa Yatgın">Rümeysa Yatgın</option>
+      <option value="Sedat Zincirkıran">Sedat Zincirkıran</option>
+      <option value="Seher Akbulat">Seher Akbulat</option>
+      <option value="Seher Erçin">Seher Erçin</option>
+      <option value="Serra Sancaklı Işık">Serra Sancaklı Işık</option>
+      <option value="Sibel Atmaca">Sibel Atmaca</option>
+      <option value="Sonay Çetinkaya">Sonay Çetinkaya</option>
+      <option value="Yasemin Kurtuluş Tunç">Yasemin Kurtuluş Tunç</option>
+      <option value="Zehra Rümeysa Çolak">Zehra Rümeysa Çolak</option>
+      <option value="Zeynep Hediye Özay">Zeynep Hediye Özay</option>
+      <option value="Zeynep Öztaşkın">Zeynep Öztaşkın</option>
+      <option value="Zeynep Söylemez">Zeynep Söylemez</option>
+      <option value="Zeynep Su Alişan">Zeynep Su Alişan</option>
+      <option value="İncilay Dikbıyık">İncilay Dikbıyık</option>
+      <option value="Şenay Sezgin">Şenay Sezgin</option>
+      <option value="Şeyma Dereci">Şeyma Dereci</option>
+    </select>
+    <div class="submit-msg" id="submitMsg"></div>
+    <div id="debugPanel" style="display:none;background:#f0f0f0;border:1px solid #ccc;border-radius:6px;padding:.5rem;font-size:.72rem;color:#333;margin-top:.5rem;word-break:break-all;font-family:monospace"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">İptal</button>
+      <button class="btn-ok" onclick="doFinish()">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbwbAQtk4nhM73aqYCKwg0z5s5qxPaCAWeLncNVHtSQ2jHbuo7SomG4PJpOBN8C0sXzTQw/exec';
+var ODEV_ADI='H5 \u2013 17-18.Ders';
+var GROUPS={
+"Harun \u00d6zmen":"A1.1","Yasemin Kurtulu\u015f Tun\u00e7":"A1.1","Zeynep Hediye \u00d6zay":"A1.1","G\u00fclce Eyibilir":"A1.1","Serra Sancakl\u0131 I\u015f\u0131k":"A1.1","B\u00fc\u015fra Yurt":"A1.1","Elif \u00c7etin":"A1.1","Mehtap Keklik":"A1.1","Elif Ata\u00e7":"A1.1","Do\u011fa De\u011firmenci":"A1.1","Zehra R\u00fcmeysa \u00c7olak":"A1.1","Zeynep Su Ali\u015fan":"A1.1","Eray Say\u0131l\u0131k":"A1.1","Birce S\u00fczen":"A1.1","Seher Akbulat":"A1.1",
+"\u015eeyma Dereci":"A1.1 (2)","Zeynep S\u00f6ylemez":"A1.1 (2)","Ecem Sukas":"A1.1 (2)","Burakhan Kayd\u0131":"A1.1 (2)","\u015eenay Sezgin":"A1.1 (2)","Zeynep \u00d6zta\u015fk\u0131n":"A1.1 (2)","Sonay \u00c7etinkaya":"A1.1 (2)","Ezgican Tek\u00e7orap":"A1.1 (2)","Merve Sa\u011flam":"A1.1 (2)","Meryem \u00d6zbek":"A1.1 (2)","Elif Bozkurt":"A1.1 (2)","Meltem \u00c7ift\u00e7i":"A1.1 (2)","Hilal Dilsiz":"A1.1 (2)","R\u00fcmeysa Yatg\u0131n":"A1.1 (2)","Eyl\u00fcl \u015eerbet\u00e7i":"A1.1 (2)",
+"Sedat Zincirk\u0131ran":"A1.1 (3)","\u0130ncilay Dikb\u0131y\u0131k":"A1.1 (3)","Ruh\u015fen \u00c7avu\u015fo\u011flu":"A1.1 (3)","Murat Erdem":"A1.1 (3)","Ceren Erdo\u011fan":"A1.1 (3)","Erdin\u00e7 Tigin Bilen":"A1.1 (3)","Seher Er\u00e7in":"A1.1 (3)","B\u00fc\u015fra \u00c7am":"A1.1 (3)","G\u00f6rkem Dursun":"A1.1 (3)","Sibel Atmaca":"A1.1 (3)","Onur Atl\u0131":"A1.1 (3)","Elif Atl\u0131":"A1.1 (3)","Emel Kanburo\u011flu":"A1.1 (3)","Murat \u015eahin":"A1.1 (3)","Buse Cagmel":"A1.1 (3)"
+};
+var Q=[
+{t:"mc",q:"1. En Estambul ____ mucha gente ve mucha historia.\nA) hay\nB) es\nC) est\u00e1\nD) son",o:["hay","es","est\u00e1","son"],a:0,exp:"Ac\u0131klama: \u0130spanyolcada \"var\" anlam\u0131nda kullan\u0131lan \"hay\" yap\u0131s\u0131, nesne tekil de olsa \u00e7o\u011ful da olsa de\u011fi\u015fmez. (Cevap: A)"},
+{t:"mc",q:"2. En el centro hay monumentos ____.\nA) antiguo\nB) antigua\nC) antiguas\nD) antiguos",o:["antiguo","antigua","antiguas","antiguos"],a:3,exp:"Ac\u0131klama: \"Monumentos\" eril ve \u00e7o\u011ful bir isim oldu\u011fu i\u00e7in s\u0131fat da \"antiguos\" \u015feklinde uyumlu olmal\u0131d\u0131r. (Cevap: D)"},
+{t:"mc",q:"3. Hay mezquitas muy ____.\nA) grande\nB) grandes\nC) granda\nD) grandas",o:["grande","grandes","granda","grandas"],a:1,exp:"Ac\u0131klama: \"Grande\" s\u0131fat\u0131 sessiz harfle bitti\u011fi i\u00e7in \u00e7o\u011ful yapmak i\u00e7in sonuna \"-s\" eklenir: \"grandes\". (Cevap: B)"},
+{t:"mc",q:"4. Hay ____ turistas en Estambul.\nA) mucho\nB) mucha\nC) muchos\nD) much",o:["mucho","mucha","muchos","much"],a:2,exp:"Ac\u0131klama: Turista hem eril hem di\u015fil olabilir (los turistas / las turistas). Burada genel kullan\u0131m olarak 'muchos' tercih edilmi\u015ftir.  (Cevap: C)"},
+{t:"mc",q:"5. Hay ____ energ\u00eda especial en esta ciudad.\nA) un\nB) el\nC) una\nD) la",o:["un","el","una","la"],a:2,exp:"Ac\u0131klama: \"Energ\u00eda\" di\u015fil tekil bir isimdir, \"hay\" yap\u0131s\u0131ndan sonra belgisiz tan\u0131ml\u0131k \"una\" gelir. (Cevap: C)"},
+{t:"mc",q:"6. Hay ____ continentes: Europa y Asia.\nA) un\nB) dos\nC) tres\nD) cuatro",o:["un","dos","tres","cuatro"],a:1,exp:"Ac\u0131klama: Videoda \u0130stanbul'un iki (dos) k\u0131tay\u0131 birle\u015ftirdi\u011fi vurgulanmaktad\u0131r. (Cevap: B)"},
+{t:"mc",q:"7. Hay ____ incre\u00edbiles para ver.\nA) cosa\nB) un cosa\nC) el cosa\nD) cosas",o:["cosa","un cosa","el cosa","cosas"],a:3,exp:"Ac\u0131klama: \"Hay\" yap\u0131s\u0131ndan sonra nesne \u00e7o\u011ful ise isim de \u00e7o\u011ful tak\u0131s\u0131 (-s) almal\u0131d\u0131r: \"cosas\". (Cevap: D)"},
+{t:"mc",q:"8. En esta ciudad ____ autobuses, barcos y trenes.\nA) hay\nB) es\nC) tiene\nD) est\u00e1n",o:["hay","es","tiene","est\u00e1n"],a:0,exp:"Ac\u0131klama: Liste halindeki nesnelerin varl\u0131\u011f\u0131n\u0131 belirtirken \"hay\" kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"9. Bajo el mar hay un t\u00fanel muy ____.\nA) largo\nB) larga\nC) largos\nD) largas",o:["largo","larga","largos","largas"],a:0,exp:"Ac\u0131klama: \"T\u00fanel\" eril tekil bir isimdir, bu y\u00fczden s\u0131fat \"largo\" (uzun) olmal\u0131d\u0131r. (Cevap: A)"},
+{t:"mc",q:"10. En las calles hay mucho ____.\nA) tr\u00e1fico\nB) tr\u00e1fica\nC) tr\u00e1fiques\nD) tr\u00e1ficas",o:["tr\u00e1fico","tr\u00e1fica","tr\u00e1fiques","tr\u00e1ficas"],a:0,exp:"Ac\u0131klama: Trafik kelimesi \u0130spanyolcada \"tr\u00e1fico\" olarak eril ve tekil kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"11. Hay muchos coches ____.\nA) rojo\nB) rojos\nC) roja\nD) rojas",o:["rojo","rojos","roja","rojas"],a:1,exp:"Ac\u0131klama: \"Coches\" (arabalar) eril \u00e7o\u011ful oldu\u011fu i\u00e7in renk s\u0131fat\u0131 da \"rojos\" olur. (Cevap: B)"},
+{t:"mc",q:"12. Hay muchas ____ en la red de transporte.\nA) estaci\u00f3n\nB) el estaci\u00f3n\nC) estacions\nD) estaciones",o:["estaci\u00f3n","el estaci\u00f3n","estacions","estaciones"],a:3,exp:"Ac\u0131klama:\"Estaci\u00f3n\" kelimesinin \u00e7o\u011fulu \"-es\" tak\u0131s\u0131 alarak \"estaciones\" olur. (Cevap: D)"},
+{t:"mc",q:"13. En el mar hay barcos ____.\nA) p\u00fablico\nB) p\u00fablica\nC) p\u00fablicas\nD) p\u00fablicos",o:["p\u00fablico","p\u00fablica","p\u00fablicas","p\u00fablicos"],a:3,exp:"Ac\u0131klama: \"Barcos\" eril \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"p\u00fablicos\" (kamusal/halk tipi) olmal\u0131d\u0131r. (Cevap: D)"},
+{t:"mc",q:"14. Hay ____ de transporte para viajar.\nA) tarjetas\nB) tarjeta\nC) el tarjeta\nD) un tarjeta",o:["tarjetas","tarjeta","el tarjeta","un tarjeta"],a:0,exp:"Ac\u0131klama: \"\u00c7o\u011ful kartlar\" anlam\u0131nda \"tarjetas\" kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"15. En Karak\u00f6y hay museos ____.\nA) moderno\nB) moderna\nC) modernos\nD) modernas",o:["moderno","moderna","modernos","modernas"],a:2,exp:"Ac\u0131klama: \"Museos\" (m\u00fczeler) eril \u00e7o\u011ful bir kelimedir, s\u0131fat\u0131 \"modernos\" olur. (Cevap: C)"},
+{t:"mc",q:"16. En las paredes hay ____.\nA) graffiti\nB) graffitis\nC) el graffiti\nD) un graffiti",o:["graffiti","graffitis","el graffiti","un graffiti"],a:1,exp:"Ac\u0131klama: Videoda duvarlarda bir\u00e7ok \"graffitis\" (grafitiler) oldu\u011fu s\u00f6ylenmektedir. (Cevap: B)"},
+{t:"mc",q:"17. Cerca del mar hay un ____ de lujo.\nA) puerta\nB) puerto\nC) puertas\nD) puertos",o:["puerta","puerto","puertas","puertos"],a:1,exp:"Ac\u0131klama: \"Liman\" kelimesi \u0130spanyolcada eril tekil olarak \"puerto\"dur. (Cevap: B)"},
+{t:"mc",q:"18. Hay tiendas ____ en el barrio.\nA) nuevo\nB) nueva\nC) nuevas\nD) nuevos",o:["nuevo","nueva","nuevas","nuevos"],a:2,exp:"Ac\u0131klama: \"Tiendas\" di\u015fil \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"nuevas\" (yeni) olur. (Cevap: C)"},
+{t:"mc",q:"19. Hay cuadros muy ____.\nA) raros\nB) raro\nC) rara\nD) raras",o:["raros","raro","rara","raras"],a:0,exp:"Ac\u0131klama: \"Cuadros\" (tablolar) eril \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"raros\" (ilgin\u00e7/nadir) olur. (Cevap: A)"},
+{t:"mc",q:"20. Hay esculturas ____.\nA) grande\nB) granda\nC) gran\nD) grandes",o:["grande","granda","gran","grandes"],a:3,exp:"Ac\u0131klama: \"Esculturas\" (heykeller) \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"grandes\" olmal\u0131d\u0131r. (Cevap: D)"},
+{t:"mc",q:"21. En la calle hay comida muy ____.\nA) rico\nB) ricos\nC) ricas\nD) rica",o:["rico","ricos","ricas","rica"],a:3,exp:"Ac\u0131klama: \"Comida\" di\u015fil tekil oldu\u011fu i\u00e7in \"rica\" (lezzetli) s\u0131fat\u0131 kullan\u0131l\u0131r. (Cevap: D)"},
+{t:"mc",q:"22. Hay puestos de ____.\nA) simit\nB) el simit\nC) un simit\nD) simits",o:["simit","el simit","un simit","simits"],a:0,exp:"Ac\u0131klama: Videoda \"simit tezgahlar\u0131\" (puestos de simit) ifadesi ge\u00e7mektedir. (Cevap: A)"},
+{t:"mc",q:"23. Hay casta\u00f1as ____.\nA) asado\nB) asada\nC) asadas\nD) asados",o:["asado","asada","asadas","asados"],a:2,exp:"Ac\u0131klama: \"Casta\u00f1as\" (kestaneler) di\u015fil \u00e7o\u011ful oldu\u011fu i\u00e7in \"asadas\" (kavrulmu\u015f) s\u0131fat\u0131 gelir. (Cevap: C)"},
+{t:"mc",q:"24. Hay ____ de pescado en Emin\u00f6n\u00fc.\nA) bocadillo\nB) bocadillos\nC) el bocadillo\nD) la bocadillo",o:["bocadillo","bocadillos","el bocadillo","la bocadillo"],a:1,exp:"Ac\u0131klama: \"Bal\u0131k ekmekler\" \u00e7o\u011ful olarak \"bocadillos\" \u015fekilde ifade edilir. (Cevap: B)"},
+{t:"mc",q:"25. Hay una ____ antigua en Turqu\u00eda.\nA) tradici\u00f3ns\nB) tradici\u00f3n\nC) el tradici\u00f3n\nD) un tradici\u00f3n",o:["tradici\u00f3ns","tradici\u00f3n","el tradici\u00f3n","un tradici\u00f3n"],a:1,exp:"Ac\u0131klama:\"Tradici\u00f3n\" di\u015fil tekil bir isimdir ve \"bir gelenek\" anlam\u0131nda kullan\u0131l\u0131r. (Cevap: B)"},
+{t:"mc",q:"26. Hay una biblioteca con ____ libros.\nA) mucho\nB) mucha\nC) muchas\nD) muchos",o:["mucho","mucha","muchas","muchos"],a:3,exp:"Ac\u0131klama: \"Libros\" eril \u00e7o\u011ful oldu\u011fu i\u00e7in \"bir\u00e7ok\" anlam\u0131nda \"muchos\" kullan\u0131l\u0131r. (Cevap: D)"},
+{t:"mc",q:"27. Hay conciertos de ____.\nA) m\u00fasica\nB) m\u00fasico\nC) m\u00fasicas\nD) m\u00fasicos",o:["m\u00fasica","m\u00fasico","m\u00fasicas","m\u00fasicos"],a:0,exp:"Ac\u0131klama: M\u00fczik genel bir kavram olarak \"m\u00fasica\" \u015feklinde tekil kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"28. Hay ____ gratis en el edificio.\nA) exposici\u00f3n\nB) la exposici\u00f3n\nC) exposiciones\nD) exposicions",o:["exposici\u00f3n","la exposici\u00f3n","exposiciones","exposicions"],a:2,exp:"Ac\u0131klama: \u00dcretsiz sergiler (\u00e7o\u011ful) anlam\u0131nda \"exposiciones\" kullan\u0131l\u0131r. (Cevap: C)"},
+{t:"mc",q:"29. En Maslak hay rascacielos muy ____.\nA) alto\nB) alta\nC) altos\nD) altas",o:["alto","alta","altos","altas"],a:2,exp:"Ac\u0131klama: \"Rascacielos\" (g\u00f6kdelenler) eril \u00e7o\u011ful kabul edilir, s\u0131fat \"altos\" olur. (Cevap: C)"},
+{t:"mc",q:"30. Hay muchas ____ internacionales.\nA) empresa\nB) empresas\nC) un empresa\nD) el empresa",o:["empresa","empresas","un empresa","el empresa"],a:1,exp:"Ac\u0131klama: \"Bir\u00e7ok \u015firket\" anlam\u0131nda \u00e7o\u011ful \"empresas\" kullan\u0131l\u0131r. (Cevap: B)"},
+{t:"mc",q:"31. Hay coches ____.\nA) el\u00e9ctrico\nB) el\u00e9ctrica\nC) el\u00e9ctricas\nD) el\u00e9ctricos",o:["el\u00e9ctrico","el\u00e9ctrica","el\u00e9ctricas","el\u00e9ctricos"],a:3,exp:"Ac\u0131klama: Arabalar eril \u00e7o\u011ful oldu\u011fu i\u00e7in \"el\u00e9ctricos\" (elektrikli) s\u0131fat\u0131 gelir. (Cevap: D)"},
+{t:"mc",q:"32. Hay ____ de agua en la ciudad.\nA) un canal\nB) una canal\nC) el canal\nD) la canal",o:["un canal","una canal","el canal","la canal"],a:0,exp:"Ac\u0131klama: \"Kanal\" kelimesi \u0130spanyolcada \"un canal\" (eril tekil) olarak tan\u0131mlan\u0131r. (Cevap: A)"},
+{t:"mc",q:"33. En el mar a veces hay ____.\nA) delfines\nB) delf\u00edn\nC) el delf\u00edn\nD) un delf\u00edn",o:["delfines","delf\u00edn","el delf\u00edn","un delf\u00edn"],a:0,exp:"Ac\u0131klama: Yunuslar (\u00e7o\u011ful) anlam\u0131nda \"delfines\" kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"34. Hay ____ de pl\u00e1stico en el agua.\nA) la basura\nB) una basura\nC) las basuras\nD) los basura",o:["la basura","una basura","las basuras","los basura"],a:1,exp:"Ac\u0131klama: \u00c7\u00f6p (basura) say\u0131lamayan bir isim olarak genellikle tekil kullan\u0131l\u0131r. (Cevap: B)"},
+{t:"mc",q:"35. En las calles hay ____.\nA) gato\nB) el gato\nC) gatos\nD) un gato",o:["gato","el gato","gatos","un gato"],a:2,exp:"Ac\u0131klama: \u0130stanbul sokaklarındaki kedilerden (\u00e7o\u011ful) bahsederken \"gatos\" kullan\u0131l\u0131r. (Cevap: C)"},
+{t:"mc",q:"36. Hay casas ____ para los animales.\nA) peque\u00f1o\nB) peque\u00f1a\nC) peque\u00f1os\nD) peque\u00f1as",o:["peque\u00f1o","peque\u00f1a","peque\u00f1os","peque\u00f1as"],a:3,exp:"Ac\u0131klama: \"Casas\" di\u015fil \u00e7o\u011ful oldu\u011fu i\u00e7in \"peque\u00f1as\" (k\u00fc\u00e7\u00fck) s\u0131fat\u0131 kullan\u0131l\u0131r. (Cevap: D)"},
+{t:"mc",q:"37. Hay gatos ____, blancos y amarillos.\nA) negro\nB) negra\nC) negramente\nD) negros",o:["negro","negra","negramente","negros"],a:3,exp:"Ac\u0131klama: \"Gatos\" eril \u00e7o\u011ful oldu\u011fu i\u00e7in renk s\u0131fat\u0131 \"negros\" (siyahlar) olur. (Cevap: D)"},
+{t:"mc",q:"38. Hay tiendas de ____.\nA) antig\u00fcedad\nB) antig\u00fcedada\nC) antig\u00fcedades\nD) antig\u00fcedads",o:["antig\u00fcedad","antig\u00fcedada","antig\u00fcedades","antig\u00fcedads"],a:2,exp:"Ac\u0131klama: Antika d\u00fckkanlar\u0131 (\u00e7o\u011ful e\u015fyalar ba\u011flam\u0131nda) \"antig\u00fcedades\" olarak ifade edilir. (Cevap: C)"},
+{t:"mc",q:"39. Hay ____ tradicionales en la ciudad.\nA) mercados\nB) mercado\nC) el mercado\nD) la mercado",o:["mercados","mercado","el mercado","la mercado"],a:0,exp:"Ac\u0131klama:Geleneksel pazarlar (\u00e7o\u011ful) anlam\u0131nda \"mercados\" kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"40. Hay ____ muy amable en Estambul.\nA) gentes\nB) gente\nC) el gente\nD) un gente",o:["gentes","gente","el gente","un gente"],a:1,exp:"Ac\u0131klama: \"Gente\" (halk/insanlar) kelimesi yap\u0131 olarak tekil ama anlam olarak \u00e7o\u011ful dur.\ngente = tekil fiil al\u0131r\nama anlam \u00e7o\u011ful (Cevap: B)"},
+{t:"mc",q:"41. \"Havaalanında çok fazla insan var ama hiç polis yok.\"\nA) Hay mucha gente en el aeropuerto y hay muchos polic\u00edas.\nB) Hay mucha gente en el aeropuerto, pero no hay ning\u00fan polic\u00eda.\nC) Est\u00e1 mucha gente en el aeropuerto pero no hay polic\u00eda.\nD) Hay mucha gente en el aeropuerto, sin embargo hay un polic\u00eda.",o:["Hay mucha gente en el aeropuerto y hay muchos polic\u00edas.","Hay mucha gente en el aeropuerto, pero no hay ning\u00fan polic\u00eda.","Est\u00e1 mucha gente en el aeropuerto pero no hay polic\u00eda.","Hay mucha gente en el aeropuerto, sin embargo hay un polic\u00eda."],a:1,exp:"Ac\u0131klama: \"Hay\" yap\u0131s\u0131 varl\u0131k belirtir. \"Pero\" (ama) z\u0131tl\u0131k ba\u011flac\u0131d\u0131r ve \"ning\u00fan\" (hi\u00e7bir) olumsuzlu\u011fu peki\u015ftirir. (Cevap: B)"},
+{t:"mc",q:"42. \"E\u011fer \u0130spanyolca \u00f6\u011frenmek istiyorsan, her g\u00fcn pratik yapmal\u0131s\u0131n.\"\nA) Si quieres aprender espa\u00f1ol, practicas cada d\u00eda.\nB) Porque quieres aprender espa\u00f1ol, debes practicar.\nC) Si quieres estudiar espa\u00f1ol, tienes practicar cada d\u00eda.\nD) Si quieres aprender espa\u00f1ol, debes practicar todos los d\u00edas.",o:["Si quieres aprender espa\u00f1ol, practicas cada d\u00eda.","Porque quieres aprender espa\u00f1ol, debes practicar.","Si quieres estudiar espa\u00f1ol, tienes practicar cada d\u00eda.","Si quieres aprender espa\u00f1ol, debes practicar todos los d\u00edas."],a:3,exp:"Ac\u0131klama: Ko\u015ful c\u00fccleleri \"Si\" ile ba\u015flar. \"Debes + mastar\" yap\u0131s\u0131 gereklilik ve tavsiye bildirir. (Cevap: D)"},
+{t:"mc",q:"43. \"M\u00fcze saat dokuzda a\u00e7\u0131l\u0131yor ve giri\u015f \u00fccretsizdir.\"\nA) El museo abre a las nueve y la entrada es caro.\nB) El museo se abre a las nueve pero la entrada no es gratis.\nC) El museo abre a las nueve y la entrada es gratuita.\nD) El museo est\u00e1 abierto a las nueve y la entrada hay gratis.",o:["El museo abre a las nueve y la entrada es caro.","El museo se abre a las nueve pero la entrada no es gratis.","El museo abre a las nueve y la entrada es gratuita.","El museo est\u00e1 abierto a las nueve y la entrada hay gratis."],a:2,exp:"Ac\u0131klama: Saatler \"a las\" ile ifade edilir. \"Gratuita\" s\u0131fat\u0131 \"entrada\" (di\u015fil) kelimesiyle uyumludur. (Cevap: C)"},
+{t:"mc",q:"44. \"Bu \u015fehirde ula\u015f\u0131m kart\u0131 almak \u00e7ok kolayd\u0131r.\"\nA) Es muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.\nB) Hay muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.\nC) Es muy dif\u00edcil comprar una tarjeta de transporte en este ciudad.\nD) Est\u00e1 muy f\u00e1cil comprar un tarjeta de transporte en esta ciudad.",o:["Es muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.","Hay muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.","Es muy dif\u00edcil comprar una tarjeta de transporte en este ciudad.","Est\u00e1 muy f\u00e1cil comprar un tarjeta de transporte en esta ciudad."],a:0,exp:"Ac\u0131klama: Genel bir durumdan bahsederken \"Es + s\u0131fat + mastar\" kal\u0131b\u0131 kullan\u0131l\u0131r. (Cevap: A)"},
+{t:"mc",q:"45. \"Yar\u0131n arkada\u015flar\u0131mla beraber sahilde y\u00fcr\u00fcmek istiyorum.\"\nA) Ma\u00f1ana quiero caminar por la orilla con mis amigos.\nB) Ma\u00f1ana quiero camino por la orilla con mi amigo.\nC) Ma\u00f1ana quieres caminar por el mar con mis amigos.\nD) Ma\u00f1ana voy a caminar por la orilla con mis amigos.",o:["Ma\u00f1ana quiero caminar por la orilla con mis amigos.","Ma\u00f1ana quiero camino por la orilla con mi amigo.","Ma\u00f1ana quieres caminar por el mar con mis amigos.","Ma\u00f1ana voy a caminar por la orilla con mis amigos."],a:0,exp:"Ac\u0131klama: \"Querer\" (istemek) fiilinden sonra gelen ikinci fiil daima mastar (caminar) halde kal\u0131r. (Cevap: A)"},
+{t:"mc",q:"46. \"Madrid'e gitmeden \u00f6nce biraz \u0130spanyolca \u00e7al\u0131\u015fmal\u0131s\u0131n.\"\nA) Despu\u00e9s de ir a Madrid, debes estudiar un poco de espa\u00f1ol.\nB) Antes de ir a Madrid, estudias un poco espa\u00f1ol.\nC) Antes de ir a Madrid, debes estudiar un poco de espa\u00f1ol.\nD) Antes de ir a Madrid, hay que estudia un poco espa\u00f1ol.",o:["Despu\u00e9s de ir a Madrid, debes estudiar un poco de espa\u00f1ol.","Antes de ir a Madrid, estudias un poco espa\u00f1ol.","Antes de ir a Madrid, debes estudiar un poco de espa\u00f1ol.","Antes de ir a Madrid, hay que estudia un poco espa\u00f1ol."],a:2,exp:"Ac\u0131klama: \"-den \u00f6nce\" yap\u0131s\u0131 i\u00e7in \"Antes de + mastar\" kullan\u0131l\u0131r. \"Debes\" ise \"yapmal\u0131s\u0131n\" anlam\u0131n\u0131 verir. (Cevap: C)"},
+{t:"mc",q:"47. \"En sevdi\u011fim yemek bal\u0131k oldu\u011fu i\u00e7in s\u0131k s\u0131k bal\u0131k restoranına giderim.\"\nA) Como mi comida favorita es el pescado, nunca voy a la pesCADER\u00cdA.\nB) Porque mi comida favorita es pescado, voy al restaurante.\nC) Mi comida favorita es el pescado y por eso voy a veces al restaurante.\nD) Como mi comida favorita es el pescado, voy a menudo a un restaurante de pescado.",o:["Como mi comida favorita es el pescado, nunca voy a la pesCADER\u00cdA.","Porque mi comida favorita es pescado, voy al restaurante.","Mi comida favorita es el pescado y por eso voy a veces al restaurante.","Como mi comida favorita es el pescado, voy a menudo a un restaurante de pescado."],a:3,exp:"Ac\u0131klama: C\u00fcmle ba\u015f\u0131nda \"oldu\u011fu i\u00e7in/nedeniyle\" anlam\u0131n\u0131 \"Como\" ba\u011flac\u0131 sa\u011flar. \"A menudo\" ise \"s\u0131k s\u0131k\" demektir. (Cevap: D)"},
+{t:"mc",q:"48. \"Kitap okumay\u0131 seviyorum \u00e7\u00fcnk\u00fc yeni \u015feyler ke\u015ffetmeme yard\u0131mc\u0131 oluyor.\"\nA) Me gusta leer libros porque ayuda a descubrir cosas viejas.\nB) Me gusta leer libros porque me ayuda a descubrir cosas nuevas.\nC) Amo leer libros pero no me ayuda a descubrir cosas nuevas.\nD) Me gusta leer libros porque ayuda descubrir cosas nuevas.",o:["Me gusta leer libros porque ayuda a descubrir cosas viejas.","Me gusta leer libros porque me ayuda a descubrir cosas nuevas.","Amo leer libros pero no me ayuda a descubrir cosas nuevas.","Me gusta leer libros porque ayuda descubrir cosas nuevas."],a:1,exp:"Ac\u0131klama: \"Ayudar\" fiili bir eyleme y\u00f6nelirken \"a\" edatını al\u0131r (ayudar a...). (Cevap: B)"},
+{t:"mc",q:"49. \"D\u00fcn gece film izlerken uyuyakald\u0131m.\"\nA) Anoche me dorm\u00ed mientras veo una pel\u00edcula.\nB) Anoche me qued\u00e9 dormido mientras ve\u00eda una pel\u00edcula.\nC) Ayer noche me dorm\u00ed cuando miraba una pel\u00edcula.\nD) Anoche dorm\u00ed mientras miraba el cine.",o:["Anoche me dorm\u00ed mientras veo una pel\u00edcula.","Anoche me qued\u00e9 dormido mientras ve\u00eda una pel\u00edcula.","Ayer noche me dorm\u00ed cuando miraba una pel\u00edcula.","Anoche dorm\u00ed mientras miraba el cine."],a:1,exp:"Ac\u0131klama: \"Uyuyakalmak\" eylemi \"quedarse dormido\" ile, s\u00fcreklilik bildiren \"izlerken\" k\u0131sm\u0131 ise \"ve\u00eda\" (Imperfecto) ile ifade edilir. (Cevap: B)"},
+{t:"mc",q:"50. \"Gelecek y\u0131l \u0130spanya'da ya\u015famak i\u00e7in \u00e7ok para biriktirmem gerekiyor.\"\nA) Necesito ahorrar mucho dinero para vivir en Espa\u00f1a el pr\u00f3ximo a\u00f1o.\nB) Necesito dinero para vivir en Espa\u00f1a el a\u00f1o pasado.\nC) Tengo que ahorrar mucho dinero porque vivo en Espa\u00f1a el pr\u00f3ximo a\u00f1o.\nD) Hay que ahorrar mucho dinero para vivir en Espa\u00f1a el a\u00f1o que viene.",o:["Necesito ahorrar mucho dinero para vivir en Espa\u00f1a el pr\u00f3ximo a\u00f1o.","Necesito dinero para vivir en Espa\u00f1a el a\u00f1o pasado.","Tengo que ahorrar mucho dinero porque vivo en Espa\u00f1a el pr\u00f3ximo a\u00f1o.","Hay que ahorrar mucho dinero para vivir en Espa\u00f1a el a\u00f1o que viene."],a:0,exp:"Ac\u0131klama: \"Ahorrar\" (para biriktirmek) fiili ve ama\u00e7 bildiren \"para + mastar\" yap\u0131s\u0131 do\u011fru kullan\u0131lm\u0131\u015ft\u0131r. (Cevap: A)"}
+];
+
+var state={cur:0,answered:[],scores:[],okCount:0,errCount:0};
+
+function startQuiz(){
+  var name=document.getElementById('introName').value;
+  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
+  document.getElementById('resName').value=name;
+  document.getElementById('resName2').value=name;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+
+function syncResName(){
+  document.getElementById('resName').value=document.getElementById('resName2').value;
+}
+
+function esc(s){
+  if(!s)return'';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function renderQ(){
+  var i=state.cur;var q=Q[i];var html='';
+  html+='<span class="q-badge">COKTAN SECMELI</span>';
+  html+='<div class="q-text">'+esc(q.q)+'</div>';
+  html+='<div class="opts">';
+  var L=['A','B','C','D'];
+  for(var j=0;j<q.o.length;j++){
+    var cls='opt-btn';var dis='';var ans=state.answered[i];
+    if(ans!==undefined){
+      dis='disabled';
+      if(j===q.a)cls+=' correct';
+      else if(j===ans&&ans!==q.a)cls+=' wrong';
+    }
+    html+='<button class="'+cls+'" '+dis+' onclick="checkAns('+j+')"><strong>'+L[j]+')</strong> '+esc(q.o[j])+'</button>';
+  }
+  html+='</div>';
+  html+='<div class="exp-box'+(state.answered[i]!==undefined?' show':'')+'" id="expBox">'+esc(q.exp)+'</div>';
+  document.getElementById('qCard').innerHTML=html;
+  var done=state.answered[i]!==undefined;
+  document.getElementById('btnBack').disabled=(i===0||!done);
+  document.getElementById('btnNext').disabled=(!done||i===Q.length-1);
+  document.getElementById('btnSkip').disabled=(!done||i>=Q.length-1);
+  document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
+  document.getElementById('cntOk').textContent=state.okCount+' Do\u011fru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanl\u0131\u015f';
+}
+
+function checkAns(j){
+  var i=state.cur;
+  if(state.answered[i]!==undefined)return;
+  var q=Q[i];state.answered[i]=j;
+  if(j===q.a){state.okCount++;state.scores[i]=1;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+
+function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function goBack(){if(state.cur>0){state.cur--;renderQ();}}
+function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+
+function confirmFinish(){
+  var answered=0;for(var i=0;i<Q.length;i++){if(state.answered[i]!==undefined)answered++;}
+  var unanswered=Q.length-answered;
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevaplad\u0131n\u0131z.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevaps\u0131z kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istedi\u011finize emin misiniz?';
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+function doFinish(){closeConfirm();showResult();}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
+  var pct=total*2;if(pct>100)pct=100;
+  document.getElementById('resScore').textContent=pct;
+  document.getElementById('resOk').textContent=state.okCount+' Do\u011fru';
+  document.getElementById('resErr').textContent=state.errCount+' Yanl\u0131\u015f';
+  document.getElementById('resNote').textContent='50 sorudan '+state.okCount+' tanesi do\u011fru (her soru 2 puan)';
+  var rev=document.getElementById('reviewList');
+  var L=['A','B','C','D'];var html2='';
+  for(var i=0;i<Q.length;i++){
+    var ans=state.answered[i];
+    if(ans===undefined||ans===Q[i].a)continue;
+    var q=Q[i];
+    html2+='<div class="rev-item">';
+    html2+='<div class="rev-q">'+esc(q.q)+'</div>';
+    html2+='<div class="rev-chosen">Verdi\u011finiz cevap: '+esc(q.o[ans])+'</div>';
+    html2+='<div class="rev-correct">Do\u011fru cevap: '+esc(q.o[q.a])+'</div>';
+    html2+='<div class="rev-exp">'+esc(q.exp)+'</div>';
+    html2+='</div>';
+  }
+  rev.innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanl\u0131\u015f soru bulunamad\u0131.</div>';
+}
+
+function toggleReview(){
+  var rv=document.getElementById('reviewList');
+  rv.style.display=(rv.style.display==='flex'?'none':'flex');
+}
+
+function submitResult(){
+  var name=document.getElementById('resName').value;
+  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
+  var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
+  var pct=total*2;if(pct>100)pct=100;
+  var grup=GROUPS[name]||'A1.1';
+  var payload=JSON.stringify({
+    ogrenci:name,odev:ODEV_ADI,grup:grup,
+    puan:pct,dogru:state.okCount,yanlis:state.errCount,
+    tarih:new Date().toLocaleDateString('tr-TR')
+  });
+  document.getElementById('submitWarning').style.display='none';
+  document.getElementById('submitMsg').style.display='block';
+  document.getElementById('submitMsg').style.background='#fff3cd';
+  document.getElementById('submitMsg').style.color='#856404';
+  document.getElementById('submitMsg').style.border='1px solid #ffc107';
+  document.getElementById('submitMsg').textContent='G\u00f6nderiliyor... (Grup: '+grup+')';
+  document.getElementById('btnSubmit').disabled=true;
+  var msgEl=document.getElementById('submitMsg');
+  document.getElementById('debugPanel').style.display='block';
+  document.getElementById('debugPanel').textContent='PAYLOAD: '+payload;
+
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'text/plain'},
+    body:payload
+  })
+  .then(function(){
+    msgEl.style.background='#e6f9f0';
+    msgEl.style.color='#1a5c3a';
+    msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' \u00f6\u011frencisinin "\u201c'+ODEV_ADI+'\u201d \u00f6devi teslim edildi. Puan: '+pct+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';
+    msgEl.style.color='#8b1a1a';
+    msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message+' | Payload: '+payload;
+    document.getElementById('btnSubmit').disabled=false;
+  });
+}
+</script>
+</body>
+</html>
