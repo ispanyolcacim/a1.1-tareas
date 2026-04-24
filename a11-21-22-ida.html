@@ -494,12 +494,11 @@ function norm(s){
 
 function checkCorrect(val,ans){
   var v=norm(val), c=norm(ans);
+  // Tam eşleşme (aksan ve büyük/küçük harf farkı yok sayılır)
   if(v===c)return true;
-  // alternatif cevap varsa (parantez içinde)
-  var altMatch=ans.match(/\(Alternatif[^)]*:\s*([^)]+)\)/i);
-  if(altMatch&&norm(altMatch[1])===v)return true;
-  // öğrenci cevabı içinde doğru geçiyorsa
-  if(v.indexOf(c)!==-1||c.indexOf(v)!==-1)return true;
+  // Sadece alternatif cevap varsa kontrol et (Alternatif: ... parantezi)
+  var altMatch=ans.match(/\(Alternatif[^:]*:\s*([^)]+)\)/i);
+  if(altMatch&&norm(altMatch[1].trim())===v)return true;
   return false;
 }
 
