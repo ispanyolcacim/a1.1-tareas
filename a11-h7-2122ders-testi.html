@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H7 – 21-22.Ders | A1.1 Ödevi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+.screen{display:none}.screen.active{display:block}
+.week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
+.intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
+.intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
+.intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1rem;font-weight:600}
+
+/* Gramatik özet kutusu */
+.gram-box{background:#f8f5ff;border:2px solid #c4b0f0;border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1.25rem}
+.gram-box-title{font-size:.85rem;font-weight:800;color:#4a2f9a;margin-bottom:.6rem;letter-spacing:.3px}
+.gram-box-content{font-size:.8rem;color:#444;line-height:1.75;white-space:pre-wrap}
+.gram-box h3{font-size:.82rem;font-weight:700;color:#6c4eb8;margin:.6rem 0 .2rem}
+
+/* Gramatik özet butonu (test sırasında) */
+.btn-gram{display:inline-flex;align-items:center;gap:.4rem;background:#ede8fc;color:#6c4eb8;border:1.5px solid #c4b0f0;border-radius:8px;padding:.4rem .85rem;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:.85rem;transition:background .15s}
+.btn-gram:hover{background:#ddd4f8}
+
+/* Modal overlay */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:flex-start;justify-content:center;padding:1.5rem;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:14px;max-width:680px;width:100%;padding:1.5rem;box-shadow:0 8px 32px rgba(0,0,0,.2);position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:sticky;top:0;float:right;background:#6c4eb8;color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:.5rem}
+.modal-box h2{font-size:.95rem;font-weight:800;color:#3d2a7a;margin-bottom:.75rem}
+.modal-box h3{font-size:.82rem;font-weight:700;color:#6c4eb8;margin:.75rem 0 .2rem}
+.modal-box p,.modal-box li{font-size:.8rem;color:#444;line-height:1.75}
+.modal-box ul{padding-left:1.2rem;margin:.2rem 0}
+
+select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
+select:focus{border-color:#6c4eb8}
+.btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#5a3ea0}
+.prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:.75rem}
+.cnt{padding:.2rem .6rem;border-radius:6px;font-weight:600}
+.cnt-ok{background:#e6f9f0;color:#2e9e6b}
+.cnt-err{background:#fde8e8;color:#d94040}
+.q-badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:.8rem;background:#e8e0f8;color:#6c4eb8}
+.q-text{font-size:.95rem;color:#333;line-height:1.7;margin-bottom:1rem;white-space:pre-wrap}
+.fill-wrap{margin-bottom:.75rem}
+.fill-input{width:100%;padding:.75rem 1rem;border:2px solid #d0c8f0;border-radius:9px;font-size:.95rem;font-family:inherit;color:#333;outline:none;transition:border-color .15s}
+.fill-input:focus{border-color:#6c4eb8}
+.fill-input.correct{border-color:#2e9e6b;background:#e6f9f0;color:#1a5c3a;font-weight:600}
+.fill-input.wrong{border-color:#d94040;background:#fde8e8;color:#8b1a1a}
+.fill-input:disabled{cursor:default}
+.btn-check{width:100%;padding:.7rem;background:#6c4eb8;color:#fff;border:none;border-radius:9px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:.75rem}
+.btn-check:hover{background:#5a3ea0}
+.btn-check:disabled{opacity:.4;cursor:not-allowed}
+.exp-box{display:none;background:#f8f5ff;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:.83rem;color:#444;line-height:1.7;white-space:pre-wrap;margin-bottom:1rem}
+.exp-box.show{display:block}
+.nav{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
+.btn-back{background:#e8e0f8;color:#6c4eb8}
+.btn-skip{background:#e8e0f8;color:#6c4eb8}
+.btn-next{background:#6c4eb8;color:#fff}
+.btn-finish{background:#e05c5c;color:#fff}
+.nav button:disabled{opacity:.4;cursor:not-allowed}
+.res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
+.res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
+.res-score{text-align:center;font-size:3.5rem;font-weight:800;color:#6c4eb8;margin:.75rem 0}
+.res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem}
+.res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
+.res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
+.submit-warning-sub{font-size:.85rem;color:#856404}
+.btn-submit{width:100%;padding:1.1rem;background:#2e9e6b;color:#fff;border:none;border-radius:10px;font-size:1.15rem;font-weight:800;cursor:pointer;margin-bottom:.75rem;letter-spacing:.3px;font-family:inherit}
+.btn-submit:hover{background:#257a55}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-review{width:100%;padding:.7rem;background:#e8e0f8;color:#6c4eb8;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.submit-msg{border-radius:8px;padding:.85rem;font-size:.9rem;display:none;margin-bottom:.75rem;text-align:center;font-weight:600;line-height:1.6}
+.review-list{display:none;flex-direction:column;gap:.75rem;margin-top:1rem}
+.rev-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;font-size:.82rem}
+.rev-q{font-weight:600;color:#333;margin-bottom:.3rem;white-space:pre-wrap}
+.rev-chosen{color:#d94040;margin-bottom:.2rem}
+.rev-correct{color:#2e9e6b;margin-bottom:.3rem;font-weight:600}
+.rev-exp{color:#555;line-height:1.7;white-space:pre-wrap}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.6}
+.confirm-btns{display:flex;gap:.75rem}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8}
+.btn-ok{background:#e05c5c;color:#fff}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- INTRO -->
+  <div id="introScreen" class="screen active">
+    <div class="week-pill">6. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (21-22. DERS)</div>
+    <div class="intro-title">İSİMLERİN CİNSİYETİ VE ÇOĞUL YAPI + HAY</div>
+    <div class="intro-sub">100 soru · Boşluk Doldurma (Her soru 1 puan)</div>
+    <div class="intro-teacher">@ispanyolcacim · Profe Hazel</div>
+
+    <div class="gram-box">
+      <div class="gram-box-title">📘 GRAMATİK ÖZET (1-60. Sorular İçin)</div>
+      <div class="gram-box-content"><b>Bölüm 1: İsimlerin Cinsiyeti (1-30. Sorular)</b>
+İspanyolcada her ismin bir cinsiyeti vardır: Masculino (Eril) veya Femenino (Dişil).
+
+<b>1. Genel Kurallar</b>
+-o ile bitenler genellikle erildir (el libro).
+-a ile bitenler genellikle dişildir (la mesa).
+
+<b>2. Son Ekine Göre Belirlenenler (Dişil)</b>
+Aşağıdaki eklerle biten kelimeler, son harfi ne olursa olsun dişildir (la):
+-ción / -sión: la canción, la televisión, la habitación.
+-dad / -tad / -tud: la universidad, la libertad, la ciudad, la juventud.
+
+<b>3. Önemli İstisnalar (Ezberlenmesi Gerekenler)</b>
+-o ile bitip dişil olanlar: la mano, la foto, la moto, la radio.
+-a ile bitip eril olanlar: el día, el mapa, el sofá.
+Yunanca Kökenli -ma ekleri: el problema, el programa, el idioma.
+
+<b>4. Özel Kategoriler</b>
+Haftanın Günleri: Her zaman erildir: el lunes, el martes.
+Birleşik İsimler: el paraguas, el cumpleaños.
+Sessiz Harf ve "-e" ile bitenler: Kelime bazlı öğrenilmelidir:
+  Eril: el color, el coche. &nbsp; Dişil: la flor, la leche, la clase.
+
+<b>Bölüm 2: Çoğul Yapma Kuralları (31-60. Sorular)</b>
+
+<b>1. Temel Ekler</b>
+Sesli harf ile bitiyorsa: +s eklenir (casa → casas).
+Sessiz harf ile bitiyorsa: +es eklenir (reloj → relojes).
+
+<b>2. "Z" ve "S" Harfi ile İlgili Durumlar</b>
+Z → C Dönüşümü: lápiz → lápices, actriz → actrices.
+Değişmeyenler: el lunes → los lunes, el paraguas → los paraguas.
+
+<b>3. Vurgu (Aksan) İşareti Değişimleri</b>
+-ión / -ón ile bitenler çoğulda aksan işareti düşer:
+canción → canciones, pantalón → pantalones.
+
+<b>4. Karma Gruplar (Masculino + Femenino)</b>
+1 Erkek + 1 Kız = Los hijos.
+Anne + Baba = Los padres.</div>
+    </div>
+
+    <select id="introName">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Birce Süzen</option>
+      <option>Burakhan Kaydı</option>
+      <option>Buse Cagmel</option>
+      <option>Büşra Çam</option>
+      <option>Büşra Yurt</option>
+      <option>Ceren Erdoğan</option>
+      <option>Doğa Değirmenci</option>
+      <option>Ecem Sukas</option>
+      <option>Elif Ataç</option>
+      <option>Elif Atlı</option>
+      <option>Elif Bozkurt</option>
+      <option>Elif Çetin</option>
+      <option>Emel Kanburoğlu</option>
+      <option>Eray Sayılık</option>
+      <option>Erdinç Tigin Bilen</option>
+      <option>Eylül Şerbetçi</option>
+      <option>Ezgican Tekçorap</option>
+      <option>Görkem Dursun</option>
+      <option>Gülce Eyibilir</option>
+      <option>Harun Özmen</option>
+      <option>Hilal Dilsiz</option>
+      <option>Mehtap Keklik</option>
+      <option>Meltem Çiftçi</option>
+      <option>Merve Sağlam</option>
+      <option>Meryem Özbek</option>
+      <option>Murat Erdem</option>
+      <option>Murat Şahin</option>
+      <option>Onur Atlı</option>
+      <option>Ruhşen Çavuşoğlu</option>
+      <option>Rümeysa Yatgın</option>
+      <option>Sedat Zincirkıran</option>
+      <option>Seher Akbulat</option>
+      <option>Seher Erçin</option>
+      <option>Serra Sancaklı Işık</option>
+      <option>Sibel Atmaca</option>
+      <option>Sonay Çetinkaya</option>
+      <option>Yasemin Kurtuluş Tunç</option>
+      <option>Zehra Rümeysa Çolak</option>
+      <option>Zeynep Hediye Özay</option>
+      <option>Zeynep Öztaşkın</option>
+      <option>Zeynep Söylemez</option>
+      <option>Zeynep Su Alişan</option>
+      <option>İncilay Dikbıyık</option>
+      <option>Şenay Sezgin</option>
+      <option>Şeyma Dereci</option>
+    </select>
+    <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="screen">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="q-meta">
+      <span id="qMeta">Soru 1 / 100</span>
+      <span><span class="cnt cnt-ok" id="cntOk">0 Doğru</span>&nbsp;<span class="cnt cnt-err" id="cntErr">0 Yanlış</span></span>
+    </div>
+    <div id="gramBtnWrap"></div>
+    <div id="qCard"></div>
+    <div class="nav">
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
+      <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
+      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <input type="hidden" id="resName" value="">
+    <div style="text-align:center">
+      <div class="res-pill">6. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (21-22. DERS)</div>
+    </div>
+    <div class="res-title">İSİMLERİN CİNSİYETİ VE ÇOĞUL YAPI + HAY</div>
+    <div class="res-score"><span id="resScore">0</span>/100</div>
+    <div class="res-stats">
+      <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
+      <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
+    </div>
+    <div class="res-note" id="resNote"></div>
+    <div class="submit-warning" id="submitWarning">
+      <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
+      <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
+    </div>
+    <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Birce Süzen</option>
+      <option>Burakhan Kaydı</option>
+      <option>Buse Cagmel</option>
+      <option>Büşra Çam</option>
+      <option>Büşra Yurt</option>
+      <option>Ceren Erdoğan</option>
+      <option>Doğa Değirmenci</option>
+      <option>Ecem Sukas</option>
+      <option>Elif Ataç</option>
+      <option>Elif Atlı</option>
+      <option>Elif Bozkurt</option>
+      <option>Elif Çetin</option>
+      <option>Emel Kanburoğlu</option>
+      <option>Eray Sayılık</option>
+      <option>Erdinç Tigin Bilen</option>
+      <option>Eylül Şerbetçi</option>
+      <option>Ezgican Tekçorap</option>
+      <option>Görkem Dursun</option>
+      <option>Gülce Eyibilir</option>
+      <option>Harun Özmen</option>
+      <option>Hilal Dilsiz</option>
+      <option>Mehtap Keklik</option>
+      <option>Meltem Çiftçi</option>
+      <option>Merve Sağlam</option>
+      <option>Meryem Özbek</option>
+      <option>Murat Erdem</option>
+      <option>Murat Şahin</option>
+      <option>Onur Atlı</option>
+      <option>Ruhşen Çavuşoğlu</option>
+      <option>Rümeysa Yatgın</option>
+      <option>Sedat Zincirkıran</option>
+      <option>Seher Akbulat</option>
+      <option>Seher Erçin</option>
+      <option>Serra Sancaklı Işık</option>
+      <option>Sibel Atmaca</option>
+      <option>Sonay Çetinkaya</option>
+      <option>Yasemin Kurtuluş Tunç</option>
+      <option>Zehra Rümeysa Çolak</option>
+      <option>Zeynep Hediye Özay</option>
+      <option>Zeynep Öztaşkın</option>
+      <option>Zeynep Söylemez</option>
+      <option>Zeynep Su Alişan</option>
+      <option>İncilay Dikbıyık</option>
+      <option>Şenay Sezgin</option>
+      <option>Şeyma Dereci</option>
+    </select>
+    <div class="submit-msg" id="submitMsg"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+<!-- GRAMATİK ÖZET MODAL -->
+<div class="modal-overlay" id="gramModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeGram()">✕ Kapat</button>
+    <h2>📘 GRAMATİK ÖZET</h2>
+    <h3>Bölüm 1: İsimlerin Cinsiyeti (1-30. Sorular)</h3>
+    <p>İspanyolcada her ismin bir cinsiyeti vardır: Masculino (Eril) veya Femenino (Dişil).</p>
+    <h3>1. Genel Kurallar</h3>
+    <ul>
+      <li>-o ile bitenler genellikle erildir (el libro).</li>
+      <li>-a ile bitenler genellikle dişildir (la mesa).</li>
+    </ul>
+    <h3>2. Son Ekine Göre Belirlenenler (Dişil)</h3>
+    <p>Aşağıdaki eklerle biten kelimeler dişildir (la):</p>
+    <ul>
+      <li>-ción / -sión: la canción, la televisión, la habitación.</li>
+      <li>-dad / -tad / -tud: la universidad, la libertad, la ciudad, la juventud.</li>
+    </ul>
+    <h3>3. Önemli İstisnalar</h3>
+    <ul>
+      <li>-o ile bitip dişil olanlar: la mano, la foto, la moto, la radio.</li>
+      <li>-a ile bitip eril olanlar: el día, el mapa, el sofá.</li>
+      <li>Yunanca Kökenli -ma ekleri: el problema, el programa, el idioma.</li>
+    </ul>
+    <h3>4. Özel Kategoriler</h3>
+    <ul>
+      <li>Haftanın Günleri: Her zaman erildir: el lunes, el martes.</li>
+      <li>Birleşik İsimler: el paraguas, el cumpleaños.</li>
+      <li>Sessiz Harf ve "-e" ile bitenler: Eril: el color, el coche. Dişil: la flor, la leche, la clase.</li>
+    </ul>
+    <h3>Bölüm 2: Çoğul Yapma Kuralları (31-60. Sorular)</h3>
+    <h3>1. Temel Ekler</h3>
+    <ul>
+      <li>Sesli harf ile bitiyorsa: +s eklenir (casa → casas).</li>
+      <li>Sessiz harf ile bitiyorsa: +es eklenir (reloj → relojes, profesor → profesores).</li>
+    </ul>
+    <h3>2. "Z" ve "S" Harfi ile İlgili Durumlar</h3>
+    <ul>
+      <li>Z → C Dönüşümü: lápiz → lápices, actriz → actrices.</li>
+      <li>Değişmeyenler: el lunes → los lunes, el paraguas → los paraguas.</li>
+    </ul>
+    <h3>3. Vurgu (Aksan) İşareti Değişimleri</h3>
+    <ul>
+      <li>-ión / -ón ile biten kelimeler çoğulda aksan işareti düşer: canción → canciones, pantalón → pantalones.</li>
+    </ul>
+    <h3>4. Karma Gruplar (Masculino + Femenino)</h3>
+    <ul>
+      <li>1 Erkek evlat + 1 Kız evlat = Los hijos.</li>
+      <li>Anne + Baba = Los padres.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">İptal</button>
+      <button class="btn-ok" onclick="doFinish()">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
+var ODEV_ADI='H6 \u2013 21-22.Ders';
+var GROUPS={
+'Harun \u00d6zmen':'A1.1','Yasemin Kurtulu\u015f Tun\u00e7':'A1.1','Zeynep Hediye \u00d6zay':'A1.1','G\u00fclce Eyibilir':'A1.1','Serra Sancakl\u0131 I\u015f\u0131k':'A1.1','B\u00fc\u015fra Yurt':'A1.1','Elif \u00c7etin':'A1.1','Mehtap Keklik':'A1.1','Elif Ata\u00e7':'A1.1','Do\u011fa De\u011firmenci':'A1.1','Zehra R\u00fcmeysa \u00c7olak':'A1.1','Zeynep Su Ali\u015fan':'A1.1','Eray Say\u0131l\u0131k':'A1.1','Birce S\u00fczen':'A1.1','Seher Akbulat':'A1.1',
+'\u015eeyma Dereci':'A1.1 (2)','Zeynep S\u00f6ylemez':'A1.1 (2)','Ecem Sukas':'A1.1 (2)','Burakhan Kayd\u0131':'A1.1 (2)','\u015eenay Sezgin':'A1.1 (2)','Zeynep \u00d6zta\u015fk\u0131n':'A1.1 (2)','Sonay \u00c7etinkaya':'A1.1 (2)','Ezgican Tek\u00e7orap':'A1.1 (2)','Merve Sa\u011flam':'A1.1 (2)','Meryem \u00d6zbek':'A1.1 (2)','Elif Bozkurt':'A1.1 (2)','Meltem \u00c7ift\u00e7i':'A1.1 (2)','Hilal Dilsiz':'A1.1 (2)','R\u00fcmeysa Yatg\u0131n':'A1.1 (2)','Eyl\u00fcl \u015eerbet\u00e7i':'A1.1 (2)',
+'Sedat Zincirk\u0131ran':'A1.1 (3)','\u0130ncilay Dikb\u0131y\u0131k':'A1.1 (3)','Ruh\u015fen \u00c7avu\u015fo\u011flu':'A1.1 (3)','Murat Erdem':'A1.1 (3)','Ceren Erdo\u011fan':'A1.1 (3)','Erdin\u00e7 Tigin Bilen':'A1.1 (3)','Seher Er\u00e7in':'A1.1 (3)','B\u00fc\u015fra \u00c7am':'A1.1 (3)','G\u00f6rkem Dursun':'A1.1 (3)','Sibel Atmaca':'A1.1 (3)','Onur Atl\u0131':'A1.1 (3)','Elif Atl\u0131':'A1.1 (3)','Emel Kanburo\u011flu':'A1.1 (3)','Murat \u015eahin':'A1.1 (3)','Buse Cagmel':'A1.1 (3)'
+};
+
+var Q=[
+{q:'1\n__________ libro',a:'el',exp:'Açıklama: İspanyolcada genellikle -o harfi ile biten isimler erildir (masculino) ve "el" artikeli alır.'},
+{q:'2\n__________ televisión',a:'la',exp:'Açıklama: -sión ekiyle biten bütün kelimeler istisnasız dişildir (femenino) ve "la" artikeli alır.'},
+{q:'3\n__________ mesa',a:'la',exp:'Açıklama: Genellikle -a harfi ile biten isimler dişildir (femenino) ve "la" artikeli alır.'},
+{q:'4\n__________ mano',a:'la',exp:'Açıklama: Bu bir istisnadır. Kelime -o ile bitmesine rağmen dişildir. (La mano: El)'},
+{q:'5\n__________ día',a:'el',exp:'Açıklama: Bu bir istisnadır. Kelime -a ile bitmesine rağmen erildir. (El día: Gün)'},
+{q:'6\n__________ canción',a:'la',exp:'Açıklama: -ción ekiyle biten bütün kelimeler dişildir (femenino) ve "la" artikeli alır.'},
+{q:'7\n__________ mapa',a:'el',exp:'Açıklama: İstisna bir kelimedir. Sonu -a ile bittiği halde eril kabul edilir ve "el" artikeli ile kullanılır.'},
+{q:'8\n__________ universidad',a:'la',exp:'Açıklama: İspanyolcada -dad ekiyle biten soyut veya somut isimlerin tamamı dişildir.'},
+{q:'9\n__________ lunes',a:'el',exp:'Açıklama: Haftanın günlerini belirten isimler (lunes, martes vb.) her zaman erildir.'},
+{q:'10\n__________ foto',a:'la',exp:'Açıklama: Aslında bu kelime "fotografía" kelimesinin kısaltmasıdır. Kısaltma olsa da orijinalindeki dişil cinsiyeti korur ve la alır.'},
+{q:'11\n__________ problema',a:'el',exp:'Açıklama: Sonu -ma ile biten Yunanca kökenli kelimelerin çoğu (problema, tema, programa) -a ile bitmesine rağmen erildir.'},
+{q:'12\n__________ libertad',a:'la',exp:'Açıklama: -tad ekiyle biten kelimeler (libertad, amistad gibi) her zaman dişildir.'},
+{q:'13\n__________ paraguas',a:'el',exp:'Açıklama: İspanyolcada bir fiil ve bir ismin birleşmesiyle oluşan "bileşik isimler" (para + aguas) genellikle erildir.'},
+{q:'14\n__________ moto',a:'la',exp:'Açıklama: Bu kelime "motocicleta"nın kısaltmasıdır. Orijinali dişil olduğu için "la" artikeli kullanılır.'},
+{q:'15\n__________ idioma',a:'el',exp:'Açıklama: Sonu -a ile bittiği halde eril olan önemli istisnalardan biridir.'},
+{q:'16\n__________ flor',a:'la',exp:'Açıklama: Sessiz harfle biten kelimelerin cinsiyeti değişkendir. "Flor" (çiçek) kelimesi dişil bir kelimedir.'},
+{q:'17\n__________ color',a:'el',exp:'Açıklama: Sessiz harfle biten birçok isim gibi "color" (renk) kelimesi erildir.'},
+{q:'18\n__________ leche',a:'la',exp:'Açıklama: Sonu -e ile biten kelimelerin bir kısmı eril bir kısmı dişildir. "Leche" (süt) İspanyolcada dişil bir isimdir.'},
+{q:'19\n__________ coche',a:'el',exp:'Açıklama: Sonu -e ile biten isimler arasında "coche" (araba) eril olanlar grubundadır.'},
+{q:'20\n__________ radio',a:'la',exp:'Açıklama: Sonu -o ile bitip dişil olan çok az sayıdaki istisnalardan biridir.'},
+{q:'21\n__________ sofá',a:'el',exp:'Açıklama: Sonu -a ile bitmesine rağmen eril artikel alan bir başka istisnadır.'},
+{q:'22\n__________ ciudad',a:'la',exp:'Açıklama: Sonu -dad ile bittiği için otomatik olarak dişil (femenino) kategorisine girer.'},
+{q:'23\n__________ programa',a:'el',exp:'Açıklama: Sonu -ma ile biten (Yunanca kökenli) istisnai kelimelerdendir ve erildir.'},
+{q:'24\n__________ habitación',a:'la',exp:'Açıklama: Sonu -ción ile biten tüm isimler istisnasız dişildir.'},
+{q:'25\n__________ luz',a:'la',exp:'Açıklama: Sonu -z ile biten birçok isim gibi (luz, paz vb.) dişil bir kelimedir.'},
+{q:'26\n__________ cumpleaños',a:'el',exp:'Açıklama: "Doğum günü" anlamına gelen bu kelime bileşik bir isim olduğu için her zaman eril artikel alır.'},
+{q:'27\n__________ mariposa',a:'la',exp:'Açıklama: Bazı hayvan isimlerinin tek bir formu vardır. "Mariposa" (kelebek) her zaman dişil kabul edilir.'},
+{q:'28\n__________ toro',a:'el',exp:'Açıklama: Canlı varlıklarda (insanlar ve bazı hayvanlar) biyolojik cinsiyet belirleyicidir. Boğa erkek olduğu için erildir.'},
+{q:'29\n__________ clase',a:'la',exp:'Açıklama: Sonu -e ile bitip dişil olan kelimelerden biridir. Sözlüğe bakarak ezberlenmesi önerilir.'},
+{q:'30\n__________ lápiz',a:'el',exp:'Açıklama: Sonu sessiz harfle (z) bitmesine rağmen eril olan bir kelimedir. (El lápiz: Kurşun kalem)'},
+{q:'31\nla casa ifadesini çoğul hale getiriniz. ______',a:'las casas',exp:'Açıklama: Kelime sesli harf (-a, -e, -i, -o, -u) ile bittiği için sadece -s takısı alır.'},
+{q:'32\nel reloj ifadesini çoğul hale getiriniz. ______',a:'los relojes',exp:'Açıklama: Kelime sessiz harf ile bittiği için sonuna -es takısı eklenir.'},
+{q:'33\nel coche ifadesini çoğul hale getiriniz. ______',a:'los coches',exp:'Açıklama: Sesli harf (-e) ile bittiği için çoğul yapmak için sadece -s eklenir.'},
+{q:'34\nel profesor ifadesini çoğul hale getiriniz. ______',a:'los profesores',exp:'Açıklama: Kelime sessiz harf (-r) ile bittiği için sonuna -es takısı eklenir.'},
+{q:'35\nla ciudad ifadesini çoğul hale getiriniz. ______',a:'las ciudades',exp:'Açıklama: Sessiz harf (-d) ile bittiği için sonuna -es takısı eklenerek çoğul yapılır.'},
+{q:'36\nla postal ifadesini çoğul hale getiriniz. ______',a:'las postales',exp:'Açıklama: Sessiz harf (-l) ile bittiği için kural gereği sonuna -es eklenir.'},
+{q:'37\nla habitación ifadesini çoğul hale getiriniz. ______',a:'las habitaciones',exp:'Açıklama: Sessiz harf ile bittiği için -es alır; ancak çoğulda vurgu sondan bir önceki heceye kaydığı için kelime üzerindeki aksan işareti düşer.'},
+{q:'38\nel mes ifadesini çoğul hale getiriniz. ______',a:'los meses',exp:'Açıklama: Tek heceli ve -s ile biten kelimelere çoğul yaparken -es eklenir.'},
+{q:'39\nel país ifadesini çoğul hale getiriniz. ______',a:'los países',exp:'Açıklama: İki veya daha fazla heceli olup vurgulu bir sesli + -s ile biten kelimeler -es takısı alır (vurgu korunur).'},
+{q:'40\nel autobús ifadesini çoğul hale getiriniz. ______',a:'los autobuses',exp:'Açıklama: Çok heceli ve aksanlı biten kelimeler -es alır; çoğul halde vurgu kuralı gereği aksan işareti yazılmaz.'},
+{q:'41\nel lunes ifadesini çoğul hale getiriniz. ______',a:'los lunes',exp:'Açıklama: İki veya daha fazla heceli olup vurgusuz -es ile biten kelimeler çoğulda değişmez, sadece artikel (los) çoğul yapılır.'},
+{q:'42\nel paraguas ifadesini çoğul hale getiriniz. ______',a:'los paraguas',exp:'Açıklama: Çok heceli ve vurgusuz -as ile bittiği için kelime şeklinde bir değişiklik olmaz, sadece artikel çoğul olur.'},
+{q:'43\nla actriz ifadesini çoğul hale getiriniz. ______',a:'las actrices',exp:'Açıklama: -z ile biten kelimelerde, -z harfi düşer ve yerine -ces takısı getirilir.'},
+{q:'44\nla televisión ifadesini çoğul hale getiriniz. ______',a:'las televisiones',exp:'Açıklama: -ión ile biten kelimeler sessiz harf kuralına göre -es alır ve çoğulda aksan işareti düşer.'},
+{q:'45\nel niño ifadesini çoğul hale getiriniz. ______',a:'los niños',exp:'Açıklama: Kelime sesli harf (-o) ile bittiği için çoğul yapmak için sadece -s eklemek yeterlidir.'},
+{q:'46\nel lápiz ifadesini çoğul hale getiriniz. ______',a:'los lápices',exp:'Açıklama: Sonu -z ile biten kelimeler çoğulda -ces ekini alır.'},
+{q:'47\nla luz ifadesini çoğul hale getiriniz. ______',a:'las luces',exp:'Açıklama: Kelime -z ile bittiği için çoğul yapılırken -z harfi -ces takısına dönüşür.'},
+{q:'48\nel color ifadesini çoğul hale getiriniz. ______',a:'los colores',exp:'Açıklama: Kelime sessiz harfle bittiği için kural gereği sonuna -es eklenmiştir.'},
+{q:'49\nel hotel ifadesini çoğul hale getiriniz. ______',a:'los hoteles',exp:'Açıklama: Sessiz harf (-l) ile biten isimlere çoğul formda -es takısı getirilir.'},
+{q:'50\nel martes ifadesini çoğul hale getiriniz. ______',a:'los martes',exp:'Açıklama: Çok heceli olup vurgusuz -es ile bittiği için kelime değişmez, sadece artikel çoğullaşır.'},
+{q:'51\nla canción ifadesini çoğul hale getiriniz. ______',a:'las canciones',exp:'Açıklama: Sessiz harf kuralıyla -es eklenir; çoğulda vurgu dağılımı değiştiği için kelime üzerindeki aksan işareti kaldırılır.'},
+{q:'52\nel francés ifadesini çoğul hale getiriniz. ______',a:'los franceses',exp:'Açıklama: Vurgulu biten ve sessiz harfle biten kelimeler -es alır, çoğulda aksan işareti düşer.'},
+{q:'53\nla clase ifadesini çoğul hale getiriniz. ______',a:'las clases',exp:'Açıklama: Kelime sesli harfle (-e) bittiği için sadece -s takısı getirilerek çoğul yapılır.'},
+{q:'54\nel pez ifadesini çoğul hale getiriniz. ______',a:'los peces',exp:'Açıklama: -z harfi ile biten kelimelerin çoğulunda -z düşer ve -ces eki eklenir.'},
+{q:'55\nel pantalón ifadesini çoğul hale getiriniz. ______',a:'los pantalones',exp:'Açıklama: Sessiz harfle bittiği için -es alır; çoğulda vurgu işareti (aksan) artık gerekli olmadığından düşer.'},
+{q:'56\nla universidad ifadesini çoğul hale getiriniz. ______',a:'las universidades',exp:'Açıklama: Kelime sessiz harfle bittiği için çoğulda -es eki alır.'},
+{q:'57\nel examen ifadesini çoğul hale getiriniz. ______',a:'los exámenes',exp:'Açıklama: Sessiz harf kuralına göre -es alır. (Not: Bu kelime istisna olarak çoğulda vurgusunu korumak için aksan alır).'},
+{q:'58\nel padre + la madre ifadesini toplu halde tek bir kelimeyle ifade ediniz. ______',a:'los padres',exp:'Açıklama: Bir eril (erkek) ve bir dişil (dişi) varlık bir araya geldiğinde çoğul hali her zaman eril (masculino) çoğul formda söylenir.'},
+{q:'59\nel hijo + la hija ifadesini toplu halde tek bir kelimeyle ifade ediniz. ______',a:'los hijos',exp:'Açıklama: Karma gruplarda (oğul ve kız çocukları bir arada) eril çoğul artikel ve kelime formu kullanılır.'},
+{q:'60\nel abuelo + la abuela ifadesini toplu halde tek bir kelimeyle ifade ediniz. ______',a:'los abuelos',exp:'Açıklama: Cinsiyeti farklı bireylerden oluşan bir grubu tanımlarken İspanyolcada eril çoğul yapı kullanılır.'},
+{q:'61\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nOturma odasında bir kanepe var. ___________',a:'Hay un sofá en la sala.',exp:'Cevap: Hay un sofá en la sala.'},
+{q:'62\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMutfakta ekmek yok. ___________',a:'No hay pan en la cocina.',exp:'Cevap: No hay pan en la cocina.'},
+{q:'63\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMasanın üzerinde üç kitap var. ___________',a:'Hay tres libros sobre la mesa.',exp:'Cevap: Hay tres libros sobre la mesa.'},
+{q:'64\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBuzdolabında süt var mı? ___________',a:'¿Hay leche en la nevera?',exp:'Cevap: ¿Hay leche en la nevera?'},
+{q:'65\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBahçede çok ağaç var. ___________',a:'Hay muchos árboles en el jardín.',exp:'Cevap: Hay muchos árboles en el jardín.'},
+{q:'66\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nYatak odasında büyük bir ayna var. ___________',a:'Hay un espejo grande en el dormitorio.',exp:'Cevap: Hay un espejo grande en el dormitorio.'},
+{q:'67\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nEvde kimse yok. ___________',a:'No hay nadie en casa.',exp:'Cevap: No hay nadie en casa.'},
+{q:'68\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBanyoda temiz havlular var. ___________',a:'Hay toallas limpias en el baño.',exp:'Cevap: Hay toallas limpias en el baño.'},
+{q:'69\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nPencerenin önünde çiçekler var. ___________',a:'Hay flores delante de la ventana.',exp:'Cevap: Hay flores delante de la ventana.'},
+{q:'70\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nRafta eski bir radyo var. ___________',a:'Hay una radio vieja en el estante.',exp:'Cevap: Hay una radio vieja en el estante.'},
+{q:'71\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nKöşede küçük bir market var. ___________',a:'Hay un supermercado pequeño en la esquina.',exp:'Cevap: Hay un supermercado pequeño en la esquina.'},
+{q:'72\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nParkta bir çocuk oyun alanı var. ___________',a:'Hay un parque infantil en el parque.',exp:'Cevap: Hay un parque infantil en el parque.'},
+{q:'73\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMahallede bir eczane yok. ___________',a:'No hay una farmacia en el barrio.',exp:'Cevap: No hay una farmacia en el barrio.'},
+{q:'74\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nSokağımızda çok araba var. ___________',a:'Hay muchos coches en nuestra calle.',exp:'Cevap: Hay muchos coches en nuestra calle.'},
+{q:'75\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBurada yakınlarda bir fırın var mı? ___________',a:'¿Hay una panadería cerca de aquí?',exp:'Cevap: ¿Hay una panadería cerca de aquí?'},
+{q:'76\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nOkulun yanında büyük bir kütüphane var. ___________',a:'Hay una biblioteca grande al lado de la escuela.',exp:'Cevap: Hay una biblioteca grande al lado de la escuela.'},
+{q:'77\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMahallede çok güzel bir kafe var. ___________',a:'Hay una cafetería muy bonita en el barrio.',exp:'Cevap: Hay una cafetería muy bonita en el barrio.'},
+{q:'78\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBankanın önünde bir bankamatik var. ___________',a:'Hay un cajero automático frente al banco.',exp:'Cevap: Hay un cajero automático frente al banco.'},
+{q:'79\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBu caddede hiç ağaç yok. ___________',a:'No hay árboles en esta avenida.',exp:'Cevap: No hay árboles en esta avenida.'},
+{q:'80\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nSpor salonunun önünde çok insan var. ___________',a:'Hay mucha gente delante del gimnasio.',exp:'Cevap: Hay mucha gente delante del gimnasio.'},
+{q:'81\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nŞehirde çok ünlü bir müze var. ___________',a:'Hay un museo muy famoso en la ciudad.',exp:'Cevap: Hay un museo muy famoso en la ciudad.'},
+{q:'82\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nSahilde birçok balıkçı var. ___________',a:'Hay muchos pescadores en la costa.',exp:'Cevap: Hay muchos pescadores en la costa.'},
+{q:'83\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMerkezde eski bir tiyatro var. ___________',a:'Hay un teatro antiguo en el centro.',exp:'Cevap: Hay un teatro antiguo en el centro.'},
+{q:'84\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBu şehirde metro yok. ___________',a:'No hay metro en esta ciudad.',exp:'Cevap: No hay metro en esta ciudad.'},
+{q:'85\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMeydanda tarihi bir heykel var. ___________',a:'Hay una estatua histórica en la plaza.',exp:'Cevap: Hay una estatua histórica en la plaza.'},
+{q:'86\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nŞehirde çok fazla gürültü var. ___________',a:'Hay mucho ruido en la ciudad.',exp:'Cevap: Hay mucho ruido en la ciudad.'},
+{q:'87\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nDağlarda biraz kar var. ___________',a:'Hay un poco de nieve en las montañas.',exp:'Cevap: Hay un poco de nieve en las montañas.'},
+{q:'88\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nLimanda devasa gemiler var. ___________',a:'Hay barcos gigantes en el puerto.',exp:'Cevap: Hay barcos gigantes en el puerto.'},
+{q:'89\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nŞehirde az park var. ___________',a:'Hay pocos parques en la ciudad.',exp:'Cevap: Hay pocos parques en la ciudad.'},
+{q:'90\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nAlışveriş merkezinde büyük bir sinema var. ___________',a:'Hay un cine grande en el centro comercial.',exp:'Cevap: Hay un cine grande en el centro comercial.'},
+{q:'91\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nMasada bir kalem var. ___________',a:'Hay un bolígrafo en la mesa.',exp:'Cevap: Hay un bolígrafo en la mesa.'},
+{q:'92\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nSokakta çok gürültü var. ___________',a:'Hay mucho ruido en la calle.',exp:'Cevap: Hay mucho ruido en la calle.'},
+{q:'93\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nÇantamda para yok. ___________',a:'No hay dinero en mi bolso.',exp:'Cevap: No hay dinero en mi bolso.'},
+{q:'94\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nOfiste iki büyük pencere var. ___________',a:'Hay dos ventanas grandes en la oficina.',exp:'Cevap: Hay dos ventanas grandes en la oficina.'},
+{q:'95\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nKöşede modern bir lamba var. ___________',a:'Hay una lámpara moderna en la esquina.',exp:'Cevap: Hay una lámpara moderna en la esquina.'},
+{q:'96\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBugün yollarda çok trafik var. ___________',a:'Hay mucho tráfico en las carreteras hoy.',exp:'Cevap: Hay mucho tráfico en las carreteras hoy.'},
+{q:'97\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nBuzdolabında hiç meyve suyu yok. ___________',a:'No hay zumo en la nevera.',exp:'Cevap: No hay zumo en la nevera. (Alternatif: No hay jugo en la nevera.)'},
+{q:'98\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nDuvarda güzel bir saat var. ___________',a:'Hay un reloj bonito en la pared.',exp:'Cevap: Hay un reloj bonito en la pared.'},
+{q:'99\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nŞehirde devasa bir stadyum var. ___________',a:'Hay un estadio gigante en la ciudad.',exp:'Cevap: Hay un estadio gigante en la ciudad.'},
+{q:'100\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nSınıfta büyük bir harita var. ___________',a:'Hay un mapa grande en la clase.',exp:'Cevap: Hay un mapa grande en la clase.'}
+];
+
+var state={cur:0,answered:[],scores:[],okCount:0,errCount:0,checked:[]};
+
+function startQuiz(){
+  var n=document.getElementById('introName').value;
+  if(!n){alert('Lütfen adınızı seçin.');return;}
+  document.getElementById('resName').value=n;
+  document.getElementById('resName2').value=n;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+function syncResName(){
+  document.getElementById('resName').value=document.getElementById('resName2').value;
+}
+function openGram(){document.getElementById('gramModal').classList.add('open');}
+function closeGram(){document.getElementById('gramModal').classList.remove('open');}
+
+function esc(s){
+  if(!s)return'';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function norm(s){
+  return s.trim().toLowerCase()
+    .replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u')
+    .replace(/ü/g,'u').replace(/ñ/g,'n').replace(/¿/g,'').replace(/[?!¡]/g,'').replace(/\s+/g,' ');
+}
+
+function checkCorrect(val,ans){
+  var v=norm(val), c=norm(ans);
+  if(v===c)return true;
+  // alternatif cevap varsa (parantez içinde)
+  var altMatch=ans.match(/\(Alternatif[^)]*:\s*([^)]+)\)/i);
+  if(altMatch&&norm(altMatch[1])===v)return true;
+  // öğrenci cevabı içinde doğru geçiyorsa
+  if(v.indexOf(c)!==-1||c.indexOf(v)!==-1)return true;
+  return false;
+}
+
+function renderQ(){
+  var i=state.cur;var q=Q[i];
+  // Gramatik özet butonu 1-60 arası göster
+  var gw=document.getElementById('gramBtnWrap');
+  if(i<60){
+    gw.innerHTML='<button class="btn-gram" onclick="openGram()">📖 Gramatik Özet Hatırlatması İçin Tıklayabilirsin</button>';
+  } else {
+    gw.innerHTML='';
+  }
+
+  var done=state.checked[i]===true;
+  var userAns=state.answered[i]!==undefined?state.answered[i]:'';
+  var cls='fill-input'+(done?(state.scores[i]?' correct':' wrong'):'');
+
+  var html='';
+  html+='<span class="q-badge">BOŞLUK DOLDURMA</span>';
+  html+='<div class="q-text">'+esc(q.q)+'</div>';
+  html+='<div class="fill-wrap">';
+  html+='<input type="text" class="'+cls+'" id="fillInput" value="'+esc(userAns)+'" '+(done?'disabled':'')+' placeholder="Cevabınızı yazın..." oninput="onFillInput()" />';
+  html+='</div>';
+  if(!done){
+    html+='<button class="btn-check" id="btnCheck" onclick="checkFill()" '+(userAns?'':'disabled')+'>Kontrol Et</button>';
+  }
+  var expHtml='';
+  if(done){
+    if(state.scores[i]!==1){
+      expHtml+='<strong style="color:#2e9e6b;font-size:.88rem;">Doğru cevap: '+esc(q.a)+'</strong><br><br>';
+    }
+    expHtml+=esc(q.exp);
+  }
+  html+='<div class="exp-box'+(done?' show':'')+'" id="expBox">'+expHtml+'</div>';
+  document.getElementById('qCard').innerHTML=html;
+
+  document.getElementById('btnBack').disabled=(i===0||!done);
+  document.getElementById('btnNext').disabled=(!done||i===Q.length-1);
+  document.getElementById('btnSkip').disabled=(!done||i>=Q.length-1);
+  document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
+  document.getElementById('cntOk').textContent=state.okCount+' Doğru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanlış';
+}
+
+function onFillInput(){
+  var btn=document.getElementById('btnCheck');
+  if(btn)btn.disabled=!document.getElementById('fillInput').value.trim();
+}
+
+function checkFill(){
+  var i=state.cur;if(state.checked[i])return;
+  var val=document.getElementById('fillInput').value.trim();
+  if(!val)return;
+  state.answered[i]=val;state.checked[i]=true;
+  if(checkCorrect(val,Q[i].a)){state.okCount++;state.scores[i]=1;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+
+function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function goBack(){if(state.cur>0){state.cur--;renderQ();}}
+function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+
+function confirmFinish(){
+  var answered=0;for(var i=0;i<Q.length;i++){if(state.checked[i])answered++;}
+  var unanswered=Q.length-answered;
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevapsız kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istediğinize emin misiniz?';
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+function doFinish(){closeConfirm();showResult();}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  var total=0;for(var i=0;i<Q.length;i++)total+=(state.scores[i]||0);
+  document.getElementById('resScore').textContent=total;
+  document.getElementById('resOk').textContent=state.okCount+' Doğru';
+  document.getElementById('resErr').textContent=state.errCount+' Yanlış';
+  document.getElementById('resNote').textContent='100 sorudan '+state.okCount+' tanesi doğru (her soru 1 puan)';
+  var html2='';
+  for(var i=0;i<Q.length;i++){
+    if(!state.checked[i]||state.scores[i]===1)continue;
+    html2+='<div class="rev-item">';
+    html2+='<div class="rev-q">'+esc(Q[i].q)+'</div>';
+    html2+='<div class="rev-chosen">Verdiğiniz cevap: '+esc(state.answered[i])+'</div>';
+    html2+='<div class="rev-correct">Doğru cevap: '+esc(Q[i].a)+'</div>';
+    html2+='<div class="rev-exp">'+esc(Q[i].exp)+'</div>';
+    html2+='</div>';
+  }
+  document.getElementById('reviewList').innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanlış soru bulunamadı.</div>';
+}
+
+function toggleReview(){
+  var rv=document.getElementById('reviewList');
+  rv.style.display=(rv.style.display==='flex'?'none':'flex');
+}
+
+function submitResult(){
+  var name=document.getElementById('resName').value;
+  if(!name){alert('Lütfen adınızı seçin.');return;}
+  var total=0;for(var i=0;i<Q.length;i++)total+=(state.scores[i]||0);
+  var grup=GROUPS[name]||'A1.1';
+  var payload=JSON.stringify({ogrenci:name,odev:ODEV_ADI,grup:grup,puan:total,dogru:state.okCount,yanlis:state.errCount,tarih:new Date().toLocaleDateString('tr-TR')});
+  var msgEl=document.getElementById('submitMsg');
+  document.getElementById('submitWarning').style.display='none';
+  msgEl.style.display='block';
+  msgEl.style.background='#fff3cd';msgEl.style.color='#856404';msgEl.style.border='1px solid #ffc107';
+  msgEl.textContent='Gönderiliyor... (Grup: '+grup+')';
+  document.getElementById('btnSubmit').disabled=true;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(payload)})
+  .then(function(){
+    msgEl.style.background='#e6f9f0';msgEl.style.color='#1a5c3a';msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' öğrencisinin "'+ODEV_ADI+'" ödevi teslim edildi. Puan: '+total+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';msgEl.style.color='#8b1a1a';msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message;
+    document.getElementById('btnSubmit').disabled=false;
+  });
+}
+</script>
+</body>
+</html>
