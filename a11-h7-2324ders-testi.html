@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H7 – 23-24.Ders | A1.1 Ödevi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+.screen{display:none}.screen.active{display:block}
+.week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
+.intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
+.intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
+.intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1.25rem;font-weight:600}
+select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
+select:focus{border-color:#6c4eb8}
+.btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#5a3ea0}
+.prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:.75rem}
+.cnt{padding:.2rem .6rem;border-radius:6px;font-weight:600}
+.cnt-ok{background:#e6f9f0;color:#2e9e6b}
+.cnt-err{background:#fde8e8;color:#d94040}
+.q-badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:.8rem}
+.q-badge-mc{background:#e8e0f8;color:#6c4eb8}
+.q-badge-video{background:#ffe4e1;color:#c0392b}
+.q-text{font-size:.95rem;color:#333;line-height:1.7;margin-bottom:1rem;white-space:pre-wrap}
+.opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.opt-btn{text-align:left;padding:.7rem 1rem;border:2px solid #d0c8f0;border-radius:9px;background:#fff;cursor:pointer;font-size:.9rem;color:#333;transition:all .15s;font-family:inherit}
+.opt-btn:hover:not(:disabled){background:#f3effb;border-color:#9b7de0}
+.opt-btn.correct{background:#e6f9f0;border-color:#2e9e6b;color:#1a5c3a;font-weight:600}
+.opt-btn.wrong{background:#fde8e8;border-color:#d94040;color:#8b1a1a}
+.opt-btn:disabled{cursor:default}
+.exp-box{display:none;background:#f8f5ff;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:.83rem;color:#444;line-height:1.7;white-space:pre-wrap;margin-bottom:1rem}
+.exp-box.show{display:block}
+.btn-video{display:inline-flex;align-items:center;gap:.5rem;background:#ff4444;color:#fff;border:none;border-radius:8px;padding:.5rem 1.1rem;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:.85rem;text-decoration:none}
+.btn-video:hover{background:#cc0000}
+.nav{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
+.btn-back{background:#e8e0f8;color:#6c4eb8}
+.btn-skip{background:#e8e0f8;color:#6c4eb8}
+.btn-next{background:#6c4eb8;color:#fff}
+.btn-finish{background:#e05c5c;color:#fff}
+.nav button:disabled{opacity:.4;cursor:not-allowed}
+.score-info{background:#f3effb;border-radius:8px;padding:.5rem .85rem;font-size:.78rem;color:#6c4eb8;font-weight:600;margin-bottom:.75rem;text-align:center}
+.res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
+.res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
+.res-score{text-align:center;font-size:3.5rem;font-weight:800;color:#6c4eb8;margin:.75rem 0}
+.res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem;flex-wrap:wrap}
+.res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
+.res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
+.submit-warning-sub{font-size:.85rem;color:#856404}
+.btn-submit{width:100%;padding:1.1rem;background:#2e9e6b;color:#fff;border:none;border-radius:10px;font-size:1.15rem;font-weight:800;cursor:pointer;margin-bottom:.75rem;letter-spacing:.3px;font-family:inherit}
+.btn-submit:hover{background:#257a55}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-review{width:100%;padding:.7rem;background:#e8e0f8;color:#6c4eb8;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.submit-msg{border-radius:8px;padding:.85rem;font-size:.9rem;display:none;margin-bottom:.75rem;text-align:center;font-weight:600;line-height:1.6}
+.review-list{display:none;flex-direction:column;gap:.75rem;margin-top:1rem}
+.rev-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;font-size:.82rem}
+.rev-q{font-weight:600;color:#333;margin-bottom:.3rem;white-space:pre-wrap}
+.rev-chosen{color:#d94040;margin-bottom:.2rem}
+.rev-correct{color:#2e9e6b;margin-bottom:.3rem;font-weight:600}
+.rev-exp{color:#555;line-height:1.7;white-space:pre-wrap}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.6}
+.confirm-btns{display:flex;gap:.75rem}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8}
+.btn-ok{background:#e05c5c;color:#fff}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- INTRO -->
+  <div id="introScreen" class="screen active">
+    <div class="week-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (23-24. DERS)</div>
+    <div class="intro-title">DÖNÜŞLÜ FİİLLER (VERBOS REFLEXIVOS)</div>
+    <div class="intro-sub">70 soru · 1-50: Çoktan Seçmeli (1p) · 51-70: Video Soruları (2,5p)</div>
+    <div class="intro-teacher">@ispanyolcacim · Profe Hazel</div>
+    <select id="introName">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Birce Süzen</option>
+      <option>Burakhan Kaydı</option>
+      <option>Buse Cagmel</option>
+      <option>Büşra Çam</option>
+      <option>Büşra Yurt</option>
+      <option>Ceren Erdoğan</option>
+      <option>Doğa Değirmenci</option>
+      <option>Ecem Sukas</option>
+      <option>Elif Ataç</option>
+      <option>Elif Atlı</option>
+      <option>Elif Bozkurt</option>
+      <option>Elif Çetin</option>
+      <option>Emel Kanburoğlu</option>
+      <option>Eray Sayılık</option>
+      <option>Erdinç Tigin Bilen</option>
+      <option>Eylül Şerbetçi</option>
+      <option>Ezgican Tekçorap</option>
+      <option>Görkem Dursun</option>
+      <option>Gülce Eyibilir</option>
+      <option>Harun Özmen</option>
+      <option>Hilal Dilsiz</option>
+      <option>Mehtap Keklik</option>
+      <option>Meltem Çiftçi</option>
+      <option>Merve Sağlam</option>
+      <option>Meryem Özbek</option>
+      <option>Murat Erdem</option>
+      <option>Murat Şahin</option>
+      <option>Onur Atlı</option>
+      <option>Ruhşen Çavuşoğlu</option>
+      <option>Rümeysa Yatgın</option>
+      <option>Sedat Zincirkıran</option>
+      <option>Seher Akbulat</option>
+      <option>Seher Erçin</option>
+      <option>Serra Sancaklı Işık</option>
+      <option>Sibel Atmaca</option>
+      <option>Sonay Çetinkaya</option>
+      <option>Yasemin Kurtuluş Tunç</option>
+      <option>Zehra Rümeysa Çolak</option>
+      <option>Zeynep Hediye Özay</option>
+      <option>Zeynep Öztaşkın</option>
+      <option>Zeynep Söylemez</option>
+      <option>Zeynep Su Alişan</option>
+      <option>İncilay Dikbıyık</option>
+      <option>Şenay Sezgin</option>
+      <option>Şeyma Dereci</option>
+    </select>
+    <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="screen">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="q-meta">
+      <span id="qMeta">Soru 1 / 70</span>
+      <span><span class="cnt cnt-ok" id="cntOk">0 Doğru</span>&nbsp;<span class="cnt cnt-err" id="cntErr">0 Yanlış</span></span>
+    </div>
+    <div id="videoBtnWrap"></div>
+    <div id="scoreInfoWrap"></div>
+    <div id="qCard"></div>
+    <div class="nav">
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
+      <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
+      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <input type="hidden" id="resName" value="">
+    <div style="text-align:center">
+      <div class="res-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (23-24. DERS)</div>
+    </div>
+    <div class="res-title">DÖNÜŞLÜ FİİLLER (VERBOS REFLEXIVOS)</div>
+    <div class="res-score"><span id="resScore">0</span>/100</div>
+    <div class="res-stats">
+      <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
+      <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
+    </div>
+    <div class="res-note" id="resNote"></div>
+    <div class="submit-warning" id="submitWarning">
+      <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
+      <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
+    </div>
+    <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Birce Süzen</option>
+      <option>Burakhan Kaydı</option>
+      <option>Buse Cagmel</option>
+      <option>Büşra Çam</option>
+      <option>Büşra Yurt</option>
+      <option>Ceren Erdoğan</option>
+      <option>Doğa Değirmenci</option>
+      <option>Ecem Sukas</option>
+      <option>Elif Ataç</option>
+      <option>Elif Atlı</option>
+      <option>Elif Bozkurt</option>
+      <option>Elif Çetin</option>
+      <option>Emel Kanburoğlu</option>
+      <option>Eray Sayılık</option>
+      <option>Erdinç Tigin Bilen</option>
+      <option>Eylül Şerbetçi</option>
+      <option>Ezgican Tekçorap</option>
+      <option>Görkem Dursun</option>
+      <option>Gülce Eyibilir</option>
+      <option>Harun Özmen</option>
+      <option>Hilal Dilsiz</option>
+      <option>Mehtap Keklik</option>
+      <option>Meltem Çiftçi</option>
+      <option>Merve Sağlam</option>
+      <option>Meryem Özbek</option>
+      <option>Murat Erdem</option>
+      <option>Murat Şahin</option>
+      <option>Onur Atlı</option>
+      <option>Ruhşen Çavuşoğlu</option>
+      <option>Rümeysa Yatgın</option>
+      <option>Sedat Zincirkıran</option>
+      <option>Seher Akbulat</option>
+      <option>Seher Erçin</option>
+      <option>Serra Sancaklı Işık</option>
+      <option>Sibel Atmaca</option>
+      <option>Sonay Çetinkaya</option>
+      <option>Yasemin Kurtuluş Tunç</option>
+      <option>Zehra Rümeysa Çolak</option>
+      <option>Zeynep Hediye Özay</option>
+      <option>Zeynep Öztaşkın</option>
+      <option>Zeynep Söylemez</option>
+      <option>Zeynep Su Alişan</option>
+      <option>İncilay Dikbıyık</option>
+      <option>Şenay Sezgin</option>
+      <option>Şeyma Dereci</option>
+    </select>
+    <div class="submit-msg" id="submitMsg"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">İptal</button>
+      <button class="btn-ok" onclick="doFinish()">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
+var ODEV_ADI='H7 \u2013 23-24.Ders';
+var VIDEO_URL='https://youtu.be/P8pjtbn2bLo';
+
+var GROUPS={
+'Harun \u00d6zmen':'A1.1','Yasemin Kurtulu\u015f Tun\u00e7':'A1.1','Zeynep Hediye \u00d6zay':'A1.1','G\u00fclce Eyibilir':'A1.1','Serra Sancakl\u0131 I\u015f\u0131k':'A1.1','B\u00fc\u015fra Yurt':'A1.1','Elif \u00c7etin':'A1.1','Mehtap Keklik':'A1.1','Elif Ata\u00e7':'A1.1','Do\u011fa De\u011firmenci':'A1.1','Zehra R\u00fcmeysa \u00c7olak':'A1.1','Zeynep Su Ali\u015fan':'A1.1','Eray Say\u0131l\u0131k':'A1.1','Birce S\u00fczen':'A1.1','Seher Akbulat':'A1.1',
+'\u015eeyma Dereci':'A1.1 (2)','Zeynep S\u00f6ylemez':'A1.1 (2)','Ecem Sukas':'A1.1 (2)','Burakhan Kayd\u0131':'A1.1 (2)','\u015eenay Sezgin':'A1.1 (2)','Zeynep \u00d6zta\u015fk\u0131n':'A1.1 (2)','Sonay \u00c7etinkaya':'A1.1 (2)','Ezgican Tek\u00e7orap':'A1.1 (2)','Merve Sa\u011flam':'A1.1 (2)','Meryem \u00d6zbek':'A1.1 (2)','Elif Bozkurt':'A1.1 (2)','Meltem \u00c7ift\u00e7i':'A1.1 (2)','Hilal Dilsiz':'A1.1 (2)','R\u00fcmeysa Yatg\u0131n':'A1.1 (2)','Eyl\u00fcl \u015eerbet\u00e7i':'A1.1 (2)',
+'Sedat Zincirk\u0131ran':'A1.1 (3)','\u0130ncilay Dikb\u0131y\u0131k':'A1.1 (3)','Ruh\u015fen \u00c7avu\u015fo\u011flu':'A1.1 (3)','Murat Erdem':'A1.1 (3)','Ceren Erdo\u011fan':'A1.1 (3)','Erdin\u00e7 Tigin Bilen':'A1.1 (3)','Seher Er\u00e7in':'A1.1 (3)','B\u00fc\u015fra \u00c7am':'A1.1 (3)','G\u00f6rkem Dursun':'A1.1 (3)','Sibel Atmaca':'A1.1 (3)','Onur Atl\u0131':'A1.1 (3)','Elif Atl\u0131':'A1.1 (3)','Emel Kanburo\u011flu':'A1.1 (3)','Murat \u015eahin':'A1.1 (3)','Buse Cagmel':'A1.1 (3)'
+};
+
+// t: tip (mc), pts: puan, q: soru, o: seçenekler, a: doğru indeks, exp: açıklama
+var Q=[
+{t:'mc',pts:1,q:'Soru 1\nYo __________ (levantarse) a las siete de la ma\u00f1ana.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me levanto','te levantas','se levanta','nos levantamos'],a:0,exp:'"Yo" \u00f6znesi i\u00e7in "me" zamiri kullan\u0131l\u0131r.\nCevap: me levanto.\n\u00c7eviri: Sabah saat yedide kalkar\u0131m.'},
+{t:'mc',pts:1,q:'Soru 2\n\u00bfT\u00fa __________ (ducharse) por la ma\u00f1ana o por la noche?\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me ducho','te duchas','se ducha','os duch\u00e1is'],a:1,exp:'"T\u00fa" \u00f6znesi i\u00e7in "te" zamiri kullan\u0131l\u0131r.\nCevap: te duchas.\n\u00c7eviri: Sabah m\u0131 yoksa gece mi du\u015f al\u0131rs\u0131n?'},
+{t:'mc',pts:1,q:'Soru 3\nMi hermano __________ (afeitarse) todos los d\u00edas.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me afeito','te afeitas','se afeita','nos afeitamos'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahsS\u0131 (\u00e9l) i\u00e7in "se" zamiri kullan\u0131l\u0131r.\nCevap: se afeita.\n\u00c7eviri: Erkek karde\u015fim her g\u00fcn t\u0131ra\u015f olur.'},
+{t:'mc',pts:1,q:'Soru 4\nNosotros __________ (llamarse) Juan y Pedro.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me llamo','te llamas','se llama','nos llamamos'],a:3,exp:'"Nosotros" \u015fahsS\u0131 i\u00e7in "nos" zamiri kullan\u0131l\u0131r.\nCevap: nos llamamos.\n\u00c7eviri: \u0130simlerimiz Juan ve Pedro.'},
+{t:'mc',pts:1,q:'Soru 5\nVosotros __________ (lavarse) las manos antes de comer.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['os lav\u00e1is','nos lavamos','se lavan','me lavo'],a:0,exp:'"Vosotros" i\u00e7in "os" zamiri gelir ve fiil tilde al\u0131r.\nCevap: os lav\u00e1is.\n\u00c7eviri: Yemekten \u00f6nce ellerinizi y\u0131kars\u0131n\u0131z.'},
+{t:'mc',pts:1,q:'Soru 6\nLos ni\u00f1os __________ (cepillarse) los dientes.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me cepillo','te cepillas','se cepillan','nos cepillamos'],a:2,exp:'"Ni\u00f1os" (onlar) i\u00e7in "se" zamiri kullan\u0131l\u0131r; \u00f1 harfine dikkat edilmelidir.\nCevap: se cepillan.\n\u00c7eviri: \u00c7ocuklar di\u015flerini f\u0131r\u00e7al\u0131yorlar.'},
+{t:'mc',pts:1,q:'Soru 7\nYo __________ (ba\u00f1arse) en la piscina los s\u00e1bados.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me ba\u00f1o','te ba\u00f1as','se ba\u00f1a','nos ba\u00f1amos'],a:0,exp:'"Yo" i\u00e7in "me" zamiri gelir; fiildeki \u00f1 harfi korunur.\nCevap: me ba\u00f1o.\n\u00c7eviri: Cumartesi g\u00fcnleri havuzda y\u0131kan\u0131r\u0131m.'},
+{t:'mc',pts:1,q:'Soru 8\nElla __________ (peinarse) frente al espejo.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me peino','te peinas','se peina','os pein\u00e1is'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahsS\u0131 (ella) i\u00e7in "se" zamiri kullan\u0131l\u0131r.\nCevap: se peina.\n\u00c7eviri: O, aynan\u0131n \u00f6n\u00fcnde sa\u00e7\u0131n\u0131 tar\u0131yor.'},
+{t:'mc',pts:1,q:'Soru 9\n\u00bfUsted __________ (quedarse) en este hotel?\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me quedo','te quedas','se queda','nos quedamos'],a:2,exp:'Nazik hitap "Usted" i\u00e7in "se" zamiri kullan\u0131l\u0131r.\nCevap: se queda.\n\u00c7eviri: Siz bu otelde mi kal\u0131yorsunuz?'},
+{t:'mc',pts:1,q:'Soru 10\nNosotros __________ (despertarse) muy temprano.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me despierto','te despiertas','se despierta','nos despertamos'],a:3,exp:'"Nosotros" \u00e7ekiminde e > ie k\u00f6k de\u011fi\u015fimi yap\u0131lmaz.\nCevap: nos despertamos.\n\u00c7eviri: Biz \u00e7ok erken uyan\u0131r\u0131z.'},
+{t:'mc',pts:1,q:'Soru 11\nT\u00fa __________ (despertarse) con el ruido.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me despierto','te despiertas','se despierta','nos despertamos'],a:1,exp:'\u0130kinci tekil \u015fahSsS\u0131ta e > ie k\u00f6k de\u011fi\u015fimi olur.\nCevap: te despiertas.\n\u00c7eviri: Sen g\u00fcr\u00fclt\u00fcyle uyan\u0131rs\u0131n.'},
+{t:'mc',pts:1,q:'Soru 12\nEl abuelo __________ (sentarse) en el sof\u00e1.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me siento','te sientas','se sienta','nos sentamos'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahsS\u0131ta e > ie k\u00f6k de\u011fi\u015fimi olur.\nCevap: se sienta.\n\u00c7eviri: B\u00fcy\u00fcKbaba kanepeye oturur.'},
+{t:'mc',pts:1,q:'Soru 13\nYo __________ (acostarse) a las diez.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me acuesto','te acuestas','se acuesta','nos acostamos'],a:0,exp:'Birinci tekil \u015fahsS\u0131ta o > ue k\u00f6k de\u011fi\u015fimi olur.\nCevap: me acuesto.\n\u00c7eviri: Saat onda yatar\u0131m.'},
+{t:'mc',pts:1,q:'Soru 14\nVosotros __________ (acostarse) tarde los viernes.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['os acost\u00e1is','nos acostamos','se acuestan','me acuesto'],a:0,exp:'"Vosotros" \u00e7ekiminde k\u00f6k de\u011fi\u015fimi olmaz, tilde eklenir.\nCevap: os acost\u00e1is.\n\u00c7eviri: Cuma g\u00fcnleri ge\u00e7 yatars\u0131n\u0131z.'},
+{t:'mc',pts:1,q:'Soru 15\nEllos __________ (vestirse) con ropa elegante.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me visto','te vistes','se viste','se visten'],a:3,exp:'Bu fiilde e > i de\u011fi\u015fimi ger\u00e7ekle\u015fir.\nCevap: se visten.\n\u00c7eviri: Onlar \u015fik k\u0131yafetler giyerler.'},
+{t:'mc',pts:1,q:'Soru 16\nYo __________ (vestirse) r\u00e1pidamente.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me visto','te vistes','se viste','nos vestimos'],a:0,exp:'Birinci tekil \u015fahSsS\u0131ta e > i de\u011fi\u015fimi olur.\nCevap: me visto.\n\u00c7eviri: H\u0131zl\u0131ca giyinirim.'},
+{t:'mc',pts:1,q:'Soru 17\n\u00bfPor qu\u00e9 t\u00fa __________ (enojarse) tanto?\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me enojo','te enojas','se enoja','nos enojamos'],a:1,exp:'"T\u00fa" i\u00e7in "te" zamiri kullan\u0131l\u0131r.\nCevap: te enojas.\n\u00c7eviri: Neden bu kadar \u00e7ok sinirleniyorsun?'},
+{t:'mc',pts:1,q:'Soru 18\nNosotros __________ (ba\u00f1arse) con agua fr\u00eda.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me ba\u00f1o','te ba\u00f1as','nos ba\u00f1amos','se ba\u00f1an'],a:2,exp:'"Nosotros" i\u00e7in "nos" zamiri gelir; \u00f1 harfine dikkat edilmelidir.\nCevap: nos ba\u00f1amos.\n\u00c7eviri: So\u011fuk suyla y\u0131kan\u0131yoruz.'},
+{t:'mc',pts:1,q:'Soru 19\nLos estudiantes __________ (prepararse) para el examen.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me preparo','te preparas','se prepara','se preparan'],a:3,exp:'\u00c7o\u011ful \u00fc\u00e7\u00fcnc\u00fc \u015fahSs (ellos) i\u00e7in "se" kullan\u0131l\u0131r.\nCevap: se preparan.\n\u00c7eviri: \u00d6\u011frenciler s\u0131nava haz\u0131rlan\u0131yorlar.'},
+{t:'mc',pts:1,q:'Soru 20\nYo __________ (ponerse) la chaqueta.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me pongo','te pones','se pone','nos ponemos'],a:0,exp:'"Poner" fiili birinci tekil \u015fahSsS\u0131ta d\u00fczensizdir.\nCevap: me pongo.\n\u00c7eviri: Ceketimi giyiyorum.'},
+{t:'mc',pts:1,q:'Soru 21\nElla __________ (maquillarse) por las ma\u00f1anas.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me maquillo','te maquillas','se maquilla','nos maquillamos'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahSs \u00e7ekimidir; "ma\u00f1ana" kelimesindeki \u00f1 harfine dikkat.\nCevap: se maquilla.\n\u00c7eviri: O, sabahlar\u0131 makyaj yapar.'},
+{t:'mc',pts:1,q:'Soru 22\nNosotros __________ (acordarse) de tu cumplea\u00f1os.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me acuerdo','te acuerdas','se acuerda','nos acordamos'],a:3,exp:'"Nosotros" formunda o > ue de\u011fi\u015fimi olmaz.\nCevap: nos acordamos.\n\u00c7eviri: Senin do\u011fum g\u00fcn\u00fcn\u00fc hat\u0131rl\u0131yoruz.'},
+{t:'mc',pts:1,q:'Soru 23\nT\u00fa __________ (acordarse) de la cita.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me acuerdo','te acuerdas','se acuerda','nos acordamos'],a:1,exp:'\u0130kinci tekil \u015fahSsS\u0131ta k\u00f6k de\u011fi\u015fimi (o > ue) olur.\nCevap: te acuerdas.\n\u00c7eviri: Randevuyu hat\u0131rl\u0131yorsun.'},
+{t:'mc',pts:1,q:'Soru 24\nLos gatos __________ (limpiarse) solos.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me limpio','te limpias','se limpian','nos limpiamos'],a:2,exp:'\u00c7o\u011ful (ellos) \u00e7ekimidir.\nCevap: se limpian.\n\u00c7eviri: Kediler kendi kendilerini temizlerler.'},
+{t:'mc',pts:1,q:'Soru 25\nYo __________ (mirarse) en el espejo.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me miro','te miras','se mira','nos miramos'],a:0,exp:'"Yo" i\u00e7in "me" zamiri gelir.\nCevap: me miro.\n\u00c7eviri: Aynada kendime bak\u0131yorum.'},
+{t:'mc',pts:1,q:'Soru 26\nVosotros __________ (mirarse) las manos.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me miro','os mir\u00e1is','se miran','nos miramos'],a:1,exp:'"Vosotros" \u00e7ekiminde vurgu tildesi kullan\u0131l\u0131r.\nCevap: os mir\u00e1is.\n\u00c7eviri: Ellerinize bak\u0131yorsunuz.'},
+{t:'mc',pts:1,q:'Soru 27\nMi padre __________ (quitarse) los zapatos.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me quito','te quitas','se quita','nos quitamos'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahSs \u00e7ekimidir.\nCevap: se quita.\n\u00c7eviri: Babam ayakkab\u0131lar\u0131n\u0131 \u00e7\u0131kar\u0131yor.'},
+{t:'mc',pts:1,q:'Soru 28\nT\u00fa __________ (quitarse) el sombrero.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me quito','te quitas','se quita','os quit\u00e1is'],a:1,exp:'"T\u00fa" \u015fahSs\u0131 i\u00e7in "te" zamiri gelir.\nCevap: te quitas.\n\u00c7eviri: \u015eapkan\u0131 \u00e7\u0131kar\u0131yorsun.'},
+{t:'mc',pts:1,q:'Soru 29\nNosotros __________ (divertirse) mucho en la fiesta.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me divierto','te diviertes','nos divertimos','se divierten'],a:2,exp:'"Nosotros" \u00e7ekiminde e > ie de\u011fi\u015fimi yap\u0131lmaz.\nCevap: nos divertimos.\n\u00c7eviri: Partide \u00e7ok e\u011fleniyoruz.'},
+{t:'mc',pts:1,q:'Soru 30\nLos ni\u00f1os __________ (divertirse) en el parque.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me divierto','te diviertes','se divierten','nos divertimos'],a:2,exp:'\u00c7o\u011ful \u00fc\u00e7\u00fcnc\u00fc \u015fahSsS\u0131ta e > ie k\u00f6k de\u011fi\u015fimi olur; \u00f1 harfine dikkat.\nCevap: se divierten.\n\u00c7eviri: \u00c7ocuklar parkta e\u011fleniyorlar.'},
+{t:'mc',pts:1,q:'Soru 31\nYo __________ (sentirse) un poco cansado.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me siento','te sientes','se siente','nos sentimos'],a:0,exp:'Birinci tekil \u015fahSsS\u0131ta e > ie de\u011fi\u015fimi olur.\nCevap: me siento.\n\u00c7eviri: Biraz yorgun hissediyorum.'},
+{t:'mc',pts:1,q:'Soru 32\n\u00bfC\u00f3mo __________ (sentirse) t\u00fa hoy?\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me siento','te sientes','se siente','nos sentimos'],a:1,exp:'\u0130kinci tekil \u015fahSsS\u0131ta k\u00f6k de\u011fi\u015fimi olur.\nCevap: te sientes.\n\u00c7eviri: Bug\u00fcn nas\u0131l hissediyorsun?'},
+{t:'mc',pts:1,q:'Soru 33\nElla __________ (despedirse) de sus amigos.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me despido','te despides','se despide','nos despedimos'],a:2,exp:'Fiilde e > i de\u011fi\u015fimi ger\u00e7ekle\u015fir.\nCevap: se despide.\n\u00c7eviri: O, arkada\u015flar\u0131yla vedala\u015f\u0131yor.'},
+{t:'mc',pts:1,q:'Soru 34\nNosotros __________ (despedirse) ahora.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me despido','te despides','se despide','nos despedimos'],a:3,exp:'"Nosotros" \u00e7ekiminde e > i de\u011fi\u015fimi olmaz.\nCevap: nos despedimos.\n\u00c7eviri: \u015eimdi vedala\u015f\u0131yoruz.'},
+{t:'mc',pts:1,q:'Soru 35\nVosotros __________ (re\u00edrse) de los chistes.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me r\u00edo','te r\u00edes','os re\u00eds','se r\u00eden'],a:2,exp:'"Vosotros" formunda tilde kullan\u0131m\u0131 zorunludur.\nCevap: os re\u00eds.\n\u00c7eviri: \u015eakalara g\u00fcl\u00fcyorsunuz.'},
+{t:'mc',pts:1,q:'Soru 36\nEl perro __________ (dormirse) en el jard\u00edn.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me duermo','te duermes','se duerme','nos dormimos'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahSsS\u0131ta o > ue de\u011fi\u015fimi olur.\nCevap: se duerme.\n\u00c7eviri: K\u00f6pek bah\u00e7ede uyuyakal\u0131yor.'},
+{t:'mc',pts:1,q:'Soru 37\nYo __________ (dormirse) en el autob\u00fas.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me duermo','te duermes','se duerme','nos dormimos'],a:0,exp:'Birinci tekil \u015fahSsS\u0131ta o > ue de\u011fi\u015fimi olur.\nCevap: me duermo.\n\u00c7eviri: Otob\u00fcste uyuyakal\u0131yorum.'},
+{t:'mc',pts:1,q:'Soru 38\nLas ni\u00f1as __________ (pintarse) las u\u00f1as.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me pinto','te pintas','se pintan','nos pintamos'],a:2,exp:'\u00c7o\u011ful \u00fc\u00e7\u00fcnc\u00fc \u015fahSs \u00e7ekimidir; "u\u00f1as" kelimesindeki \u00f1 harfine dikkat.\nCevap: se pintan.\n\u00c7eviri: K\u0131zlar t\u0131rnaklar\u0131n\u0131 boyuyorlar.'},
+{t:'mc',pts:1,q:'Soru 39\nT\u00fa __________ (mancharse) la camisa con caf\u00e9.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me mancho','te manchas','se mancha','nos manchamos'],a:1,exp:'"T\u00fa" \u015fahSs\u0131 i\u00e7in "te" zamiri kullan\u0131l\u0131r.\nCevap: te manchas.\n\u00c7eviri: G\u00f6mle\u011fini kahveyle lekeliyorsun.'},
+{t:'mc',pts:1,q:'Soru 40\nNosotros __________ (quejarse) del fr\u00edo.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me quejo','te quejas','se queja','nos quejamos'],a:3,exp:'"Nosotros" i\u00e7in "nos" zamiri gelir.\nCevap: nos quejamos.\n\u00c7eviri: So\u011fuktan \u015fikayet ediyoruz.'},
+{t:'mc',pts:1,q:'Soru 41\nUstedes __________ (sentarse) aqu\u00ed, por favor.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['nos sentamos','os sent\u00e1is','se sientan','me siento'],a:2,exp:'\u00c7o\u011ful formda e > ie de\u011fi\u015fimi yap\u0131l\u0131r.\nCevap: se sientan.\n\u00c7eviri: Sizler buraya oturuyorsunuz, l\u00fctfen.'},
+{t:'mc',pts:1,q:'Soru 42\nYo __________ (irse) a la cama ahora.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me voy','te vas','se va','nos vamos'],a:0,exp:'"Irse" fiili "yo" \u015fahSsS\u0131nda d\u00fczensizdir.\nCevap: me voy.\n\u00c7eviri: \u015eimdi yata\u011fa gidiyorum.'},
+{t:'mc',pts:1,q:'Soru 43\nVosotros __________ (ducharse) con agua caliente.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me ducho','te duchas','os duch\u00e1is','se duchan'],a:2,exp:'"Vosotros" \u00e7ekiminde tilde unutulmamal\u0131d\u0131r.\nCevap: os duch\u00e1is.\n\u00c7eviri: S\u0131cak suyla du\u015f al\u0131yorsunuz.'},
+{t:'mc',pts:1,q:'Soru 44\nMi madre __________ (preocuparse) por m\u00ed.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me preocupo','te preocupas','se preocupa','nos preocupamos'],a:2,exp:'\u00dc\u00e7\u00fcnc\u00fc tekil \u015fahSs i\u00e7in "se" zamiri kullan\u0131l\u0131r.\nCevap: se preocupa.\n\u00c7eviri: Annem benim i\u00e7in endi\u015feleniyor.'},
+{t:'mc',pts:1,q:'Soru 45\nLos beb\u00e9s __________ (dormirse) despu\u00e9s de comer.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me duermo','te duermes','se duermen','nos dormimos'],a:2,exp:'\u00c7o\u011ful \u00fc\u00e7\u00fcnc\u00fc \u015fahSsS\u0131ta o > ue de\u011fi\u015fimi olur.\nCevap: se duermen.\n\u00c7eviri: Bebekler yemekten sonra uyuyakal\u0131yorlar.'},
+{t:'mc',pts:1,q:'Soru 46\nYo __________ (re\u00edrse) mucho contigo.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me r\u00edo','te r\u00edes','se r\u00ede','nos re\u00edmos'],a:0,exp:'Birinci tekil \u015fahSsS\u0131ta hem de\u011fi\u015fim hem tilde vard\u0131r.\nCevap: me r\u00edo.\n\u00c7eviri: Seninle \u00e7ok g\u00fcl\u00fcyorum.'},
+{t:'mc',pts:1,q:'Soru 47\nNosotros __________ (re\u00edrse) a carcajadas.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me r\u00edo','te r\u00edes','os re\u00eds','nos re\u00edmos'],a:3,exp:'"Nosotros" \u00e7ekiminde "i" harfi tilde al\u0131r.\nCevap: nos re\u00edmos.\n\u00c7eviri: Kahkahalarla g\u00fcl\u00fcyoruz.'},
+{t:'mc',pts:1,q:'Soru 48\nElla __________ (mojarse) con la lluvia.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me mojo','te mojas','se moja','nos mojamos'],a:2,exp:'"Ella" \u015fahSs\u0131 i\u00e7in "se" zamiri gelir.\nCevap: se moja.\n\u00c7eviri: O, ya\u011fmurla \u0131slan\u0131yor.'},
+{t:'mc',pts:1,q:'Soru 49\nVosotros __________ (quedarse) en casa.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me quedo','te quedas','os qued\u00e1is','se quedan'],a:2,exp:'"Vosotros" \u00e7ekiminde tilde eklenir.\nCevap: os qued\u00e1is.\n\u00c7eviri: Evde kal\u0131yorsunuz.'},
+{t:'mc',pts:1,q:'Soru 50\nYo __________ (despertarse) cuando suena el despertador.\n(Her soruda tilde ve \u00f1\u2019ye dikkat edin)',o:['me despierto','te despiertas','se despierta','nos despertamos'],a:0,exp:'Birinci tekil \u015fahSsS\u0131ta e > ie de\u011fi\u015fimi olur.\nCevap: me despierto.\n\u00c7eviri: \u00c7alar saat \u00e7ald\u0131\u011f\u0131nda uyan\u0131yorum.'},
+{t:'mc',pts:2.5,q:'Soru 51 — VİDEO SORUSU\n\u00bfA qu\u00e9 hora se despierta la profesora normalmente?',o:['A las siete de la ma\u00f1ana','A las ocho de la ma\u00f1ana','A las nueve de la ma\u00f1ana','A las seis de la ma\u00f1ana'],a:0,exp:'Soru bize \u00f6\u011fretmenin normalde saat ka\u00e7ta uyand\u0131\u011f\u0131n\u0131 soruyor (\u00bfA qu\u00e9 hora se despierta normalmente?). Videoda \u00f6\u011fretmenimiz "Normalmente, me despierto a las siete" (Normalde saat yedide uyan\u0131r\u0131m) diyor. Bug\u00fcn bir istisna olarak sekizde uyand\u0131\u011f\u0131n\u0131 s\u00f6ylese de soru "genel" rutinini sordu\u011fu i\u00e7in do\u011fru cevap A \u015f\u0131kk\u0131d\u0131r. Di\u011fer \u015f\u0131klar (8, 9 ve 6) videodaki genel rutine uymamaktad\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 52 — VİDEO SORUSU\n\u00bfQu\u00e9 hace ella inmediatamente despu\u00e9s de despertarse hoy?',o:['Se levanta r\u00e1pido','Se ducha','Se queda en la cama un rato','Se va al ba\u00f1o'],a:2,exp:'Soru, \u00f6\u011fretmenin bug\u00fcn uyand\u0131ktan hemen sonra ne yapt\u0131\u011f\u0131n\u0131 soruyor (\u00bfQu\u00e9 hace... inmediatamente?). Videoda \u00f6\u011fretmen "No me levanto inmediatamente" (Hemen kalkmıyorum) diyerek A \u015f\u0131kk\u0131n\u0131 eliyor. "Me quedo en la cama un rato" (Yatakta bir s\u00fcre kal\u0131yorum) dedi\u011fi i\u00e7in do\u011fru cevap C \u015f\u0131kk\u0131d\u0131r. Henüz yataktan \u00e7\u0131kmad\u0131\u011f\u0131 i\u00e7in banyoya gitme (D) veya du\u015f alma (B) eylemleri daha sonra ger\u00e7ekle\u015fecektir.'},
+{t:'mc',pts:2.5,q:'Soru 53 — VİDEO SORUSU\n\u00bfPor qu\u00e9 se lava la cara con agua fr\u00eda?',o:['Porque hace mucho calor','Porque todav\u00eda tiene sue\u00f1o','Porque no hay agua caliente','Porque le gusta el fr\u00edo'],a:1,exp:'Soru, y\u00fczyüzünü neden so\u011fuk suyla y\u0131kad\u0131\u011f\u0131n\u0131 soruyor (\u00bfPor qu\u00e9 se lava la cara...?). Videoda "Me lavo la cara con agua fr\u00eda porque todav\u00eda tengo sue\u00f1o" diyor. Buradaki "todav\u00eda tengo sue\u00f1o" "hala uykum var" demektir. Bu y\u00fczden do\u011fru cevap B \u015f\u0131kk\u0131d\u0131r. Hava s\u0131cakl\u0131\u011f\u0131 (A), suyun bozuk olmas\u0131 (C) veya ki\u015fisel tercih (D) gibi nedenler videoda belirtilmemi\u015ftir.'},
+{t:'mc',pts:2.5,q:'Soru 54 — VİDEO SORUSU\n\u00bfQu\u00e9 parte del cuerpo se lava ella hoy espec\u00edficamente?',o:['Las manos','Los pies','Todo el cuerpo','El pelo'],a:3,exp:'Soru, bug\u00fcn v\u00fccudunun hangi b\u00f6lgesini y\u0131kad\u0131\u011f\u0131n\u0131 soruyor. Videoda normalde du\u015f ald\u0131\u011f\u0131n\u0131 ama bug\u00fcn vaktinin k\u0131s\u0131tl\u0131 oldu\u011funu belirtip "hoy solo me lavo el pelo" (bug\u00fcn sadece sa\u00e7\u0131m\u0131 y\u0131k\u0131yorum) diyor. El pelo \u0130spanyolca sa\u00e7 demektir, bu y\u00fczden do\u011fru cevap D\u2019dir. Eller (A), ayaklar (B) veya t\u00fcm v\u00fcut (C) y\u0131kand\u0131\u011f\u0131na dair bir bilgi o an i\u00e7in verilmemi\u015ftir.'},
+{t:'mc',pts:2.5,q:'Soru 55 — VİDEO SORUSU\n\u00bfPor qu\u00e9 se peina con cuidado esta ma\u00f1ana?',o:['Porque va a una fiesta','Porque tiene mucho tiempo','Porque es un d\u00eda especial','Porque su pelo est\u00e1 un poco loco'],a:3,exp:'Soru, sa\u00e7\u0131n\u0131 neden dikkatli tara\u00f0d\u0131\u011f\u0131n\u0131 soruyor. Videoda "Me peino con cuidado porque mi pelo est\u00e1 un poco loco esta ma\u00f1ana" ifadesini duyuyoruz. "Mi pelo est\u00e1 un poco loco" (Sa\u00e7\u0131m biraz \u00e7\u0131lg\u0131n/kar\u0131\u015f\u0131k) ifadesi tarama nedenini a\u00e7\u0131klar, bu y\u00fczden cevap D\u2019dir. \u00d6zel bir g\u00fcn (C) veya parti (A) s\u00f6z konusu de\u011fildir; aksine acelesi vard\u0131r (B yanl\u0131\u015ft\u0131r).'},
+{t:'mc',pts:2.5,q:'Soru 56 — VİDEO SORUSU\n\u00bfQu\u00e9 decide ponerse ella hoy?',o:['Un vestido elegante','Vaqueros y una camiseta c\u00f3moda','Ropa de deporte','Un pijama'],a:1,exp:'Soru, bug\u00fcn ne giymeye karar verdi\u011fini soruyor (\u00bfQu\u00e9 me pongo hoy?). Videoda \u00f6\u011fretmenimiz h\u0131zl\u0131ca karar verdi\u011fini s\u00f6yleyip "Me pongo mis vaqueros favoritos y una camiseta c\u00f3moda" (En sevdi\u011fim kotumu ve rahat bir ti\u015f\u00f6rt\u00fc giyiyorum) diyor. Vaqueros (kot pantolon) ve camiseta (ti\u015f\u00f6rt) kelimeleri B \u015f\u0131kk\u0131n\u0131 do\u011fru yapar.'},
+{t:'mc',pts:2.5,q:'Soru 57 — VİDEO SORUSU\n\u00bfQu\u00e9 hace antes de salir de la habitaci\u00f3n?',o:['Se maquilla mucho','Se mira en el espejo otra vez','Se pone un poco de perfume','Llama a su gato'],a:2,exp:'Soru, odadan \u00e7\u0131kmadan hemen \u00f6nce yapt\u0131\u011f\u0131 eylemi soruyor. Videoda "Antes de salir de la habitaci\u00f3n, me pongo un poco de perfume" (Odadan \u00e7\u0131kmadan \u00f6nce biraz parf\u00fcm s\u0131k\u0131yorum) diyor. Bu y\u00fczden cevap C\u2019dir. Hafif bir makyajdan daha \u00f6nce bahsetmi\u015fti (A), aynaya ise en ba\u015fta bakm\u0131\u015ft\u0131 (B).'},
+{t:'mc',pts:2.5,q:'Soru 58 — VİDEO SORUSU\n\u00bfQu\u00e9 prepara en la cocina?',o:['Un caf\u00e9 con leche','Un t\u00e9 turco','Un desayuno grande','Zumo de naranja'],a:0,exp:'Soru, mutfakta ne haz\u0131rlad\u0131\u011f\u0131n\u0131 soruyor. Videoda "Me preparo un caf\u00e9 con leche muy rico" (Kendime \u00e7ok lezzetli bir s\u00fctl\u00fc kahve haz\u0131rl\u0131yorum) diyor. \u0130spanyolcada caf\u00e9 con leche s\u00fctl\u00fc kahve demektir. Do\u011fru cevap A\u2019d\u0131r. Di\u011fer i\u00e7ecekler (\u00e7ay, meyve suyu) veya b\u00fcy\u00fck bir kahvalt\u0131 sofras\u0131ndan bahsedilmemi\u015ftir.'},
+{t:'mc',pts:2.5,q:'Soru 59 — VİDEO SORUSU\n\u00bfQu\u00e9 hace el gato Zeytin mientras ella bebe su caf\u00e9?',o:['Se tumba a su lado','Se pone a jugar','Se va de la casa','Se pone a comer'],a:0,exp:'Soru, o kahve i\u00e7erken Zeytin\u2019in ne yapt\u0131\u011f\u0131n\u0131 soruyor. Videoda Zeytin\u2019in yakla\u015ft\u0131\u011f\u0131n\u0131 ve "se tumba a mi lado" (yan\u0131ma uzan\u0131yor) dedi\u011fini duyuyoruz. Tumbarse uzanmak demektir, bu y\u00fczden do\u011fru cevap A \u015f\u0131kk\u0131d\u0131r. Zeytin o s\u0131rada oyun oynam\u0131yor (B) veya yemek yemiyor (D).'},
+{t:'mc',pts:2.5,q:'Soru 60 — VİDEO SORUSU\n\u00bfEn qu\u00e9 se concentra ella hoy en lugar de leer las noticias?',o:['En su gato','En la mitolog\u00eda','En el tr\u00e1fico','En sus planes del d\u00eda'],a:3,exp:'Soru, haberleri okumak yerine neye odakland\u0131\u011f\u0131n\u0131 soruyor (\u00bfEn qu\u00e9 se concentra?). Videoda "ama hoy me concentro en mis planes del d\u00eda" (fakat bug\u00fcn g\u00fcn\u00fcn planlar\u0131na odaklan\u0131yorum) diyor. \u0130yi bir organizasyon i\u00e7in buna \u00f6nem verdi\u011fini ekliyor. Bu y\u00fczden do\u011fru cevap D\u2019dir.'},
+{t:'mc',pts:2.5,q:'Soru 61 — VİDEO SORUSU\n\u00bfA qu\u00e9 hora se va de casa hoy?',o:['A las ocho y media','A las nueve y media','Al mediod\u00eda','A las siete'],a:1,exp:'Soru, evden \u00e7\u0131k\u0131\u015f saatini soruyor. Videoda B\u00f6l\u00fcm 4 ba\u015flad\u0131\u011f\u0131nda "Son las nueve y media. Me voy de casa ahora" (Saat dokuz bu\u00e7uk. \u015eimdi evden \u00e7\u0131k\u0131yorum) diyor. Nueve y media ifadesi 9:30 oldu\u011fu i\u00e7in do\u011fru cevap B \u015f\u0131kk\u0131d\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 62 — VİDEO SORUSU\n\u00bfC\u00f3mo se siente ella cuando camina por la calle en Antalya?',o:['Se siente cansada','Se siente enfadada','Se siente muy bien','Se siente triste'],a:2,exp:'Soru, sokakta y\u00fcr\u00fcrken nas\u0131l hissetti\u011fini soruyor. Videoda "me siento muy bien porque hace sol en Antalya" (Kendimi \u00e7ok iyi hissediyorum \u00e7\u00fcnk\u00fc Antalya\u2019da g\u00fcne\u015f var) diyor. G\u00fcne\u015fin ona verdi\u011fi mutlulukla kendini iyi hissetti\u011fini belirtti\u011fi i\u00e7in cevap C\u2019dir.'},
+{t:'mc',pts:2.5,q:'Soru 63 — VİDEO SORUSU\n\u00bfQu\u00e9 hace con su amiga en la cafeter\u00eda?',o:['Se pelean por el caf\u00e9','Se ponen a trabajar','Se divierten hablando espa\u00f1ol','Se van r\u00e1pido por el tr\u00e1fico'],a:2,exp:'Soru, kafeteryada arkada\u015f\u0131yla ne yapt\u0131klar\u0131n\u0131 soruyor. Videoda terasta oturdukllar\u0131n\u0131 ve "nos divertimos mucho hablando en espa\u00f1ol" (\u0130spanyolca konu\u015farak \u00e7ok e\u011fleniyoruz) dediklerini duyuyoruz. Divertirse e\u011flenmek demektir, bu y\u00fczden do\u011fru cevap C \u015f\u0131kk\u0131d\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 64 — VİDEO SORUSU\n\u00bfQu\u00e9 le pasa a ella si hay mucho tr\u00e1fico?',o:['Se enfada un poco','Se pone a cantar','Se duerme en el coche','Se alegra mucho'],a:0,exp:'Soru, trafik oldu\u011funda ona ne oldu\u011funu/nas\u0131l hissetti\u011fini soruyor. Videoda "me enfado un poco" (biraz sinirleniyorum) diyor. Enfadarse sinirlenmek demektir. Bu y\u00fczden do\u011fru cevap A\u2019d\u0131r. Mutlu olmas\u0131 (D) veya uyumas\u0131 (C) s\u00f6z konusu de\u011fildir.'},
+{t:'mc',pts:2.5,q:'Soru 65 — VİDEO SORUSU\n\u00bfCu\u00e1ndo NO hay tr\u00e1fico en Antalya seg\u00fan el texto?',o:['Por la ma\u00f1ana','Por la tarde','Todo el d\u00eda','Al mediod\u00eda'],a:3,exp:'Soru, Antalya\u2019da ne zaman trafik olmad\u0131\u011f\u0131n\u0131 (no hay tr\u00e1fico) soruyor. Videoda sabah ve ak\u015fam trafik oldu\u011funu ama "al mediod\u00eda no hay nada de tr\u00e1fico" (\u00f6\u011fle vakti hi\u00e7 trafik yok) dedi\u011fini duyuyoruz. Mediod\u00eda g\u00fcn ortas\u0131/\u00f6\u011fle vakti demektir. Do\u011fru cevap D\u2019dir.'},
+{t:'mc',pts:2.5,q:'Soru 66 — VİDEO SORUSU\n\u00bfQu\u00e9 es lo primero que hace al llegar a casa?',o:['Se prepara la cena','Se quita los zapatos','Se pone a leer','Se ducha'],a:1,exp:'Soru, eve var\u0131nca yapt\u0131\u011f\u0131 ilk eylemi soruyor. Videoda "Primero, me quito los zapatos" (\u00d6nce ayakkab\u0131lar\u0131m\u0131 \u00e7\u0131kar\u0131yorum) diyor. Bu, pek \u00e7ok evde yap\u0131lan klasik bir ilk ad\u0131md\u0131r. Bu y\u00fczden do\u011fru cevap B\u2019dir. Yemek veya kitap daha sonraki ad\u0131mlard\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 67 — VİDEO SORUSU\n\u00bfQu\u00e9 se pone ella por la noche para estar c\u00f3moda?',o:['Un vestido de noche','El pijama','Vaqueros nuevos','Un abrigo'],a:1,exp:'Soru, gece rahat etmek i\u00e7in ne giydi\u011fini soruyor. Videoda "me pongo la ropa c\u00f3moda (el pijama)" ifadesi ge\u00e7iyor. Rahat k\u0131yafetin pijama oldu\u011funu parantez i\u00e7inde de belirtti\u011fi i\u00e7in do\u011fru cevap B \u015f\u0131kk\u0131d\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 68 — VİDEO SORUSU\n\u00bfQu\u00e9 lee ella antes de dormir?',o:['Las noticias','Un libro de cocina','Un diccionario','Un libro de mitolog\u00eda'],a:3,exp:'Soru, uyumadan \u00f6nce ne okudu\u011funu soruyor. Videoda yata\u011fa uzand\u0131\u011f\u0131n\u0131 ve "me pongo a leer un libro de mitolog\u00eda" (bir mitoloji kitab\u0131 okumaya ba\u015fl\u0131yorum) dedi\u011fini duyuyoruz. Mitolojiye olan ilgisini yans\u0131tan bu cevap D \u015f\u0131kk\u0131d\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 69 — VİDEO SORUSU\n\u00bfQu\u00e9 le ocurre finalmente cuando se cansa leyendo?',o:['Se le cierran los ojos','Se pone a gritar','Se levanta a beber agua','Se pone a bailar'],a:0,exp:'Soru, okurken yorulunca en sonunda ne oldu\u011funu soruyor. Videoda "los ojos se me cierran" (gözlerim kapan\u0131yor) diyor. Uykunun gelmesinin en belirgin i\u015fareti olan bu durum do\u011fru cevap A \u015f\u0131kk\u0131d\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 70 — VİDEO SORUSU\n\u00bfC\u00f3mo se duerme ella al final?',o:['Muy despacio','Con dificultad','Muy r\u00e1pido','No se duerme'],a:2,exp:'Soru, finalde nas\u0131l uykuya dald\u0131\u011f\u0131n\u0131 soruyor. Videoda gözleri kapand\u0131ktan sonra "Finalmente, me duermo muy r\u00e1pido" (Sonunda \u00e7ok h\u0131zl\u0131 uyuyakal\u0131yorum) diyor. Yorucu bir g\u00fcnden sonra h\u0131zl\u0131ca uyudu\u011fu i\u00e7in cevap C\u2019dir.'}
+];
+
+var state={cur:0,answered:[],scores:[],okCount:0,errCount:0};
+
+function startQuiz(){
+  var n=document.getElementById('introName').value;
+  if(!n){alert('Lütfen adınızı seçin.');return;}
+  document.getElementById('resName').value=n;
+  document.getElementById('resName2').value=n;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+function syncResName(){
+  document.getElementById('resName').value=document.getElementById('resName2').value;
+}
+function esc(s){
+  if(!s)return'';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+function renderQ(){
+  var i=state.cur;var q=Q[i];
+  var isVideo=(i>=50);
+
+  // Video butonu
+  var vw=document.getElementById('videoBtnWrap');
+  if(isVideo){
+    vw.innerHTML='<a class="btn-video" href="'+VIDEO_URL+'" target="_blank">&#9654; Videoyu İzle (YouTube)</a>';
+  } else {
+    vw.innerHTML='';
+  }
+
+  // Puan bilgisi
+  document.getElementById('scoreInfoWrap').innerHTML=
+    '<div class="score-info">'+(isVideo?'Bu soru 2,5 puan değerindedir (Video Sorusu)':'Bu soru 1 puan değerindedir')+'</div>';
+
+  var L=['A','B','C','D'];
+  var html='';
+  html+='<span class="q-badge '+(isVideo?'q-badge-video':'q-badge-mc')+'">'+(isVideo?'VİDEO SORUSU':'ÇOKTAN SEÇMELİ')+'</span>';
+  html+='<div class="q-text">'+esc(q.q)+'</div>';
+  html+='<div class="opts">';
+  for(var j=0;j<q.o.length;j++){
+    var cls='opt-btn';var dis='';
+    if(state.answered[i]!==undefined){
+      dis='disabled';
+      if(j===q.a)cls+=' correct';
+      else if(j===state.answered[i]&&state.answered[i]!==q.a)cls+=' wrong';
+    }
+    html+='<button class="'+cls+'" '+dis+' onclick="checkAns('+j+')"><strong>'+L[j]+')</strong> '+esc(q.o[j])+'</button>';
+  }
+  html+='</div>';
+
+  // Açıklama kutusu
+  var expHtml='';
+  if(state.answered[i]!==undefined){
+    if(state.scores[i]===0){
+      expHtml='<strong style="color:#2e9e6b;font-size:.88rem;">Doğru cevap: '+L[q.a]+') '+esc(q.o[q.a])+'</strong><br><br>';
+    }
+    expHtml+=esc(q.exp);
+  }
+  html+='<div class="exp-box'+(state.answered[i]!==undefined?' show':'')+'" id="expBox">'+expHtml+'</div>';
+
+  document.getElementById('qCard').innerHTML=html;
+  var done=state.answered[i]!==undefined;
+  document.getElementById('btnBack').disabled=(i===0||!done);
+  document.getElementById('btnNext').disabled=(!done||i===Q.length-1);
+  document.getElementById('btnSkip').disabled=(!done||i>=Q.length-1);
+  document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
+  document.getElementById('cntOk').textContent=state.okCount+' Doğru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanlış';
+}
+
+function checkAns(j){
+  var i=state.cur;
+  if(state.answered[i]!==undefined)return;
+  state.answered[i]=j;
+  if(j===Q[i].a){state.okCount++;state.scores[i]=Q[i].pts;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function goBack(){if(state.cur>0){state.cur--;renderQ();}}
+function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+
+function confirmFinish(){
+  var answered=0;for(var i=0;i<Q.length;i++){if(state.answered[i]!==undefined)answered++;}
+  var unanswered=Q.length-answered;
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevapsız kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istediğinize emin misiniz?';
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+function doFinish(){closeConfirm();showResult();}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  var total=0;for(var i=0;i<Q.length;i++)total+=(state.scores[i]||0);
+  // Yuvarla (2.5 puan nedeniyle ondalık olabilir)
+  total=Math.round(total*10)/10;
+  document.getElementById('resScore').textContent=total;
+  document.getElementById('resOk').textContent=state.okCount+' Doğru';
+  document.getElementById('resErr').textContent=state.errCount+' Yanlış';
+  document.getElementById('resNote').textContent='70 sorudan '+state.okCount+' tanesi doğru';
+
+  var L=['A','B','C','D'];var html2='';
+  for(var i=0;i<Q.length;i++){
+    var ans=state.answered[i];
+    if(ans===undefined||ans===Q[i].a)continue;
+    html2+='<div class="rev-item">';
+    html2+='<div class="rev-q">'+esc(Q[i].q)+'</div>';
+    html2+='<div class="rev-chosen">Verdiğiniz cevap: '+L[ans]+') '+esc(Q[i].o[ans])+'</div>';
+    html2+='<div class="rev-correct">Doğru cevap: '+L[Q[i].a]+') '+esc(Q[i].o[Q[i].a])+'</div>';
+    html2+='<div class="rev-exp">'+esc(Q[i].exp)+'</div>';
+    html2+='</div>';
+  }
+  document.getElementById('reviewList').innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanlış soru bulunamadı.</div>';
+}
+
+function toggleReview(){
+  var rv=document.getElementById('reviewList');
+  rv.style.display=(rv.style.display==='flex'?'none':'flex');
+}
+
+function submitResult(){
+  var name=document.getElementById('resName').value;
+  if(!name){alert('Lütfen adınızı seçin.');return;}
+  var total=0;for(var i=0;i<Q.length;i++)total+=(state.scores[i]||0);
+  total=Math.round(total*10)/10;
+  var grup=GROUPS[name]||'A1.1';
+  var payload=JSON.stringify({ogrenci:name,odev:ODEV_ADI,grup:grup,puan:total,dogru:state.okCount,yanlis:state.errCount,tarih:new Date().toLocaleDateString('tr-TR')});
+  var msgEl=document.getElementById('submitMsg');
+  document.getElementById('submitWarning').style.display='none';
+  msgEl.style.display='block';
+  msgEl.style.background='#fff3cd';msgEl.style.color='#856404';msgEl.style.border='1px solid #ffc107';
+  msgEl.textContent='Gönderiliyor... (Grup: '+grup+')';
+  document.getElementById('btnSubmit').disabled=true;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(payload)})
+  .then(function(){
+    msgEl.style.background='#e6f9f0';msgEl.style.color='#1a5c3a';msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' öğrencisinin "'+ODEV_ADI+'" ödevi teslim edildi. Puan: '+total+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';msgEl.style.color='#8b1a1a';msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message;
+    document.getElementById('btnSubmit').disabled=false;
+  });
+}
+</script>
+</body>
+</html>
