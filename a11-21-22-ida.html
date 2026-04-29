@@ -486,19 +486,23 @@ function esc(s){
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
 
-function norm(s){
-  return s.trim().toLowerCase()
+function norm(s,isTranslation){
+  var r=s.trim().toLowerCase()
     .replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u')
     .replace(/ü/g,'u').replace(/ñ/g,'n').replace(/¿/g,'').replace(/[?!¡]/g,'').replace(/\s+/g,' ');
+  if(isTranslation){
+    // Türkçe klavyeden gelen ı -> i, İ -> i dönüşümü + nokta/virgül/boşluk toleransı
+    r=r.replace(/ı/g,'i').replace(/\./g,'').replace(/,/g,'').replace(/\s+/g,' ').trim();
+  }
+  return r;
 }
 
-function checkCorrect(val,ans){
-  var v=norm(val), c=norm(ans);
-  // Tam eşleşme (aksan ve büyük/küçük harf farkı yok sayılır)
+function checkCorrect(val,ans,isTranslation){
+  var v=norm(val,isTranslation), c=norm(ans,isTranslation);
   if(v===c)return true;
-  // Sadece alternatif cevap varsa kontrol et (Alternatif: ... parantezi)
+  // Alternatif cevap varsa kontrol et
   var altMatch=ans.match(/\(Alternatif[^:]*:\s*([^)]+)\)/i);
-  if(altMatch&&norm(altMatch[1].trim())===v)return true;
+  if(altMatch&&norm(altMatch[1].trim(),isTranslation)===v)return true;
   return false;
 }
 
@@ -554,7 +558,9 @@ function checkFill(){
   var val=document.getElementById('fillInput').value.trim();
   if(!val)return;
   state.answered[i]=val;state.checked[i]=true;
-  if(checkCorrect(val,Q[i].a)){state.okCount++;state.scores[i]=1;}
+  // 61-100 arası çeviri soruları: nokta, büyük/küçük harf, ı/i toleranslı
+  var isTranslation=(i>=60);
+  if(checkCorrect(val,Q[i].a,isTranslation)){state.okCount++;state.scores[i]=1;}
   else{state.errCount++;state.scores[i]=0;}
   renderQ();
 }
