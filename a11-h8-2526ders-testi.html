@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H8 – 25-26.Ders | A1.1 Ödevi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+.screen{display:none}.screen.active{display:block}
+.week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
+.intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
+.intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
+.intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1.5rem;font-weight:600}
+select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
+select:focus{border-color:#6c4eb8}
+.btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#5a3ea0}
+.prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:.75rem}
+.cnt{padding:.2rem .6rem;border-radius:6px;font-weight:600}
+.cnt-ok{background:#e6f9f0;color:#2e9e6b}
+.cnt-err{background:#fde8e8;color:#d94040}
+.q-badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:.8rem;background:#e8e0f8;color:#6c4eb8}
+.q-text{font-size:.95rem;color:#333;line-height:1.75;margin-bottom:1rem;white-space:pre-wrap}
+.opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.opt-btn{text-align:left;padding:.7rem 1rem;border:2px solid #d0c8f0;border-radius:9px;background:#fff;cursor:pointer;font-size:.9rem;color:#333;transition:all .15s;font-family:inherit;line-height:1.5}
+.opt-btn:hover:not(:disabled){background:#f3effb;border-color:#9b7de0}
+.opt-btn.correct{background:#e6f9f0;border-color:#2e9e6b;color:#1a5c3a;font-weight:600}
+.opt-btn.wrong{background:#fde8e8;border-color:#d94040;color:#8b1a1a}
+.opt-btn:disabled{cursor:default}
+.exp-box{display:none;background:#f8f5ff;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:.83rem;color:#444;line-height:1.75;white-space:pre-wrap;margin-bottom:1rem}
+.exp-box.show{display:block}
+.nav{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
+.btn-back{background:#e8e0f8;color:#6c4eb8}
+.btn-skip{background:#e8e0f8;color:#6c4eb8}
+.btn-next{background:#6c4eb8;color:#fff}
+.btn-finish{background:#e05c5c;color:#fff}
+.nav button:disabled{opacity:.4;cursor:not-allowed}
+.res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
+.res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
+.res-score{text-align:center;font-size:3.5rem;font-weight:800;color:#6c4eb8;margin:.75rem 0}
+.res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem;flex-wrap:wrap}
+.res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
+.res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
+.submit-warning-sub{font-size:.85rem;color:#856404}
+.btn-submit{width:100%;padding:1.1rem;background:#2e9e6b;color:#fff;border:none;border-radius:10px;font-size:1.15rem;font-weight:800;cursor:pointer;margin-bottom:.75rem;letter-spacing:.3px;font-family:inherit}
+.btn-submit:hover{background:#257a55}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-review{width:100%;padding:.7rem;background:#e8e0f8;color:#6c4eb8;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.submit-msg{border-radius:8px;padding:.85rem;font-size:.9rem;display:none;margin-bottom:.75rem;text-align:center;font-weight:600;line-height:1.6}
+.review-list{display:none;flex-direction:column;gap:.75rem;margin-top:1rem}
+.rev-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;font-size:.82rem}
+.rev-q{font-weight:600;color:#333;margin-bottom:.3rem;white-space:pre-wrap;line-height:1.6}
+.rev-chosen{color:#d94040;margin-bottom:.2rem}
+.rev-correct{color:#2e9e6b;margin-bottom:.3rem;font-weight:600}
+.rev-exp{color:#555;line-height:1.75;white-space:pre-wrap}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.6}
+.confirm-btns{display:flex;gap:.75rem}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8}
+.btn-ok{background:#e05c5c;color:#fff}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- INTRO -->
+  <div id="introScreen" class="screen active">
+    <div class="week-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (25-26. DERS)</div>
+    <div class="intro-title">VERBOS REFLEXIVOS – DÖNÜŞLÜ FİİLLER</div>
+    <div class="intro-sub">50 soru · Çoktan Seçmeli · Her soru 2 puan</div>
+    <div class="intro-teacher">@ispanyolcacim · Profe Hazel</div>
+    <select id="introName">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Birce Süzen</option>
+      <option>Burakhan Kaydı</option>
+      <option>Buse Cagmel</option>
+      <option>Büşra Çam</option>
+      <option>Büşra Yurt</option>
+      <option>Ceren Erdoğan</option>
+      <option>Doğa Değirmenci</option>
+      <option>Ecem Sukas</option>
+      <option>Elif Ataç</option>
+      <option>Elif Atlı</option>
+      <option>Elif Bozkurt</option>
+      <option>Elif Çetin</option>
+      <option>Emel Kanburoğlu</option>
+      <option>Eray Sayılık</option>
+      <option>Erdinç Tigin Bilen</option>
+      <option>Eylül Şerbetçi</option>
+      <option>Ezgican Tekçorap</option>
+      <option>Görkem Dursun</option>
+      <option>Gülce Eyibilir</option>
+      <option>Harun Özmen</option>
+      <option>Hilal Dilsiz</option>
+      <option>Mehtap Keklik</option>
+      <option>Meltem Çiftçi</option>
+      <option>Merve Sağlam</option>
+      <option>Meryem Özbek</option>
+      <option>Murat Erdem</option>
+      <option>Murat Şahin</option>
+      <option>Onur Atlı</option>
+      <option>Ruhşen Çavuşoğlu</option>
+      <option>Rümeysa Yatgın</option>
+      <option>Sedat Zincirkıran</option>
+      <option>Seher Akbulat</option>
+      <option>Seher Erçin</option>
+      <option>Serra Sancaklı Işık</option>
+      <option>Sibel Atmaca</option>
+      <option>Sonay Çetinkaya</option>
+      <option>Yasemin Kurtuluş Tunç</option>
+      <option>Zehra Rümeysa Çolak</option>
+      <option>Zeynep Hediye Özay</option>
+      <option>Zeynep Öztaşkın</option>
+      <option>Zeynep Söylemez</option>
+      <option>Zeynep Su Alişan</option>
+      <option>İncilay Dikbıyık</option>
+      <option>Şenay Sezgin</option>
+      <option>Şeyma Dereci</option>
+    </select>
+    <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="screen">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="q-meta">
+      <span id="qMeta">Soru 1 / 50</span>
+      <span><span class="cnt cnt-ok" id="cntOk">0 Doğru</span>&nbsp;<span class="cnt cnt-err" id="cntErr">0 Yanlış</span></span>
+    </div>
+    <div id="qCard"></div>
+    <div class="nav">
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
+      <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
+      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <input type="hidden" id="resName" value="">
+    <div style="text-align:center">
+      <div class="res-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (25-26. DERS)</div>
+    </div>
+    <div class="res-title">VERBOS REFLEXIVOS – DÖNÜŞLÜ FİİLLER</div>
+    <div class="res-score"><span id="resScore">0</span>/100</div>
+    <div class="res-stats">
+      <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
+      <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
+    </div>
+    <div class="res-note" id="resNote"></div>
+    <div class="submit-warning" id="submitWarning">
+      <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
+      <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
+    </div>
+    <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Birce Süzen</option>
+      <option>Burakhan Kaydı</option>
+      <option>Buse Cagmel</option>
+      <option>Büşra Çam</option>
+      <option>Büşra Yurt</option>
+      <option>Ceren Erdoğan</option>
+      <option>Doğa Değirmenci</option>
+      <option>Ecem Sukas</option>
+      <option>Elif Ataç</option>
+      <option>Elif Atlı</option>
+      <option>Elif Bozkurt</option>
+      <option>Elif Çetin</option>
+      <option>Emel Kanburoğlu</option>
+      <option>Eray Sayılık</option>
+      <option>Erdinç Tigin Bilen</option>
+      <option>Eylül Şerbetçi</option>
+      <option>Ezgican Tekçorap</option>
+      <option>Görkem Dursun</option>
+      <option>Gülce Eyibilir</option>
+      <option>Harun Özmen</option>
+      <option>Hilal Dilsiz</option>
+      <option>Mehtap Keklik</option>
+      <option>Meltem Çiftçi</option>
+      <option>Merve Sağlam</option>
+      <option>Meryem Özbek</option>
+      <option>Murat Erdem</option>
+      <option>Murat Şahin</option>
+      <option>Onur Atlı</option>
+      <option>Ruhşen Çavuşoğlu</option>
+      <option>Rümeysa Yatgın</option>
+      <option>Sedat Zincirkıran</option>
+      <option>Seher Akbulat</option>
+      <option>Seher Erçin</option>
+      <option>Serra Sancaklı Işık</option>
+      <option>Sibel Atmaca</option>
+      <option>Sonay Çetinkaya</option>
+      <option>Yasemin Kurtuluş Tunç</option>
+      <option>Zehra Rümeysa Çolak</option>
+      <option>Zeynep Hediye Özay</option>
+      <option>Zeynep Öztaşkın</option>
+      <option>Zeynep Söylemez</option>
+      <option>Zeynep Su Alişan</option>
+      <option>İncilay Dikbıyık</option>
+      <option>Şenay Sezgin</option>
+      <option>Şeyma Dereci</option>
+    </select>
+    <div class="submit-msg" id="submitMsg"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">İptal</button>
+      <button class="btn-ok" onclick="doFinish()">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
+var ODEV_ADI='H8 \u2013 25-26.Ders';
+var GROUPS={
+'Harun \u00d6zmen':'A1.1','Yasemin Kurtulu\u015f Tun\u00e7':'A1.1','Zeynep Hediye \u00d6zay':'A1.1','G\u00fclce Eyibilir':'A1.1','Serra Sancakl\u0131 I\u015f\u0131k':'A1.1','B\u00fc\u015fra Yurt':'A1.1','Elif \u00c7etin':'A1.1','Mehtap Keklik':'A1.1','Elif Ata\u00e7':'A1.1','Do\u011fa De\u011firmenci':'A1.1','Zehra R\u00fcmeysa \u00c7olak':'A1.1','Zeynep Su Ali\u015fan':'A1.1','Eray Say\u0131l\u0131k':'A1.1','Birce S\u00fczen':'A1.1','Seher Akbulat':'A1.1',
+'\u015eeyma Dereci':'A1.1 (2)','Zeynep S\u00f6ylemez':'A1.1 (2)','Ecem Sukas':'A1.1 (2)','Burakhan Kayd\u0131':'A1.1 (2)','\u015eenay Sezgin':'A1.1 (2)','Zeynep \u00d6zta\u015fk\u0131n':'A1.1 (2)','Sonay \u00c7etinkaya':'A1.1 (2)','Ezgican Tek\u00e7orap':'A1.1 (2)','Merve Sa\u011flam':'A1.1 (2)','Meryem \u00d6zbek':'A1.1 (2)','Elif Bozkurt':'A1.1 (2)','Meltem \u00c7ift\u00e7i':'A1.1 (2)','Hilal Dilsiz':'A1.1 (2)','R\u00fcmeysa Yatg\u0131n':'A1.1 (2)','Eyl\u00fcl \u015eerbet\u00e7i':'A1.1 (2)',
+'Sedat Zincirk\u0131ran':'A1.1 (3)','\u0130ncilay Dikb\u0131y\u0131k':'A1.1 (3)','Ruh\u015fen \u00c7avu\u015fo\u011flu':'A1.1 (3)','Murat Erdem':'A1.1 (3)','Ceren Erdo\u011fan':'A1.1 (3)','Erdin\u00e7 Tigin Bilen':'A1.1 (3)','Seher Er\u00e7in':'A1.1 (3)','B\u00fc\u015fra \u00c7am':'A1.1 (3)','G\u00f6rkem Dursun':'A1.1 (3)','Sibel Atmaca':'A1.1 (3)','Onur Atl\u0131':'A1.1 (3)','Elif Atl\u0131':'A1.1 (3)','Emel Kanburo\u011flu':'A1.1 (3)','Murat \u015eahin':'A1.1 (3)','Buse Cagmel':'A1.1 (3)'
+};
+
+var Q=[
+{q:'Soru 1\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre lava al niño.','El niño se lava las manos.','El médico examina al paciente.','La profesora prepara a los alumnos.'],a:1,exp:'Doğru cevap: B\nB) El niño se lava las manos.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem, özneye (el niño) geri dönmektedir; yani çocuk kendi ellerini yıkamaktadır. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne çocuğu yıkıyor, doktor hastayı muayene ediyor, öğretmen öğrencileri hazırlıyor.'},
+{q:'Soru 2\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El padre viste a su hijo.','La abuela peina a la niña.','Tú te duchas por la mañana.','El doctor lava al bebé.'],a:2,exp:'Doğru cevap: C\nC) Tú te duchas por la mañana.\nBu cümlede "te" dönüşlü zamiri bulunmaktadır. Eylem özneye (tú) geri dönmektedir; yani sen kendi kendine duş alıyorsun. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: baba oğlunu giydiriyor, büyükanne kız çocuğunu tarıyor, doktor bebeği yıkıyor.'},
+{q:'Soru 3\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La enfermera baña al paciente.','Nosotros nos levantamos temprano.','El peluquero corta el pelo al cliente.','La madre acuesta al bebé.'],a:1,exp:'Doğru cevap: B\nB) Nosotros nos levantamos temprano.\nBu cümlede "nos" dönüşlü zamiri bulunmaktadır. Eylem özneye (nosotros) geri dönmektedir; yani biz kendi kendimize kalkıyoruz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: hemşire hastayı yıkıyor, kuaför müşterinin saçını kesiyor, anne bebeği yatırıyor.'},
+{q:'Soru 4\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El padre ducha al niño.','La madre viste a su hija.','Yo me peino frente al espejo.','La abuela acuesta al niño.'],a:2,exp:'Doğru cevap: C\nC) Yo me peino frente al espejo.\nBu cümlede "me" dönüşlü zamiri bulunmaktadır. Eylem özneye (yo) geri dönmektedir; yani ben kendi saçımı tarıyorum. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: baba çocuğu yıkıyor, anne kızını giydiriyor, büyükanne çocuğu yatırıyor.'},
+{q:'Soru 5\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La profesora despierta a los alumnos.','El hermano viste al bebé.','El médico examina a la paciente.','Ellos se acuestan tarde los viernes.'],a:3,exp:'Doğru cevap: D\nD) Ellos se acuestan tarde los viernes.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (ellos) geri dönmektedir; yani onlar Cuma günleri geç yatıyorlar. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: öğretmen öğrencileri uyandırıyor, erkek kardeş bebeği giydiriyor, doktor hastayı muayene ediyor.'},
+{q:'Soru 6\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre seca el pelo de su hija.','El padre cepilla los dientes del niño.','Vosotros os laváis las manos antes de comer.','El médico prepara al paciente.'],a:2,exp:'Doğru cevap: C\nC) Vosotros os laváis las manos antes de comer.\nBu cümlede "os" dönüşlü zamiri bulunmaktadır. Eylem özneye (vosotros) geri dönmektedir; yani siz kendi ellerinizi yıkıyorsunuz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne kızının saçını kurutuyor, baba çocuğun dişlerini fırçalıyor, doktor hastayı hazırlıyor.'},
+{q:'Soru 7\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La hermana peina a la niña.','Mi madre se maquilla por las mañanas.','El abuelo acuesta al niño.','La enfermera viste al paciente.'],a:1,exp:'Doğru cevap: B\nB) Mi madre se maquilla por las mañanas.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (mi madre) geri dönmektedir; yani annem kendi kendine makyaj yapıyor. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: kız kardeş kız çocuğunu tarıyor, büyükbaba çocuğu yatırıyor, hemşire hastayı giydiriyor.'},
+{q:'Soru 8\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El doctor examina al enfermo.','La madre baña al bebé.','Yo me despierto a las siete.','El padre lava al niño.'],a:2,exp:'Doğru cevap: C\nC) Yo me despierto a las siete.\nBu cümlede "me" dönüşlü zamiri bulunmaktadır. Eylem özneye (yo) geri dönmektedir; yani ben saat yedide kendi kendime uyanıyorum. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: doktor hastayı muayene ediyor, anne bebeği yıkıyor, baba çocuğu yıkıyor.'},
+{q:'Soru 9\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La abuela peina a su nieta.','El médico lava al paciente.','Tú te vistes muy rápido.','La profesora prepara a los alumnos.'],a:2,exp:'Doğru cevap: C\nC) Tú te vistes muy rápido.\nBu cümlede "te" dönüşlü zamiri bulunmaktadır. Eylem özneye (tú) geri dönmektedir; yani sen çok hızlı giyiniyorsun. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: büyükanne torununu tarıyor, doktor hastayı yıkıyor, öğretmen öğrencileri hazırlıyor.'},
+{q:'Soru 10\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El hermano despierta a su hermana.','La madre seca al bebé.','El camarero sienta a los clientes.','Nosotros nos preparamos para el examen.'],a:3,exp:'Doğru cevap: D\nD) Nosotros nos preparamos para el examen.\nBu cümlede "nos" dönüşlü zamiri bulunmaktadır. Eylem özneye (nosotros) geri dönmektedir; yani biz sınav için kendi kendimize hazırlanıyoruz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: erkek kardeş kız kardeşini uyandırıyor, anne bebeği kurutuyor, garson müşterileri oturtturuyor.'},
+{q:'Soru 11\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre viste a los niños.','El padre afeita al abuelo.','Ella se queda en casa hoy.','La abuela lava al bebé.'],a:2,exp:'Doğru cevap: C\nC) Ella se queda en casa hoy.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (ella) geri dönmektedir; yani o bugün evde kalıyor. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne çocukları giydiriyor, baba büyükbabayı tıraş ediyor, büyükanne bebeği yıkıyor.'},
+{q:'Soru 12\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El médico prepara al paciente.','La enfermera lava al enfermo.','Vosotros os sentáis en clase.','La madre cepilla los dientes del niño.'],a:2,exp:'Doğru cevap: C\nC) Vosotros os sentáis en clase.\nBu cümlede "os" dönüşlü zamiri bulunmaktadır. Eylem özneye (vosotros) geri dönmektedir; yani siz sınıfta oturuyorsunuz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: doktor hastayı hazırlıyor, hemşire hastayı yıkıyor, anne çocuğun dişlerini fırçalıyor.'},
+{q:'Soru 13\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El padre ducha al hijo.','La profesora viste a los alumnos.','La hermana peina a la niña.','Yo me quito los zapatos en casa.'],a:3,exp:'Doğru cevap: D\nD) Yo me quito los zapatos en casa.\nBu cümlede "me" dönüşlü zamiri bulunmaktadır. Eylem özneye (yo) geri dönmektedir; yani ben evde kendi ayakkabılarımı çıkarıyorum. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: baba oğlunu yıkıyor, öğretmen öğrencileri giydiriyor, kız kardeş kız çocuğunu tarıyor.'},
+{q:'Soru 14\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El abuelo despierta al niño.','La madre lava la ropa del hijo.','Tú te cepillas el pelo.','El médico examina al paciente.'],a:2,exp:'Doğru cevap: C\nC) Tú te cepillas el pelo.\nBu cümlede "te" dönüşlü zamiri bulunmaktadır. Eylem özneye (tú) geri dönmektedir; yani sen kendi saçını fırçalıyorsun. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: büyükbaba çocuğu uyandırıyor, anne oğlunun çamaşırını yıkıyor, doktor hastayı muayene ediyor.'},
+{q:'Soru 15\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La abuela acuesta al niño.','El peluquero lava el pelo a la cliente.','Ellos se divierten en la fiesta.','La madre despierta a los hijos.'],a:2,exp:'Doğru cevap: C\nC) Ellos se divierten en la fiesta.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (ellos) geri dönmektedir; yani onlar partide eğleniyorlar. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: büyükanne çocuğu yatırıyor, kuaför müşterinin saçını yıkıyor, anne çocukları uyandırıyor.'},
+{q:'Soru 16\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La enfermera viste al paciente.','Nosotros nos duchamos después del partido.','El padre cepilla los dientes del bebé.','La madre seca el pelo de la niña.'],a:1,exp:'Doğru cevap: B\nB) Nosotros nos duchamos después del partido.\nBu cümlede "nos" dönüşlü zamiri bulunmaktadır. Eylem özneye (nosotros) geri dönmektedir; yani biz maçtan sonra duş alıyoruz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: hemşire hastayı giydiriyor, baba bebeğin dişlerini fırçalıyor, anne kızının saçını kurutuyor.'},
+{q:'Soru 17\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La profesora sienta a los alumnos.','El hermano despierta a su hermana.','Yo me siento nervioso hoy.','La madre lava al bebé.'],a:2,exp:'Doğru cevap: C\nC) Yo me siento nervioso hoy.\nBu cümlede "me" dönüşlü zamiri bulunmaktadır. Eylem özneye (yo) geri dönmektedir; yani ben bugün kendimi sinirli hissediyorum. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: öğretmen öğrencileri oturtturuyor, erkek kardeş kız kardeşini uyandırıyor, anne bebeği yıkıyor.'},
+{q:'Soru 18\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La abuela viste al niño.','El doctor examina al enfermo.','Tú te lavas la cara por la mañana.','El padre ducha al bebé.'],a:2,exp:'Doğru cevap: C\nC) Tú te lavas la cara por la mañana.\nBu cümlede "te" dönüşlü zamiri bulunmaktadır. Eylem özneye (tú) geri dönmektedir; yani sen sabah kendi yüzünü yıkıyorsun. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: büyükanne çocuğu giydiriyor, doktor hastayı muayene ediyor, baba bebeği yıkıyor.'},
+{q:'Soru 19\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre peina a su hija.','El peluquero corta el pelo al señor.','Ellas se maquillan antes de salir.','La enfermera prepara al paciente.'],a:2,exp:'Doğru cevap: C\nC) Ellas se maquillan antes de salir.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (ellas) geri dönmektedir; yani onlar dışarı çıkmadan önce makyaj yapıyorlar. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne kızını tarıyor, kuaför beyin saçını kesiyor, hemşire hastayı hazırlıyor.'},
+{q:'Soru 20\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El padre lava al niño.','La abuela acuesta a los nietos.','El médico viste al enfermo.','Vosotros os despertáis temprano.'],a:3,exp:'Doğru cevap: D\nD) Vosotros os despertáis temprano.\nBu cümlede "os" dönüşlü zamiri bulunmaktadır. Eylem özneye (vosotros) geri dönmektedir; yani siz erken uyanıyorsunuz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: baba çocuğu yıkıyor, büyükanne torunlarını yatırıyor, doktor hastayı giydiriyor.'},
+{q:'Soru 21\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre baña al hijo.','El hermano peina a la niña.','La abuela despierta al abuelo.','Yo me pongo el pijama por la noche.'],a:3,exp:'Doğru cevap: D\nD) Yo me pongo el pijama por la noche.\nBu cümlede "me" dönüşlü zamiri bulunmaktadır. Eylem özneye (yo) geri dönmektedir; yani ben geceleri kendi kendime pijamamı giyiyorum. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne oğlunu yıkıyor, erkek kardeş kız çocuğunu tarıyor, büyükanne büyükbabayı uyandırıyor.'},
+{q:'Soru 22\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El camarero sienta a los clientes.','La doctora prepara al paciente.','Nosotros nos acostamos a las diez.','La madre viste al niño.'],a:2,exp:'Doğru cevap: C\nC) Nosotros nos acostamos a las diez.\nBu cümlede "nos" dönüşlü zamiri bulunmaktadır. Eylem özneye (nosotros) geri dönmektedir; yani biz saat onda yatıyoruz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: garson müşterileri oturtturuyor, doktor hastayı hazırlıyor, anne çocuğu giydiriyor.'},
+{q:'Soru 23\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La profesora despierta a los estudiantes.','El padre peina a su hijo.','Tú te afeitas por la mañana.','La enfermera lava al paciente.'],a:2,exp:'Doğru cevap: C\nC) Tú te afeitas por la mañana.\nBu cümlede "te" dönüşlü zamiri bulunmaktadır. Eylem özneye (tú) geri dönmektedir; yani sen sabah kendi kendine tıraş oluyorsun. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: öğretmen öğrencileri uyandırıyor, baba oğlunu tarıyor, hemşire hastayı yıkıyor.'},
+{q:'Soru 24\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre lava al bebé con cuidado.','El médico despierta al enfermo.','Ellos se lavan las manos antes de comer.','La hermana viste a la niña.'],a:2,exp:'Doğru cevap: C\nC) Ellos se lavan las manos antes de comer.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (ellos) geri dönmektedir; yani onlar yemekten önce kendi ellerini yıkıyorlar. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne bebeği dikkatlice yıkıyor, doktor hastayı uyandırıyor, kız kardeş kız çocuğunu giydiriyor.'},
+{q:'Soru 25\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El padre ducha al niño pequeño.','Vosotros os sentáis cerca de la ventana.','La abuela cepilla los dientes del bebé.','La profesora sienta a los alumnos.'],a:1,exp:'Doğru cevap: B\nB) Vosotros os sentáis cerca de la ventana.\nBu cümlede "os" dönüşlü zamiri bulunmaktadır. Eylem özneye (vosotros) geri dönmektedir; yani siz pencerenin yanına oturuyorsunuz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: baba küçük çocuğu yıkıyor, büyükanne bebeğin dişlerini fırçalıyor, öğretmen öğrencileri oturtturuyor.'},
+{q:'Soru 26\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre seca al bebé.','El hermano despierta al niño.','La enfermera viste al paciente.','Yo me miro en el espejo.'],a:3,exp:'Doğru cevap: D\nD) Yo me miro en el espejo.\nBu cümlede "me" dönüşlü zamiri bulunmaktadır. Eylem özneye (yo) geri dönmektedir; yani ben aynada kendi kendime bakıyorum. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne bebeği kurutuyor, erkek kardeş çocuğu uyandırıyor, hemşire hastayı giydiriyor.'},
+{q:'Soru 27\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La doctora examina al enfermo.','El padre lava al niño.','Tú te pones los zapatos.','La abuela peina a la nieta.'],a:2,exp:'Doğru cevap: C\nC) Tú te pones los zapatos.\nBu cümlede "te" dönüşlü zamiri bulunmaktadır. Eylem özneye (tú) geri dönmektedir; yani sen kendi ayakkabılarını giyiyorsun. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: doktor hastayı muayene ediyor, baba çocuğu yıkıyor, büyükanne torunu tarıyor.'},
+{q:'Soru 28\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El camarero sienta a la señora.','Nosotros nos levantamos a las siete.','La madre viste al bebé.','La enfermera lava al paciente.'],a:1,exp:'Doğru cevap: B\nB) Nosotros nos levantamos a las siete.\nBu cümlede "nos" dönüşlü zamiri bulunmaktadır. Eylem özneye (nosotros) geri dönmektedir; yani biz saat yedide kalkıyoruz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: garson hanımefendiyi oturtturuyor, anne bebeği giydiriyor, hemşire hastayı yıkıyor.'},
+{q:'Soru 29\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['El médico prepara al paciente.','La abuela acuesta al nieto.','Ellos se duermen en el autobús.','La profesora despierta a los alumnos.'],a:2,exp:'Doğru cevap: C\nC) Ellos se duermen en el autobús.\nBu cümlede "se" dönüşlü zamiri bulunmaktadır. Eylem özneye (ellos) geri dönmektedir; yani onlar otobüste uyuyakalıyorlar. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: doktor hastayı hazırlıyor, büyükanne torunu yatırıyor, öğretmen öğrencileri uyandırıyor.'},
+{q:'Soru 30\nAşağıdaki cümlelerin hangisi dönüşlü (reflexive) bir yapı içermektedir?',o:['La madre lava la ropa del bebé.','El padre despierta a su hijo.','La hermana peina a la niña.','Vosotros os vestís para la fiesta.'],a:3,exp:'Doğru cevap: D\nD) Vosotros os vestís para la fiesta.\nBu cümlede "os" dönüşlü zamiri bulunmaktadır. Eylem özneye (vosotros) geri dönmektedir; yani siz parti için giyiniyorsunuz. Diğer seçeneklerde ise eylemi yapan ve eylemden etkilenen farklı kişilerdir: anne bebeğin çamaşırını yıkıyor, baba oğlunu uyandırıyor, kız kardeş kız çocuğunu tarıyor.'},
+{q:'Soru 31\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) El niño se lava la cara por la mañana.\nB) Yo me ducho después de correr.\nC) La madre lava al niño con cuidado.\nD) Nosotros nos preparamos para la clase.',o:['El niño se lava la cara por la mañana.','Yo me ducho después de correr.','La madre lava al niño con cuidado.','Nosotros nos preparamos para la clase.'],a:2,exp:'Doğru cevap: C\nC) La madre lava al niño con cuidado.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, me, nos) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Çocuk sabah yüzünü yıkar, Ben koştuktan sonra duş alırım, Biz derse hazırlanırız).\nC seçeneğinde ise se zamiri yoktur. Eylemi yapan "anne" (la madre), eylemden etkilenen ise "çocuk"tur (al niño). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 32\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Yo me lavo las manos antes de comer.\nB) El padre viste a su hijo para la escuela.\nC) Los estudiantes se sientan en clase.\nD) Mi hermana se peina el pelo lentamente.',o:['Yo me lavo las manos antes de comer.','El padre viste a su hijo para la escuela.','Los estudiantes se sientan en clase.','Mi hermana se peina el pelo lentamente.'],a:1,exp:'Doğru cevap: B\nB) El padre viste a su hijo para la escuela.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (me, se, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Ben yemekten önce ellerimi yıkarım, Öğrenciler sınıfta otururlar, Kız kardeşim saçını yavaşça tarar).\nB seçeneğinde ise se zamiri yoktur. Eylemi yapan "baba" (el padre), eylemden etkilenen ise "oğlu"dur (a su hijo). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 33\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) La enfermera lava al paciente con agua tibia.\nB) Tú te cepillas los dientes cada noche.\nC) Nosotros nos levantamos temprano los lunes.\nD) Ellas se maquillan antes de salir.',o:['La enfermera lava al paciente con agua tibia.','Tú te cepillas los dientes cada noche.','Nosotros nos levantamos temprano los lunes.','Ellas se maquillan antes de salir.'],a:0,exp:'Doğru cevap: A\nA) La enfermera lava al paciente con agua tibia.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nB, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (te, nos, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Sen her gece dişlerini fırçalarsın, Biz pazartesileri erken kalkarız, Onlar dışarı çıkmadan önce makyaj yaparlar).\nA seçeneğinde ise se zamiri yoktur. Eylemi yapan "hemşire" (la enfermera), eylemden etkilenen ise "hasta"dır (al paciente). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 34\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) El bebé se duerme en la cama.\nB) La abuela peina a la niña con paciencia.\nC) Yo me miro en el espejo.\nD) Vosotros os laváis la cara.',o:['El bebé se duerme en la cama.','La abuela peina a la niña con paciencia.','Yo me miro en el espejo.','Vosotros os laváis la cara.'],a:1,exp:'Doğru cevap: B\nB) La abuela peina a la niña con paciencia.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, me, os) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Bebek yatakta uykuya dalar, Ben aynaya bakarım, Siz yüzünüzü yıkarsınız).\nB seçeneğinde ise se zamiri yoktur. Eylemi yapan "büyükanne" (la abuela), eylemden etkilenen ise "kız çocuk"tur (a la niña). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 35\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Mi padre se afeita por la mañana.\nB) Nosotros nos duchamos después del entrenamiento.\nC) Tú te pones la chaqueta.\nD) La profesora prepara a los alumnos para el examen.',o:['Mi padre se afeita por la mañana.','Nosotros nos duchamos después del entrenamiento.','Tú te pones la chaqueta.','La profesora prepara a los alumnos para el examen.'],a:3,exp:'Doğru cevap: D\nD) La profesora prepara a los alumnos para el examen.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve C seçeneklerinde fiillerin yanında dönüşlü zamirler (se, nos, te) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Babam sabah tıraş olur, Biz antrenmandan sonra duş alırız, Sen ceketi giyersin).\nD seçeneğinde ise se zamiri yoktur. Eylemi yapan "öğretmen" (la profesora), eylemden etkilenen ise "öğrenciler"dir (a los alumnos). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 36\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Ella se seca el pelo con una toalla.\nB) Los niños se quitan los zapatos en casa.\nC) El doctor examina al paciente en la consulta.\nD) Yo me visto rápido por la mañana.',o:['Ella se seca el pelo con una toalla.','Los niños se quitan los zapatos en casa.','El doctor examina al paciente en la consulta.','Yo me visto rápido por la mañana.'],a:2,exp:'Doğru cevap: C\nC) El doctor examina al paciente en la consulta.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, se, me) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (O saçını havluyla kurutur, Çocuklar evde ayakkabılarını çıkarırlar, Ben sabah hızlı giyinirim).\nC seçeneğinde ise se zamiri yoktur. Eylemi yapan "doktor" (el doctor), eylemden etkilenen ise "hasta"dır (al paciente). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 37\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Nosotros nos sentamos cerca de la ventana.\nB) Tú te lavas las manos con jabón.\nC) Mis hermanos se acuestan temprano.\nD) La madre ducha al bebé antes de dormir.',o:['Nosotros nos sentamos cerca de la ventana.','Tú te lavas las manos con jabón.','Mis hermanos se acuestan temprano.','La madre ducha al bebé antes de dormir.'],a:3,exp:'Doğru cevap: D\nD) La madre ducha al bebé antes de dormir.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve C seçeneklerinde fiillerin yanında dönüşlü zamirler (nos, te, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Biz pencerenin yanına otururuz, Sen ellerini sabunla yıkarsın, Kardeşlerim erken yatarlar).\nD seçeneğinde ise se zamiri yoktur. Eylemi yapan "anne" (la madre), eylemden etkilenen ise "bebek"tir (al bebé). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 38\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Yo me despierto a las siete.\nB) Ustedes se preparan para la reunión.\nC) El camarero sienta a los clientes en la mesa.\nD) Mi madre se maquilla antes de salir.',o:['Yo me despierto a las siete.','Ustedes se preparan para la reunión.','El camarero sienta a los clientes en la mesa.','Mi madre se maquilla antes de salir.'],a:2,exp:'Doğru cevap: C\nC) El camarero sienta a los clientes en la mesa.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (me, se, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Ben saat yedide uyanırım, Siz toplantıya hazırlanırsınız, Annem dışarı çıkmadan önce makyaj yapar).\nC seçeneğinde ise se zamiri yoktur. Eylemi yapan "garson" (el camarero), eylemden etkilenen ise "müşteriler"dir (a los clientes). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 39\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) El peluquero peina a la señora con cuidado.\nB) Ella se lava la cara por la noche.\nC) Nosotros nos cepillamos los dientes después de comer.\nD) Tú te miras en el espejo.',o:['El peluquero peina a la señora con cuidado.','Ella se lava la cara por la noche.','Nosotros nos cepillamos los dientes después de comer.','Tú te miras en el espejo.'],a:0,exp:'Doğru cevap: A\nA) El peluquero peina a la señora con cuidado.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nB, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, nos, te) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (O gece yüzünü yıkar, Biz yemekten sonra dişlerimizi fırçalarız, Sen aynaya bakarsın).\nA seçeneğinde ise se zamiri yoktur. Eylemi yapan "kuaför" (el peluquero), eylemden etkilenen ise "hanımefendi"dir (a la señora). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 40\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Los chicos se levantan temprano.\nB) La madre viste a su hija para la fiesta.\nC) Yo me quito el abrigo en casa.\nD) Vosotros os preparáis para el viaje.',o:['Los chicos se levantan temprano.','La madre viste a su hija para la fiesta.','Yo me quito el abrigo en casa.','Vosotros os preparáis para el viaje.'],a:1,exp:'Doğru cevap: B\nB) La madre viste a su hija para la fiesta.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, me, os) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Çocuklar erken kalkarlar, Ben evde paltoyu çıkarırım, Siz yolculuk için hazırlanırsınız).\nB seçeneğinde ise se zamiri yoktur. Eylemi yapan "anne" (la madre), eylemden etkilenen ise "kızı"dır (a su hija). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 41\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Mi hermana se pone los zapatos.\nB) El profesor despierta a los estudiantes.\nC) Nosotros nos lavamos antes de cenar.\nD) Yo me acuesto a las once.',o:['Mi hermana se pone los zapatos.','El profesor despierta a los estudiantes.','Nosotros nos lavamos antes de cenar.','Yo me acuesto a las once.'],a:1,exp:'Doğru cevap: B\nB) El profesor despierta a los estudiantes.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, nos, me) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Kız kardeşim ayakkabılarını giyer, Biz akşam yemeğinden önce yıkanırız, Ben saat on birde yatarım).\nB seçeneğinde ise se zamiri yoktur. Eylemi yapan "öğretmen" (el profesor), eylemden etkilenen ise "öğrenciler"dir (a los estudiantes). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 42\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) La hermana baña al niño pequeño.\nB) Tú te preparas para la clase.\nC) Ellos se afeitan todos los días.\nD) Yo me seco las manos con la toalla.',o:['La hermana baña al niño pequeño.','Tú te preparas para la clase.','Ellos se afeitan todos los días.','Yo me seco las manos con la toalla.'],a:0,exp:'Doğru cevap: A\nA) La hermana baña al niño pequeño.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nB, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (te, se, me) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Sen derse hazırlanırsın, Onlar her gün tıraş olurlar, Ben ellerimi havluyla kuruturum).\nA seçeneğinde ise se zamiri yoktur. Eylemi yapan "abla / kız kardeş" (la hermana), eylemden etkilenen ise "küçük çocuk"tur (al niño pequeño). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 43\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Yo me peino antes de salir.\nB) Nosotros nos sentamos en el sofá.\nC) El niño se lava los dientes.\nD) La abuela acuesta al bebé en la cuna.',o:['Yo me peino antes de salir.','Nosotros nos sentamos en el sofá.','El niño se lava los dientes.','La abuela acuesta al bebé en la cuna.'],a:3,exp:'Doğru cevap: D\nD) La abuela acuesta al bebé en la cuna.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve C seçeneklerinde fiillerin yanında dönüşlü zamirler (me, nos, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Ben dışarı çıkmadan önce saçımı tararım, Biz kanepede otururuz, Çocuk dişlerini yıkar / fırçalar).\nD seçeneğinde ise se zamiri yoktur. Eylemi yapan "büyükanne" (la abuela), eylemden etkilenen ise "bebek"tir (al bebé). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 44\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Ellas se visten para la fiesta.\nB) Yo me lavo el pelo los domingos.\nC) El padre sienta al niño en la silla.\nD) Ustedes se despiertan temprano.',o:['Ellas se visten para la fiesta.','Yo me lavo el pelo los domingos.','El padre sienta al niño en la silla.','Ustedes se despiertan temprano.'],a:2,exp:'Doğru cevap: C\nC) El padre sienta al niño en la silla.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, me, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Onlar parti için giyinirler, Ben pazar günleri saçımı yıkarım, Siz erken uyanırsınız).\nC seçeneğinde ise se zamiri yoktur. Eylemi yapan "baba" (el padre), eylemden etkilenen ise "çocuk"tur (al niño). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 45\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Tú te quitas los zapatos al entrar.\nB) Mi madre se ducha por la mañana.\nC) La doctora prepara al paciente para la operación.\nD) Nosotros nos miramos en el espejo.',o:['Tú te quitas los zapatos al entrar.','Mi madre se ducha por la mañana.','La doctora prepara al paciente para la operación.','Nosotros nos miramos en el espejo.'],a:2,exp:'Doğru cevap: C\nC) La doctora prepara al paciente para la operación.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (te, se, nos) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Sen girerken ayakkabılarını çıkarırsın, Annem sabah duş alır, Biz aynaya bakarız).\nC seçeneğinde ise se zamiri yoktur. Eylemi yapan "doktor" (la doctora), eylemden etkilenen ise "hasta"dır (al paciente). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 46\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Yo me pongo la chaqueta antes de salir.\nB) Los niños se lavan las manos.\nC) Vosotros os acostáis muy tarde.\nD) La madre lava la ropa de su hijo.',o:['Yo me pongo la chaqueta antes de salir.','Los niños se lavan las manos.','Vosotros os acostáis muy tarde.','La madre lava la ropa de su hijo.'],a:3,exp:'Doğru cevap: D\nD) La madre lava la ropa de su hijo.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve C seçeneklerinde fiillerin yanında dönüşlü zamirler (me, se, os) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Ben dışarı çıkmadan önce ceketimi giyerim, Çocuklar ellerini yıkarlar, Siz çok geç yatarsınız).\nD seçeneğinde ise se zamiri yoktur. Eylemi yapan "anne" (la madre), eylemden etkilenen ise "oğlunun kıyafeti"dir (la ropa de su hijo). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 47\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Mi hermano se afeita con cuidado.\nB) El padre cepilla los dientes del niño.\nC) Nosotros nos levantamos temprano.\nD) Ella se maquilla para la cena.',o:['Mi hermano se afeita con cuidado.','El padre cepilla los dientes del niño.','Nosotros nos levantamos temprano.','Ella se maquilla para la cena.'],a:1,exp:'Doğru cevap: B\nB) El padre cepilla los dientes del niño.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (se, nos, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Kardeşim dikkatlice tıraş olur, Biz erken kalkarız, O akşam yemeği için makyaj yapar).\nB seçeneğinde ise se zamiri yoktur. Eylemi yapan "baba" (el padre), eylemden etkilenen ise "çocuğun dişleri"dir (los dientes del niño). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 48\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) La profesora viste a los niños para la obra de teatro.\nB) Yo me cepillo los dientes después del desayuno.\nC) Ellos se preparan para el examen.\nD) Tú te sientas al lado de la ventana.',o:['La profesora viste a los niños para la obra de teatro.','Yo me cepillo los dientes después del desayuno.','Ellos se preparan para el examen.','Tú te sientas al lado de la ventana.'],a:0,exp:'Doğru cevap: A\nA) La profesora viste a los niños para la obra de teatro.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nB, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (me, se, te) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Ben kahvaltıdan sonra dişlerimi fırçalarım, Onlar sınava hazırlanırlar, Sen pencerenin yanına oturursun).\nA seçeneğinde ise se zamiri yoktur. Eylemi yapan "öğretmen" (la profesora), eylemden etkilenen ise "çocuklar"dır (a los niños). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 49\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) El hermano despierta a su hermana a las ocho.\nB) Nosotros nos duchamos después de nadar.\nC) Mi madre se peina el pelo.\nD) Ustedes se quitan el abrigo.',o:['El hermano despierta a su hermana a las ocho.','Nosotros nos duchamos después de nadar.','Mi madre se peina el pelo.','Ustedes se quitan el abrigo.'],a:0,exp:'Doğru cevap: A\nA) El hermano despierta a su hermana a las ocho.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nB, C ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (nos, se, se) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Biz yüzdükten sonra duş alırız, Annem saçını tarar, Siz paltonuzu çıkarırsınız).\nA seçeneğinde ise se zamiri yoktur. Eylemi yapan "erkek kardeş" (el hermano), eylemden etkilenen ise "kız kardeşi"dir (a su hermana). Dolayısıyla eylem dönüşlü değildir.'},
+{q:'Soru 50\nAşağıdaki cümlelerin hangisinde eylemi yapan kişi (özne) ile eylemden etkilenen kişi (nesne) birbirinden farklıdır?\nA) Tú te lavas la cara con agua fría.\nB) Los estudiantes se sientan en silencio.\nC) La madre seca el pelo de su hija.\nD) Yo me preparo para salir.',o:['Tú te lavas la cara con agua fría.','Los estudiantes se sientan en silencio.','La madre seca el pelo de su hija.','Yo me preparo para salir.'],a:2,exp:'Doğru cevap: C\nC) La madre seca el pelo de su hija.\nBu seçenek dönüşlü olmayan (non-reflexive) bir yapıdadır:\nA, B ve D seçeneklerinde fiillerin yanında dönüşlü zamirler (te, se, me) bulunmaktadır. Bu, eylemin kişinin kendisine geri döndüğünü gösterir (Sen yüzünü soğuk suyla yıkarsın, Öğrenciler sessizce otururlar, Ben dışarı çıkmak için hazırlanırım).\nC seçeneğinde ise se zamiri yoktur. Eylemi yapan "anne" (la madre), eylemden etkilenen ise "kızının saçı"dır (el pelo de su hija). Dolayısıyla eylem dönüşlü değildir.'}
+];
+
+var state={cur:0,answered:[],scores:[],okCount:0,errCount:0};
+
+function startQuiz(){
+  var n=document.getElementById('introName').value;
+  if(!n){alert('Lütfen adınızı seçin.');return;}
+  document.getElementById('resName').value=n;
+  document.getElementById('resName2').value=n;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+function syncResName(){
+  document.getElementById('resName').value=document.getElementById('resName2').value;
+}
+function esc(s){
+  if(!s)return'';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+function renderQ(){
+  var i=state.cur;var q=Q[i];
+  var L=['A','B','C','D'];
+  var html='';
+  html+='<span class="q-badge">ÇOKTAN SEÇMELİ</span>';
+  html+='<div class="q-text">'+esc(q.q)+'</div>';
+  html+='<div class="opts">';
+  for(var j=0;j<q.o.length;j++){
+    var cls='opt-btn';var dis='';
+    if(state.answered[i]!==undefined){
+      dis='disabled';
+      if(j===q.a)cls+=' correct';
+      else if(j===state.answered[i]&&state.answered[i]!==q.a)cls+=' wrong';
+    }
+    html+='<button class="'+cls+'" '+dis+' onclick="checkAns('+j+')"><strong>'+L[j]+')</strong> '+esc(q.o[j])+'</button>';
+  }
+  html+='</div>';
+  var expHtml='';
+  if(state.answered[i]!==undefined){
+    if(state.scores[i]===0){
+      expHtml='<strong style="color:#2e9e6b;font-size:.88rem;">Doğru cevap: '+L[q.a]+') '+esc(q.o[q.a])+'</strong><br><br>';
+    }
+    expHtml+=esc(q.exp);
+  }
+  html+='<div class="exp-box'+(state.answered[i]!==undefined?' show':'')+'" id="expBox">'+expHtml+'</div>';
+  document.getElementById('qCard').innerHTML=html;
+  var done=state.answered[i]!==undefined;
+  document.getElementById('btnBack').disabled=(i===0||!done);
+  document.getElementById('btnNext').disabled=(!done||i===Q.length-1);
+  document.getElementById('btnSkip').disabled=(!done||i>=Q.length-1);
+  document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
+  document.getElementById('cntOk').textContent=state.okCount+' Doğru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanlış';
+}
+function checkAns(j){
+  var i=state.cur;
+  if(state.answered[i]!==undefined)return;
+  state.answered[i]=j;
+  if(j===Q[i].a){state.okCount++;state.scores[i]=2;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function goBack(){if(state.cur>0){state.cur--;renderQ();}}
+function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function confirmFinish(){
+  var answered=0;for(var i=0;i<Q.length;i++){if(state.answered[i]!==undefined)answered++;}
+  var unanswered=Q.length-answered;
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevapsız kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istediğinize emin misiniz?';
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+function doFinish(){closeConfirm();showResult();}
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  var total=0;for(var i=0;i<Q.length;i++)total+=(state.scores[i]||0);
+  document.getElementById('resScore').textContent=total;
+  document.getElementById('resOk').textContent=state.okCount+' Doğru';
+  document.getElementById('resErr').textContent=state.errCount+' Yanlış';
+  document.getElementById('resNote').textContent='50 sorudan '+state.okCount+' tanesi doğru (her soru 2 puan)';
+  var L=['A','B','C','D'];var html2='';
+  for(var i=0;i<Q.length;i++){
+    var ans=state.answered[i];
+    if(ans===undefined||ans===Q[i].a)continue;
+    html2+='<div class="rev-item">';
+    html2+='<div class="rev-q">'+esc(Q[i].q)+'</div>';
+    html2+='<div class="rev-chosen">Verdiğiniz cevap: '+L[ans]+') '+esc(Q[i].o[ans])+'</div>';
+    html2+='<div class="rev-correct">Doğru cevap: '+L[Q[i].a]+') '+esc(Q[i].o[Q[i].a])+'</div>';
+    html2+='<div class="rev-exp">'+esc(Q[i].exp)+'</div>';
+    html2+='</div>';
+  }
+  document.getElementById('reviewList').innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanlış soru bulunamadı.</div>';
+}
+function toggleReview(){
+  var rv=document.getElementById('reviewList');
+  rv.style.display=(rv.style.display==='flex'?'none':'flex');
+}
+function submitResult(){
+  var name=document.getElementById('resName').value;
+  if(!name){alert('Lütfen adınızı seçin.');return;}
+  var total=0;for(var i=0;i<Q.length;i++)total+=(state.scores[i]||0);
+  var grup=GROUPS[name]||'A1.1';
+  var payload=JSON.stringify({ogrenci:name,odev:ODEV_ADI,grup:grup,puan:total,dogru:state.okCount,yanlis:state.errCount,tarih:new Date().toLocaleDateString('tr-TR')});
+  var msgEl=document.getElementById('submitMsg');
+  document.getElementById('submitWarning').style.display='none';
+  msgEl.style.display='block';
+  msgEl.style.background='#fff3cd';msgEl.style.color='#856404';msgEl.style.border='1px solid #ffc107';
+  msgEl.textContent='Gönderiliyor... (Grup: '+grup+')';
+  document.getElementById('btnSubmit').disabled=true;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(payload)})
+  .then(function(){
+    msgEl.style.background='#e6f9f0';msgEl.style.color='#1a5c3a';msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' öğrencisinin "'+ODEV_ADI+'" ödevi teslim edildi. Puan: '+total+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';msgEl.style.color='#8b1a1a';msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message;
+    document.getElementById('btnSubmit').disabled=false;
+  });
+}
+</script>
+</body>
+</html>
