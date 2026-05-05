@@ -328,13 +328,13 @@ body {
       <div class="grammar-note-banner">
         <div class="grammar-note-icon">📖</div>
         <div class="grammar-note-content">
-          <div class="grammar-note-title">📌 Ders Notu</div>
+          <div class="grammar-note-title">📌 Ders Notu — 61-100. Sorular İçin</div>
           <div class="grammar-note-body">
             <strong style="color:#fff;">İSPANYOLCADA SAATLER: DETAYLI GRAMATİK ANALİZ</strong><br>
-            61-100. arası saat sorularını çözmeden önce bu notu mutlaka okuyunuz. İhtiyaç duyduğunuzda her bölümde tekrar açabilirsiniz.
+            61-100. arası sorularda <em>La Hora</em> (Saatler) konusuna ihtiyacınız olacak. Ödeve başlamadan önce bu notu okumanızı tavsiye ederiz. Her saat bölümünde de not butonu tekrar görünecektir.
           </div>
           <a class="grammar-note-btn" href="https://docs.google.com/document/d/1F362laF2wnxqqRMVIpgTNHTKJ7bi_1aDQMJAAgY4gUo/edit?usp=sharing" target="_blank">
-            📄 Notu Aç (Google Docs)
+            📄 Gramer Notunu Aç (Google Docs)
           </a>
         </div>
       </div>
@@ -390,11 +390,10 @@ body {
     <div class="progress-label" id="horaProgressLabel">Bölüm 1 / 4</div>
   </div>
 
-  <!-- Video uyarısı -->
-  <div class="video-banner" style="margin-top:14px;">
-    <div class="video-banner-title">&#127909; Dikkat! Video İzleme Zorunluluğu</div>
-    <div class="video-banner-body">61-100. arası soruları cevaplandırmadan önce <strong>"İSPANYOLCADA SAATLERİ SÖYLEME"</strong> isimli YouTube videosunu izleyiniz.</div>
-    <a class="video-link-btn" href="https://youtu.be/P8pjtbn2bLo" target="_blank">&#9654; YouTube'da İzle</a>
+  <!-- Gramer notu uyarısı (kompakt, kalıcı) -->
+  <div style="margin:12px 16px 0;max-width:568px;align-self:center;width:calc(100% - 32px);" class="grammar-note-compact" id="horaTopNote">
+    <span class="grammar-note-compact-text">📌 61-100. arası sorular için gramer notuna bakınız</span>
+    <a class="grammar-note-compact-btn" href="https://docs.google.com/document/d/1F362laF2wnxqqRMVIpgTNHTKJ7bi_1aDQMJAAgY4gUo/edit?usp=sharing" target="_blank">📄 Notu Aç</a>
   </div>
 
   <div id="horaPanel" style="padding-bottom:20px;"></div>
@@ -913,8 +912,8 @@ function renderHoraSection(){
 
   var compactNote=
     '<div class="grammar-note-compact">'+
-      '<span style="font-size:20px">📖</span>'+
-      '<span class="grammar-note-compact-text">İspanyolcada Saatler — Gramer Notunu açın</span>'+
+      '<span style="font-size:18px;flex-shrink:0;">📌</span>'+
+      '<span class="grammar-note-compact-text"><strong style="color:#bfdbfe">İSPANYOLCADA SAATLER: DETAYLI GRAMATİK ANALİZ</strong><br>Soruları çözerken bu nota başvurabilirsiniz.</span>'+
       '<a class="grammar-note-compact-btn" href="https://docs.google.com/document/d/1F362laF2wnxqqRMVIpgTNHTKJ7bi_1aDQMJAAgY4gUo/edit?usp=sharing" target="_blank">'+
         '📄 Notu Aç'+
       '</a>'+
