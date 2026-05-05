@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1.1 7. Hafta Ödevi | 27-28. Ders</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap');
+:root {
+  --primary: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-dark: #5b21b6;
+  --primary-bg: #f5f3ff;
+  --accent: #c4b5fd;
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --error: #dc2626;
+  --error-bg: #fee2e2;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --text: #1e1b4b;
+  --text-muted: #64748b;
+  --border: #ddd6fe;
+  --white: #ffffff;
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(124,58,237,0.10);
+  --shadow-lg: 0 8px 40px rgba(124,58,237,0.18);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #ddd6fe 100%);
+  min-height: 100vh;
+  color: var(--text);
+}
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* COVER */
+#cover { align-items: center; justify-content: flex-start; padding: 28px 16px 36px; }
+.cover-inner { width: 100%; max-width: 540px; margin: 0 auto; }
+.pill-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff; font-family: 'Nunito',sans-serif; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.10em; padding: 6px 20px; border-radius: 999px; margin-bottom: 18px; text-transform: uppercase;
+}
+.cover-card {
+  background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  padding: 34px 30px 28px; border: 2px solid var(--border);
+}
+.cover-title {
+  font-family: 'Nunito',sans-serif; font-size: 26px; font-weight: 900;
+  color: var(--primary-dark); margin-bottom: 6px; letter-spacing: -0.02em;
+}
+.cover-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; font-weight: 600; }
+.teacher-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--primary-bg); border: 1.5px solid var(--accent); border-radius: 999px;
+  padding: 5px 16px; font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 22px;
+}
+.topic-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.topic-chip {
+  background: var(--primary-bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 8px 14px; font-size: 12px; color: var(--primary-dark); font-weight: 700; flex: 1; min-width: 130px;
+}
+.topic-chip span { display: block; font-size: 16px; font-weight: 900; color: var(--primary); margin-bottom: 2px; }
+.notice-bar {
+  background: var(--warning-bg); border: 1.5px solid #fcd34d; border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 12px; color: #92400e; line-height: 1.55; margin-bottom: 20px;
+}
+.student-list-label {
+  font-family: 'Nunito',sans-serif; font-size: 12px; font-weight: 800;
+  color: var(--primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.student-select {
+  width: 100%; padding: 13px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 15px; color: var(--text); background: var(--white); outline: none;
+  margin-bottom: 22px; cursor: pointer; font-family: 'Nunito Sans',sans-serif; font-weight: 600;
+}
+.student-select:focus { border-color: var(--primary); }
+.start-btn {
+  width: 100%; padding: 16px;
+  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-family: 'Nunito',sans-serif; font-size: 16px; font-weight: 800;
+  cursor: pointer; letter-spacing: 0.04em; transition: opacity 0.15s;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+}
+.start-btn:disabled { opacity: 0.42; cursor: not-allowed; }
+
+/* QUIZ */
+#quiz { flex-direction: column; }
+.quiz-header {
+  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
+  padding: 14px 16px 10px; color: #fff;
+}
+.quiz-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.quiz-title-small { font-family: 'Nunito',sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.04em; opacity: 0.94; }
+.score-badges { display: flex; gap: 8px; }
+.badge { background: rgba(255,255,255,0.18); border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; }
+.badge.correct { background: rgba(22,163,74,0.32); }
+.badge.wrong { background: rgba(220,38,38,0.32); }
+.progress-bar-wrap { background: rgba(255,255,255,0.22); border-radius: 999px; height: 7px; overflow: hidden; }
+.progress-bar { height: 100%; background: #fff; border-radius: 999px; transition: width 0.35s; }
+.progress-label { font-size: 11px; opacity: 0.82; margin-top: 4px; text-align: right; font-weight: 700; }
+
+/* VIDEO BANNER */
+.video-banner {
+  margin: 12px 16px 0; max-width: 568px; align-self: center; width: calc(100% - 32px);
+  background: #1a1a2e; border-radius: var(--radius-sm); padding: 14px 16px;
+  border: 2px solid #e11d48;
+}
+.video-banner-title { font-family: 'Nunito',sans-serif; font-size: 14px; font-weight: 900; color: #ff4757; margin-bottom: 6px; }
+.video-banner-body { font-size: 13px; color: #e2e8f0; line-height: 1.5; margin-bottom: 10px; }
+.video-link-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #e11d48; color: #fff; border: none; border-radius: 8px;
+  padding: 8px 16px; font-size: 13px; font-weight: 800; cursor: pointer;
+  text-decoration: none; font-family: 'Nunito',sans-serif;
+}
+
+/* SECTION PANEL — saat soruları için 10'ar bölüm */
+.section-panel {
+  background: var(--white); border: 2px solid var(--border); border-radius: var(--radius);
+  margin: 14px 16px; max-width: 568px; align-self: center; width: calc(100% - 32px); padding: 18px;
+}
+.section-title {
+  font-family: 'Nunito',sans-serif; font-size: 16px; font-weight: 900; color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+.section-progress { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; font-weight: 600; }
+/* answer bank */
+.answer-bank {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
+  padding: 12px; background: var(--primary-bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+}
+.drag-chip {
+  background: var(--white); border: 2px solid var(--primary-light); border-radius: 8px;
+  padding: 7px 12px; font-size: 13px; font-weight: 700; color: var(--primary-dark);
+  cursor: grab; user-select: none; transition: all 0.15s; white-space: nowrap;
+}
+.drag-chip:active { cursor: grabbing; opacity: 0.7; }
+.drag-chip.used { opacity: 0.3; pointer-events: none; border-style: dashed; }
+.drag-chip.dragging { opacity: 0.5; transform: scale(1.05); box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+
+/* drop zone items */
+.dnd-item { margin-bottom: 12px; }
+.dnd-item-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.dnd-q-num { font-family: 'Nunito',sans-serif; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+.dnd-clock { font-family: 'Nunito',sans-serif; font-size: 20px; font-weight: 900; color: var(--primary-dark); }
+.dnd-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+.drop-zone {
+  border: 2px dashed var(--border); border-radius: 8px; padding: 10px 14px;
+  min-height: 44px; font-size: 14px; font-weight: 700; color: var(--text-muted);
+  transition: all 0.15s; background: var(--white);
+  display: flex; align-items: center;
+}
+.drop-zone.over { border-color: var(--primary); background: var(--primary-bg); }
+.drop-zone.filled { border-color: var(--primary); color: var(--text); background: var(--primary-bg); border-style: solid; }
+.drop-zone.correct-drop { border-color: var(--success); background: var(--success-bg); color: #14532d; border-style: solid; }
+.drop-zone.wrong-drop { border-color: var(--error); background: var(--error-bg); color: #7f1d1d; border-style: solid; }
+.section-check-btn {
+  width: 100%; padding: 14px;
+  background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+  font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 800;
+  cursor: pointer; margin-top: 8px; transition: opacity 0.15s;
+}
+.section-check-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.section-next-btn {
+  width: 100%; padding: 14px;
+  background: var(--success); color: #fff; border: none; border-radius: var(--radius-sm);
+  font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 800;
+  cursor: pointer; margin-top: 8px; display: none;
+}
+/* feedback per item */
+.dnd-feedback {
+  font-size: 12px; margin-top: 5px; line-height: 1.5; display: none;
+  background: #f5f3ff; border: 1.5px solid var(--accent); border-radius: 6px; padding: 8px 10px;
+  color: var(--primary-dark);
+}
+.dnd-feedback.show { display: block; }
+
+/* FILL QUESTION (1-60) */
+.quiz-body { flex: 1; padding: 18px 16px 8px; overflow-y: auto; max-width: 600px; margin: 0 auto; width: 100%; }
+.q-section-label {
+  display: inline-block; font-family: 'Nunito',sans-serif; font-size: 10px; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: var(--primary);
+  border-radius: 999px; padding: 3px 12px; margin-bottom: 10px;
+}
+.q-number { font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; font-family: 'Nunito',sans-serif; }
+.q-text { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 14px; line-height: 1.7; }
+.input-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.answer-input {
+  flex: 1; min-width: 200px; padding: 12px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 15px; color: var(--text); background: var(--white); outline: none;
+  transition: border-color 0.15s; font-family: 'Nunito Sans',sans-serif; font-weight: 600;
+}
+.answer-input:focus { border-color: var(--primary); }
+.answer-input.correct-input { border-color: var(--success); background: var(--success-bg); }
+.answer-input.wrong-input { border-color: var(--error); background: var(--error-bg); }
+.check-btn {
+  padding: 12px 20px; background: var(--primary); color: #fff; border: none;
+  border-radius: var(--radius-sm); font-size: 14px; font-weight: 800; cursor: pointer;
+  font-family: 'Nunito',sans-serif; transition: opacity 0.15s; white-space: nowrap;
+}
+.check-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+.feedback-box { border-radius: var(--radius-sm); padding: 13px 16px; margin-bottom: 12px; display: none; font-size: 14px; line-height: 1.65; }
+.feedback-box.correct { background: var(--success-bg); border: 1.5px solid #86efac; color: #14532d; }
+.feedback-box.wrong { background: var(--error-bg); border: 1.5px solid #fca5a5; color: #7f1d1d; }
+.feedback-label { font-family: 'Nunito',sans-serif; font-weight: 900; margin-bottom: 5px; font-size: 15px; }
+.explanation-box {
+  background: #f5f3ff; border: 1.5px solid var(--accent); border-radius: var(--radius-sm);
+  padding: 12px 14px; margin-top: 8px; font-size: 13px; color: var(--primary-dark); line-height: 1.7;
+}
+.explanation-label { font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--primary); margin-bottom: 5px; }
+
+/* NAV */
+.nav-row { display: flex; gap: 8px; padding: 14px 16px 24px; max-width: 600px; margin: 0 auto; width: 100%; flex-wrap: wrap; }
+.nav-btn {
+  flex: 1; min-width: 60px; padding: 13px 8px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--white); font-family: 'Nunito',sans-serif; font-size: 14px; font-weight: 700;
+  color: var(--primary-dark); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.nav-btn:disabled { opacity: 0.32; cursor: not-allowed; }
+.nav-btn.next-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
+.nav-btn.finish-btn { background: var(--success); color: #fff; border-color: var(--success); }
+.nav-btn.end-btn { background: #7f1d1d; color: #fff; border-color: #7f1d1d; flex: 2; }
+
+/* RESULT */
+#result { align-items: stretch; }
+.result-inner { max-width: 620px; margin: 0 auto; width: 100%; padding: 24px 16px 44px; }
+.result-header-banner {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff; border-radius: var(--radius); padding: 26px 24px 22px; margin-bottom: 20px; text-align: center;
+}
+.result-title { font-family: 'Nunito',sans-serif; font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+.result-student-name { font-size: 15px; opacity: 0.88; margin-bottom: 14px; font-weight: 700; }
+.result-score-big { font-family: 'Nunito',sans-serif; font-size: 56px; font-weight: 900; line-height: 1; }
+.result-score-sub { font-size: 13px; opacity: 0.80; margin-top: 5px; }
+.result-stats { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.stat-card { flex: 1; min-width: 70px; background: var(--white); border-radius: var(--radius-sm); padding: 14px 8px; text-align: center; border: 2px solid var(--border); box-shadow: var(--shadow); }
+.stat-num { font-family: 'Nunito',sans-serif; font-size: 24px; font-weight: 900; color: var(--primary-dark); }
+.stat-num.green { color: var(--success); }
+.stat-num.red { color: var(--error); }
+.stat-label { font-size: 10px; color: var(--text-muted); margin-top: 3px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.submit-warning {
+  background: #fef9c3; border: 2px solid #facc15; border-radius: var(--radius-sm);
+  padding: 16px; text-align: center; font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 800; color: #78350f; margin-bottom: 16px;
+}
+.submit-btn-big {
+  width: 100%; padding: 18px;
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-family: 'Nunito',sans-serif; font-size: 18px; font-weight: 900;
+  cursor: pointer; margin-bottom: 18px; box-shadow: 0 4px 20px rgba(22,163,74,0.3);
+}
+.submit-btn-big:disabled { opacity: 0.5; cursor: not-allowed; }
+.submitted-msg {
+  display: none; background: var(--success-bg); border: 1.5px solid #86efac; border-radius: var(--radius-sm);
+  padding: 16px; text-align: center; font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 800; color: #14532d; margin-bottom: 18px;
+}
+.review-section { margin-top: 20px; }
+.review-section-title { font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 900; color: var(--primary-dark); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.review-item { background: var(--white); border-radius: var(--radius-sm); border: 2px solid var(--border); padding: 14px; margin-bottom: 12px; }
+.review-q-num { font-size: 11px; color: var(--primary); font-weight: 800; text-transform: uppercase; margin-bottom: 4px; font-family: 'Nunito',sans-serif; }
+.review-q-text { font-size: 14px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
+.review-your-ans { font-size: 13px; color: var(--error); margin-bottom: 4px; font-weight: 600; }
+.review-correct-ans { font-size: 13px; color: var(--success); font-weight: 800; margin-bottom: 6px; }
+.review-explanation { font-size: 12px; color: var(--primary-dark); background: var(--primary-bg); border-radius: 6px; padding: 9px 12px; line-height: 1.6; }
+.result-student-section { margin-top: 24px; }
+.result-student-label { font-family: 'Nunito',sans-serif; font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+.result-student-list { display: flex; flex-direction: column; gap: 5px; }
+.result-student-item { padding: 9px 14px; border-radius: var(--radius-sm); background: var(--primary-bg); border: 1.5px solid var(--border); font-size: 14px; color: var(--primary-dark); font-weight: 600; }
+.result-student-item.active-student { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 800; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div id="cover" class="screen active">
+  <div class="cover-inner">
+    <div class="pill-badge">7. Hafta Ödevi | A1.1 — 27-28. Ders</div>
+    <div class="cover-card">
+      <div class="cover-title">SAHİPLİK SIFATLARI + SAATLER</div>
+      <div class="cover-sub">100 soru &middot; Boşluk Doldurma + Sürükle-Bırak</div>
+      <div class="teacher-tag">&#127981; @ispanyolcacim &bull; Profe Hazel</div>
+      <div class="topic-chips">
+        <div class="topic-chip"><span>1-30</span>Posesivos Átonos</div>
+        <div class="topic-chip"><span>31-60</span>Posesivos Tónicos</div>
+        <div class="topic-chip"><span>61-100</span>La Hora — Sürükle-Bırak</div>
+      </div>
+      <div class="notice-bar">&#9888;&#65039; Sekmeyi kapatmadan ara verirseniz kaldığınız yerden devam edebilirsiniz. Cihazınızı kapatmayın.</div>
+      <div class="student-list-label">Adınızı seçin</div>
+      <select class="student-select" id="studentSelect" onchange="onSelectChange()">
+        <option value="">-- Adınızı seçin --</option>
+      </select>
+      <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">Ödeve Başla &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ (soru 1-60 boşluk doldurma) -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-header-top">
+      <div class="quiz-title-small">SAHİPLİK SIFATLARI — A1.1 7. Hafta</div>
+      <div class="score-badges">
+        <div class="badge correct" id="correctBadge">D: 0</div>
+        <div class="badge wrong" id="wrongBadge">Y: 0</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">1 / 60</div>
+  </div>
+  <div class="notice-bar" style="margin:10px 16px 0;max-width:568px;align-self:center;width:calc(100% - 32px);">&#9888;&#65039; Sekmeyi kapatmadan ara verirseniz kaldığınız yerden devam edebilirsiniz.</div>
+  <div class="quiz-body" id="quizBody"></div>
+  <div class="nav-row">
+    <button class="nav-btn" id="prevBtn" disabled onclick="goPrev()">&#8592; Geri</button>
+    <button class="nav-btn" id="skipBtn" disabled onclick="goSkip()">Atla</button>
+    <button class="nav-btn next-btn" id="nextBtn" disabled onclick="goNext()">İleri &#8594;</button>
+    <button class="nav-btn finish-btn" id="finishBtn" style="display:none" onclick="goToHora()">Saatler Bölümüne Geç &#8594;</button>
+    <button class="nav-btn end-btn" onclick="confirmEnd()">Testi Bitir</button>
+  </div>
+</div>
+
+<!-- HORA SCREEN (soru 61-100 drag-drop) -->
+<div id="hora" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-header-top">
+      <div class="quiz-title-small">LA HORA — A1.1 7. Hafta</div>
+      <div class="score-badges">
+        <div class="badge correct" id="horaCorrectBadge">D: 0</div>
+        <div class="badge wrong" id="horaWrongBadge">Y: 0</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="horaProgressBar" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="horaProgressLabel">Bölüm 1 / 4</div>
+  </div>
+
+  <!-- Video uyarısı -->
+  <div class="video-banner" style="margin-top:14px;">
+    <div class="video-banner-title">&#127909; Dikkat! Video İzleme Zorunluluğu</div>
+    <div class="video-banner-body">61-100. arası soruları cevaplandırmadan önce <strong>"İSPANYOLCADA SAATLERİ SÖYLEME"</strong> isimli YouTube videosunu izleyiniz.</div>
+    <a class="video-link-btn" href="https://youtu.be/P8pjtbn2bLo" target="_blank">&#9654; YouTube'da İzle</a>
+  </div>
+
+  <div id="horaPanel" style="padding-bottom:20px;"></div>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="screen">
+  <div class="result-inner">
+    <div class="result-header-banner">
+      <div class="result-title">SAHİPLİK SIFATLARI + SAATLER</div>
+      <div class="result-student-name" id="resultStudentName"></div>
+      <div class="result-score-big" id="resultScore">0</div>
+      <div class="result-score-sub" id="resultScoreSub"></div>
+    </div>
+    <div class="result-stats">
+      <div class="stat-card"><div class="stat-num green" id="statCorrect">0</div><div class="stat-label">Doğru</div></div>
+      <div class="stat-card"><div class="stat-num red" id="statWrong">0</div><div class="stat-label">Yanlış</div></div>
+      <div class="stat-card"><div class="stat-num" id="statTotal">100</div><div class="stat-label">Toplam</div></div>
+    </div>
+    <div class="submit-warning" id="submitWarning">ÖDEVİNİZ HENÜZ TESLİM EDİLMEDİ!</div>
+    <button class="submit-btn-big" id="submitBtn" onclick="submitHomework()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <div class="submitted-msg" id="submittedMsg"></div>
+    <div class="review-section">
+      <div class="review-section-title">Yanlış Cevaplanan Sorular</div>
+      <div id="reviewList"></div>
+    </div>
+    <div class="result-student-section">
+      <div class="result-student-label">Sınıf Listesi</div>
+      <div class="result-student-list" id="resultStudentList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// ÖĞRENCİ VERİSİ
+// ============================================================
+var STUDENTS_BY_GROUP = {
+  "A1.1": [
+    "Harun \u00d6zmen","Yasemin Kurtulu\u015f Tun\u00e7","Zeynep Hediye \u00d6zay","G\u00fclce Eyibilir",
+    "Serra Sancakl\u0131 I\u015f\u0131k","B\u00fc\u015fra Yurt","Elif \u00c7etin","Mehtap Keklik",
+    "Elif Ata\u00e7","Do\u011fa De\u011firmenci","Zehra R\u00fcmeysa \u00c7olak","Zeynep Su Ali\u015fan",
+    "Eray Say\u0131l\u0131k","Birce S\u00fczen","Seher Akbulat"
+  ],
+  "A1.1(2)": [
+    "\u015eeyma Dereci","Zeynep S\u00f6ylemez","Ecem Sukas","Burakhan Kayd\u0131",
+    "\u015eenay Sezgin","Zeynep \u00d6zta\u015fk\u0131n","Sonay \u00c7etinkaya","Ezgican Tek\u00e7orap",
+    "Merve Sa\u011flam","Meryem \u00d6zbek","Elif Bozkurt","Meltem \u00c7ift\u00e7i",
+    "Hilal Dilsiz","R\u00fcmeysa Yatg\u0131n","Eyl\u00fcl \u015eerbet\u00e7i"
+  ],
+  "A1.1(3)": [
+    "Sedat Zincirk\u0131ran","\u0130ncilay Dikb\u0131y\u0131k","Ruh\u015fen \u00c7avu\u015fo\u011flu","Murat Erdem",
+    "Ceren Erdo\u011fan","Erdin\u00e7 Tigin Bilen","Seher Er\u00e7in","B\u00fc\u015fra \u00c7am",
+    "G\u00f6rkem Dursun","Sibel Atmaca","Onur Atl\u0131","Elif Atl\u0131",
+    "Emel Kanburoğlu","Murat \u015eahin","Buse Cagmel"
+  ]
+};
+var STUDENT_GROUP_MAP = {};
+Object.keys(STUDENTS_BY_GROUP).forEach(function(g){
+  STUDENTS_BY_GROUP[g].forEach(function(n){ STUDENT_GROUP_MAP[n]=g; });
+});
+var SCRIPT_URLS = {
+  "A1.1":    "BURAYA_A1_1_SCRIPT_URL",
+  "A1.1(2)": "BURAYA_A1_1_2_SCRIPT_URL",
+  "A1.1(3)": "BURAYA_A1_1_3_SCRIPT_URL"
+};
+
+// ============================================================
+// SORULAR 1-60 (Boşluk Doldurma)
+// ============================================================
+var FILL_QUESTIONS = [
+// 1-30 Posesivos Átonos
+{n:1,text:"_____ casa es muy limpia. Siempre limpiamos la casa.",answer:"Nuestra",
+explanation:"Bir sonraki c\u00fcmlede \"limpiamos\" fiili kullan\u0131lm\u0131\u015ft\u0131r. Bu fiil nosotros/nosotras \u00f6znesine aittir. Yani \"biz temizliyoruz\" anlam\u0131 vard\u0131r. Bu y\u00fczden sahiplik \"bizim\" olmal\u0131d\u0131r.\nCasa kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestra olur.\nC\u00fcmlenin anlam\u0131: Bizim evimiz \u00e7ok temiz. Evi her zaman temizleriz."},
+{n:2,text:"_____ libro est\u00e1 en la mesa. Yo estudio con este libro todos los d\u00edas.",answer:"Mi",
+explanation:"\u0130kinci c\u00fcmlede \"yo estudio\" ifadesi vard\u0131r. Yani konu\u015fan ki\u015fi \"ben\"dir. Bu y\u00fczden sahiplik mi olmal\u0131d\u0131r.\nLibro kelimesi masculino singular oldu\u011fu i\u00e7in mi kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Benim kitab\u0131m masan\u0131n \u00fcst\u00fcnde. Ben bu kitapla her g\u00fcn \u00e7al\u0131\u015f\u0131yorum."},
+{n:3,text:"_____ amigos son muy simp\u00e1ticos. T\u00fa hablas con ellos en clase.",answer:"Tus",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa hablas\" ifadesi vard\u0131r. Yani sahip olan ki\u015fi t\u00fadur. Bu y\u00fczden \"senin\" anlam\u0131nda tu/tus kullan\u0131l\u0131r.\nAmigos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap tus olur.\nC\u00fcmlenin anlam\u0131: Senin arkada\u015flar\u0131n \u00e7ok sempatik. Sen onlarla s\u0131n\u0131fta konu\u015fuyorsun."},
+{n:4,text:"_____ madre trabaja en una escuela. Ella es profesora.",answer:"Su",
+explanation:"\u0130kinci c\u00fcmlede \"ella es profesora\" deniyor. Buradan bahsedilen ki\u015finin annesi oldu\u011fu anla\u015f\u0131l\u0131r. Sahip olan ki\u015fi \u00e9l/ella/usted olabilir. Bu y\u00fczden su kullan\u0131l\u0131r.\nMadre kelimesi femenino singular oldu\u011fu i\u00e7in su kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Onun annesi bir okulda \u00e7al\u0131\u015f\u0131yor. O \u00f6\u011fretmen."},
+{n:5,text:"_____ hermanos viven en Madrid. Nosotros los visitamos en verano.",answer:"Nuestros",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros los visitamos\" ifadesi vard\u0131r. Yani karde\u015fleri ziyaret eden ki\u015filer \"biz\"dir. Burada sahiplik de \"bizim\" olarak verilir.\nHermanos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap nuestros olur.\nC\u00fcmlenin anlam\u0131: Bizim erkek karde\u015flerimiz Madrid'de ya\u015f\u0131yor. Biz onlar\u0131 yaz\u0131n ziyaret ediyoruz."},
+{n:6,text:"_____ mochila es roja. T\u00fa llevas la mochila todos los d\u00edas.",answer:"Tu",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa llevas\" ifadesi vard\u0131r. Yani sahip olan ki\u015fi t\u00fadur. Bu y\u00fczden \"senin\" anlam\u0131nda tu kullan\u0131l\u0131r.\nMochila kelimesi femenino singular oldu\u011fu i\u00e7in tu kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Senin s\u0131rt \u00e7antan k\u0131rm\u0131z\u0131. Sen \u00e7antay\u0131 her g\u00fcn ta\u015f\u0131yorsun."},
+{n:7,text:"_____ profesor es muy amable. Usted escucha al profesor con atenci\u00f3n.",answer:"Su",
+explanation:"\u0130kinci c\u00fcmlede \"usted escucha\" ifadesi vard\u0131r. Usted i\u00e7in sahiplik s\u0131fat\u0131 su/sus olur.\nProfesor kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap su olur.\nC\u00fcmlenin anlam\u0131: Sizin \u00f6\u011fretmeniniz \u00e7ok nazik. Siz \u00f6\u011fretmeni dikkatle dinliyorsunuz."},
+{n:8,text:"_____ amigas estudian espa\u00f1ol. Ellas tienen clase los lunes.",answer:"Sus",
+explanation:"\u0130kinci c\u00fcmlede \"ellas tienen\" ifadesi vard\u0131r. Bu y\u00fczden sahip olan ki\u015filer ellast\u0131r. Ellos/ellas i\u00e7in sahiplik su/sus olur.\nAmigas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap sus olur.\nC\u00fcmlenin anlam\u0131: Onlar\u0131n k\u0131z arkada\u015flar\u0131 \u0130spanyolca \u00e7al\u0131\u015f\u0131yor. Onlar\u0131n pazartesi g\u00fcnleri dersi var."},
+{n:9,text:"_____ coche es blanco. \u00c9l conduce el coche por la ma\u00f1ana.",answer:"Su",
+explanation:"\u0130kinci c\u00fcmlede \"\u00e9l conduce\" ifadesi vard\u0131r. Yani araba ona aittir. \u00c9l i\u00e7in sahiplik s\u0131fat\u0131 su/sus olur.\nCoche kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap su olur.\nC\u00fcmlenin anlam\u0131: Onun arabas\u0131 beyaz. O arabay\u0131 sabah kullan\u0131r."},
+{n:10,text:"_____ cuadernos est\u00e1n en la mochila. Yo escribo en ellos.",answer:"Mis",
+explanation:"\u0130kinci c\u00fcmlede \"yo escribo\" ifadesi vard\u0131r. Yani defterler bana aittir. Yo i\u00e7in sahiplik mi/mis olur.\nCuadernos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap mis olur.\nC\u00fcmlenin anlam\u0131: Benim defterlerim s\u0131rt \u00e7antas\u0131nda. Ben onlar\u0131n i\u00e7ine yaz\u0131yorum."},
+{n:11,text:"_____ hermana vive en Valencia. Nosotros hablamos con ella todos los d\u00edas.",answer:"Nuestra",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros hablamos\" ifadesi vard\u0131r. Yani \"biz konu\u015fuyoruz\" anlam\u0131 vard\u0131r. Bu y\u00fczden sahiplik nuestro/nuestra grubundan gelmelidir.\nHermana kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestra olur.\nC\u00fcmlenin anlam\u0131: Bizim k\u0131z karde\u015fimiz Valencia'da ya\u015f\u0131yor. Biz onunla her g\u00fcn konu\u015fuyoruz."},
+{n:12,text:"_____ l\u00e1pices son azules. Vosotros us\u00e1is estos l\u00e1pices en clase.",answer:"Vuestros",
+explanation:"\u0130kinci c\u00fcmlede \"vosotros us\u00e1is\" ifadesi vard\u0131r. Bu y\u00fczden sahip olan ki\u015filer vosotrostur.\nL\u00e1pices kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap vuestros olur.\nC\u00fcmlenin anlam\u0131: Sizin kalemleriniz mavi. Siz bu kalemleri derste kullan\u0131yorsunuz."},
+{n:13,text:"_____ habitaci\u00f3n es peque\u00f1a. Yo duermo en esta habitaci\u00f3n.",answer:"Mi",
+explanation:"\u0130kinci c\u00fcmlede \"yo duermo\" ifadesi vard\u0131r. Yani odada uyuyan ki\u015fi \"ben\"dir. Bu y\u00fczden sahiplik mi olmal\u0131d\u0131r.\nHabitaci\u00f3n kelimesi femenino singular oldu\u011fu i\u00e7in mi kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Benim odam k\u00fc\u00e7\u00fck. Ben bu odada uyuyorum."},
+{n:14,text:"_____ padres viven cerca de aqu\u00ed. T\u00fa cenas con ellos los domingos.",answer:"Tus",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa cenas\" ifadesi vard\u0131r. Yani sahip olan ki\u015fi t\u00fadur.\nPadres kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap tus olur.\nC\u00fcmlenin anlam\u0131: Senin anne baban buraya yak\u0131n ya\u015f\u0131yor. Sen pazar g\u00fcnleri onlarla ak\u015fam yeme\u011fi yiyorsun."},
+{n:15,text:"_____ ordenador es nuevo. Usted trabaja con este ordenador.",answer:"Su",
+explanation:"\u0130kinci c\u00fcmlede \"usted trabaja\" ifadesi vard\u0131r. Usted i\u00e7in sahiplik s\u0131fat\u0131 su/sus olur.\nOrdenador kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap su olur.\nC\u00fcmlenin anlam\u0131: Sizin bilgisayar\u0131n\u0131z yeni. Siz bu bilgisayarla \u00e7al\u0131\u015f\u0131yorsunuz."},
+{n:16,text:"_____ ventanas son grandes. Nuestra casa tiene mucha luz.",answer:"Nuestras",
+explanation:"\u0130kinci c\u00fcmlede \"nuestra casa\" ifadesi vard\u0131r. Yani ev \"bizim evimiz\"dir. Bu evin pencerelerinden bahsediliyor. Bu y\u00fczden sahiplik nosotros/nosotras olur.\nVentanas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap nuestras olur.\nC\u00fcmlenin anlam\u0131: Bizim pencerelerimiz b\u00fcy\u00fck. Bizim evimiz \u00e7ok \u0131\u015f\u0131k al\u0131yor."},
+{n:17,text:"_____ abuela cocina muy bien. Ella prepara comida para sus nietos.",answer:"Su",
+explanation:"\u0130kinci c\u00fcmlede \"ella prepara\" ifadesi vard\u0131r. Burada bahsedilen b\u00fcy\u00fckanne bir ki\u015fiye aittir. \u00c9l/ella/usted i\u00e7in sahiplik su/sus olur.\nAbuela kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap su olur.\nC\u00fcmlenin anlam\u0131: Onun b\u00fcy\u00fckkannesi \u00e7ok iyi yemek yapar. O, torunlar\u0131 i\u00e7in yemek haz\u0131rlar."},
+{n:18,text:"_____ zapatos son negros. Yo llevo estos zapatos al trabajo.",answer:"Mis",
+explanation:"\u0130kinci c\u00fcmlede \"yo llevo\" ifadesi vard\u0131r. Yani ayakkab\u0131lar bana aittir. Yo i\u00e7in sahiplik mi/mis olur.\nZapatos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap mis olur.\nC\u00fcmlenin anlam\u0131: Benim ayakkab\u0131lar\u0131m siyah. Ben bu ayakkab\u0131lar\u0131 i\u015fe giyiyorum."},
+{n:19,text:"_____ casa est\u00e1 cerca del parque. Vosotras viv\u00eds all\u00ed.",answer:"Vuestra",
+explanation:"\u0130kinci c\u00fcmlede \"vosotras viv\u00eds\" ifadesi vard\u0131r. Bu y\u00fczden sahip olan ki\u015filer vosotrastir.\nCasa kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap vuestra olur.\nC\u00fcmlenin anlam\u0131: Sizin eviniz park\u0131n yak\u0131n\u0131nda. Siz orada ya\u015f\u0131yorsunuz."},
+{n:20,text:"_____ perro es muy tranquilo. T\u00fa paseas con el perro por la tarde.",answer:"Tu",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa paseas\" ifadesi vard\u0131r. Yani k\u00f6pekle gezen ki\u015fi sensin. Bu y\u00fczden sahiplik tu olmal\u0131d\u0131r.\nPerro kelimesi masculino singular oldu\u011fu i\u00e7in tu kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Senin k\u00f6pe\u011fin \u00e7ok sakin. Sen k\u00f6pekle \u00f6\u011fleden sonra y\u00fcr\u00fcy\u00fc\u015f yapars\u0131n."},
+{n:21,text:"_____ hijas estudian mucho. Ellos hablan de sus hijas con orgullo.",answer:"Sus",
+explanation:"\u0130kinci c\u00fcmlede \"ellos hablan de sus hijas\" ifadesi vard\u0131r. Sahip olan ki\u015filer ellostur. Ellos/ellas i\u00e7in sahiplik su/sus olur.\nHijas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap sus olur.\nC\u00fcmlenin anlam\u0131: Onlar\u0131n k\u0131zlar\u0131 \u00e7ok \u00e7al\u0131\u015f\u0131yor. Onlar k\u0131zlar\u0131ndan gururla bahsediyorlar."},
+{n:22,text:"_____ clase empieza a las nueve. Nosotros llegamos temprano a clase.",answer:"Nuestra",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros llegamos\" ifadesi vard\u0131r. Bu y\u00fczden sahiplik nosotros/nosotras olmal\u0131d\u0131r.\nClase kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestra olur.\nC\u00fcmlenin anlam\u0131: Bizim dersimiz saat dokuzda ba\u015fl\u0131yor. Biz derse erken geliyoruz."},
+{n:23,text:"_____ mesas est\u00e1n limpias. Vosotros estudi\u00e1is en estas mesas.",answer:"Vuestras",
+explanation:"\u0130kinci c\u00fcmlede \"vosotros estudi\u00e1is\" ifadesi vard\u0131r. Yani masalar\u0131 kullanan ki\u015filer vosotrostur. Bu y\u00fczden sahiplik vuestro/vuestra grubundan gelir.\nMesas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap vuestras olur.\nC\u00fcmlenin anlam\u0131: Sizin masalar\u0131n\u0131z temiz. Siz bu masalarda \u00e7al\u0131\u015f\u0131yorsunuz."},
+{n:24,text:"_____ tel\u00e9fono est\u00e1 en la cocina. Ella busca el tel\u00e9fono.",answer:"Su",
+explanation:"\u0130kinci c\u00fcmlede \"ella busca\" ifadesi vard\u0131r. Yani telefonu arayan ki\u015fi elladır. Ella i\u00e7in sahiplik su/sus olur.\nTel\u00e9fono kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap su olur.\nC\u00fcmlenin anlam\u0131: Onun telefonu mutfakta. O telefonu ar\u0131yor."},
+{n:25,text:"_____ vestidos son elegantes. Vosotras llev\u00e1is estos vestidos a la fiesta.",answer:"Vuestros",
+explanation:"\u0130kinci c\u00fcmlede \"vosotras llev\u00e1is\" ifadesi vard\u0131r. Bu y\u00fczden sahip olan ki\u015filer vosotrastir.\nBurada dikkat edilmesi gereken kelime vestidostur. Vestido \u0130spanyolcada \"elbise\" anlam\u0131na gelir ama kelime masculinodur. Ayr\u0131ca burada plural kullan\u0131lm\u0131\u015ft\u0131r. Bu y\u00fczden do\u011fru cevap vuestros olur.\nC\u00fcmlenin anlam\u0131: Sizin elbiseleriniz \u015fik. Siz bu elbiseleri partiye giyiyorsunuz."},
+{n:26,text:"_____ gato duerme en el sof\u00e1. Yo juego con el gato por la noche.",answer:"Mi",
+explanation:"\u0130kinci c\u00fcmlede \"yo juego\" ifadesi vard\u0131r. Yani kedi bana aittir. Yo i\u00e7in sahiplik mi/mis olur.\nGato kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap mi olur.\nC\u00fcmlenin anlam\u0131: Benim kedim kanepede uyuyor. Ben gece kediyle oynuyorum."},
+{n:27,text:"_____ tareas son f\u00e1ciles. T\u00fa haces las tareas despu\u00e9s de clase.",answer:"Tus",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa haces\" ifadesi vard\u0131r. Bu y\u00fczden sahiplik t\u00fa ki\u015fisine aittir.\nTareas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap tus olur.\nC\u00fcmlenin anlam\u0131: Senin \u00f6devlerin kolay. Sen \u00f6devleri dersten sonra yap\u0131yorsun."},
+{n:28,text:"_____ jard\u00edn es peque\u00f1o, pero bonito. Nosotros cuidamos el jard\u00edn todos los d\u00edas.",answer:"Nuestro",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros cuidamos\" ifadesi vard\u0131r. Yani bah\u00e7eye bakan ki\u015filer \"biz\"dir. Bu y\u00fczden sahiplik nuestro/nuestra olmal\u0131d\u0131r.\nJard\u00edn kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestro olur.\nC\u00fcmlenin anlam\u0131: Bizim bah\u00e7emiz k\u00fc\u00e7\u00fck ama g\u00fczel. Biz bah\u00e7eye her g\u00fcn bak\u0131yoruz."},
+{n:29,text:"_____ maletas est\u00e1n en el hotel. Ustedes viajan con estas maletas.",answer:"Sus",
+explanation:"\u0130kinci c\u00fcmlede \"ustedes viajan\" ifadesi vard\u0131r. Latin Amerika kullan\u0131m\u0131nda ustedes \"siz\" anlam\u0131ndad\u0131r ve sahiplik s\u0131fat\u0131 su/sus olur.\nMaletas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap sus olur.\nC\u00fcmlenin anlam\u0131: Sizin bavullar\u0131n\u0131z otelde. Siz bu bavullarla seyahat ediyorsunuz."},
+{n:30,text:"_____ hijos son muy peque\u00f1os. Ella cuida a sus hijos en casa.",answer:"Sus",
+explanation:"\u0130kinci c\u00fcmlede \"ella cuida\" ifadesi vard\u0131r. Yani \u00e7ocuklar\u0131n sahibi / annesi elladır. Ella i\u00e7in sahiplik su/sus olur.\nHijos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap sus olur.\nC\u00fcmlenin anlam\u0131: Onun \u00e7ocuklar\u0131 \u00e7ok k\u00fc\u00e7\u00fck. O \u00e7ocuklar\u0131na evde bak\u0131yor."},
+// 31-60 Posesivos Tónicos
+{n:31,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa casa es _____. Nosotros vivimos en esa casa.",answer:"nuestra",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros vivimos\" ifadesi vard\u0131r. Yani ev bize aittir. Bu y\u00fczden nuestro/nuestra grubu kullan\u0131l\u0131r.\nCasa kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestra olur.\nC\u00fcmlenin anlam\u0131: Ev bizim. Biz o evde ya\u015f\u0131yoruz."},
+{n:32,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl libro es _____. Yo leo ese libro todos los d\u00edas.",answer:"m\u00edo",
+explanation:"\u0130kinci c\u00fcmlede \"yo leo\" ifadesi vard\u0131r. Yani kitap bana aittir. Bu y\u00fczden m\u00edo/m\u00eda grubu kullan\u0131l\u0131r.\nLibro kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap m\u00edo olur.\nC\u00fcmlenin anlam\u0131: Kitap benim. Ben o kitab\u0131 her g\u00fcn okuyorum."},
+{n:33,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas mochilas son _____. T\u00fa llevas esas mochilas a clase.",answer:"tuyas",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa llevas\" ifadesi vard\u0131r. Yani \u00e7antalar sana aittir. Bu y\u00fczden tuyo/tuya grubu kullan\u0131l\u0131r.\nMochilas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap tuyas olur.\nC\u00fcmlenin anlam\u0131: \u00c7antalar senin. Sen o \u00e7antalar\u0131 s\u0131n\u0131fa g\u00f6t\u00fcr\u00fcyorsun."},
+{n:34,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos zapatos son _____. \u00c9l usa esos zapatos para trabajar.",answer:"suyos",
+explanation:"\u0130kinci c\u00fcmlede \"\u00e9l usa\" ifadesi vard\u0131r. Yani ayakkab\u0131lar ona aittir. Bu y\u00fczden suyo/suya grubu kullan\u0131l\u0131r.\nZapatos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap suyos olur.\nC\u00fcmlenin anlam\u0131: Ayakkab\u0131lar onun. O bu ayakkab\u0131lar\u0131 \u00e7al\u0131\u015fmak i\u00e7in kullan\u0131yor."},
+{n:35,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa habitaci\u00f3n es _____. Yo duermo en esa habitaci\u00f3n.",answer:"m\u00eda",
+explanation:"\u0130kinci c\u00fcmlede \"yo duermo\" ifadesi vard\u0131r. Yani oda bana aittir. Bu y\u00fczden m\u00edo/m\u00eda grubu kullan\u0131l\u0131r.\nHabitaci\u00f3n kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap m\u00eda olur.\nC\u00fcmlenin anlam\u0131: Oda benim. Ben o odada uyuyorum."},
+{n:36,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl coche es _____. Usted conduce ese coche por la ma\u00f1ana.",answer:"suyo",
+explanation:"\u0130kinci c\u00fcmlede \"usted conduce\" ifadesi vard\u0131r. Yani araba size aittir. Usted i\u00e7in posesivo t\u00f3nico suyo/suya grubu kullan\u0131l\u0131r.\nCoche kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap suyo olur.\nC\u00fcmlenin anlam\u0131: Araba sizin. Siz o arabay\u0131 sabah kullan\u0131yorsunuz."},
+{n:37,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas ventanas son _____. Nosotros limpiamos esas ventanas.",answer:"nuestras",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros limpiamos\" ifadesi vard\u0131r. Yani pencereler bize aittir. Bu y\u00fczden nuestro/nuestra grubu kullan\u0131l\u0131r.\nVentanas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap nuestras olur.\nC\u00fcmlenin anlam\u0131: Pencereler bizim. Biz o pencereleri temizliyoruz."},
+{n:38,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl perro es _____. T\u00fa paseas con ese perro todos los d\u00edas.",answer:"tuyo",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa paseas\" ifadesi vard\u0131r. Yani k\u00f6pek sana aittir. Bu y\u00fczden tuyo/tuya grubu kullan\u0131l\u0131r.\nPerro kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap tuyo olur.\nC\u00fcmlenin anlam\u0131: K\u00f6pek senin. Sen o k\u00f6pekle her g\u00fcn y\u00fcr\u00fcy\u00fc\u015f yap\u0131yorsun."},
+{n:39,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos cuadernos son _____. Yo escribo en esos cuadernos.",answer:"m\u00edos",
+explanation:"\u0130kinci c\u00fcmlede \"yo escribo\" ifadesi vard\u0131r. Yani defterler bana aittir. Bu y\u00fczden m\u00edo/m\u00eda grubu kullan\u0131l\u0131r.\nCuadernos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap m\u00edos olur.\nC\u00fcmlenin anlam\u0131: Defterler benim. Ben o defterlere yaz\u0131yorum."},
+{n:40,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa bicicleta es _____. Ella va al parque con esa bicicleta.",answer:"suya",
+explanation:"\u0130kinci c\u00fcmlede \"ella va\" ifadesi vard\u0131r. Yani bisiklet ona aittir. Bu y\u00fczden suyo/suya grubu kullan\u0131l\u0131r.\nBicicleta kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap suya olur.\nC\u00fcmlenin anlam\u0131: Bisiklet onun. O, o bisikletle parka gidiyor."},
+{n:41,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos libros son _____. Vosotros estudi\u00e1is con esos libros.",answer:"vuestros",
+explanation:"\u0130kinci c\u00fcmlede \"vosotros estudi\u00e1is\" ifadesi vard\u0131r. Yani kitaplar size aittir. Bu y\u00fczden vuestro/vuestra grubu kullan\u0131l\u0131r.\nLibros kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap vuestros olur.\nC\u00fcmlenin anlam\u0131: Kitaplar sizin. Siz o kitaplarla \u00e7al\u0131\u015f\u0131yorsunuz."},
+{n:42,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa falda es _____. Vosotras llev\u00e1is esa falda a la fiesta.",answer:"vuestra",
+explanation:"\u0130kinci c\u00fcmlede \"vosotras llev\u00e1is\" ifadesi vard\u0131r. Yani etek size aittir. Bu y\u00fczden vuestro/vuestra grubu kullan\u0131l\u0131r.\nFalda kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap vuestra olur.\nC\u00fcmlenin anlam\u0131: Etek sizin. Siz o ete\u011fi partiye giyiyorsunuz."},
+{n:43,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas llaves son _____. Ellos abren la puerta con esas llaves.",answer:"suyas",
+explanation:"\u0130kinci c\u00fcmlede \"ellos abren\" ifadesi vard\u0131r. Yani anahtarlar onlara aittir. Bu y\u00fczden suyo/suya grubu kullan\u0131l\u0131r.\nLlaves kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap suyas olur.\nC\u00fcmlenin anlam\u0131: Anahtarlar onlar\u0131n. Onlar kap\u0131y\u0131 o anahtarlarla a\u00e7\u0131yorlar."},
+{n:44,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl jard\u00edn es _____. Nosotros cuidamos ese jard\u00edn.",answer:"nuestro",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros cuidamos\" ifadesi vard\u0131r. Yani bah\u00e7e bize aittir. Bu y\u00fczden nuestro/nuestra grubu kullan\u0131l\u0131r.\nJard\u00edn kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestro olur.\nC\u00fcmlenin anlam\u0131: Bah\u00e7e bizim. Biz o bah\u00e7eye bak\u0131yoruz."},
+{n:45,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas gafas son _____. T\u00fa usas esas gafas para leer.",answer:"tuyas",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa usas\" ifadesi vard\u0131r. Yani g\u00f6zl\u00fck sana aittir. Bu y\u00fczden tuyo/tuya grubu kullan\u0131l\u0131r.\nGafas kelimesi \u0130spanyolcada genellikle femenino plural kullan\u0131l\u0131r. Bu y\u00fczden do\u011fru cevap tuyas olur.\nC\u00fcmlenin anlam\u0131: G\u00f6zl\u00fck senin. Sen o g\u00f6zl\u00fc\u011f\u00fc okumak i\u00e7in kullan\u0131yorsun."},
+{n:46,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl tel\u00e9fono es _____. Yo llamo a mi madre con ese tel\u00e9fono.",answer:"m\u00edo",
+explanation:"\u0130kinci c\u00fcmlede \"yo llamo\" ifadesi vard\u0131r. Yani telefon bana aittir. Bu y\u00fczden m\u00edo/m\u00eda grubu kullan\u0131l\u0131r.\nTel\u00e9fono kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap m\u00edo olur.\nC\u00fcmlenin anlam\u0131: Telefon benim. Ben o telefonla annemi ar\u0131yorum."},
+{n:47,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas sillas son _____. Ustedes se sientan en esas sillas.",answer:"suyas",
+explanation:"\u0130kinci c\u00fcmlede \"ustedes se sientan\" ifadesi vard\u0131r. Yani sandalyeler size aittir. Ustedes i\u00e7in posesivo t\u00f3nico suyo/suya grubu kullan\u0131l\u0131r.\nSillas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap suyas olur.\nC\u00fcmlenin anlam\u0131: Sandalyeler sizin. Siz o sandalyelere oturuyorsunuz."},
+{n:48,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos hijos son _____. Ella cuida a esos hijos en casa.",answer:"suyos",
+explanation:"\u0130kinci c\u00fcmlede \"ella cuida\" ifadesi vard\u0131r. Yani \u00e7ocuklar ona aittir. Bu y\u00fczden suyo/suya grubu kullan\u0131l\u0131r.\nHijos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap suyos olur.\nC\u00fcmlenin anlam\u0131: \u00c7ocuklar onun. O \u00e7ocuklara evde bak\u0131yor."},
+{n:49,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa mesa es _____. Vosotros com\u00e9is en esa mesa.",answer:"vuestra",
+explanation:"\u0130kinci c\u00fcmlede \"vosotros com\u00e9is\" ifadesi vard\u0131r. Yani masa size aittir. Bu y\u00fczden vuestro/vuestra grubu kullan\u0131l\u0131r.\nMesa kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap vuestra olur.\nC\u00fcmlenin anlam\u0131: Masa sizin. Siz o masada yemek yiyorsunuz."},
+{n:50,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos amigos son _____. Nosotros hablamos con esos amigos.",answer:"nuestros",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros hablamos\" ifadesi vard\u0131r. Yani arkada\u015flar bize aittir / bizim arkada\u015flar\u0131m\u0131zd\u0131r. Bu y\u00fczden nuestro/nuestra grubu kullan\u0131l\u0131r.\nAmigos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap nuestros olur.\nC\u00fcmlenin anlam\u0131: Arkada\u015flar bizim. Biz o arkada\u015flarla konu\u015fuyoruz."},
+{n:51,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa maleta es _____. Usted viaja con esa maleta.",answer:"suya",
+explanation:"\u0130kinci c\u00fcmlede \"usted viaja\" ifadesi vard\u0131r. Yani bavul size aittir. Usted i\u00e7in posesivo t\u00f3nico suyo/suya grubu kullan\u0131l\u0131r.\nMaleta kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap suya olur.\nC\u00fcmlenin anlam\u0131: Bavul sizin. Siz o bavulla seyahat ediyorsunuz."},
+{n:52,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos pantalones son _____. T\u00fa llevas esos pantalones hoy.",answer:"tuyos",
+explanation:"\u0130kinci c\u00fcmlede \"t\u00fa llevas\" ifadesi vard\u0131r. Yani pantolonlar sana aittir. Bu y\u00fczden tuyo/tuya grubu kullan\u0131l\u0131r.\nPantalones kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap tuyos olur.\nC\u00fcmlenin anlam\u0131: Pantolonlar senin. Sen bug\u00fcn o pantolonlar\u0131 giyiyorsun."},
+{n:53,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLa cocina es _____. Nosotros preparamos la comida en esa cocina.",answer:"nuestra",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros preparamos\" ifadesi vard\u0131r. Yani mutfak bize aittir. Bu y\u00fczden nuestro/nuestra grubu kullan\u0131l\u0131r.\nCocina kelimesi femenino singular oldu\u011fu i\u00e7in do\u011fru cevap nuestra olur.\nC\u00fcmlenin anlam\u0131: Mutfak bizim. Biz yeme\u011fi o mutfakta haz\u0131rl\u0131yoruz."},
+{n:54,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl gato es _____. Ella juega con ese gato por la noche.",answer:"suyo",
+explanation:"\u0130kinci c\u00fcmlede \"ella juega\" ifadesi vard\u0131r. Yani kedi ona aittir. Bu y\u00fczden suyo/suya grubu kullan\u0131l\u0131r.\nGato kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap suyo olur.\nC\u00fcmlenin anlam\u0131: Kedi onun. O gece kediyle oynuyor."},
+{n:55,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas tareas son _____. Yo hago esas tareas despu\u00e9s de clase.",answer:"m\u00edas",
+explanation:"\u0130kinci c\u00fcmlede \"yo hago\" ifadesi vard\u0131r. Yani \u00f6devler bana aittir. Bu y\u00fczden m\u00edo/m\u00eda grubu kullan\u0131l\u0131r.\nTareas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap m\u00edas olur.\nC\u00fcmlenin anlam\u0131: \u00d6devler benim. Ben o \u00f6devleri dersten sonra yap\u0131yorum."},
+{n:56,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl dormitorio es _____. Vosotras dorm\u00eds en ese dormitorio.",answer:"vuestro",
+explanation:"\u0130kinci c\u00fcmlede \"vosotras dorm\u00eds\" ifadesi vard\u0131r. Yani yatak odas\u0131 size aittir. Bu y\u00fczden vuestro/vuestra grubu kullan\u0131l\u0131r.\nDormitorio kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap vuestro olur.\nC\u00fcmlenin anlam\u0131: Yatak odas\u0131 sizin. Siz o yatak odas\u0131nda uyuyorsunuz."},
+{n:57,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas amigas son _____. Ellas estudian con esas amigas.",answer:"suyas",
+explanation:"\u0130kinci c\u00fcmlede \"ellas estudian\" ifadesi vard\u0131r. Yani arkada\u015flar onlara aittir. Bu y\u00fczden suyo/suya grubu kullan\u0131l\u0131r.\nAmigas kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap suyas olur.\nC\u00fcmlenin anlam\u0131: K\u0131z arkada\u015flar onlar\u0131n. Onlar o arkada\u015flarla \u00e7al\u0131\u015f\u0131yorlar."},
+{n:58,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nEl escritorio es _____. Yo trabajo en ese escritorio.",answer:"m\u00edo",
+explanation:"\u0130kinci c\u00fcmlede \"yo trabajo\" ifadesi vard\u0131r. Yani \u00e7al\u0131\u015fma masas\u0131 bana aittir. Bu y\u00fczden m\u00edo/m\u00eda grubu kullan\u0131l\u0131r.\nEscritorio kelimesi masculino singular oldu\u011fu i\u00e7in do\u011fru cevap m\u00edo olur.\nC\u00fcmlenin anlam\u0131: \u00c7al\u0131\u015fma masas\u0131 benim. Ben o \u00e7al\u0131\u015fma masas\u0131nda \u00e7al\u0131\u015f\u0131yorum."},
+{n:59,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLas fotos son _____. Vosotros mir\u00e1is esas fotos en el m\u00f3vil.",answer:"vuestras",
+explanation:"\u0130kinci c\u00fcmlede \"vosotros mir\u00e1is\" ifadesi vard\u0131r. Yani foto\u011fraflar size aittir. Bu y\u00fczden vuestro/vuestra grubu kullan\u0131l\u0131r.\nFotos kelimesi femenino plural oldu\u011fu i\u00e7in do\u011fru cevap vuestras olur.\nC\u00fcmlenin anlam\u0131: Foto\u011fraflar sizin. Siz o foto\u011fraflara telefonda bak\u0131yorsunuz."},
+{n:60,text:"POSESIVOS T\u00d3NICOS: m\u00edo, m\u00eda, m\u00edos, m\u00edas / tuyo, tuya, tuyos, tuyas / suyo, suya, suyos, suyas / nuestro\u2026\nLos abuelos son _____. Nosotros visitamos a esos abuelos los domingos.",answer:"nuestros",
+explanation:"\u0130kinci c\u00fcmlede \"nosotros visitamos\" ifadesi vard\u0131r. Yani b\u00fcy\u00fckannemiz ve b\u00fcy\u00fcklbabam\u0131z bize aittir / bizim ailemizdendir. Bu y\u00fczden nuestro/nuestra grubu kullan\u0131l\u0131r.\nAbuelos kelimesi masculino plural oldu\u011fu i\u00e7in do\u011fru cevap nuestros olur.\nC\u00fcmlenin anlam\u0131: B\u00fcy\u00fckannemiz ve b\u00fcy\u00fcklbabam\u0131z bizim. Biz onlar\u0131 pazar g\u00fcnleri ziyaret ediyoruz."}
+];
+
+// ============================================================
+// SAAT SORULARI 61-100 — 4 bölüm, 10'ar soru
+// ============================================================
+var HORA_SECTIONS = [
+  {
+    title: "Bölüm 1: 61-70. Sorular",
+    qNums: [61,62,63,64,65,66,67,68,69,70],
+    bank: ["Son las ocho y veinticinco.","Son las cinco y veinte.","Son las doce menos cinco.","Es la una.","Son las siete y diez.","Son las tres y media.","Son las diez menos veinte.","Son las dos y cuarto.","Son las siete menos cuarto.","Son las cuatro y cinco."],
+    questions: [
+      {n:61, clock:"01:00", label:"La hora es:",
+        answer:"Es la una.",
+        explanation:"Saat 1 oldu\u011fu i\u00e7in \u0130spanyolcada son las de\u011fil, es la kullan\u0131l\u0131r.\nBu y\u00fczden do\u011fru cevap Es la una olur.\nC\u00fcmlenin anlam\u0131: Saat bir."},
+      {n:62, clock:"02:15", label:"La hora es:",
+        answer:"Son las dos y cuarto.",
+        explanation:"Saat 2 oldu\u011fu i\u00e7in son las dos kullan\u0131l\u0131r. Dakika 15 oldu\u011fu i\u00e7in \u0130spanyolcada y cuarto denir.\nC\u00fcmlenin anlam\u0131: Saat ikiyi \u00e7eyrek ge\u00e7iyor."},
+      {n:63, clock:"03:30", label:"La hora es:",
+        answer:"Son las tres y media.",
+        explanation:"Saat 3 oldu\u011fu i\u00e7in son las tres kullan\u0131l\u0131r. Dakika 30 oldu\u011fu i\u00e7in y media denir.\nC\u00fcmlenin anlam\u0131: Saat \u00fc\u00e7 bu\u00e7uk."},
+      {n:64, clock:"04:05", label:"La hora es:",
+        answer:"Son las cuatro y cinco.",
+        explanation:"Saat 4 oldu\u011fu i\u00e7in son las cuatro kullan\u0131l\u0131r. Dakika 5 oldu\u011fu i\u00e7in y cinco eklenir.\nC\u00fcmlenin anlam\u0131: Saat d\u00f6rd\u00fc be\u015f ge\u00e7iyor."},
+      {n:65, clock:"05:20", label:"La hora es:",
+        answer:"Son las cinco y veinte.",
+        explanation:"Saat 5 oldu\u011fu i\u00e7in son las cinco kullan\u0131l\u0131r. Dakika 20 oldu\u011fu i\u00e7in y veinte eklenir.\nC\u00fcmlenin anlam\u0131: Saat be\u015fi yirmi ge\u00e7iyor."},
+      {n:66, clock:"06:45", label:"La hora es:",
+        answer:"Son las siete menos cuarto.",
+        explanation:"Saat 06:45, T\u00fcrk\u00e7ede \"yediye \u00e7eyrek var\" demektir. \u0130spanyolcada \"kala\" i\u00e7in menos kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat yediye \u00e7eyrek var."},
+      {n:67, clock:"07:10", label:"La hora es:",
+        answer:"Son las siete y diez.",
+        explanation:"Saat 7 oldu\u011fu i\u00e7in son las siete kullan\u0131l\u0131r. Dakika 10 oldu\u011fu i\u00e7in y diez eklenir.\nC\u00fcmlenin anlam\u0131: Saat yediyi on ge\u00e7iyor."},
+      {n:68, clock:"08:25", label:"La hora es:",
+        answer:"Son las ocho y veinticinco.",
+        explanation:"Saat 8 oldu\u011fu i\u00e7in son las ocho kullan\u0131l\u0131r. Dakika 25 oldu\u011fu i\u00e7in y veinticinco eklenir.\nC\u00fcmlenin anlam\u0131: Saat sekizi yirmi be\u015f ge\u00e7iyor."},
+      {n:69, clock:"09:40", label:"La hora es:",
+        answer:"Son las diez menos veinte.",
+        explanation:"Saat 09:40, T\u00fcrk\u00e7ede \"ona yirmi var\" demektir. 10'a 20 dakika kald\u0131\u011f\u0131 i\u00e7in menos veinte kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat ona yirmi var."},
+      {n:70, clock:"11:55", label:"La hora es:",
+        answer:"Son las doce menos cinco.",
+        explanation:"Saat 11:55, T\u00fcrk\u00e7ede \"on ikiye be\u015f var\" demektir. 12'ye 5 dakika kald\u0131\u011f\u0131 i\u00e7in menos cinco kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat on ikiye be\u015f var."}
+    ]
+  },
+  {
+    title: "Bölüm 2: 71-80. Sorular",
+    qNums: [71,72,73,74,75,76,77,78,79,80],
+    bank: ["Son las cinco y cuarenta y dos.","Son las doce y treinta y nueve.","Son las nueve y veintitr\u00e9s.","Son las dos y cincuenta y uno.","Son las siete y treinta y cuatro.","Son las cuatro y diecisiete.","Son las diez y cuarenta y seis.","Es la una y veintiocho.","Son las ocho y cincuenta y tres.","Son las tres y treinta y seis."],
+    questions: [
+      {n:71, clock:"01:28", label:"La hora es:",
+        answer:"Es la una y veintiocho.",
+        explanation:"Saat 1 oldu\u011fu i\u00e7in \u0130spanyolcada son las de\u011fil, es la kullan\u0131l\u0131r. Dakika 28 oldu\u011fu i\u00e7in y veintiocho eklenir.\nC\u00fcmlenin anlam\u0131: Saat biri yirmi sekiz ge\u00e7iyor."},
+      {n:72, clock:"03:36", label:"La hora es:",
+        answer:"Son las tres y treinta y seis.",
+        explanation:"Saat 3 oldu\u011fu i\u00e7in son las tres kullan\u0131l\u0131r. Dakika 36 oldu\u011fu i\u00e7in y treinta y seis eklenir.\nC\u00fcmlenin anlam\u0131: Saat \u00fc\u00e7\u00fc otuz alt\u0131 ge\u00e7iyor."},
+      {n:73, clock:"09:23", label:"La hora es:",
+        answer:"Son las nueve y veintitr\u00e9s.",
+        explanation:"Saat 9 oldu\u011fu i\u00e7in son las nueve kullan\u0131l\u0131r. Dakika 23 oldu\u011fu i\u00e7in y veintitr\u00e9s eklenir.\nC\u00fcmlenin anlam\u0131: Saat dokuzu yirmi \u00fc\u00e7 ge\u00e7iyor."},
+      {n:74, clock:"04:17", label:"La hora es:",
+        answer:"Son las cuatro y diecisiete.",
+        explanation:"Saat 4 oldu\u011fu i\u00e7in son las cuatro kullan\u0131l\u0131r. Dakika 17 oldu\u011fu i\u00e7in y diecisiete eklenir.\nC\u00fcmlenin anlam\u0131: Saat d\u00f6rd\u00fc on yedi ge\u00e7iyor."},
+      {n:75, clock:"12:39", label:"La hora es:",
+        answer:"Son las doce y treinta y nueve.",
+        explanation:"Saat 12 oldu\u011fu i\u00e7in son las doce kullan\u0131l\u0131r. Dakika 39 oldu\u011fu i\u00e7in y treinta y nueve eklenir.\nC\u00fcmlenin anlam\u0131: Saat on ikiyi otuz dokuz ge\u00e7iyor."},
+      {n:76, clock:"07:34", label:"La hora es:",
+        answer:"Son las siete y treinta y cuatro.",
+        explanation:"Saat 7 oldu\u011fu i\u00e7in son las siete kullan\u0131l\u0131r. Dakika 34 oldu\u011fu i\u00e7in y treinta y cuatro eklenir.\nC\u00fcmlenin anlam\u0131: Saat yediyi otuz d\u00f6rt ge\u00e7iyor."},
+      {n:77, clock:"05:42", label:"La hora es:",
+        answer:"Son las cinco y cuarenta y dos.",
+        explanation:"Saat 5 oldu\u011fu i\u00e7in son las cinco kullan\u0131l\u0131r. Dakika 42 oldu\u011fu i\u00e7in y cuarenta y dos eklenir.\nC\u00fcmlenin anlam\u0131: Saat be\u015fi k\u0131rk iki ge\u00e7iyor."},
+      {n:78, clock:"10:46", label:"La hora es:",
+        answer:"Son las diez y cuarenta y seis.",
+        explanation:"Saat 10 oldu\u011fu i\u00e7in son las diez kullan\u0131l\u0131r. Dakika 46 oldu\u011fu i\u00e7in y cuarenta y seis eklenir.\nC\u00fcmlenin anlam\u0131: Saat onu k\u0131rk alt\u0131 ge\u00e7iyor."},
+      {n:79, clock:"02:51", label:"La hora es:",
+        answer:"Son las dos y cincuenta y uno.",
+        explanation:"Saat 2 oldu\u011fu i\u00e7in son las dos kullan\u0131l\u0131r. Dakika 51 oldu\u011fu i\u00e7in y cincuenta y uno eklenir.\nC\u00fcmlenin anlam\u0131: Saat ikiyi elli bir ge\u00e7iyor."},
+      {n:80, clock:"08:53", label:"La hora es:",
+        answer:"Son las ocho y cincuenta y tres.",
+        explanation:"Saat 8 oldu\u011fu i\u00e7in son las ocho kullan\u0131l\u0131r. Dakika 53 oldu\u011fu i\u00e7in y cincuenta y tres eklenir.\nC\u00fcmlenin anlam\u0131: Saat sekizi elli \u00fc\u00e7 ge\u00e7iyor."}
+    ]
+  },
+  {
+    title: "Bölüm 3: 81-90. Sorular",
+    qNums: [81,82,83,84,85,86,87,88,89,90],
+    bank: ["Son las seis y veintid\u00f3s.","Leo libros a las nueve y cuarenta y uno.","Son las once y treinta y ocho.","Estudio espa\u00f1ol a las cuatro y diecis\u00e9is.","Son las dos y cuarenta y siete.","Desayuno a las ocho y veinticinco.","Son las diez y trece.","Camino en el parque a las siete y treinta y cuatro.","Es la una y cincuenta y nueve.","Ceno a las doce y cinco."],
+    questions: [
+      {n:81, clock:"06:22", label:"La hora es:",
+        answer:"Son las seis y veintid\u00f3s.",
+        explanation:"Saat 6 oldu\u011fu i\u00e7in son las seis kullan\u0131l\u0131r. Dakika 22 oldu\u011fu i\u00e7in y veintid\u00f3s eklenir.\nC\u00fcmlenin anlam\u0131: Saat alt\u0131y\u0131 yirmi iki ge\u00e7iyor."},
+      {n:82, clock:"09:41", label:"",
+        answer:"Leo libros a las nueve y cuarenta y uno.",
+        explanation:"Bu c\u00fcmlede \"saat ka\u00e7?\" de\u011fil, bir eylemin hangi saatte yap\u0131ld\u0131\u011f\u0131 sorulmaktad\u0131r. Bu y\u00fczden saatin \u00f6n\u00fcne a gelir: a las nueve y cuarenta y uno.\nC\u00fcmlenin anlam\u0131: Saat dokuzu k\u0131rk bir ge\u00e7e kitap okurum."},
+      {n:83, clock:"11:38", label:"La hora es:",
+        answer:"Son las once y treinta y ocho.",
+        explanation:"Saat 11 oldu\u011fu i\u00e7in son las once kullan\u0131l\u0131r. Dakika 38 oldu\u011fu i\u00e7in y treinta y ocho eklenir.\nC\u00fcmlenin anlam\u0131: Saat on biri otuz sekiz ge\u00e7iyor."},
+      {n:84, clock:"04:16", label:"",
+        answer:"Estudio espa\u00f1ol a las cuatro y diecis\u00e9is.",
+        explanation:"Burada bir rutin c\u00fcmlesi vard\u0131r. \"Saat d\u00f6rt on alt\u0131da \u0130spanyolca \u00e7al\u0131\u015f\u0131r\u0131m\" demek i\u00e7in a las cuatro y diecis\u00e9is kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat d\u00f6rd\u00fc on alt\u0131 ge\u00e7e \u0130spanyolca \u00e7al\u0131\u015f\u0131r\u0131m."},
+      {n:85, clock:"02:47", label:"La hora es:",
+        answer:"Son las dos y cuarenta y siete.",
+        explanation:"Saat 2 oldu\u011fu i\u00e7in son las dos kullan\u0131l\u0131r. Dakika 47 oldu\u011fu i\u00e7in y cuarenta y siete eklenir.\nC\u00fcmlenin anlam\u0131: Saat ikiyi k\u0131rk yedi ge\u00e7iyor."},
+      {n:86, clock:"08:25", label:"",
+        answer:"Desayuno a las ocho y veinticinco.",
+        explanation:"Bu c\u00fcmlede kahvalt\u0131 yapma saatinden bahsedilir. Bir eylemin saatini s\u00f6ylerken a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat sekizi yirmi be\u015f ge\u00e7e kahvalt\u0131 yar\u0131m."},
+      {n:87, clock:"10:13", label:"La hora es:",
+        answer:"Son las diez y trece.",
+        explanation:"Saat 10 oldu\u011fu i\u00e7in son las diez kullan\u0131l\u0131r. Dakika 13 oldu\u011fu i\u00e7in y trece eklenir.\nC\u00fcmlenin anlam\u0131: Saat onu on \u00fc\u00e7 ge\u00e7iyor."},
+      {n:88, clock:"07:34", label:"",
+        answer:"Camino en el parque a las siete y treinta y cuatro.",
+        explanation:"Burada bir eylemin yap\u0131ld\u0131\u011f\u0131 saat s\u00f6ylenir. Bu y\u00fczden saat ifadesinden \u00f6nce a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat yediyi otuz d\u00f6rt ge\u00e7e parkta y\u00fcr\u00fcr\u00fcm."},
+      {n:89, clock:"01:59", label:"La hora es:",
+        answer:"Es la una y cincuenta y nueve.",
+        explanation:"Saat 1 oldu\u011fu i\u00e7in son las de\u011fil, es la kullan\u0131l\u0131r. Dakika 59 oldu\u011fu i\u00e7in y cincuenta y nueve eklenir.\nC\u00fcmlenin anlam\u0131: Saat biri elli dokuz ge\u00e7iyor."},
+      {n:90, clock:"12:05", label:"",
+        answer:"Ceno a las doce y cinco.",
+        explanation:"Bu c\u00fcmlede ak\u015fam yeme\u011fi yeme saatinden bahsedilir. Bir eylemin saatini s\u00f6ylerken a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat on ikiyi be\u015f ge\u00e7e ak\u015fam yeme\u011fi yerim."}
+    ]
+  },
+  {
+    title: "Bölüm 4: 91-100. Sorular",
+    qNums: [91,92,93,94,95,96,97,98,99,100],
+    bank: ["Son las nueve y treinta y siete.","Me levanto a las seis y cuarenta y cuatro.","Son las tres y veintinueve.","Voy a la escuela a las ocho y doce.","Son las once y cincuenta y seis.","Leo un libro a las cinco y veintitr\u00e9s.","Es la una y cuarenta y ocho.","Como a las dos y dieciocho.","Son las siete y cuarenta y uno.","Duermo a las diez y cincuenta y dos."],
+    questions: [
+      {n:91, clock:"09:37", label:"La hora es:",
+        answer:"Son las nueve y treinta y siete.",
+        explanation:"Saat 9 oldu\u011fu i\u00e7in son las nueve kullan\u0131l\u0131r. Dakika 37 oldu\u011fu i\u00e7in y treinta y siete eklenir.\nC\u00fcmlenin anlam\u0131: Saat dokuzu otuz yedi ge\u00e7iyor."},
+      {n:92, clock:"06:44", label:"",
+        answer:"Me levanto a las seis y cuarenta y cuatro.",
+        explanation:"Bu c\u00fcmlede bir eylemin hangi saatte yap\u0131ld\u0131\u011f\u0131 s\u00f6ylenir. \"Saat alt\u0131y\u0131 k\u0131rk d\u00f6rt ge\u00e7e kalkar\u0131m\" demek i\u00e7in a las seis y cuarenta y cuatro kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat alt\u0131y\u0131 k\u0131rk d\u00f6rt ge\u00e7e kalkar\u0131m."},
+      {n:93, clock:"03:29", label:"La hora es:",
+        answer:"Son las tres y veintinueve.",
+        explanation:"Saat 3 oldu\u011fu i\u00e7in son las tres kullan\u0131l\u0131r. Dakika 29 oldu\u011fu i\u00e7in y veintinueve eklenir.\nC\u00fcmlenin anlam\u0131: Saat \u00fc\u00e7\u00fc yirmi dokuz ge\u00e7iyor."},
+      {n:94, clock:"08:12", label:"",
+        answer:"Voy a la escuela a las ocho y doce.",
+        explanation:"Burada okula gitme saatinden bahsedilir. Bir eylemin saatini s\u00f6ylerken saat ifadesinden \u00f6nce a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat sekizi on iki ge\u00e7e okula giderim."},
+      {n:95, clock:"11:56", label:"La hora es:",
+        answer:"Son las once y cincuenta y seis.",
+        explanation:"Saat 11 oldu\u011fu i\u00e7in son las once kullan\u0131l\u0131r. Dakika 56 oldu\u011fu i\u00e7in y cincuenta y seis eklenir.\nC\u00fcmlenin anlam\u0131: Saat on biri elli alt\u0131 ge\u00e7iyor."},
+      {n:96, clock:"05:23", label:"",
+        answer:"Leo un libro a las cinco y veintitr\u00e9s.",
+        explanation:"Bu c\u00fcmlede kitap okuma saatinden bahsedilir. Bir eylemin saatini s\u00f6ylerken a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat be\u015fi yirmi \u00fc\u00e7 ge\u00e7e kitap okurum."},
+      {n:97, clock:"01:48", label:"La hora es:",
+        answer:"Es la una y cuarenta y ocho.",
+        explanation:"Saat 1 oldu\u011fu i\u00e7in son las de\u011fil, es la kullan\u0131l\u0131r. Dakika 48 oldu\u011fu i\u00e7in y cuarenta y ocho eklenir.\nC\u00fcmlenin anlam\u0131: Saat biri k\u0131rk sekiz ge\u00e7iyor."},
+      {n:98, clock:"02:18", label:"",
+        answer:"Como a las dos y dieciocho.",
+        explanation:"Burada yemek yeme saatinden bahsedilir. Bir eylemin saatini s\u00f6ylerken a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat ikiyi on sekiz ge\u00e7e yemek yerim."},
+      {n:99, clock:"07:41", label:"La hora es:",
+        answer:"Son las siete y cuarenta y uno.",
+        explanation:"Saat 7 oldu\u011fu i\u00e7in son las siete kullan\u0131l\u0131r. Dakika 41 oldu\u011fu i\u00e7in y cuarenta y uno eklenir.\nC\u00fcmlenin anlam\u0131: Saat yediyi k\u0131rk bir ge\u00e7iyor."},
+      {n:100, clock:"10:52", label:"",
+        answer:"Duermo a las diez y cincuenta y dos.",
+        explanation:"Bu c\u00fcmlede uyuma saatinden bahsedilir. Bir eylemin saatini s\u00f6ylerken a las kullan\u0131l\u0131r.\nC\u00fcmlenin anlam\u0131: Saat onu elli iki ge\u00e7e uyurum."}
+    ]
+  }
+];
+
+// ============================================================
+// GLOBAL STATE
+// ============================================================
+var selectedStudent=null, selectedGroup=null, submitted=false;
+var fillCorrect=0, fillWrong=0;
+var fillAnswers={}, fillChecked={};
+var fillIndex=0;
+var horaResults={}; // {qn: true/false}
+var horaSectionIndex=0;
+
+// ============================================================
+// DROPDOWN
+// ============================================================
+function buildStudentDropdown(){
+  var all=[];
+  Object.keys(STUDENTS_BY_GROUP).forEach(function(g){
+    STUDENTS_BY_GROUP[g].forEach(function(n){ all.push({name:n,group:g}); });
+  });
+  all.sort(function(a,b){ return a.name.localeCompare(b.name,'tr'); });
+  var sel=document.getElementById('studentSelect');
+  all.forEach(function(s){
+    var o=document.createElement('option');
+    o.value=s.name+'|||'+s.group;
+    o.textContent=s.name+' ('+s.group+')';
+    sel.appendChild(o);
+  });
+}
+function onSelectChange(){
+  var v=document.getElementById('studentSelect').value;
+  if(!v){selectedStudent=null;selectedGroup=null;document.getElementById('startBtn').disabled=true;return;}
+  var p=v.split('|||'); selectedStudent=p[0]; selectedGroup=p[1];
+  document.getElementById('startBtn').disabled=false;
+}
+
+// ============================================================
+// START
+// ============================================================
+function startQuiz(){
+  fillIndex=0; fillAnswers={}; fillChecked={};
+  fillCorrect=0; fillWrong=0;
+  showScreen('quiz'); renderFill();
+}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+}
+
+// ============================================================
+// FILL QUESTIONS (1-60)
+// ============================================================
+function renderFill(){
+  var q=FILL_QUESTIONS[fillIndex];
+  var pct=Math.round((fillIndex/60)*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=(fillIndex+1)+' / 60';
+  document.getElementById('correctBadge').textContent='D: '+fillCorrect;
+  document.getElementById('wrongBadge').textContent='Y: '+fillWrong;
+  var ck=fillChecked[fillIndex]!==undefined;
+  var section = fillIndex < 30
+    ? '<div class="q-section-label">Posesivos Átonos (1-30)</div>'
+    : '<div class="q-section-label">Posesivos Tónicos (31-60)</div>';
+  var qHtml=esc(q.text).replace(/\n/g,'<br>');
+  document.getElementById('quizBody').innerHTML=
+    section+
+    '<div class="q-number">Soru '+q.n+' / 60</div>'+
+    '<div class="q-text">'+qHtml+'</div>'+
+    '<div class="input-row">'+
+      '<input type="text" class="answer-input" id="fillInput"'+
+        ' placeholder="Cevabınızı buraya yazın..."'+
+        ' value="'+escA(fillAnswers[fillIndex]||'')+'"'+
+        (ck?' disabled':'')+
+        ' autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"'+
+        ' onkeydown="if(event.key===\'Enter\')checkFill()"/>'+
+      '<button class="check-btn" id="checkBtnFill" onclick="checkFill()"'+(ck?' disabled':'')+'>Kontrol Et</button>'+
+    '</div>'+
+    '<div class="feedback-box '+(ck?(fillChecked[fillIndex]?'correct':'wrong'):'')+ '" id="feedbackFill" style="display:'+(ck?'block':'none')+'">'+
+      (ck?buildFillFeedback(q,fillChecked[fillIndex]):'')+'</div>';
+  if(ck){
+    var inp=document.getElementById('fillInput');
+    if(inp) inp.classList.add(fillChecked[fillIndex]?'correct-input':'wrong-input');
+  }
+  updateFillNav(ck);
+}
+function buildFillFeedback(q,ok){
+  var expHtml=esc(q.explanation).replace(/\n/g,'<br>');
+  if(ok) return '<div class="feedback-label">Doğru! ✓</div><div class="explanation-label" style="margin-top:8px">Açıklama</div><div class="explanation-box">'+expHtml+'</div>';
+  return '<div class="feedback-label">Yanlış! ✗</div><div style="margin-top:5px;font-size:13px">Doğru cevap: <strong>'+esc(q.answer)+'</strong></div><div class="explanation-label" style="margin-top:8px">Açıklama</div><div class="explanation-box">'+expHtml+'</div>';
+}
+function checkFill(){
+  var q=FILL_QUESTIONS[fillIndex];
+  var inp=document.getElementById('fillInput');
+  if(!inp||!inp.value.trim()) return;
+  fillAnswers[fillIndex]=inp.value;
+  var ok=norm(inp.value)===norm(q.answer);
+  fillChecked[fillIndex]=ok;
+  if(ok) fillCorrect++; else fillWrong++;
+  inp.disabled=true; inp.classList.add(ok?'correct-input':'wrong-input');
+  document.getElementById('checkBtnFill').disabled=true;
+  var fb=document.getElementById('feedbackFill');
+  fb.className='feedback-box '+(ok?'correct':'wrong');
+  fb.innerHTML=buildFillFeedback(q,ok);
+  fb.style.display='block';
+  document.getElementById('correctBadge').textContent='D: '+fillCorrect;
+  document.getElementById('wrongBadge').textContent='Y: '+fillWrong;
+  updateFillNav(true);
+}
+function updateFillNav(unlocked){
+  var isLast=fillIndex===59;
+  document.getElementById('prevBtn').disabled=!unlocked||fillIndex===0;
+  document.getElementById('skipBtn').disabled=!unlocked;
+  document.getElementById('nextBtn').disabled=!unlocked||isLast;
+  document.getElementById('nextBtn').style.display=isLast?'none':'inline-block';
+  document.getElementById('finishBtn').style.display=(unlocked&&isLast)?'inline-block':'none';
+}
+function goPrev(){ if(fillIndex>0){fillIndex--;renderFill();} }
+function goNext(){ if(fillIndex<59){fillIndex++;renderFill();} }
+function goSkip(){ if(fillIndex<59){fillIndex++;renderFill();} }
+function confirmEnd(){ if(confirm('Testi bitirmek istediğinize emin misiniz?')) goToHora(); }
+function goToHora(){ horaSectionIndex=0; renderHoraSection(); showScreen('hora'); }
+
+// ============================================================
+// HORA SECTIONS (61-100) — sürükle-bırak
+// ============================================================
+var draggedChip=null, draggedAnswer=null;
+
+function renderHoraSection(){
+  var sec=HORA_SECTIONS[horaSectionIndex];
+  var totalDone=0;
+  for(var si=0;si<horaSectionIndex;si++) totalDone+=10;
+  var horaTotal=Object.keys(horaResults).length;
+  var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
+  document.getElementById('horaCorrectBadge').textContent='D: '+horaCorrect;
+  document.getElementById('horaWrongBadge').textContent='Y: '+(horaTotal-horaCorrect);
+  document.getElementById('horaProgressBar').style.width=(horaSectionIndex/4*100)+'%';
+  document.getElementById('horaProgressLabel').textContent='Bölüm '+(horaSectionIndex+1)+' / 4';
+
+  // Shuffle bank
+  var bank=sec.bank.slice().sort(function(){return Math.random()-0.5;});
+  var bankHtml='<div class="answer-bank" id="answerBank">';
+  bank.forEach(function(item,i){
+    bankHtml+='<div class="drag-chip" id="chip_'+i+'" draggable="true" data-answer="'+escA(item)+'"'+
+      ' ondragstart="dragStart(event,\''+escA(item)+'\')"'+
+      ' ondragend="dragEnd(event)">'+esc(item)+'</div>';
+  });
+  bankHtml+='</div>';
+
+  var itemsHtml='';
+  sec.questions.forEach(function(q,qi){
+    itemsHtml+='<div class="dnd-item" id="dndItem_'+qi+'">'+
+      '<div class="dnd-item-header">'+
+        '<span class="dnd-q-num">Soru '+q.n+'</span>'+
+        '<span class="dnd-clock">🕐 '+q.clock+'</span>'+
+      '</div>'+
+      (q.label?'<div class="dnd-label">'+esc(q.label)+'</div>':'')+
+      '<div class="drop-zone" id="drop_'+qi+'"'+
+        ' ondragover="dragOver(event,'+qi+')"'+
+        ' ondragleave="dragLeave(event,'+qi+')"'+
+        ' ondrop="dropItem(event,'+qi+')"'+
+        ' onclick="touchSelect('+qi+')">'+
+        '<span style="color:var(--text-muted);font-style:italic;font-size:13px">Cevabı buraya sürükleyin...</span>'+
+      '</div>'+
+      '<div class="dnd-feedback" id="dndFb_'+qi+'"></div>'+
+    '</div>';
+  });
+
+  var isChecked=(horaResults[sec.questions[0].n]!==undefined);
+  var html='<div class="section-panel">'+
+    '<div class="section-title">'+esc(sec.title)+'</div>'+
+    '<div class="section-progress">Cevap bankasından doğru ifadeyi sürükleyerek bırakın.</div>'+
+    bankHtml+itemsHtml;
+
+  if(isChecked){
+    html+='<div class="section-check-btn" style="opacity:0.4;pointer-events:none">Kontrol Et</div>';
+    if(horaSectionIndex<3)
+      html+='<button class="section-next-btn" style="display:block" onclick="nextSection()">Sonraki Bölüm &#8594;</button>';
+    else
+      html+='<button class="section-next-btn" style="display:block" onclick="finishAll()">Sonuçları Gör &#10003;</button>';
+  } else {
+    html+='<button class="section-check-btn" id="sectionCheckBtn" onclick="checkSection()">Kontrol Et</button>';
+    if(horaSectionIndex<3)
+      html+='<button class="section-next-btn" id="sectionNextBtn" onclick="nextSection()">Sonraki Bölüm &#8594;</button>';
+    else
+      html+='<button class="section-next-btn" id="sectionNextBtn" onclick="finishAll()">Sonuçları Gör &#10003;</button>';
+  }
+  html+='</div>';
+  document.getElementById('horaPanel').innerHTML=html;
+
+  // restore if already checked
+  if(isChecked){
+    var sec2=HORA_SECTIONS[horaSectionIndex];
+    sec2.questions.forEach(function(q,qi){
+      var dz=document.getElementById('drop_'+qi);
+      var fb=document.getElementById('dndFb_'+qi);
+      if(dz){
+        dz.textContent=q.answer;
+        var ok=horaResults[q.n];
+        dz.className='drop-zone '+(ok?'correct-drop':'wrong-drop');
+      }
+      if(fb&&!isChecked===false){
+        fb.textContent=esc(q.explanation);
+        fb.className='dnd-feedback show';
+      }
+    });
+    showFeedbacks();
+  }
+}
+
+function dragStart(e, answer){
+  draggedAnswer=answer;
+  draggedChip=e.currentTarget;
+  setTimeout(function(){ if(draggedChip) draggedChip.classList.add('dragging'); },0);
+}
+function dragEnd(e){
+  if(draggedChip) draggedChip.classList.remove('dragging');
+}
+function dragOver(e, qi){
+  e.preventDefault();
+  var dz=document.getElementById('drop_'+qi);
+  if(dz) dz.classList.add('over');
+}
+function dragLeave(e, qi){
+  var dz=document.getElementById('drop_'+qi);
+  if(dz) dz.classList.remove('over');
+}
+function dropItem(e, qi){
+  e.preventDefault();
+  var dz=document.getElementById('drop_'+qi);
+  if(!dz||dz.classList.contains('correct-drop')||dz.classList.contains('wrong-drop')) return;
+  dz.classList.remove('over');
+  dz.textContent=draggedAnswer;
+  dz.className='drop-zone filled';
+  dz.dataset.answer=draggedAnswer;
+  // mark chip as used
+  if(draggedChip) draggedChip.classList.add('used');
+  draggedAnswer=null; draggedChip=null;
+}
+
+// Mobile tap-to-select
+var tapSelected=null, tapSelectedAnswer=null;
+function touchSelect(qi){
+  var dz=document.getElementById('drop_'+qi);
+  if(!dz||dz.classList.contains('correct-drop')||dz.classList.contains('wrong-drop')) return;
+  if(tapSelectedAnswer){
+    dz.textContent=tapSelectedAnswer;
+    dz.className='drop-zone filled';
+    dz.dataset.answer=tapSelectedAnswer;
+    if(tapSelected) tapSelected.classList.add('used');
+    tapSelected=null; tapSelectedAnswer=null;
+  }
+}
+
+// Chip click for mobile
+document.addEventListener('click',function(e){
+  var chip=e.target.closest('.drag-chip');
+  if(chip&&!chip.classList.contains('used')){
+    if(tapSelected) tapSelected.style.outline='';
+    tapSelected=chip;
+    tapSelectedAnswer=chip.dataset.answer;
+    chip.style.outline='3px solid var(--primary)';
+  }
+});
+
+function checkSection(){
+  var sec=HORA_SECTIONS[horaSectionIndex];
+  var allFilled=true;
+  sec.questions.forEach(function(q,qi){
+    var dz=document.getElementById('drop_'+qi);
+    if(!dz||!dz.dataset.answer) allFilled=false;
+  });
+  if(!allFilled){ alert('Lütfen tüm boşlukları doldurun!'); return; }
+
+  sec.questions.forEach(function(q,qi){
+    var dz=document.getElementById('drop_'+qi);
+    var given=(dz.dataset.answer||'').trim();
+    var ok=norm(given)===norm(q.answer);
+    horaResults[q.n]=ok;
+    dz.textContent=given;
+    dz.className='drop-zone '+(ok?'correct-drop':'wrong-drop');
+  });
+
+  showFeedbacks();
+  document.getElementById('sectionCheckBtn').style.opacity='0.4';
+  document.getElementById('sectionCheckBtn').style.pointerEvents='none';
+  var nb=document.getElementById('sectionNextBtn');
+  if(nb) nb.style.display='block';
+}
+
+function showFeedbacks(){
+  var sec=HORA_SECTIONS[horaSectionIndex];
+  sec.questions.forEach(function(q,qi){
+    var fb=document.getElementById('dndFb_'+qi);
+    if(fb){
+      var ok=horaResults[q.n];
+      var expHtml=esc(q.explanation).replace(/\n/g,'<br>');
+      var correctLine=ok?'':('<strong>Doğru cevap:</strong> '+esc(q.answer)+'<br>');
+      fb.innerHTML='<strong>'+(ok?'✓ Doğru!':'✗ Yanlış!')+'</strong><br>'+correctLine+expHtml;
+      fb.className='dnd-feedback show';
+    }
+  });
+  // update header badges
+  var hc=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
+  var hw=Object.keys(horaResults).length-hc;
+  document.getElementById('horaCorrectBadge').textContent='D: '+hc;
+  document.getElementById('horaWrongBadge').textContent='Y: '+hw;
+}
+
+function nextSection(){
+  horaSectionIndex++;
+  renderHoraSection();
+  document.getElementById('horaPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function finishAll(){
+  buildResultScreen(); showScreen('result');
+}
+
+// ============================================================
+// RESULT
+// ============================================================
+function buildResultScreen(){
+  var totalQ=100;
+  var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
+  var horaWrong=Object.keys(horaResults).length-horaCorrect;
+  var totalCorrect=fillCorrect+horaCorrect;
+  var totalWrong=fillWrong+horaWrong;
+  var score=totalCorrect; // 100 üzerinden
+  document.getElementById('resultStudentName').textContent=selectedStudent+' ('+selectedGroup+')';
+  document.getElementById('resultScore').textContent=score+' / 100';
+  document.getElementById('resultScoreSub').textContent=
+    totalCorrect+' doğru / '+totalWrong+' yanlış — ('+fillCorrect+' posesivos + '+horaCorrect+' saat)';
+  document.getElementById('statCorrect').textContent=totalCorrect;
+  document.getElementById('statWrong').textContent=totalWrong;
+  document.getElementById('statTotal').textContent=totalQ;
+
+  var rl=document.getElementById('reviewList');
+  rl.innerHTML='';
+  var any=false;
+  // Fill wrongs
+  FILL_QUESTIONS.forEach(function(q,idx){
+    if(fillChecked[idx]===false){
+      any=true;
+      var d=document.createElement('div'); d.className='review-item';
+      d.innerHTML='<div class="review-q-num">Soru '+q.n+'</div>'+
+        '<div class="review-q-text">'+esc(q.text).replace(/\n/g,'<br>')+'</div>'+
+        '<div class="review-your-ans">Sizin cevabınız: '+esc(fillAnswers[idx]||'(boş)')+'</div>'+
+        '<div class="review-correct-ans">Doğru cevap: '+esc(q.answer)+'</div>'+
+        '<div class="review-explanation">'+esc(q.explanation).replace(/\n/g,'<br>')+'</div>';
+      rl.appendChild(d);
+    }
+  });
+  // Hora wrongs
+  HORA_SECTIONS.forEach(function(sec){
+    sec.questions.forEach(function(q){
+      if(horaResults[q.n]===false){
+        any=true;
+        var d=document.createElement('div'); d.className='review-item';
+        d.innerHTML='<div class="review-q-num">Soru '+q.n+' — Saat: '+q.clock+'</div>'+
+          '<div class="review-correct-ans">Doğru cevap: '+esc(q.answer)+'</div>'+
+          '<div class="review-explanation">'+esc(q.explanation).replace(/\n/g,'<br>')+'</div>';
+        rl.appendChild(d);
+      }
+    });
+  });
+  if(!any) rl.innerHTML='<div style="color:var(--success);font-weight:800;padding:10px 0;font-family:\'Nunito\',sans-serif;">🎉 Tebrikler! Hiç yanlış yapmadınız!</div>';
+
+  // Student list
+  var all=[];
+  Object.keys(STUDENTS_BY_GROUP).forEach(function(g){
+    STUDENTS_BY_GROUP[g].forEach(function(n){ all.push(n); });
+  });
+  all.sort(function(a,b){ return a.localeCompare(b,'tr'); });
+  var rsl=document.getElementById('resultStudentList'); rsl.innerHTML='';
+  all.forEach(function(name){
+    var d=document.createElement('div');
+    d.className='result-student-item'+(name===selectedStudent?' active-student':'');
+    d.textContent=name; rsl.appendChild(d);
+  });
+}
+
+// ============================================================
+// SUBMIT — fetch + no-cors
+// ============================================================
+function submitHomework(){
+  if(submitted) return;
+  var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
+  var totalCorrect=fillCorrect+horaCorrect;
+  var url=SCRIPT_URLS[selectedGroup];
+  if(!url||url.indexOf('BURAYA')!==-1){
+    alert('Google Sheets URL\'si henüz ayarlanmamış. Lütfen öğretmeninizle iletişime geçin.');
+    return;
+  }
+  var payload={
+    odevAdi:'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
+    ogrenci:selectedStudent, grup:selectedGroup,
+    dogru:totalCorrect, yanlis:(100-totalCorrect),
+    toplam:100, puan:totalCorrect,
+    tarih:new Date().toLocaleString('tr-TR')
+  };
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('submitBtn').textContent='Gönderiliyor...';
+  fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(){ showSubmitted(totalCorrect); })
+    .catch(function(){ showSubmitted(totalCorrect); });
+  setTimeout(function(){ if(!submitted) showSubmitted(totalCorrect); },4000);
+}
+function showSubmitted(score){
+  if(submitted) return; submitted=true;
+  document.getElementById('submitWarning').style.display='none';
+  document.getElementById('submitBtn').style.display='none';
+  var m=document.getElementById('submittedMsg'); m.style.display='block';
+  m.textContent='✅ Ödeviniz teslim edildi! Teşekkürler, '+selectedStudent+'! Puanınız: '+score+'/100';
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escA(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function norm(s){
+  return s.trim().toLowerCase()
+    .replace(/\u00e1/g,'a').replace(/\u00e9/g,'e').replace(/\u00ed/g,'i')
+    .replace(/\u00f3/g,'o').replace(/\u00fa/g,'u').replace(/\u00fc/g,'u')
+    .replace(/\u00f1/g,'n').replace(/\s+/g,' ');
+}
+
+buildStudentDropdown();
+</script>
+</body>
+</html>
