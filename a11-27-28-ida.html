@@ -121,62 +121,96 @@ body {
   text-decoration: none; font-family: 'Nunito',sans-serif;
 }
 
-/* SECTION PANEL — saat soruları için 10'ar bölüm */
+/* SECTION PANEL — tam genişlik, 2 kolon layout */
+#horaPanel {
+  padding: 14px 20px 28px;
+  width: 100%;
+}
 .section-panel {
   background: var(--white); border: 2px solid var(--border); border-radius: var(--radius);
-  margin: 14px 16px; max-width: 568px; align-self: center; width: calc(100% - 32px); padding: 18px;
+  width: 100%; padding: 20px 24px;
 }
 .section-title {
-  font-family: 'Nunito',sans-serif; font-size: 16px; font-weight: 900; color: var(--primary-dark);
-  margin-bottom: 6px;
+  font-family: 'Nunito',sans-serif; font-size: 17px; font-weight: 900; color: var(--primary-dark);
+  margin-bottom: 4px;
 }
 .section-progress { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; font-weight: 600; }
-/* answer bank */
+
+/* Üst not + butonlar satırı */
+.section-header-row {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+}
+
+/* CEVAP BANKASI — tam genişlik yatay şerit */
 .answer-bank {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
-  padding: 12px; background: var(--primary-bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+  padding: 14px 16px; background: var(--primary-bg);
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
 }
 .drag-chip {
   background: var(--white); border: 2px solid var(--primary-light); border-radius: 8px;
-  padding: 7px 12px; font-size: 13px; font-weight: 700; color: var(--primary-dark);
+  padding: 8px 14px; font-size: 13px; font-weight: 700; color: var(--primary-dark);
   cursor: grab; user-select: none; transition: all 0.15s; white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(124,58,237,0.08);
 }
+.drag-chip:hover { border-color: var(--primary); background: var(--primary-bg); }
 .drag-chip:active { cursor: grabbing; opacity: 0.7; }
-.drag-chip.used { opacity: 0.3; pointer-events: none; border-style: dashed; }
-.drag-chip.dragging { opacity: 0.5; transform: scale(1.05); box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+.drag-chip.used { opacity: 0.28; pointer-events: none; border-style: dashed; background: var(--primary-bg); }
+.drag-chip.dragging { opacity: 0.45; transform: scale(1.06); box-shadow: 0 6px 20px rgba(124,58,237,0.28); }
+.drag-chip.tap-selected { border-color: var(--primary); background: #ede9fe; outline: 3px solid var(--primary-light); }
 
-/* drop zone items */
-.dnd-item { margin-bottom: 12px; }
-.dnd-item-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.dnd-q-num { font-family: 'Nunito',sans-serif; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; }
-.dnd-clock { font-family: 'Nunito',sans-serif; font-size: 20px; font-weight: 900; color: var(--primary-dark); }
-.dnd-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-.drop-zone {
-  border: 2px dashed var(--border); border-radius: 8px; padding: 10px 14px;
-  min-height: 44px; font-size: 14px; font-weight: 700; color: var(--text-muted);
-  transition: all 0.15s; background: var(--white);
-  display: flex; align-items: center;
+/* SORULAR — 2 kolonlu grid */
+.dnd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
-.drop-zone.over { border-color: var(--primary); background: var(--primary-bg); }
+@media (max-width: 640px) {
+  .dnd-grid { grid-template-columns: 1fr; }
+}
+
+.dnd-item {
+  background: #fafafa; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+}
+.dnd-item-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.dnd-q-num { font-family: 'Nunito',sans-serif; font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+.dnd-clock {
+  font-family: 'Nunito',sans-serif; font-size: 22px; font-weight: 900; color: var(--primary-dark);
+  letter-spacing: 0.02em;
+}
+.dnd-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }
+.drop-zone {
+  border: 2px dashed var(--border); border-radius: 8px; padding: 9px 12px;
+  min-height: 42px; font-size: 13px; font-weight: 700; color: var(--text-muted);
+  transition: all 0.15s; background: var(--white);
+  display: flex; align-items: center; cursor: pointer;
+}
+.drop-zone:hover { border-color: var(--primary-light); background: var(--primary-bg); }
+.drop-zone.over { border-color: var(--primary); background: var(--primary-bg); border-style: solid; }
 .drop-zone.filled { border-color: var(--primary); color: var(--text); background: var(--primary-bg); border-style: solid; }
 .drop-zone.correct-drop { border-color: var(--success); background: var(--success-bg); color: #14532d; border-style: solid; }
 .drop-zone.wrong-drop { border-color: var(--error); background: var(--error-bg); color: #7f1d1d; border-style: solid; }
+
+/* Kontrol + sonraki butonları */
+.section-btns { display: flex; gap: 10px; margin-top: 18px; }
 .section-check-btn {
-  width: 100%; padding: 14px;
+  flex: 1; padding: 14px;
   background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
   font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 800;
-  cursor: pointer; margin-top: 8px; transition: opacity 0.15s;
+  cursor: pointer; transition: opacity 0.15s;
 }
 .section-check-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .section-next-btn {
-  width: 100%; padding: 14px;
+  flex: 1; padding: 14px;
   background: var(--success); color: #fff; border: none; border-radius: var(--radius-sm);
   font-family: 'Nunito',sans-serif; font-size: 15px; font-weight: 800;
-  cursor: pointer; margin-top: 8px; display: none;
+  cursor: pointer; display: none;
 }
+
 /* feedback per item */
 .dnd-feedback {
-  font-size: 12px; margin-top: 5px; line-height: 1.5; display: none;
+  font-size: 12px; margin-top: 8px; line-height: 1.5; display: none;
   background: #f5f3ff; border: 1.5px solid var(--accent); border-radius: 6px; padding: 8px 10px;
   color: var(--primary-dark);
 }
@@ -390,13 +424,14 @@ body {
     <div class="progress-label" id="horaProgressLabel">Bölüm 1 / 4</div>
   </div>
 
-  <!-- Gramer notu uyarısı (kompakt, kalıcı) -->
-  <div style="margin:12px 16px 0;max-width:568px;align-self:center;width:calc(100% - 32px);" class="grammar-note-compact" id="horaTopNote">
-    <span class="grammar-note-compact-text">📌 61-100. arası sorular için gramer notuna bakınız</span>
+  <!-- Gramer notu uyarısı (kompakt, kalıcı, tam genişlik) -->
+  <div style="margin:12px 20px 0;" class="grammar-note-compact" id="horaTopNote">
+    <span style="font-size:16px;flex-shrink:0;">📌</span>
+    <span class="grammar-note-compact-text"><strong style="color:#bfdbfe;">İSPANYOLCADA SAATLER: DETAYLI GRAMATİK ANALİZ</strong> — 61-100. arası sorular için bu notu kullanabilirsiniz.</span>
     <a class="grammar-note-compact-btn" href="https://docs.google.com/document/d/1F362laF2wnxqqRMVIpgTNHTKJ7bi_1aDQMJAAgY4gUo/edit?usp=sharing" target="_blank">📄 Notu Aç</a>
   </div>
 
-  <div id="horaPanel" style="padding-bottom:20px;"></div>
+  <div id="horaPanel"></div>
 </div>
 
 <!-- RESULT -->
@@ -885,13 +920,15 @@ function renderHoraSection(){
   bank.forEach(function(item,i){
     bankHtml+='<div class="drag-chip" id="chip_'+i+'" draggable="true" data-answer="'+escA(item)+'"'+
       ' ondragstart="dragStart(event,\''+escA(item)+'\')"'+
-      ' ondragend="dragEnd(event)">'+esc(item)+'</div>';
+      ' ondragend="dragEnd(event)"'+
+      ' onclick="chipClick(event,\''+escA(item)+'\','+i+')">'+esc(item)+'</div>';
   });
   bankHtml+='</div>';
 
-  var itemsHtml='';
+  // 2 kolonlu grid — 10 soru, 5+5
+  var gridHtml='<div class="dnd-grid">';
   sec.questions.forEach(function(q,qi){
-    itemsHtml+='<div class="dnd-item" id="dndItem_'+qi+'">'+
+    gridHtml+='<div class="dnd-item" id="dndItem_'+qi+'">'+
       '<div class="dnd-item-header">'+
         '<span class="dnd-q-num">Soru '+q.n+'</span>'+
         '<span class="dnd-clock">🕐 '+q.clock+'</span>'+
@@ -901,32 +938,32 @@ function renderHoraSection(){
         ' ondragover="dragOver(event,'+qi+')"'+
         ' ondragleave="dragLeave(event,'+qi+')"'+
         ' ondrop="dropItem(event,'+qi+')"'+
-        ' onclick="touchSelect('+qi+')">'+
-        '<span style="color:var(--text-muted);font-style:italic;font-size:13px">Cevabı buraya sürükleyin...</span>'+
+        ' onclick="dropClick('+qi+')">'+
+        '<span style="color:var(--text-muted);font-style:italic;font-size:12px">Sürükle veya seç...</span>'+
       '</div>'+
       '<div class="dnd-feedback" id="dndFb_'+qi+'"></div>'+
     '</div>';
   });
+  gridHtml+='</div>';
 
   var isChecked=(horaResults[sec.questions[0].n]!==undefined);
 
-  var compactNote=
-    '<div class="grammar-note-compact">'+
-      '<span style="font-size:18px;flex-shrink:0;">📌</span>'+
-      '<span class="grammar-note-compact-text"><strong style="color:#bfdbfe">İSPANYOLCADA SAATLER: DETAYLI GRAMATİK ANALİZ</strong><br>Soruları çözerken bu nota başvurabilirsiniz.</span>'+
-      '<a class="grammar-note-compact-btn" href="https://docs.google.com/document/d/1F362laF2wnxqqRMVIpgTNHTKJ7bi_1aDQMJAAgY4gUo/edit?usp=sharing" target="_blank">'+
-        '📄 Notu Aç'+
-      '</a>'+
-    '</div>';
-
   var html='<div class="section-panel">'+
-    '<div class="section-title">'+esc(sec.title)+'</div>'+
-    compactNote+
-    '<div class="section-progress">Cevap bankasından doğru ifadeyi sürükleyerek bırakın.</div>'+
-    bankHtml+itemsHtml;
+    '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;">'+
+      '<div>'+
+        '<div class="section-title">'+esc(sec.title)+'</div>'+
+        '<div class="section-progress">Cevap bankasından seçimi sürükleyip boşluğa bırakın (ya da tıklayarak seçin).</div>'+
+      '</div>'+
+      '<a class="grammar-note-compact-btn" href="https://docs.google.com/document/d/1F362laF2wnxqqRMVIpgTNHTKJ7bi_1aDQMJAAgY4gUo/edit?usp=sharing" target="_blank" style="white-space:nowrap;">'+
+        '📄 Gramer Notu'+
+      '</a>'+
+    '</div>'+
+    bankHtml+
+    gridHtml+
+    '<div class="section-btns">';
 
   if(isChecked){
-    html+='<div class="section-check-btn" style="opacity:0.4;pointer-events:none">Kontrol Et</div>';
+    html+='<button class="section-check-btn" style="opacity:0.4;pointer-events:none">Kontrol Et</button>';
     if(horaSectionIndex<3)
       html+='<button class="section-next-btn" style="display:block" onclick="nextSection()">Sonraki Bölüm &#8594;</button>';
     else
@@ -938,23 +975,19 @@ function renderHoraSection(){
     else
       html+='<button class="section-next-btn" id="sectionNextBtn" onclick="finishAll()">Sonuçları Gör &#10003;</button>';
   }
-  html+='</div>';
+  html+='</div></div>'; // section-btns + section-panel
   document.getElementById('horaPanel').innerHTML=html;
+  document.getElementById('horaPanel').scrollIntoView({behavior:'smooth', block:'start'});
 
   // restore if already checked
   if(isChecked){
     var sec2=HORA_SECTIONS[horaSectionIndex];
     sec2.questions.forEach(function(q,qi){
       var dz=document.getElementById('drop_'+qi);
-      var fb=document.getElementById('dndFb_'+qi);
       if(dz){
         dz.textContent=q.answer;
         var ok=horaResults[q.n];
         dz.className='drop-zone '+(ok?'correct-drop':'wrong-drop');
-      }
-      if(fb&&!isChecked===false){
-        fb.textContent=esc(q.explanation);
-        fb.className='dnd-feedback show';
       }
     });
     showFeedbacks();
@@ -983,38 +1016,62 @@ function dropItem(e, qi){
   var dz=document.getElementById('drop_'+qi);
   if(!dz||dz.classList.contains('correct-drop')||dz.classList.contains('wrong-drop')) return;
   dz.classList.remove('over');
+  
+  // Eğer bu drop zone'da zaten bir cevap varsa eski chip'i geri aç
+  if(dz.dataset.answer){
+    var oldAns=dz.dataset.answer;
+    var bank=document.getElementById('answerBank');
+    if(bank){
+      bank.querySelectorAll('.drag-chip').forEach(function(c){
+        if(c.dataset.answer===oldAns) c.classList.remove('used');
+      });
+    }
+  }
+  
   dz.textContent=draggedAnswer;
   dz.className='drop-zone filled';
   dz.dataset.answer=draggedAnswer;
-  // mark chip as used
   if(draggedChip) draggedChip.classList.add('used');
   draggedAnswer=null; draggedChip=null;
 }
 
-// Mobile tap-to-select
-var tapSelected=null, tapSelectedAnswer=null;
-function touchSelect(qi){
-  var dz=document.getElementById('drop_'+qi);
-  if(!dz||dz.classList.contains('correct-drop')||dz.classList.contains('wrong-drop')) return;
-  if(tapSelectedAnswer){
-    dz.textContent=tapSelectedAnswer;
-    dz.className='drop-zone filled';
-    dz.dataset.answer=tapSelectedAnswer;
-    if(tapSelected) tapSelected.classList.add('used');
-    tapSelected=null; tapSelectedAnswer=null;
-  }
+// Tap/click seçim sistemi (mobil + masaüstü)
+var tapSelected=null, tapSelectedAnswer=null, tapSelectedId=null;
+
+function chipClick(e, answer, idx){
+  e.stopPropagation();
+  var chip=document.getElementById('chip_'+idx);
+  if(!chip||chip.classList.contains('used')) return;
+  // Önceki seçimi temizle
+  if(tapSelected) tapSelected.classList.remove('tap-selected');
+  tapSelected=chip;
+  tapSelectedAnswer=answer;
+  tapSelectedId=idx;
+  chip.classList.add('tap-selected');
 }
 
-// Chip click for mobile
-document.addEventListener('click',function(e){
-  var chip=e.target.closest('.drag-chip');
-  if(chip&&!chip.classList.contains('used')){
-    if(tapSelected) tapSelected.style.outline='';
-    tapSelected=chip;
-    tapSelectedAnswer=chip.dataset.answer;
-    chip.style.outline='3px solid var(--primary)';
+function dropClick(qi){
+  // Eğer seçili bir chip varsa buraya yerleştir
+  if(!tapSelectedAnswer) return;
+  var dz=document.getElementById('drop_'+qi);
+  if(!dz||dz.classList.contains('correct-drop')||dz.classList.contains('wrong-drop')) return;
+  
+  // Eğer bu drop zone'da zaten bir cevap varsa eski chip'i geri aç
+  if(dz.dataset.answer){
+    var oldAns=dz.dataset.answer;
+    var bank=document.getElementById('answerBank');
+    if(bank){
+      var chips=bank.querySelectorAll('.drag-chip');
+      chips.forEach(function(c){ if(c.dataset.answer===oldAns) c.classList.remove('used'); });
+    }
   }
-});
+  
+  dz.textContent=tapSelectedAnswer;
+  dz.className='drop-zone filled';
+  dz.dataset.answer=tapSelectedAnswer;
+  if(tapSelected){ tapSelected.classList.add('used'); tapSelected.classList.remove('tap-selected'); }
+  tapSelected=null; tapSelectedAnswer=null; tapSelectedId=null;
+}
 
 function checkSection(){
   var sec=HORA_SECTIONS[horaSectionIndex];
