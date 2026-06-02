@@ -376,23 +376,7 @@ body {
       <div class="student-list-label">Adınızı seçin</div>
       <select class="student-select" id="studentSelect" onchange="onSelectChange()">
         <option value="">-- Adınızı seçin --</option>
-      
-        
-        <option>Arman Aykac</option>
-        <option>Ayse Gurkan</option>
-        <option>Birce Suzen</option>
-        <option>Burakhan Kaydi</option>
-        <option>Ceren Erdogan</option>
-        <option>Doga Degirmenci</option>
-        <option>Ecem Sukas</option>
-        <option>Ecrin Palaz</option>
-        <option>Elif Bozkurt</option>
-        <option>Elif Cetin</option>
-        <option>Rabia Nur Tok</option>
-        <option>Selva Akyuz</option>
-        <option>Sena Yamak</option>
-        <option>Suleyman Bektas</option>
-        <option>Taner Bastar</option></select>
+      </select>
       <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">Ödeve Başla &#8594;</button>
     </div>
   </div>
@@ -484,21 +468,9 @@ body {
 // ============================================================
 var STUDENTS_BY_GROUP = {
   "A1.1": [
-    "Arman Aykac",
-    "Ayse Gurkan",
-    "Birce Suzen",
-    "Burakhan Kaydi",
-    "Ceren Erdogan",
-    "Doga Degirmenci",
-    "Ecem Sukas",
-    "Ecrin Palaz",
-    "Elif Bozkurt",
-    "Elif Cetin",
-    "Rabia Nur Tok",
-    "Selva Akyuz",
-    "Sena Yamak",
-    "Suleyman Bektas",
-    "Taner Bastar"
+    "Arman Aykac","Ayse Gurkan","Birce Suzen","Burakhan Kaydi","Ceren Erdogan",
+    "Doga Degirmenci","Ecem Sukas","Ecrin Palaz","Elif Bozkurt","Elif Cetin",
+    "Rabia Nur Tok","Selva Akyuz","Sena Yamak","Suleyman Bektas","Taner Bastar"
   ]
 };
 var STUDENT_GROUP_MAP = {};
@@ -506,8 +478,9 @@ Object.keys(STUDENTS_BY_GROUP).forEach(function(g){
   STUDENTS_BY_GROUP[g].forEach(function(n){ STUDENT_GROUP_MAP[n]=g; });
 });
 var SCRIPT_URLS = {
-  "A1.1": "https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec",
-  
+  "A1.1":    "https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec",
+  "A1.1(2)": "https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec",
+  "A1.1(3)": "https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec"
 };
 
 // ============================================================
@@ -822,7 +795,16 @@ function buildStudentDropdown(){
 function onSelectChange(){
   var v=document.getElementById('studentSelect').value;
   if(!v){selectedStudent=null;selectedGroup=null;document.getElementById('startBtn').disabled=true;return;}
-  var p=v.split('|||'); selectedStudent=p[0]; selectedGroup=p[1] || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
+  // value formatı: "isim|||grup" veya sadece "isim"
+  if(v.indexOf('|||')!==-1){
+    var p=v.split('|||');
+    selectedStudent=p[0];
+    selectedGroup=p[1];
+  } else {
+    // Eski format: sadece isim, gruptan bul
+    selectedStudent=v;
+    selectedGroup=STUDENT_GROUP_MAP[v] || 'A1.1';
+  }
   document.getElementById('startBtn').disabled=false;
 }
 
@@ -1151,7 +1133,6 @@ function buildResultScreen(){
   var totalCorrect=fillCorrect+horaCorrect;
   var totalWrong=fillWrong+horaWrong;
   var score=totalCorrect; // 100 üzerinden
-  selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
   document.getElementById('resultStudentName').textContent=selectedStudent+' ('+selectedGroup+')';
   document.getElementById('resultScore').textContent=score+' / 100';
   document.getElementById('resultScoreSub').textContent=
@@ -1212,9 +1193,11 @@ function submitHomework(){
   if(submitted) return;
   var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
   var totalCorrect=fillCorrect+horaCorrect;
-  var url=SCRIPT_URLS[selectedGroup];
-  if(!url||url.indexOf('BURAYA')!==-1){
-    alert('Google Sheets URL\'si henüz ayarlanmamış. Lütfen öğretmeninizle iletişime geçin.');
+  // Grup güvenliği: selectedGroup yoksa STUDENT_GROUP_MAP'ten al
+  if(!selectedGroup) selectedGroup = STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
+  var url=SCRIPT_URLS[selectedGroup] || SCRIPT_URLS['A1.1'];
+  if(!url){
+    alert('Bağlantı hatası. Lütfen sayfayı yenileyip tekrar deneyin.');
     return;
   }
   var payload={
