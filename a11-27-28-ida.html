@@ -1200,16 +1200,28 @@ function submitHomework(){
     alert('Bağlantı hatası. Lütfen sayfayı yenileyip tekrar deneyin.');
     return;
   }
+  // Apps Script'in beklediği alan adları: odev, ogrenci, grup, puan, dogru, yanlis
   var payload={
-    odevAdi:'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
-    ogrenci:selectedStudent, grup:selectedGroup,
-    dogru:totalCorrect, yanlis:(100-totalCorrect),
-    toplam:100, puan:totalCorrect,
+    odev:'H7 – 27-28.Ders',
+    ogrenci:selectedStudent,
+    grup:selectedGroup,
+    dogru:totalCorrect,
+    yanlis:(100-totalCorrect),
+    toplam:100,
+    puan:totalCorrect,
+    tip:'test',
     tarih:new Date().toLocaleString('tr-TR')
   };
   document.getElementById('submitBtn').disabled=true;
-  document.getElementById('submitBtn').textContent='Gönderiliyor...';
-  fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  document.getElementById('submitBtn').textContent='Gonduruluyor...';
+
+  // no-cors modunda JSON body Apps Script'e ulasmaz.
+  // GET ile data= parametresi olarak gonder - doGet bunu isler.
+  var encoded = encodeURIComponent(JSON.stringify(payload));
+  var getUrl = url + '?data=' + encoded;
+  var img = new Image();
+  img.src = getUrl;
+  fetch(getUrl, {method:'GET', mode:'no-cors'})
     .then(function(){ showSubmitted(totalCorrect); })
     .catch(function(){ showSubmitted(totalCorrect); });
   setTimeout(function(){ if(!submitted) showSubmitted(totalCorrect); },4000);
