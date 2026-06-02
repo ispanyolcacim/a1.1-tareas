@@ -826,7 +826,7 @@ function buildStudentDropdown(){
 function onSelectChange(){
   var v=document.getElementById('studentSelect').value;
   if(!v){selectedStudent=null;selectedGroup=null;document.getElementById('startBtn').disabled=true;return;}
-  var p=v.split('|||'); selectedStudent=p[0]; selectedGroup=p[1];
+  var p=v.split('|||'); selectedStudent=p[0]; selectedGroup=p[1] || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
   document.getElementById('startBtn').disabled=false;
 }
 
@@ -1155,6 +1155,8 @@ function buildResultScreen(){
   var totalCorrect=fillCorrect+horaCorrect;
   var totalWrong=fillWrong+horaWrong;
   var score=totalCorrect; // 100 üzerinden
+  selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
+  selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
   document.getElementById('resultStudentName').textContent=selectedStudent+' ('+selectedGroup+')';
   document.getElementById('resultScore').textContent=score+' / 100';
   document.getElementById('resultScoreSub').textContent=
@@ -1213,22 +1215,43 @@ function buildResultScreen(){
 // ============================================================
 function submitHomework(){
   if(submitted) return;
-  var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
-  var totalCorrect=fillCorrect+horaCorrect;
+
+  selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
+
+  var horaCorrect = Object.keys(horaResults).filter(function(k){ return horaResults[k]===true; }).length;
+  var totalCorrect = fillCorrect + horaCorrect;
   var url = 'https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
-  var payload={
-    odevAdi:'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
-    ogrenci:selectedStudent, grup:selectedGroup,
-    dogru:totalCorrect, yanlis:(100-totalCorrect),
-    toplam:100, puan:totalCorrect,
-    tarih:new Date().toLocaleString('tr-TR')
+
+  var payload = {
+    odevAdi: 'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
+    odev: 'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
+    ogrenci: selectedStudent,
+    grup: selectedGroup,
+    dogru: totalCorrect,
+    yanlis: (100-totalCorrect),
+    toplam: 100,
+    puan: totalCorrect,
+    tarih: new Date().toLocaleDateString('tr-TR'),
+    saat: new Date().toLocaleTimeString('tr-TR')
   };
-  document.getElementById('submitBtn').disabled=true;
-  document.getElementById('submitBtn').textContent='Gönderiliyor...';
-  fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-    .then(function(){ showSubmitted(totalCorrect); })
-    .catch(function(){ showSubmitted(totalCorrect); });
-  setTimeout(function(){ if(!submitted) showSubmitted(totalCorrect); },4000);
+
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Gönderiliyor...';
+
+  fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'data=' + encodeURIComponent(JSON.stringify(payload))
+  })
+  .then(function(){
+    showSubmitted(totalCorrect);
+  })
+  .catch(function(err){
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').textContent = 'ÖDEVİNİZİ TESLİM EDİN';
+    alert('Gönderim sırasında hata oluştu: ' + err.message);
+  });
 }
 function showSubmitted(score){
   if(submitted) return; submitted=true;
