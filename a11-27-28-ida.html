@@ -377,22 +377,22 @@ body {
       <select class="student-select" id="studentSelect" onchange="onSelectChange()">
         <option value="">-- Adınızı seçin --</option>
       
-      
-      <option>Arman Aykac</option>
-      <option>Ayse Gurkan</option>
-      <option>Birce Suzen</option>
-      <option>Burakhan Kaydi</option>
-      <option>Ceren Erdogan</option>
-      <option>Doga Degirmenci</option>
-      <option>Ecem Sukas</option>
-      <option>Ecrin Palaz</option>
-      <option>Elif Bozkurt</option>
-      <option>Elif Cetin</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option></select>
+        
+        <option>Arman Aykac</option>
+        <option>Ayse Gurkan</option>
+        <option>Birce Suzen</option>
+        <option>Burakhan Kaydi</option>
+        <option>Ceren Erdogan</option>
+        <option>Doga Degirmenci</option>
+        <option>Ecem Sukas</option>
+        <option>Ecrin Palaz</option>
+        <option>Elif Bozkurt</option>
+        <option>Elif Cetin</option>
+        <option>Rabia Nur Tok</option>
+        <option>Selva Akyuz</option>
+        <option>Sena Yamak</option>
+        <option>Suleyman Bektas</option>
+        <option>Taner Bastar</option></select>
       <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">Ödeve Başla &#8594;</button>
     </div>
   </div>
@@ -505,13 +505,9 @@ var STUDENT_GROUP_MAP = {};
 Object.keys(STUDENTS_BY_GROUP).forEach(function(g){
   STUDENTS_BY_GROUP[g].forEach(function(n){ STUDENT_GROUP_MAP[n]=g; });
 });
-var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
 var SCRIPT_URLS = {
-  "A1.1": "https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec",
-  "A1.1(2)": "https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec",
-  "A1.1(3)": "https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec",
-  "A1.1 (2)": "https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec",
-  "A1.1 (3)": "https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec"
+  "A1.1": "https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec",
+  
 };
 
 // ============================================================
@@ -1156,7 +1152,6 @@ function buildResultScreen(){
   var totalWrong=fillWrong+horaWrong;
   var score=totalCorrect; // 100 üzerinden
   selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
-  selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
   document.getElementById('resultStudentName').textContent=selectedStudent+' ('+selectedGroup+')';
   document.getElementById('resultScore').textContent=score+' / 100';
   document.getElementById('resultScoreSub').textContent=
@@ -1215,43 +1210,26 @@ function buildResultScreen(){
 // ============================================================
 function submitHomework(){
   if(submitted) return;
-
-  selectedGroup = selectedGroup || STUDENT_GROUP_MAP[selectedStudent] || 'A1.1';
-
-  var horaCorrect = Object.keys(horaResults).filter(function(k){ return horaResults[k]===true; }).length;
-  var totalCorrect = fillCorrect + horaCorrect;
-  var url = 'https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
-
-  var payload = {
-    odevAdi: 'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
-    odev: 'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
-    ogrenci: selectedStudent,
-    grup: selectedGroup,
-    dogru: totalCorrect,
-    yanlis: (100-totalCorrect),
-    toplam: 100,
-    puan: totalCorrect,
-    tarih: new Date().toLocaleDateString('tr-TR'),
-    saat: new Date().toLocaleTimeString('tr-TR')
+  var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
+  var totalCorrect=fillCorrect+horaCorrect;
+  var url=SCRIPT_URLS[selectedGroup];
+  if(!url||url.indexOf('BURAYA')!==-1){
+    alert('Google Sheets URL\'si henüz ayarlanmamış. Lütfen öğretmeninizle iletişime geçin.');
+    return;
+  }
+  var payload={
+    odevAdi:'A1.1 7. Hafta Odevi (27-28. Ders) - SAHIPLIK SIFATLARI + SAATLER',
+    ogrenci:selectedStudent, grup:selectedGroup,
+    dogru:totalCorrect, yanlis:(100-totalCorrect),
+    toplam:100, puan:totalCorrect,
+    tarih:new Date().toLocaleString('tr-TR')
   };
-
-  document.getElementById('submitBtn').disabled = true;
-  document.getElementById('submitBtn').textContent = 'Gönderiliyor...';
-
-  fetch(url, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: 'data=' + encodeURIComponent(JSON.stringify(payload))
-  })
-  .then(function(){
-    showSubmitted(totalCorrect);
-  })
-  .catch(function(err){
-    document.getElementById('submitBtn').disabled = false;
-    document.getElementById('submitBtn').textContent = 'ÖDEVİNİZİ TESLİM EDİN';
-    alert('Gönderim sırasında hata oluştu: ' + err.message);
-  });
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('submitBtn').textContent='Gönderiliyor...';
+  fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(){ showSubmitted(totalCorrect); })
+    .catch(function(){ showSubmitted(totalCorrect); });
+  setTimeout(function(){ if(!submitted) showSubmitted(totalCorrect); },4000);
 }
 function showSubmitted(score){
   if(submitted) return; submitted=true;
