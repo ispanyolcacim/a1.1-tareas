@@ -187,7 +187,22 @@ body {
       <div class="student-list-label">Adınızı seçin</div>
       <select class="student-select" id="studentSelect" onchange="onSelectChange()">
         <option value="">-- Adınızı seçin --</option>
-      </select>
+      
+        <option value="Arman Aykac">Arman Aykac</option>
+        <option value="Ayse Gurkan">Ayse Gurkan</option>
+        <option value="Birce Suzen">Birce Suzen</option>
+        <option value="Burakhan Kaydi">Burakhan Kaydi</option>
+        <option value="Ceren Erdogan">Ceren Erdogan</option>
+        <option value="Doga Degirmenci">Doga Degirmenci</option>
+        <option value="Ecem Sukas">Ecem Sukas</option>
+        <option value="Ecrin Palaz">Ecrin Palaz</option>
+        <option value="Elif Bozkurt">Elif Bozkurt</option>
+        <option value="Elif Cetin">Elif Cetin</option>
+        <option value="Rabia Nur Tok">Rabia Nur Tok</option>
+        <option value="Selva Akyuz">Selva Akyuz</option>
+        <option value="Sena Yamak">Sena Yamak</option>
+        <option value="Suleyman Bektas">Suleyman Bektas</option>
+        <option value="Taner Bastar">Taner Bastar</option></select>
       <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">Ödeve Başla</button>
     </div>
   </div>
@@ -247,15 +262,11 @@ body {
 
 <script>
 var STUDENTS_DISPLAY = {
-  "A1.1": ["Birce S\u00fczen","B\u00fc\u015fra Yurt","Do\u011fa De\u011firmenci","Elif Ata\u00e7","Elif \u00c7etin","Eray Say\u0131l\u0131k","G\u00fclce Eyibilir","Harun \u00d6zmen","Mehtap Keklik","Seher Akbulat","Serra Sancakl\u0131 I\u015f\u0131k","Yasemin Kurtulu\u015f Tun\u00e7","Zehra R\u00fcmeysa \u00c7olak","Zeynep Hediye \u00d6zay","Zeynep Su Ali\u015fan"],
-  "A1.1(2)": ["Burakhan Kayd\u0131","Ecem Sukas","Elif Bozkurt","Eyl\u00fcl \u015eerbetci","Ezgican Tek\u00e7orap","Hilal Dilsiz","Meltem \u00c7ift\u00e7i","Merve Sa\u011flam","Meryem \u00d6zbek","R\u00fcmeysa Yatg\u0131n","\u015eenay Sezgin","\u015eeyma Dereci","Sonay \u00c7etinkaya","Zeynep \u00d6zta\u015fk\u0131n","Zeynep S\u00f6ylemez"],
-  "A1.1(3)": ["Buse Cagmel","B\u00fc\u015fra \u00c7am","Ceren Erdo\u011fan","Elif Atl\u0131","Emel Kanburoglu","Erdin\u00e7 Tigin Bilen","G\u00f6rkem Dursun","\u0130ncilay Dikb\u0131y\u0131k","Murat Erdem","Murat \u015eahin","Onur Atl\u0131","Ruh\u015fen \u00c7avu\u015fo\u011flu","Sedat Zincirk\u0131ran","Seher Er\u00e7in","Sibel Atmaca"]
+  "A1.1": ["Arman Aykac", "Ayse Gurkan", "Birce Suzen", "Burakhan Kaydi", "Ceren Erdogan", "Doga Degirmenci", "Ecem Sukas", "Ecrin Palaz", "Elif Bozkurt", "Elif Cetin", "Rabia Nur Tok", "Selva Akyuz", "Sena Yamak", "Suleyman Bektas", "Taner Bastar"]
 };
 
 var SCRIPT_URLS = {
-  "A1.1":    "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec",
-  "A1.1(2)": "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec",
-  "A1.1(3)": "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec"
+  "A1.1":    "https://script.google.com/macros/s/AKfycbzFnN5KLrXxKPJwPGPtXXB7BmQLfDVWt6Vz5Ys2vSGS9E2D8N3xwNiP7gQ3Q2A0Fcq/exec"
 };
 
 var QUESTIONS = [
