@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> · İspanyolca Sınavı · Leyla</title>
+<title>İspanyolca Sınavı · Özel Ders</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap');
 
@@ -543,7 +543,7 @@ textarea.writing-area:focus { border-color: var(--purple-d); background: #fff; }
 <body>
 
 <div class="header">
-  <div class="header-tag"> · Español · Leyla</div>
+  <div class="header-tag">Español · Özel Ders Sınavı</div>
   <h1>Yakın Gelecek Zamanı Sınavı</h1>
   <p>IR A + Infinitivo &nbsp;·&nbsp; Objeto Directo e Indirecto &nbsp;·&nbsp; Dönüşlü Fiiller</p>
 </div>
@@ -553,6 +553,10 @@ textarea.writing-area:focus { border-color: var(--purple-d); background: #fff; }
   <div class="score-item"><div class="val" id="sc-wrong">0</div><div class="lbl">Yanlış</div></div>
   <div class="score-item"><div class="val" id="sc-remain">100</div><div class="lbl">Kalan</div></div>
   <div class="score-item"><div class="val" id="sc-pct">—</div><div class="lbl">Puan</div></div>
+</div>
+
+<div style="text-align:center; padding: 12px 24px 0; max-width:700px; margin: 0 auto;">
+  <button onclick="skipToWriting()" style="background:var(--purple); color:var(--dark); border:none; border-radius:12px; padding:10px 24px; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:pointer; letter-spacing:0.3px; transition:all 0.2s;" onmouseover="this.style.background='#a880c0';this.style.color='#fff'" onmouseout="this.style.background='var(--purple)';this.style.color='var(--dark)'">✍️ Yazma Bölümüne Geç</button>
 </div>
 
 <div class="progress-wrap">
@@ -867,7 +871,7 @@ function buildWriting() {
   </div>
   <div class="writing-body">
     <div class="info-grid">
-      <div class="info-field"><label>Nombre y Apellido</label><input type="text" value="Leyla" readonly></div>
+      <div class="info-field"><label>Ad ve Soyad</label><input type="text" id="w-name" placeholder="Adınızı ve soyadınızı yazınız..."></div>
       <div class="info-field"><label>Número de tarea</label><input type="text" value="Özel Ders Ödevi" readonly></div>
       <div class="info-field"><label>Tema de la tarea</label><input type="text" value="Mis planes y mis regalos" readonly></div>
       <div class="info-field"><label>Gramática</label><input type="text" value="Ir a + Infinitivo / OD e OI" readonly></div>
@@ -933,6 +937,17 @@ También voy a comprar un regalo para ella..."></textarea>
     document.getElementById('word-count').textContent = text ? text.split(/\s+/).length : 0;
     document.getElementById('sent-count').textContent = text ? (text.match(/[.!?]/g)||[]).length : 0;
   });
+}
+
+function skipToWriting() {
+  display.innerHTML = '';
+  document.body.style.background = '#CDB4DB';
+  document.getElementById('final-card').style.display = 'none';
+  buildWriting();
+  document.getElementById('writing-outer').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('writing-outer').scrollIntoView({behavior:'smooth'});
+  }, 200);
 }
 
 // START
