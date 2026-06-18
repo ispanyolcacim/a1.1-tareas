@@ -2,956 +2,689 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İspanyolca Sınavı · Özel Ders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Özel Ders Sınavı – Yakın Gelecek Zamanı</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap');
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --pink:   #FFD6E8;
-  --blue:   #BDE0FE;
-  --purple: #CDB4DB;
-  --yellow: #FFF1B6;
-  --dark:   #2B2D42;
-  --pink-d: #e8a8c8;
-  --blue-d: #8ab8e8;
-  --purple-d: #a880c0;
-  --yellow-d: #e8d060;
-  --white:  #FFFFFF;
-  --text:   #2B2D42;
-  --muted:  #7a7d99;
-  --border: rgba(43,45,66,0.12);
-  --correct-bg: #d4edda;
-  --correct: #2d6a4f;
-  --wrong-bg: #fde8e8;
-  --wrong: #c0392b;
+  --c1:#fcedbe; --c2:#f6cf80; --c3:#f7c9d3; --c4:#ee84a8; --c5:#d35a75;
+  --dark:#4a2535; --mid:#8a5060; --white:#ffffff; --green:#6aab7a; --red:#d97070;
+  --radius:14px;
 }
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:linear-gradient(160deg,#fff8f0 0%,#fff5f8 60%,#fffde8 100%); min-height:100vh; color:var(--dark); }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+.header { background:linear-gradient(135deg,var(--c4),var(--c5)); padding:18px 20px 14px; text-align:center; box-shadow:0 4px 18px rgba(238,132,168,0.4); position:relative; overflow:hidden; }
+.header::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(255,255,255,0.1) 14px,rgba(255,255,255,0.1) 15px); }
+.header-tag { display:inline-block; background:rgba(255,255,255,0.35); border:1.5px solid rgba(255,255,255,0.55); border-radius:20px; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:3px 14px; margin-bottom:8px; color:var(--white); position:relative; }
+.header h1 { font-size:clamp(16px,4vw,22px); font-weight:800; color:var(--white); position:relative; }
+.header-sub { font-size:12px; color:rgba(255,255,255,0.85); margin-top:4px; position:relative; }
 
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--pink);
-  color: var(--text);
-  min-height: 100vh;
-  transition: background 0.6s ease;
-}
+.screen { display:none; animation:fadeIn 0.3s ease; }
+.screen.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-/* ── HEADER ── */
-.header {
-  background: var(--dark);
-  padding: 32px 24px 28px;
-  text-align: center;
-  position: relative;
-}
-.header-tag {
-  display: inline-block;
-  background: var(--purple);
-  color: var(--dark);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  padding: 5px 16px;
-  border-radius: 20px;
-  margin-bottom: 14px;
-}
-.header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(22px, 4vw, 36px);
-  color: #fff;
-  margin-bottom: 6px;
-}
-.header p { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; }
+/* NAME */
+.name-body { max-width:420px; margin:0 auto; padding:32px 20px; text-align:center; }
+.name-body h2 { font-size:20px; color:var(--dark); margin-bottom:5px; }
+.name-body p  { font-size:13px; color:var(--mid); margin-bottom:20px; }
+.name-select { width:100%; padding:13px 16px; font-size:15px; background:var(--white); border:2px solid var(--c3); border-radius:var(--radius); color:var(--dark); appearance:none; cursor:pointer; margin-bottom:14px; font-family:inherit; }
+.name-select:focus { outline:none; border-color:var(--c2); }
+.info-box { background:var(--white); border:1.5px solid var(--c3); border-radius:var(--radius); padding:14px 16px; margin-bottom:18px; text-align:left; font-size:13px; line-height:1.75; }
+.ib-row { display:flex; align-items:flex-start; gap:9px; margin-bottom:5px; }
+.ib-dot { width:8px; height:8px; border-radius:50%; background:var(--c2); flex-shrink:0; margin-top:5px; }
+.ib-hr { height:1px; background:var(--c3); margin:9px 0; }
 
-/* ── SCOREBAR ── */
-.scorebar {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  background: var(--dark);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding: 0;
-}
-.score-item {
-  flex: 1;
-  max-width: 160px;
-  text-align: center;
-  padding: 14px 8px;
-  border-right: 1px solid rgba(255,255,255,0.08);
-}
-.score-item:last-child { border-right: none; }
-.score-item .val {
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--yellow);
-  line-height: 1;
-}
-.score-item .lbl {
-  font-size: 10px;
-  color: rgba(255,255,255,0.45);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
+/* BUTTONS */
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:12px 24px; border:none; border-radius:var(--radius); font-size:14px; font-weight:700; cursor:pointer; transition:all 0.2s; font-family:inherit; }
+.btn-main   { background:linear-gradient(135deg,var(--c4),var(--c5)); color:white; box-shadow:0 4px 12px rgba(211,90,117,0.35); }
+.btn-main:hover   { transform:translateY(-2px); }
+.btn-gold   { background:linear-gradient(135deg,var(--c2),#e8b040); color:var(--dark); box-shadow:0 4px 12px rgba(246,207,128,0.4); }
+.btn-gold:hover   { transform:translateY(-2px); }
+.btn-outline { background:var(--white); border:2px solid var(--c3); color:var(--dark); }
+.btn-outline:hover { background:var(--c3); }
+.btn-purple { background:linear-gradient(135deg,#c39bd3,#9b59b6); color:white; box-shadow:0 4px 12px rgba(155,89,182,0.3); }
+.btn-purple:hover { transform:translateY(-2px); }
+.btn-sm   { padding:9px 18px; font-size:13px; }
+.btn-full { width:100%; }
+.btn:disabled { opacity:0.35; cursor:not-allowed; transform:none !important; }
 
-/* ── PROGRESS ── */
-.progress-wrap {
-  padding: 16px 24px 0;
-  max-width: 700px;
-  margin: 0 auto;
-}
-.progress-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 6px;
-  opacity: 0.7;
-}
-.progress-bar {
-  height: 6px;
-  background: rgba(43,45,66,0.15);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--dark);
-  border-radius: 10px;
-  width: 0%;
-  transition: width 0.5s ease;
-}
+/* TOP BAR */
+.quiz-wrap { max-width:640px; margin:0 auto; padding:16px; }
+.top-bar { display:flex; align-items:center; justify-content:space-between; background:var(--white); border:1.5px solid var(--c3); border-radius:var(--radius); padding:10px 16px; margin-bottom:10px; gap:8px; flex-wrap:wrap; }
+.top-student { font-size:12px; color:var(--mid); font-weight:600; }
+.top-scores  { display:flex; gap:14px; }
+.score-item  { display:flex; align-items:center; gap:5px; font-size:13px; font-weight:700; }
+.sc-correct { color:var(--green); } .sc-wrong { color:var(--red); }
+.prog-wrap { margin-bottom:12px; }
+.prog-bar  { height:7px; background:var(--c3); border-radius:4px; overflow:hidden; }
+.prog-fill { height:100%; background:linear-gradient(90deg,var(--c4),var(--c2)); border-radius:4px; transition:width 0.4s; width:0%; }
+.prog-info { display:flex; justify-content:space-between; font-size:11px; color:var(--mid); margin-top:3px; }
 
-/* ── MAIN ── */
-.main {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 32px 20px 80px;
-}
+/* SKIP BTN */
+.skip-bar { text-align:center; margin-bottom:10px; }
 
-/* ── SECTION LABEL ── */
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.section-label .pill {
-  background: var(--dark);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 20px;
-}
-.section-label .desc {
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 600;
-}
+/* SECTION BADGE */
+.section-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(90deg,var(--c4),var(--c5)); border-radius:20px; padding:5px 14px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:white; margin-bottom:10px; }
+.tag-badge    { display:inline-block; background:rgba(238,132,168,0.15); border:1px solid var(--c3); border-radius:8px; font-size:11px; font-weight:700; padding:3px 10px; color:var(--c5); margin-left:8px; }
 
-/* ── QUESTION CARD ── */
-.q-card {
-  background: var(--white);
-  border-radius: 20px;
-  padding: 28px 28px 24px;
-  box-shadow: 0 4px 20px rgba(43,45,66,0.10);
-  animation: slideIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  position: relative;
-  overflow: hidden;
-}
-.q-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-}
+/* Q CARD */
+.q-card { background:var(--white); border:1.5px solid var(--c3); border-radius:var(--radius); overflow:hidden; box-shadow:0 3px 14px rgba(238,132,168,0.12); margin-bottom:12px; }
+.q-head { padding:16px 18px 14px; border-bottom:1px solid var(--c3); display:flex; gap:12px; align-items:flex-start; }
+.q-num  { background:linear-gradient(135deg,var(--c4),var(--c5)); color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; flex-shrink:0; margin-top:1px; }
+.q-text { font-size:14.5px; line-height:1.65; flex:1; font-weight:500; }
+.reading-box { background:var(--c1); border-left:3px solid var(--c2); border-radius:0 8px 8px 0; padding:10px 14px; margin-bottom:12px; font-size:12.5px; line-height:1.85; color:var(--mid); max-height:200px; overflow-y:auto; }
+.q-opts { padding:12px 16px 14px; display:grid; gap:8px; }
+.opt-btn { display:flex; align-items:flex-start; gap:10px; padding:11px 14px; background:#fdf8fb; border:1.5px solid var(--c3); border-radius:10px; color:var(--dark); font-size:13px; line-height:1.5; cursor:pointer; text-align:left; width:100%; transition:all 0.18s; font-family:inherit; }
+.opt-btn:hover:not(:disabled) { background:var(--c1); border-color:var(--c2); transform:translateX(4px); }
+.opt-btn:disabled { cursor:default; }
+.opt-letter { background:var(--c3); color:var(--dark); border-radius:6px; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; flex-shrink:0; }
+.opt-btn.correct { background:#edfaf2; border-color:#8dcca0; }
+.opt-btn.correct .opt-letter { background:var(--green); color:white; }
+.opt-btn.wrong   { background:#fdf0f0; border-color:#e8a0a0; }
+.opt-btn.wrong   .opt-letter { background:var(--red); color:white; }
+.check-row { padding:0 16px 14px; }
+.explanation { display:none; margin:0 16px 14px; background:var(--c1); border-left:3px solid var(--c2); border-radius:0 8px 8px 0; padding:11px 14px; font-size:13px; line-height:1.7; color:var(--mid); }
+.explanation.show { display:block; }
+.exp-label { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#9a6000; margin-bottom:4px; }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(30px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
+/* NAV */
+.nav-bar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:4px; margin-bottom:16px; flex-wrap:wrap; }
+.nav-center { font-size:13px; color:var(--mid); font-weight:600; flex:1; text-align:center; }
+.finish-bar { position:sticky; bottom:0; background:rgba(255,248,250,0.97); backdrop-filter:blur(10px); border-top:1.5px solid var(--c3); padding:11px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; box-shadow:0 -4px 14px rgba(238,132,168,0.18); }
+.finish-info { font-size:12px; color:var(--mid); }
 
-.q-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-.q-num-badge {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px;
-  font-weight: 900;
-  color: var(--dark);
-  flex-shrink: 0;
-}
-.q-tag-badge {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 20px;
-  background: rgba(43,45,66,0.07);
-  color: var(--muted);
-}
+/* WRITING */
+.writing-wrap { max-width:640px; margin:0 auto; padding:16px; }
+.writing-card { background:var(--white); border:1.5px solid var(--c3); border-radius:var(--radius); overflow:hidden; box-shadow:0 3px 14px rgba(238,132,168,0.15); margin-bottom:14px; }
+.writing-head { background:linear-gradient(135deg,var(--c4),var(--c5)); padding:14px 18px; font-weight:700; font-size:15px; color:white; }
+.writing-body { padding:20px; font-size:14px; line-height:1.85; }
+.field-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+@media(max-width:520px) { .field-grid { grid-template-columns:1fr; } }
+.field-wrap label { display:block; font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--mid); margin-bottom:5px; }
+.field-wrap input { width:100%; padding:10px 13px; border:2px solid var(--c3); border-radius:10px; font-family:inherit; font-size:13.5px; font-weight:600; color:var(--dark); background:#fafafa; outline:none; transition:border-color 0.2s; }
+.field-wrap input:focus { border-color:var(--c2); background:white; }
+.field-wrap input[readonly] { opacity:0.5; cursor:default; }
+.yonerge-box { background:var(--c1); border:1.5px solid var(--c2); border-radius:10px; padding:14px 16px; margin-bottom:14px; font-size:13px; line-height:1.8; }
+.yonerge-box .y-label { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#9a6000; margin-bottom:6px; }
+.yonerge-box ul { margin-left:18px; margin-top:6px; }
+.yonerge-box li { margin-bottom:4px; }
+.checklist { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+@media(max-width:520px) { .checklist { grid-template-columns:1fr; } }
+.check-item { display:flex; align-items:flex-start; gap:8px; font-size:12px; font-weight:600; color:var(--mid); background:#fafafa; padding:9px 12px; border-radius:10px; border:2px solid var(--c3); cursor:pointer; }
+.check-item input { accent-color:var(--c5); margin-top:1px; flex-shrink:0; }
+.writing-textarea { width:100%; min-height:350px; padding:14px 16px; font-size:14px; line-height:1.85; font-family:inherit; color:var(--dark); background:var(--c1); border:2px solid rgba(246,207,128,0.5); border-radius:10px; resize:vertical; transition:border-color 0.2s; }
+.writing-textarea:focus { outline:none; border-color:var(--c2); box-shadow:0 0 0 3px rgba(246,207,128,0.15); }
+.word-count { font-size:11px; color:var(--mid); text-align:right; margin-top:4px; margin-bottom:16px; }
+.rubric { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+.rubric th { background:linear-gradient(90deg,var(--c4),var(--c5)); padding:9px 14px; text-align:left; font-size:11px; letter-spacing:.8px; text-transform:uppercase; color:white; }
+.rubric td { padding:9px 14px; border-bottom:1px solid var(--c3); vertical-align:top; line-height:1.5; }
+.rubric tr:last-child td { border-bottom:none; font-weight:700; background:rgba(246,207,128,0.12); }
+.rubric tr:nth-child(even) td { background:rgba(247,201,211,0.15); }
+.rubric .pts { text-align:right; color:var(--c5); font-weight:700; white-space:nowrap; }
+.send-status { margin-top:12px; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; text-align:center; display:none; }
+.send-ok  { background:rgba(106,171,122,0.15); border:1.5px solid rgba(106,171,122,0.4); color:#3a7a4a; }
+.send-err { background:rgba(217,112,112,0.15); border:1.5px solid rgba(217,112,112,0.4); color:#a04040; }
 
-.reading-box {
-  background: #f8f6fc;
-  border-left: 3px solid var(--purple);
-  border-radius: 10px;
-  padding: 16px 18px;
-  margin-bottom: 18px;
-  font-size: 13px;
-  line-height: 2;
-  color: #444;
-  font-weight: 500;
-}
+/* CONFIRM */
+.confirm-wrap { max-width:420px; margin:0 auto; padding:40px 20px; text-align:center; }
+.confirm-wrap h2 { font-size:22px; color:var(--dark); margin-bottom:8px; }
+.confirm-wrap p  { font-size:14px; color:var(--mid); margin-bottom:20px; line-height:1.6; }
 
-.q-text {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.6;
-  color: var(--dark);
-  margin-bottom: 20px;
-}
-
-/* ── OPTIONS ── */
-.options { display: flex; flex-direction: column; gap: 10px; }
-
-.option {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border: 2px solid rgba(43,45,66,0.12);
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: #fafafa;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--dark);
-  width: 100%;
-  text-align: left;
-}
-.option:hover:not(:disabled) {
-  border-color: var(--purple-d);
-  background: var(--purple);
-  transform: translateX(4px);
-}
-.option.selected {
-  border-color: var(--blue-d);
-  background: var(--blue);
-}
-.option.correct {
-  border-color: var(--correct);
-  background: var(--correct-bg);
-  color: var(--correct);
-}
-.option.wrong {
-  border-color: var(--wrong);
-  background: var(--wrong-bg);
-  color: var(--wrong);
-}
-.option.show-correct {
-  border-color: var(--correct);
-  background: var(--correct-bg);
-  color: var(--correct);
-}
-.option:disabled { cursor: default; transform: none !important; }
-
-.opt-letter {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: rgba(43,45,66,0.08);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 900;
-  flex-shrink: 0;
-  text-transform: uppercase;
-  transition: all 0.2s;
-}
-.option.correct .opt-letter { background: var(--correct); color: #fff; }
-.option.wrong .opt-letter   { background: var(--wrong); color: #fff; }
-.option.show-correct .opt-letter { background: var(--correct); color: #fff; }
-
-/* ── CHECK BTN ── */
-.check-btn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  background: var(--dark);
-  color: #fff;
-  border: none;
-  border-radius: 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px;
-  font-weight: 800;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.2s;
-}
-.check-btn:hover:not(:disabled) { background: #3d4060; transform: translateY(-1px); }
-.check-btn:disabled { background: rgba(43,45,66,0.2); color: rgba(43,45,66,0.4); cursor: default; transform: none; }
-
-/* ── EXPLANATION ── */
-.explanation {
-  display: none;
-  margin-top: 16px;
-  padding: 14px 16px;
-  background: var(--blue);
-  border-radius: 12px;
-  font-size: 13px;
-  line-height: 1.8;
-  color: #1a3a5c;
-  font-weight: 600;
-}
-.explanation.show { display: block; }
-
-/* ── NEXT BTN ── */
-.next-btn {
-  display: none;
-  margin-top: 12px;
-  width: 100%;
-  padding: 14px;
-  background: var(--purple);
-  color: var(--dark);
-  border: none;
-  border-radius: 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.3px;
-}
-.next-btn:hover { background: var(--purple-d); color: #fff; transform: translateY(-1px); }
-.next-btn.show { display: block; }
-
-/* ── WRITING ── */
-.writing-outer {
-  display: none;
-  animation: slideIn 0.4s ease;
-}
-.writing-outer.show { display: block; }
-
-.writing-card {
-  background: var(--white);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(43,45,66,0.10);
-}
-.writing-header {
-  background: var(--dark);
-  color: #fff;
-  padding: 28px;
-}
-.writing-header h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  margin-bottom: 6px;
-}
-.writing-header p { font-size: 13px; opacity: 0.6; }
-
-.writing-body { padding: 28px; }
-
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-@media (max-width: 560px) { .info-grid { grid-template-columns: 1fr; } }
-
-.info-field label {
-  display: block;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.info-field input {
-  width: 100%;
-  padding: 11px 14px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--dark);
-  background: #fafafa;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.info-field input:focus { border-color: var(--purple-d); background: #fff; }
-.info-field input[readonly] { opacity: 0.55; cursor: default; }
-
-.w-section-label {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 8px;
-  display: block;
-}
-
-.w-guide {
-  background: var(--yellow);
-  border-radius: 14px;
-  padding: 18px 20px;
-  margin-bottom: 20px;
-  font-size: 13px;
-  line-height: 1.9;
-  font-weight: 600;
-  color: #5a4a00;
-}
-.w-guide h4 {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #7a6200;
-  margin-bottom: 10px;
-}
-.w-guide ul { padding-left: 18px; }
-.w-guide li { margin-bottom: 3px; }
-
-.checklist {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-@media (max-width: 560px) { .checklist { grid-template-columns: 1fr; } }
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  background: #fafafa;
-  padding: 9px 12px;
-  border-radius: 10px;
-  border: 2px solid var(--border);
-  cursor: pointer;
-}
-.check-item input[type=checkbox] { accent-color: var(--dark); margin-top: 1px; flex-shrink:0; }
-
-textarea.writing-area {
-  width: 100%;
-  min-height: 480px;
-  padding: 20px;
-  border: 2px solid var(--border);
-  border-radius: 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 2;
-  color: var(--dark);
-  background: #fafafa;
-  resize: vertical;
-  outline: none;
-  transition: border-color 0.2s;
-  margin-bottom: 8px;
-}
-textarea.writing-area:focus { border-color: var(--purple-d); background: #fff; }
-
-.word-counter {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
-  text-align: right;
-  margin-bottom: 24px;
-}
-
-.rubric {
-  border: 2px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  margin-top: 8px;
-}
-.rubric-header {
-  background: var(--dark);
-  color: #fff;
-  padding: 14px 18px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.rubric table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.rubric th {
-  background: #f5f5f7;
-  padding: 10px 16px;
-  text-align: left;
-  font-weight: 800;
-  color: var(--muted);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 2px solid var(--border);
-}
-.rubric td {
-  padding: 11px 16px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-  line-height: 1.5;
-  font-weight: 600;
-}
-.rubric tr:last-child td { border-bottom: none; font-weight: 900; background: var(--yellow); }
-.rubric td:last-child { text-align: center; color: var(--dark); white-space: nowrap; }
-
-/* ── FINAL ── */
-.final-card {
-  display: none;
-  text-align: center;
-  background: var(--dark);
-  border-radius: 20px;
-  padding: 40px 28px;
-  margin-bottom: 32px;
-  animation: slideIn 0.5s ease;
-}
-.final-card.show { display: block; }
-.final-card .big {
-  font-family: 'Playfair Display', serif;
-  font-size: 72px;
-  color: var(--yellow);
-  line-height: 1;
-}
-.final-card .label { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 8px; font-weight: 700; }
-.final-card .msg { color: #fff; font-size: 18px; font-weight: 800; margin-top: 14px; }
-
-@media (max-width: 560px) {
-  .q-card { padding: 20px 16px; }
-  .writing-body { padding: 20px 16px; }
-  .main { padding: 24px 14px 60px; }
-}
+/* RESULT */
+.result-wrap { max-width:460px; margin:0 auto; padding:28px 20px; text-align:center; }
+.result-card { background:var(--white); border:1.5px solid var(--c3); border-radius:20px; padding:28px 22px; margin-bottom:14px; box-shadow:0 6px 24px rgba(238,132,168,0.2); }
+.result-emoji { font-size:50px; margin-bottom:10px; }
+.result-name  { font-size:14px; color:var(--mid); margin-bottom:3px; }
+.result-title { font-size:16px; font-weight:700; color:var(--dark); margin-bottom:16px; }
+.result-score-big { font-size:62px; font-weight:900; line-height:1; color:var(--dark); }
+.result-score-big span { font-size:24px; font-weight:400; color:var(--mid); }
+.result-pct { font-size:13px; color:var(--mid); margin-top:4px; margin-bottom:18px; }
+.result-stats { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+.rs-item { background:linear-gradient(135deg,var(--c3),var(--c1)); border:1px solid var(--c4); border-radius:12px; padding:11px 16px; min-width:76px; text-align:center; }
+.rs-n { font-size:28px; font-weight:800; line-height:1; }
+.rs-l { font-size:11px; color:var(--mid); margin-top:3px; }
+.rs-correct .rs-n { color:var(--green); } .rs-wrong .rs-n { color:var(--red); } .rs-blank .rs-n { color:#bbb; }
+.msg-badge { display:inline-flex; align-items:center; gap:7px; padding:9px 20px; border-radius:50px; font-size:13px; font-weight:700; margin-bottom:14px; background:rgba(246,207,128,0.2); border:1.5px solid rgba(246,207,128,0.5); color:#9a6000; }
+.status-badge { display:inline-flex; align-items:center; gap:7px; padding:9px 20px; border-radius:50px; font-size:13px; font-weight:700; margin-bottom:14px; }
+.status-ok    { background:rgba(106,171,122,0.15); border:1.5px solid rgba(106,171,122,0.4); color:#3a7a4a; }
+.status-error { background:rgba(217,112,112,0.15); border:1.5px solid rgba(217,112,112,0.4); color:#a04040; }
+.status-pending { background:rgba(246,207,128,0.2); border:1.5px solid rgba(246,207,128,0.5); color:#9a6000; }
+.result-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:6px; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-tag">Español · Özel Ders Sınavı</div>
-  <h1>Yakın Gelecek Zamanı Sınavı</h1>
-  <p>IR A + Infinitivo &nbsp;·&nbsp; Objeto Directo e Indirecto &nbsp;·&nbsp; Dönüşlü Fiiller</p>
+  <div class="header-tag">Özel Ders Sınavı</div>
+  <h1>🇪🇸 Yakın Gelecek Zamanı Sınavı</h1>
+  <div class="header-sub">IR A + Infinitivo &nbsp;•&nbsp; Objeto Directo e Indirecto &nbsp;•&nbsp; Dönüşlü Fiiller &nbsp;•&nbsp; Profe Hazel</div>
 </div>
 
-<div class="scorebar">
-  <div class="score-item"><div class="val" id="sc-correct">0</div><div class="lbl">Doğru</div></div>
-  <div class="score-item"><div class="val" id="sc-wrong">0</div><div class="lbl">Yanlış</div></div>
-  <div class="score-item"><div class="val" id="sc-remain">100</div><div class="lbl">Kalan</div></div>
-  <div class="score-item"><div class="val" id="sc-pct">—</div><div class="lbl">Puan</div></div>
-</div>
-
-<div style="text-align:center; padding: 12px 24px 0; max-width:700px; margin: 0 auto;">
-  <button onclick="skipToWriting()" style="background:var(--purple); color:var(--dark); border:none; border-radius:12px; padding:10px 24px; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:pointer; letter-spacing:0.3px; transition:all 0.2s;" onmouseover="this.style.background='#a880c0';this.style.color='#fff'" onmouseout="this.style.background='var(--purple)';this.style.color='var(--dark)'">✍️ Yazma Bölümüne Geç</button>
-</div>
-
-<div class="progress-wrap">
-  <div class="progress-info">
-    <span id="prog-label">Soru 1 / 100</span>
-    <span id="prog-pct">0%</span>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-</div>
-
-<div class="main">
-  <div id="q-display"></div>
-  <div class="final-card" id="final-card">
-    <div class="big" id="final-score">—</div>
-    <div class="label">100 Soru Üzerinden Puan</div>
-    <div class="msg" id="final-msg"></div>
-  </div>
-  <div class="writing-outer" id="writing-outer">
-    <!-- writing section injected by JS -->
+<!-- EKRAN 1: AD SEÇİMİ -->
+<div class="screen active" id="screen-name">
+  <div class="name-body">
+    <h2>📚 Adınızı seçin</h2>
+    <p>Sınava başlamadan önce lütfen listeden adınızı seçin.</p>
+    <select class="name-select" id="name-select">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Leyla</option>
+    </select>
+    <div class="info-box">
+      <div class="ib-row"><div class="ib-dot"></div><span><strong>100 çoktan seçmeli soru</strong> — IR A, Okuma, Zamirler</span></div>
+      <div class="ib-row"><div class="ib-dot"></div><span>Her soru 1 puan — toplam <strong>100 puan</strong></span></div>
+      <div class="ib-row"><div class="ib-dot"></div><span>Her sorudan sonra <strong>açıklama</strong> görünür</span></div>
+      <div class="ib-hr"></div>
+      <div class="ib-row"><div class="ib-dot" style="background:var(--c4)"></div><span>Yazma bölümü ayrıca değerlendirilir (100 puan)</span></div>
+    </div>
+    <button class="btn btn-main btn-full" onclick="startQuiz()">▶ Sınava Başla</button>
   </div>
 </div>
 
+<!-- EKRAN 2: QUIZ -->
+<div class="screen" id="screen-quiz">
+  <div class="quiz-wrap">
+    <div class="top-bar">
+      <div class="top-student" id="top-student">—</div>
+      <div class="top-scores">
+        <div class="score-item sc-correct">✓ <span id="sc-correct">0</span></div>
+        <div class="score-item sc-wrong">✗ <span id="sc-wrong">0</span></div>
+      </div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+      <div class="prog-info">
+        <span id="prog-section">—</span>
+        <span>Soru <span id="prog-cur">1</span> / 100</span>
+      </div>
+    </div>
+    <div class="skip-bar">
+      <button class="btn btn-purple btn-sm" onclick="skipToWriting()">✍️ Yazma Bölümüne Geç</button>
+    </div>
+    <div id="q-area"></div>
+    <div class="nav-bar">
+      <button class="btn btn-outline btn-sm" id="btn-prev" onclick="navigate(-1)">← Geri</button>
+      <div class="nav-center" id="nav-center">1 / 100</div>
+      <button class="btn btn-main btn-sm" id="btn-next" onclick="navigate(1)">İleri →</button>
+    </div>
+    <div class="finish-bar">
+      <div class="finish-info"><strong id="bb-answered">0</strong> / 100 yanıtlandı</div>
+      <button class="btn btn-gold" onclick="goToConfirm()">✔ Sınavı Teslim Et</button>
+    </div>
+  </div>
+</div>
+
+<!-- EKRAN 3: YAZMA -->
+<div class="screen" id="screen-writing">
+  <div class="writing-wrap">
+    <div class="writing-card">
+      <div class="writing-head">✍️ &nbsp;Yazma Bölümü — Mis planes y mis regalos &nbsp;<span style="opacity:.7;font-weight:400;font-size:13px">(100 puan)</span></div>
+      <div class="writing-body">
+
+        <div class="field-grid">
+          <div class="field-wrap"><label>Ad ve Soyad</label><input type="text" id="w-name" placeholder="Adınızı ve soyadınızı yazınız…" oninput="syncName()"></div>
+          <div class="field-wrap"><label>Número de tarea</label><input type="text" value="Özel Ders Ödevi" readonly></div>
+          <div class="field-wrap"><label>Tema de la tarea</label><input type="text" value="Mis planes y mis regalos" readonly></div>
+          <div class="field-wrap"><label>Gramática</label><input type="text" value="Ir a + Infinitivo / OD e OI" readonly></div>
+          <div class="field-wrap" style="grid-column:1/-1"><label>Título de tu texto</label><input type="text" id="w-title" placeholder="Yazınızın başlığını yazınız…"></div>
+        </div>
+
+        <div class="yonerge-box">
+          <div class="y-label">📌 Yönerge — Dikkat Edilmesi Gerekenler</div>
+          <ul>
+            <li>En az <strong>25 cümle</strong> yazınız.</li>
+            <li>En az <strong>10 farklı ir a + infinitivo</strong> yapısı kullanınız.</li>
+            <li>En az <strong>6 objeto directo</strong> ve <strong>6 objeto indirecto</strong> örneği ekleyiniz.</li>
+            <li>En az <strong>4 cümlede OD + OI birlikte</strong> kullanınız.</li>
+            <li><strong>Giriş, gelişme ve sonuç</strong> bölümleri olmalıdır.</li>
+            <li>Planlarınızı <strong>zaman ifadeleriyle</strong> destekleyiniz.</li>
+            <li>Cümleler doğal akışta olmalı, liste gibi yazılmamalıdır.</li>
+          </ul>
+        </div>
+
+        <p style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px">Kontrol Listesi</p>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox"> En az 25 cümle yazdım.</label>
+          <label class="check-item"><input type="checkbox"> En az 10 ir a + infinitivo kullandım.</label>
+          <label class="check-item"><input type="checkbox"> En az 6 objeto directo kullandım.</label>
+          <label class="check-item"><input type="checkbox"> En az 6 objeto indirecto kullandım.</label>
+          <label class="check-item"><input type="checkbox"> En az 4 cümlede OD + OI birlikte kullandım.</label>
+          <label class="check-item"><input type="checkbox"> Giriş, gelişme, sonuç bölümleri var.</label>
+          <label class="check-item"><input type="checkbox"> Zaman ifadelerini kullandım.</label>
+          <label class="check-item"><input type="checkbox"> Tilde ve yazım kurallarına dikkat ettim.</label>
+        </div>
+
+        <p style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:8px">✏️ Yazınızı aşağıya yazın</p>
+        <textarea class="writing-textarea" id="writing-input" placeholder="Este fin de semana voy a hacer muchas cosas importantes…&#10;Primero, voy a visitar a mi madre porque quiero verla.&#10;También voy a comprarle un regalo especial…" oninput="updateWordCount()"></textarea>
+        <div class="word-count">Cümle: <span id="sent-count">0</span> &nbsp;|&nbsp; Kelime: <span id="word-count">0</span></div>
+
+        <div class="send-status" id="send-status"></div>
+
+        <p style="font-weight:700;margin-bottom:10px">📊 Puanlama Cetveli</p>
+        <table class="rubric">
+          <thead><tr><th>Kriter</th><th class="pts">Puan</th></tr></thead>
+          <tbody>
+            <tr><td>Metin konuya uygundur ve gelecek planlarını anlatmaktadır.</td><td class="pts">10</td></tr>
+            <tr><td>Metin en az 25 cümleden oluşmuştur.</td><td class="pts">10</td></tr>
+            <tr><td>Giriş, gelişme ve sonuç düzeni vardır.</td><td class="pts">10</td></tr>
+            <tr><td>Ir a + infinitivo yapısı doğru ve yeterli şekilde kullanılmıştır.</td><td class="pts">15</td></tr>
+            <tr><td>En az 10 farklı ir a + infinitivo yapısı kullanılmıştır.</td><td class="pts">10</td></tr>
+            <tr><td>Objeto directo zamirleri doğru ve uygun şekilde kullanılmıştır.</td><td class="pts">10</td></tr>
+            <tr><td>Objeto indirecto zamirleri doğru ve uygun şekilde kullanılmıştır.</td><td class="pts">10</td></tr>
+            <tr><td>En az 4 cümlede OD + OI birlikte kullanılmıştır.</td><td class="pts">10</td></tr>
+            <tr><td>Metinde doğal akış, zaman bağlantısı ve anlam bütünlüğü vardır.</td><td class="pts">5</td></tr>
+            <tr><td>Cümleler açık, anlamlı ve seviyeye uygundur.</td><td class="pts">5</td></tr>
+            <tr><td>Yazım, tilde, noktalama ve genel dil doğruluğuna dikkat edilmiştir.</td><td class="pts">5</td></tr>
+            <tr><td><strong>Toplam</strong></td><td class="pts"><strong>100</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px">
+      <button class="btn btn-gold" onclick="goToWritingConfirm()">✔ Yazıyı Tamamladım, Teslim Et</button>
+    </div>
+  </div>
+</div>
+
+<!-- EKRAN 4: QUIZ ONAY -->
+<div class="screen" id="screen-confirm">
+  <div class="confirm-wrap">
+    <div style="font-size:48px;margin-bottom:12px">🎯</div>
+    <h2>Sınavı Teslim Et</h2>
+    <p>Teslim etmeden önce listeden adınızı seçin ve onaylayın.</p>
+    <select class="name-select" id="confirm-name-select" style="margin-bottom:16px">
+      <option value="">-- Adınızı Seçin --</option>
+      <option>Leyla</option>
+    </select>
+    <button class="btn btn-gold btn-full" onclick="confirmQuiz()">✔ Evet, Teslim Et</button>
+  </div>
+</div>
+
+<!-- EKRAN 5: YAZMA ONAY -->
+<div class="screen" id="screen-writing-confirm">
+  <div class="confirm-wrap">
+    <div style="font-size:48px;margin-bottom:12px">📝</div>
+    <h2>Yazıyı Teslim Et</h2>
+    <p>Yazmanızı göndermeden önce listeden adınızı seçin ve onaylayın.</p>
+    <select class="name-select" id="writing-confirm-select" style="margin-bottom:16px">
+      <option value="">-- Adınızı Seçin --</option>
+     <option>Leyla</option>
+    </select>
+    <button class="btn btn-gold btn-full" onclick="confirmWriting()">✔ Yazıyı Gönder</button>
+  </div>
+</div>
+
+<!-- EKRAN 6: SONUÇ (Quiz) -->
+<div class="screen" id="screen-result">
+  <div class="result-wrap">
+    <div class="result-card">
+      <div class="result-emoji">🇪🇸</div>
+      <div class="result-name" id="res-name">—</div>
+      <div class="result-title">Özel Ders · Yakın Gelecek Zamanı Sınavı</div>
+      <div class="result-score-big" id="res-score">0<span>/100</span></div>
+      <div class="result-pct" id="res-pct"></div>
+      <div class="result-stats">
+        <div class="rs-item rs-correct"><div class="rs-n" id="res-c">0</div><div class="rs-l">Doğru</div></div>
+        <div class="rs-item rs-wrong">  <div class="rs-n" id="res-w">0</div><div class="rs-l">Yanlış</div></div>
+        <div class="rs-item rs-blank">  <div class="rs-n" id="res-b">0</div><div class="rs-l">Boş</div></div>
+      </div>
+      <div class="msg-badge" id="res-msg">—</div>
+      <div class="status-badge status-pending" id="res-status">⏳ Kaydediliyor…</div>
+    </div>
+    <div class="result-actions">
+      <button class="btn btn-purple" onclick="showScreen('writing')">✍️ Yazma Bölümüne Geç</button>
+      <button class="btn btn-outline" onclick="goToName()">🔄 Yeniden Başla</button>
+    </div>
+  </div>
+</div>
+
+<!-- EKRAN 7: YAZMA SONUÇ -->
+<div class="screen" id="screen-writing-result">
+  <div class="result-wrap">
+    <div class="result-card">
+      <div class="result-emoji">✍️</div>
+      <div class="result-name" id="wres-name">—</div>
+      <div class="result-title">Yazma Bölümü — Mis planes y mis regalos</div>
+      <div class="status-badge status-pending" id="wres-status">⏳ Gönderiliyor…</div>
+      <p style="font-size:13px;color:var(--mid);line-height:1.7;margin-top:8px">Yazmanız Profe Hazel'e iletildi. Puanınız değerlendirme sonrasında bildirilecektir.</p>
+    </div>
+    <div class="result-actions">
+      <button class="btn btn-outline" onclick="goToName()">🔄 Yeniden Başla</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-// ===== PALETTE =====
-const bgColors = ['#FFD6E8','#BDE0FE','#CDB4DB','#FFF1B6'];
-const cardAccents = ['#FFD6E8','#BDE0FE','#CDB4DB','#FFF1B6'];
+emailjs.init('xNYEbUQNiWJPvbyoJ');
+const EMAILJS_SERVICE  = 'service_4ee1wh7';
+const EMAILJS_TEMPLATE = 'template_xjyyxhf';
+const APPS_SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbw-BwEhVOhO6GkkQHNWJA8LQLMkEGwNCtJ3BXSqik1RnzqZLl4a_a3HmYEoIlJAgY4Wkg/exec';
+const SPREADSHEET_ID   = '1wziyxdRdIGL7OEq4yRib0i_CaCWJGI14fwDyMKB4abw';
+const SHEET_NAME       = 'A2.1';
+const TASK_COLUMN      = 'Özel Ders – IR A';
+const LESSON_NAME      = 'Özel Ders – Yakın Gelecek Zamanı Sınavı';
+
 const letters = ['a','b','c','d'];
 
-// ===== ALL QUESTIONS =====
-const allQuestions = [
-  // 1-20 IR A
-  { n:1,  tag:"IR A",      text:'Mañana yo ______ español en casa.', opts:['voy a estudiar','estudio','voy estudiar','estudiar voy'], ans:0, exp:'<strong>voy + a + estudiar</strong> → yakın gelecek yapısı. "Yo" öznesiyle ir = <em>voy</em>. Türkçesi: Yarın evde İspanyolca çalışacağım.' },
-  { n:2,  tag:"IR A",      text:'Nosotros ______ una película esta noche.', opts:['vemos','vamos ver','vamos a ver','ver vamos'], ans:2, exp:'"Bu gece bir film izleyeceğiz." <strong>vamos + a + ver</strong> → nosotros için ir = vamos, ardından mutlaka <em>a</em> gelir.' },
-  { n:3,  tag:"IR A",      text:'Ellos ______ al cine el sábado.', opts:['van ir','van a ir','ir van','van a van'], ans:1, exp:'<strong>van a ir</strong> → ilk <em>van</em> ir fiilinin çekimidir, ikinci <em>ir</em> mastardır.' },
-  { n:4,  tag:"IR A",      text:'Tú ______ a tu madre después de la clase.', opts:['llamas','vas llamar','llamar vas','vas a llamar'], ans:3, exp:'"tú" için <strong>vas + a + llamar</strong>. Türkçesi: Dersten sonra anneni arayacaksın.' },
-  { n:5,  tag:"IR A",      text:'María ______ una carta mañana.', opts:['escribe','va escribir','escribir va','va a escribir'], ans:3, exp:'María üçüncü tekil şahıs → <em>va</em>. Yapı: <strong>va + a + escribir</strong>.' },
-  { n:6,  tag:"Dönüşlü",  text:'Vosotros ______ temprano mañana.', opts:['vais levantar','vais a levantaros','levantáis','levantar vais'], ans:1, exp:'<em>levantarse</em> dönüşlü fiil. "Vosotros" için zamir <em>os</em>; mastara eklenir → <strong>levantaros</strong>. Türkçesi: Siz yarın erken kalkacaksınız.' },
-  { n:7,  tag:"IR A",      text:'Ella ______ café después del desayuno.', opts:['toma','va tomar','va a tomar','tomar va'], ans:2, exp:'"Ella" için <em>va</em>. Doğru yapı: <strong>va + a + tomar</strong>.' },
-  { n:8,  tag:"Dönüşlü",  text:'Yo ______ en casa este fin de semana.', opts:['voy a quedarme','quedo','voy quedar','quedarme voy'], ans:0, exp:'<em>quedarse</em> dönüşlü fiil. "Yo" için zamir <em>me</em> → <strong>voy a quedarme</strong>.' },
-  { n:9,  tag:"IR A",      text:'Mis amigos ______ fútbol el domingo.', opts:['van a jugar','juegan','van jugar','jugar van'], ans:0, exp:'Çoğul özne → <em>van</em>. Doğru yapı: <strong>van + a + jugar</strong>.' },
-  { n:10, tag:"IR A",      text:'¿Tú ______ la tarea ahora o más tarde?', opts:['haces','vas hacer','hacer vas','vas a hacer'], ans:3, exp:'Sorularda yapı değişmez: <strong>vas + a + hacer</strong>.' },
-  { n:11, tag:"Olumsuz",   text:'Nosotros no ______ mañana.', opts:['viajamos','vamos a viajar','vamos viajar','viajar vamos'], ans:1, exp:'Olumsuzda <em>no</em> çekimli fiilden önce: <strong>no + vamos + a + viajar</strong>. Türkçesi: Biz yarın seyahat etmeyeceğiz.' },
-  { n:12, tag:"IR A",      text:'Lucía ______ una chaqueta nueva.', opts:['compra','va comprar','va a comprar','comprar va'], ans:2, exp:'<strong>va + a + comprar</strong>. Comprar mastar hâlde kalır.' },
-  { n:13, tag:"IR A",      text:'Yo ______ después del trabajo.', opts:['descanso','voy descansar','voy a descansar','descansar voy'], ans:2, exp:'"Yo" için <em>voy</em>. Doğru yapı: <strong>voy + a + descansar</strong>.' },
-  { n:14, tag:"IR A",      text:'Tú ______ un correo al profesor.', opts:['vas a escribir','escribes','vas escribir','escribir vas'], ans:0, exp:'<strong>vas + a + escribir</strong>. <em>un correo</em> = OD, <em>al profesor</em> = OI.' },
-  { n:15, tag:"IR A",      text:'Los niños ______ en el parque esta tarde.', opts:['juegan','van jugar','jugar van','van a jugar'], ans:3, exp:'Çoğul özne → <em>van</em>. Doğru yapı: <strong>van + a + jugar</strong>.' },
-  { n:16, tag:"IR A",      text:'Nosotros ______ la cena juntos.', opts:['preparamos','vamos a preparar','vamos preparar','preparar vamos'], ans:1, exp:'<strong>vamos + a + preparar</strong>. İkinci fiil mastar kalır.' },
-  { n:17, tag:"IR A",      text:'Marta ______ a sus abuelos mañana.', opts:['visita','va a visitar','va visitar','visitar va'], ans:1, exp:'<em>personal a</em> kişiler için kullanılır. Yapı: <strong>va + a + visitar</strong>.' },
-  { n:18, tag:"IR A",      text:'Ustedes ______ español en la clase.', opts:['hablan','van hablar','hablar van','van a hablar'], ans:3, exp:'<em>Ustedes</em> üçüncü çoğul gibi çekimlenir → <em>van</em>. Doğru yapı: <strong>van + a + hablar</strong>.' },
-  { n:19, tag:"Olumsuz",   text:'Yo no ______ café esta noche.', opts:['voy a beber','bebo','voy beber','beber voy'], ans:0, exp:'Olumsuz yakın gelecek: <strong>no + voy + a + beber</strong>. Türkçesi: Bu gece kahve içmeyeceğim.' },
-  { n:20, tag:"IR A",      text:'¿Vosotros ______ mañana por la mañana?', opts:['salís','vais salir','vais a salir','salir vais'], ans:2, exp:'"Vosotros" için <em>vais</em>. Doğru yapı: <strong>vais + a + salir</strong>.' },
-
-  // 21-30 OKUMA
-  { n:21, tag:"Okuma", reading:`Mañana Clara va a tener un día muy ocupado. Primero va a levantarse a las siete. Después va a ducharse rápidamente. No va a desayunar en casa. Va a tomar un café cerca de la oficina. A las nueve va a empezar una reunión importante. Su jefe va a explicar un nuevo proyecto. Clara va a tomar muchas notas. Después de la reunión, va a llamar a un cliente. También va a mandarle un correo. Al mediodía va a comer con sus compañeros. Por la tarde va a revisar varios documentos. Luego va a volver a casa en metro. Por la noche no va a salir. Va a acostarse temprano porque está cansada.`,
-    text:'¿Qué va a hacer Clara por la noche?', opts:['Va a ir al cine.','Va a llamar a su jefe.','Va a acostarse temprano.','Va a desayunar en casa.'], ans:2, exp:'Metnin sonunda: <em>Va a acostarse temprano porque está cansada.</em> <strong>acostarse</strong> = dönüşlü fiil, "yatacak" anlamına gelir.' },
-  { n:22, tag:"Okuma", reading:`El sábado Daniel va a visitar a su abuela. Va a salir de casa a las diez. Primero va a comprar flores. También va a comprar pan y fruta. Su abuela vive cerca del centro. Daniel va a ir en autobús. Va a llegar antes del mediodía. Su abuela va a preparar sopa. Daniel va a ayudarla en la cocina. Después van a comer juntos. Luego van a ver fotos antiguas. Daniel va a escuchar muchas historias familiares. Por la tarde va a arreglar una lámpara. Antes de salir, va a darle un abrazo a su abuela. Por la noche va a volver a su casa.`,
-    text:'¿Qué va a comprar Daniel antes de visitar a su abuela?', opts:['Flores, pan y fruta.','Una lámpara nueva.','Un libro antiguo.','Un billete de tren.'], ans:0, exp:'Metinde: <em>va a comprar flores</em> ve <em>va a comprar pan y fruta</em>.' },
-  { n:23, tag:"Okuma", reading:`Mañana por la mañana Ana va a estudiar en la biblioteca. Va a llevar su ordenador. También va a llevar dos libros grandes. Primero va a buscar información para una presentación. Después va a escribir una introducción. Su amiga Marta va a ayudarla. Marta va a explicarle algunas ideas difíciles. Ana va a entender mejor el tema. Luego las dos van a preparar unas diapositivas. No van a terminar todo por la mañana. Por eso van a continuar después de comer. A las tres van a revisar el texto. A las cinco van a mandar el trabajo al profesor. Después van a tomar café. Finalmente van a volver a casa.`,
-    text:'¿Quién va a ayudar a Ana?', opts:['Su profesor.','Su hermano.','Su madre.','Su amiga Marta.'], ans:3, exp:'Metinde açıkça: <em>Su amiga Marta va a ayudarla.</em> <em>-la</em> = Ana\'yı temsil eden OD zamiri.' },
-  { n:24, tag:"Okuma", reading:`El domingo Luis va a limpiar su apartamento. Primero va a abrir las ventanas. Después va a poner música. Va a limpiar la cocina. También va a lavar los platos. Luego va a ordenar el salón. Va a guardar los libros en la estantería. Su hermana va a llamarlo por teléfono. Luis va a contestarle rápidamente. Después va a preparar una comida sencilla. No va a salir por la tarde. Va a quedarse en casa. A las seis va a ver una película. Antes de dormir va a leer un poco. Finalmente va a acostarse a las once.`,
-    text:'¿Qué va a hacer Luis a las seis?', opts:['Va a lavar los platos.','Va a ver una película.','Va a llamar a su hermana.','Va a abrir las ventanas.'], ans:1, exp:'Metinde: <em>A las seis va a ver una película.</em> <strong>va a ver</strong> = "izleyecek".' },
-  { n:25, tag:"Okuma", reading:`Esta tarde Elena va a preparar una cena especial. Sus amigos van a venir a su casa. Primero Elena va a ir al mercado. Va a comprar verduras frescas. También va a comprar queso y pan. Después va a volver a casa. Va a lavarse las manos. Luego va a cortar las verduras. Su hermano va a ayudarla. Él va a poner la mesa. Elena va a preparar una ensalada. También va a cocinar pasta. A las ocho sus amigos van a llegar. Todos van a cenar juntos. Después van a hablar y escuchar música.`,
-    text:'¿Qué va a hacer el hermano de Elena?', opts:['Va a cocinar pasta.','Va a poner la mesa.','Va a comprar verduras.','Va a lavar los platos.'], ans:1, exp:'Metinde: <em>Él va a poner la mesa.</em> = "Masayı kuracak."' },
-  { n:26, tag:"Okuma", reading:`Mañana Marcos va a viajar a Valencia. Va a levantarse muy temprano. Va a ducharse y vestirse rápido. No va a desayunar mucho. Va a tomar solo un café. Después va a salir de casa a las siete. Va a ir a la estación en taxi. Allí va a comprar un billete. El tren va a salir a las ocho. Durante el viaje va a leer una novela. También va a escribir mensajes a sus amigos. Cuando llegue, va a visitar un museo. Después va a comer paella. Por la tarde va a caminar por el centro. Por la noche va a dormir en un hotel.`,
-    text:'¿Qué va a hacer Marcos durante el viaje?', opts:['Va a cocinar paella.','Va a comprar ropa.','Va a leer una novela.','Va a dormir en casa.'], ans:2, exp:'Metinde: <em>Durante el viaje va a leer una novela.</em>' },
-  { n:27, tag:"Okuma", reading:`Esta noche Laura va a estudiar para un examen. Primero va a organizar sus apuntes. Después va a leer tres capítulos. Va a subrayar las ideas importantes. También va a escribir un resumen. Su compañera Paula va a llamarla. Laura va a explicarle una parte del tema. Luego las dos van a practicar preguntas. No van a mirar el móvil. Van a concentrarse en el examen. A las diez Laura va a descansar un poco. Va a tomar té. Después va a repasar los verbos. Antes de dormir va a preparar su mochila. Finalmente va a acostarse temprano.`,
-    text:'¿Qué va a preparar Laura antes de dormir?', opts:['Su mochila.','Una cena especial.','Una presentación.','Un regalo.'], ans:0, exp:'Metinde: <em>Antes de dormir va a preparar su mochila.</em>' },
-  { n:28, tag:"Okuma", reading:`El viernes mis padres van a cenar fuera. Primero van a reservar una mesa. Después mi madre va a elegir un vestido. Mi padre va a ponerse una camisa azul. Van a salir de casa a las ocho. Van a ir al restaurante en coche. El camarero va a recibirlos en la entrada. Mis padres van a pedir pescado. También van a pedir una ensalada. Después van a compartir un postre. Mi padre va a pagar la cuenta. Mi madre va a darle las gracias al camarero. Luego van a caminar un poco. Van a volver a casa a las once. Finalmente van a descansar.`,
-    text:'¿Qué va a pedir la pareja en el restaurante?', opts:['Carne y arroz.','Pizza y sopa.','Pasta y café.','Pescado y una ensalada.'], ans:3, exp:'Metinde: <em>van a pedir pescado</em> ve <em>van a pedir una ensalada</em>.' },
-  { n:29, tag:"Okuma", reading:`Mañana los estudiantes van a hacer una presentación. Primero van a llegar temprano a clase. Van a abrir sus ordenadores. También van a revisar las diapositivas. La profesora va a escucharlos con atención. Pedro va a explicar la introducción. Sara va a hablar sobre los ejemplos. Carlos va a mostrar unas fotos. Después todos van a responder preguntas. La profesora va a darles algunos consejos. Los estudiantes van a tomar notas. No van a terminar tarde. Después de la clase van a comer juntos. Luego van a descansar un poco. Por la tarde van a estudiar otro tema.`,
-    text:'¿Qué va a hacer la profesora después de la presentación?', opts:['Va a mostrar fotos.','Va a comer sola.','Va a abrir su ordenador.','Va a darles algunos consejos.'], ans:3, exp:'Metinde: <em>La profesora va a darles algunos consejos.</em> <em>-les</em> = öğrencilere.' },
-  { n:30, tag:"Okuma", reading:`Este fin de semana Julia va a quedarse en casa. No va a viajar. No va a visitar a nadie. Quiere descansar mucho. El sábado va a levantarse tarde. Después va a preparar un desayuno grande. Va a leer el periódico. Luego va a llamar a su hermana. Va a contarle sus planes. Por la tarde va a ver una serie. También va a ordenar su habitación. El domingo va a cocinar algo sencillo. Va a escuchar música tranquila. Por la noche va a preparar la ropa para el lunes. Finalmente va a acostarse temprano.`,
-    text:'¿Qué va a hacer Julia este fin de semana?', opts:['Va a quedarse en casa.','Va a viajar a otra ciudad.','Va a visitar a sus amigos.','Va a trabajar todo el día.'], ans:0, exp:'İlk cümle: <em>Julia va a quedarse en casa.</em> Ayrıca seyahat etmeyeceği de belirtilmiş.' },
-
-  // 31-100 ZAMİRLER
-  { n:31, tag:"OD",      text:'Voy a comprar el libro mañana. → Zamirli doğru cümle?', opts:['Le voy a comprar mañana.','Me voy a comprar mañana.','Lo voy a comprar mañana.','Se voy a comprar mañana.'], ans:2, exp:'<em>el libro</em> = erkek tekil OD → zamir <strong>lo</strong>.' },
-  { n:32, tag:"OD",      text:'Voy a leer la carta esta noche. → Zamirli doğru cümle?', opts:['Lo voy a leer esta noche.','La voy a leer esta noche.','Le voy a leer esta noche.','Me voy a leer esta noche.'], ans:1, exp:'<em>la carta</em> = dişil tekil OD → zamir <strong>la</strong>.' },
-  { n:33, tag:"OD",      text:'Vamos a visitar a los abuelos mañana. → Zamirli doğru cümle?', opts:['Los vamos a visitar mañana.','Les vamos a visitar mañana.','Se vamos a visitar mañana.','Nos vamos a visitar mañana.'], ans:0, exp:'<em>personal a</em> ile kişi OD olur. <em>los abuelos</em> = erkek çoğul → <strong>los</strong>.' },
-  { n:34, tag:"OI",      text:'Voy a escribir a Ana esta tarde. → Zamirli doğru cümle?', opts:['La voy a escribir esta tarde.','Le voy a escribir esta tarde.','Lo voy a escribir esta tarde.','Se voy a escribir esta tarde.'], ans:1, exp:'<em>escribir a alguien</em> → kişi OI olur → <strong>le</strong>.' },
-  { n:35, tag:"Dönüşlü", text:'Tú ______ temprano mañana.', opts:['vas levantar','te vas levantar','vas a levantarse','te vas a levantar'], ans:3, exp:'<em>levantarse</em> dönüşlü, "tú" için zamir <em>te</em>. Çekimli fiilden önce: <strong>te vas a levantar</strong>.' },
-  { n:36, tag:"Dönüşlü", text:'Ella va a ducharse ahora. → Aynı anlamlı doğru kullanım?', opts:['Ella se va ducharse ahora.','Ella va se a duchar ahora.','Ella se va a duchar ahora.','Ella va a se duchar ahora.'], ans:2, exp:'Zamir iki yere gelebilir: mastara veya çekimli fiilden önce. Doğru: <strong>se va a duchar</strong>.' },
-  { n:37, tag:"OD+OI",   text:'Voy a dar el libro a Marta. → İki zamirli doğru cümle?', opts:['Le lo voy a dar.','La lo voy a dar.','Lo le voy a dar.','Se lo voy a dar.'], ans:3, exp:'<em>el libro</em> = lo, <em>a Marta</em> = le. Ama <em>le lo</em> kullanılmaz → <strong>se lo</strong>.' },
-  { n:38, tag:"OD+OI",   text:'Vamos a explicar la lección a los estudiantes. → Doğru zamirli cümle?', opts:['Les la vamos a explicar.','La les vamos a explicar.','Se la vamos a explicar.','Los vamos a explicarla.'], ans:2, exp:'<em>la lección</em> = la, <em>a los estudiantes</em> = les → <em>les la</em> olmaz → <strong>se la</strong>.' },
-  { n:39, tag:"OI",      text:'Yo voy a mandarle un mensaje. → Aynı anlamlı doğru cümle?', opts:['Yo le voy a mandar un mensaje.','Yo lo voy a mandar un mensaje.','Yo la voy a mandar un mensaje.','Yo me voy a mandar un mensaje.'], ans:0, exp:'<em>-le</em> = "ona". Çekimli fiilden önce: <strong>Le voy a mandar un mensaje</strong>.' },
-  { n:40, tag:"OD",      text:'¿Vas a comprar la falda? → Zamirli doğru cevap?', opts:['Sí, lo voy a comprar.','Sí, la voy a comprar.','Sí, le voy a comprar.','Sí, se voy a comprar.'], ans:1, exp:'<em>la falda</em> = dişil tekil OD → <strong>la</strong>.' },
-  { n:41, tag:"OD",      text:'Mis padres van a preparar la cena. → Zamirli doğru cümle?', opts:['Mis padres lo van a preparar.','Mis padres la van a preparar.','Mis padres le van a preparar.','Mis padres se van a preparar.'], ans:1, exp:'<em>la cena</em> = dişil tekil → <strong>la</strong>.' },
-  { n:42, tag:"OD",      text:'Voy a llamar a Carlos ahora. → Standart zamirli doğru cümle?', opts:['Lo voy a llamar ahora.','Le voy a llamar ahora.','Se voy a llamar ahora.','Me voy a llamar ahora.'], ans:0, exp:'<em>llamar a alguien</em> → kişi OD olur → Carlos için <strong>lo</strong>.' },
-  { n:43, tag:"Dönüşlü", text:'Nosotros ______ para el examen.', opts:['nos vamos preparar','vamos a prepararse','se vamos a preparar','nos vamos a preparar'], ans:3, exp:'<em>prepararse</em> dönüşlü, "nosotros" için zamir <em>nos</em>. <strong>nos vamos a preparar</strong>.' },
-  { n:44, tag:"Dönüşlü", text:'Ella va a ponerse el vestido. → Aynı anlamlı doğru cümle?', opts:['Ella va se a poner el vestido.','Ella pone va a el vestido.','Ella se va a poner el vestido.','Ella va a se poner el vestido.'], ans:2, exp:'<em>ponerse</em> dönüşlü → <strong>se va a poner</strong>.' },
-  { n:45, tag:"OD",      text:'Voy a comprar los zapatos. → Zamirli doğru cümle?', opts:['Lo voy a comprar.','Las voy a comprar.','Los voy a comprar.','Les voy a comprar.'], ans:2, exp:'<em>los zapatos</em> = erkek çoğul OD → <strong>los</strong>.' },
-  { n:46, tag:"OD+OI",   text:'Vamos a enviar las invitaciones a Laura. → İki zamirli doğru cümle?', opts:['Le las vamos a enviar.','Las le vamos a enviar.','Se los vamos a enviar.','Se las vamos a enviar.'], ans:3, exp:'<em>las invitaciones</em> = las, <em>a Laura</em> = le → <em>le las</em> olmaz → <strong>se las</strong>.' },
-  { n:47, tag:"OI",      text:'Tú vas a contarme la verdad. → Aynı anlamlı doğru cümle?', opts:['Tú me vas contar la verdad.','Tú me vas a contar la verdad.','Tú lo vas a contarme la verdad.','Tú vas me a contar la verdad.'], ans:1, exp:'<em>-me</em> = "bana". Çekimli fiilden önce: <strong>me vas a contar</strong>.' },
-  { n:48, tag:"OD+OI",   text:'Van a dar los documentos al director. → İki zamirli doğru cümle?', opts:['Se los van a dar.','Le los van a dar.','Los le van a dar.','Se las van a dar.'], ans:0, exp:'<em>los documentos</em> = los, <em>al director</em> = le → <strong>se los</strong>.' },
-  { n:49, tag:"Dönüşlü", text:'Yo ______ después de clase.', opts:['voy a relajarme','voy relajarme','me voy relajar','relajarme voy'], ans:0, exp:'<em>relajarse</em> dönüşlü, zamir mastara eklenir: <strong>voy a relajarme</strong>.' },
-  { n:50, tag:"OD",      text:'¿Vas a leer el correo? → Zamirli doğru cevap?', opts:['Sí, le voy a leer.','Sí, lo voy a leer.','Sí, voy a leerlo.','Sí, me voy a leer.'], ans:2, exp:'<em>el correo</em> = erkek tekil OD → <strong>lo</strong>. <em>voy a leerlo</em> veya <em>lo voy a leer</em>.' },
-  { n:51, tag:"OD+OI",   text:'Voy a explicar el problema a mi amiga. → İki zamirli doğru cümle?', opts:['Le lo voy a explicar.','La lo voy a explicar.','Lo le voy a explicar.','Se lo voy a explicar.'], ans:3, exp:'<em>el problema</em> = lo, <em>a mi amiga</em> = le → <strong>se lo</strong>.' },
-  { n:52, tag:"Dönüşlü", text:'Nosotros vamos a acostarnos temprano. → Aynı anlamlı doğru cümle?', opts:['Nosotros vamos nos a acostar temprano.','Nosotros nos vamos a acostar temprano.','Nosotros se vamos a acostar temprano.','Nosotros vamos a se acostar temprano.'], ans:1, exp:'<em>acostarse</em> dönüşlü, "nosotros" → <em>nos</em>. <strong>nos vamos a acostar</strong>.' },
-  { n:53, tag:"OD+OI",   text:'Ella va a mandar el paquete a su hermano. → İki zamirli doğru cümle?', opts:['Ella le lo va a mandar.','Ella lo le va a mandar.','Ella se la va a mandar.','Ella se lo va a mandar.'], ans:3, exp:'<em>el paquete</em> = lo, <em>a su hermano</em> = le → <strong>se lo</strong>.' },
-  { n:54, tag:"Dönüşlü", text:'Tú ______ para la fiesta.', opts:['vas a vestirte','vas vestirte','te vas vestir','vas a vestirse'], ans:0, exp:'<em>vestirse</em> dönüşlü, "tú" → <em>te</em>; mastara eklenir: <strong>vas a vestirte</strong>.' },
-  { n:55, tag:"OD",      text:'Vamos a comprar las flores. → Zamirli doğru cümle?', opts:['Los vamos a comprar.','Las vamos a comprar.','Les vamos a comprar.','Se vamos a comprar.'], ans:1, exp:'<em>las flores</em> = dişil çoğul OD → <strong>las</strong>.' },
-  { n:56, tag:"OD+OI",   text:'Voy a decir la verdad a mis padres. → İki zamirli doğru cümle?', opts:['Les la voy a decir.','La les voy a decir.','Se la voy a decir.','Se lo voy a decir.'], ans:2, exp:'<em>la verdad</em> = la, <em>a mis padres</em> = les → <strong>se la</strong>.' },
-  { n:57, tag:"Dönüşlü", text:'Mi hermana va a maquillarse ahora. → Aynı anlamlı doğru cümle?', opts:['Mi hermana va se a maquillar ahora.','Mi hermana se va maquillar ahora.','Mi hermana se va a maquillar ahora.','Mi hermana va a se maquillar ahora.'], ans:2, exp:'<em>maquillarse</em> dönüşlü → <strong>se va a maquillar</strong>.' },
-  { n:58, tag:"OD",      text:'Ellos van a traer las sillas. → Zamirli doğru cümle?', opts:['Ellos los van a traer.','Ellos le van a traer.','Ellos se van a traer.','Ellos las van a traer.'], ans:3, exp:'<em>las sillas</em> = dişil çoğul OD → <strong>las</strong>.' },
-  { n:59, tag:"OI",      text:'Voy a prestarte mi coche. → Aynı anlamlı doğru cümle?', opts:['Te voy a prestar mi coche.','Lo voy a prestarte mi coche.','Me voy a prestar mi coche.','Se voy a prestar mi coche.'], ans:0, exp:'<em>-te</em> = "sana". <strong>Te voy a prestar mi coche</strong>.' },
-  { n:60, tag:"OD+OI",   text:'Vamos a regalar una bicicleta a Pablo. → İki zamirli doğru cümle?', opts:['Le la vamos a regalar.','Se la vamos a regalar.','La le vamos a regalar.','Se lo vamos a regalar.'], ans:1, exp:'<em>una bicicleta</em> = la, <em>a Pablo</em> = le → <strong>se la</strong>.' },
-  { n:61, tag:"Dönüşlü", text:'Yo ______ a las siete mañana.', opts:['me voy a despertar','voy despertar','se voy a despertar','voy a despertarse'], ans:0, exp:'<em>despertarse</em> dönüşlü, "yo" → <em>me</em>. <strong>me voy a despertar</strong>.' },
-  { n:62, tag:"OD+OI",   text:'Van a enseñar la casa a los invitados. → İki zamirli doğru cümle?', opts:['Les la van a enseñar.','Se la van a enseñar.','La les van a enseñar.','Se lo van a enseñar.'], ans:1, exp:'<em>la casa</em> = la, <em>a los invitados</em> = les → <strong>se la</strong>.' },
-  { n:63, tag:"OD",      text:'¿Vas a preparar el desayuno? → Zamirli doğru cevap?', opts:['Sí, le voy a preparar.','Sí, la voy a preparar.','Sí, lo voy a preparar.','Sí, se voy a preparar.'], ans:2, exp:'<em>el desayuno</em> = erkek tekil OD → <strong>lo</strong>.' },
-  { n:64, tag:"Dönüşlü", text:'Ella ______ en casa este sábado.', opts:['va quedarse','se va quedar','va a quedarse se','va a quedarse'], ans:3, exp:'<em>quedarse</em> dönüşlü, zamir mastara: <strong>va a quedarse</strong>.' },
-  { n:65, tag:"OD+OI",   text:'Voy a mostrar las fotos a mi madre. → İki zamirli doğru cümle?', opts:['Le las voy a mostrar.','Las le voy a mostrar.','Se lo voy a mostrar.','Se las voy a mostrar.'], ans:3, exp:'<em>las fotos</em> = las, <em>a mi madre</em> = le → <strong>se las</strong>.' },
-  { n:66, tag:"Dönüşlü", text:'Tú vas a lavarte las manos. → Aynı anlamlı doğru cümle?', opts:['Tú vas te a lavar las manos.','Tú vas a te lavar las manos.','Tú te vas a lavar las manos.','Tú se vas a lavar las manos.'], ans:2, exp:'<em>lavarse</em> dönüşlü, "tú" → <em>te</em>. <strong>te vas a lavar</strong>.' },
-  { n:67, tag:"OD",      text:'Vamos a leer los artículos. → Zamirli doğru cümle?', opts:['Las vamos a leer.','Los vamos a leer.','Les vamos a leer.','Se vamos a leer.'], ans:1, exp:'<em>los artículos</em> = erkek çoğul OD → <strong>los</strong>.' },
-  { n:68, tag:"OI",      text:'Voy a pedir ayuda a la profesora. → Zamirli doğru cümle?', opts:['Le voy a pedir ayuda.','La voy a pedir ayuda.','Lo voy a pedir ayuda.','Se voy a pedir ayuda.'], ans:0, exp:'<em>pedir algo a alguien</em> → kişi OI → <em>a la profesora</em> → <strong>le</strong>.' },
-  { n:69, tag:"Dönüşlü", text:'Nosotros ______ después del trabajo.', opts:['vamos a relajarnos','vamos relajarnos','se vamos a relajar','vamos a relajarse'], ans:0, exp:'<em>relajarse</em> dönüşlü, "nosotros" → <em>nos</em>; mastara: <strong>vamos a relajarnos</strong>.' },
-  { n:70, tag:"OD",      text:'Van a vender la casa. → Zamirli doğru cümle?', opts:['Lo van a vender.','Le van a vender.','Se van a vender.','La van a vender.'], ans:3, exp:'<em>la casa</em> = dişil tekil OD → <strong>la</strong>.' },
-  { n:71, tag:"OD+OI",   text:'Voy a contar la historia a mis amigos. → İki zamirli doğru cümle?', opts:['Les la voy a contar.','La les voy a contar.','Se la voy a contar.','Se lo voy a contar.'], ans:2, exp:'<em>la historia</em> = la, <em>a mis amigos</em> = les → <strong>se la</strong>.' },
-  { n:72, tag:"Dönüşlü", text:'Ella va a sentarse cerca de la ventana. → Aynı anlamlı doğru cümle?', opts:['Ella va se a sentar cerca de la ventana.','Ella se va a sentar cerca de la ventana.','Ella va a se sentar cerca de la ventana.','Ella se va sentar cerca de la ventana.'], ans:1, exp:'<em>sentarse</em> dönüşlü → <strong>se va a sentar</strong>.' },
-  { n:73, tag:"OD",      text:'¿Vas a ver la serie esta noche? → Zamirli doğru cevap?', opts:['Sí, lo voy a ver.','Sí, la voy a ver.','Sí, le voy a ver.','Sí, se voy a ver.'], ans:1, exp:'<em>la serie</em> = dişil tekil OD → <strong>la</strong>.' },
-  { n:74, tag:"OD+OI",   text:'Voy a traer el café a Marta. → İki zamirli doğru cümle?', opts:['Se lo voy a traer.','Le lo voy a traer.','Lo le voy a traer.','Se la voy a traer.'], ans:0, exp:'<em>el café</em> = lo, <em>a Marta</em> = le → <strong>se lo</strong>.' },
-  { n:75, tag:"Dönüşlü", text:'Tú ______ después del gimnasio.', opts:['vas ducharte','vas a ducharse','te vas duchar','vas a ducharte'], ans:3, exp:'<em>ducharse</em> dönüşlü, "tú" → <em>te</em>; mastara: <strong>vas a ducharte</strong>.' },
-  { n:76, tag:"OD",      text:'Vamos a escuchar la canción. → Zamirli doğru cümle?', opts:['Lo vamos a escuchar.','Le vamos a escuchar.','La vamos a escuchar.','Se vamos a escuchar.'], ans:2, exp:'<em>la canción</em> = dişil tekil OD → <strong>la</strong>.' },
-  { n:77, tag:"OD+OI",   text:'Van a entregar los paquetes a los clientes. → İki zamirli doğru cümle?', opts:['Les los van a entregar.','Los les van a entregar.','Se los van a entregar.','Se las van a entregar.'], ans:2, exp:'<em>los paquetes</em> = los, <em>a los clientes</em> = les → <strong>se los</strong>.' },
-  { n:78, tag:"Dönüşlü", text:'Yo voy a afeitarme mañana. → Aynı anlamlı doğru cümle?', opts:['Yo voy me a afeitar mañana.','Yo voy a me afeitar mañana.','Yo se voy a afeitar mañana.','Yo me voy a afeitar mañana.'], ans:3, exp:'<em>afeitarse</em> dönüşlü, "yo" → <em>me</em>. <strong>me voy a afeitar</strong>.' },
-  { n:79, tag:"OD",      text:'Voy a buscar las llaves. → Zamirli doğru cümle?', opts:['Las voy a buscar.','Los voy a buscar.','Les voy a buscar.','Se voy a buscar.'], ans:0, exp:'<em>las llaves</em> = dişil çoğul OD → <strong>las</strong>.' },
-  { n:80, tag:"OD+OI",   text:'Vamos a preparar el informe para la directora. → İki zamirli doğru cümle?', opts:['Le lo vamos a preparar.','Se lo vamos a preparar.','Lo le vamos a preparar.','Se la vamos a preparar.'], ans:1, exp:'<em>el informe</em> = lo, <em>para la directora</em> = le → <strong>se lo</strong>.' },
-  { n:81, tag:"Dönüşlü", text:'Ellas ______ para la boda.', opts:['se van a arreglar','van arreglarse','se van arreglar','van a arreglarse se'], ans:0, exp:'<em>arreglarse</em> dönüşlü, "ellas" → <em>se</em>. <strong>se van a arreglar</strong>.' },
-  { n:82, tag:"OD+OI",   text:'Tú vas a explicar el ejercicio a mí. → Zamirli doğru cümle?', opts:['Tú se lo vas a explicar.','Tú me la vas a explicar.','Tú le lo vas a explicar.','Tú me lo vas a explicar.'], ans:3, exp:'<em>el ejercicio</em> = lo, <em>a mí</em> = me → <strong>me lo</strong>.' },
-  { n:83, tag:"OD",      text:'Voy a comprar una camisa. → Zamirli doğru cümle?', opts:['Lo voy a comprar.','La voy a comprar.','Le voy a comprar.','Se voy a comprar.'], ans:1, exp:'<em>una camisa</em> = dişil tekil OD → <strong>la</strong>.' },
-  { n:84, tag:"Dönüşlü", text:'Nosotros vamos a quedarnos aquí. → Aynı anlamlı doğru cümle?', opts:['Nosotros vamos nos a quedar aquí.','Nosotros se vamos a quedar aquí.','Nosotros nos vamos a quedar aquí.','Nosotros vamos a nos quedar aquí.'], ans:2, exp:'<em>quedarse</em> dönüşlü, "nosotros" → <em>nos</em>. <strong>nos vamos a quedar</strong>.' },
-  { n:85, tag:"OD+OI",   text:'Voy a enviar el correo a mis compañeros. → İki zamirli doğru cümle?', opts:['Les lo voy a enviar.','Lo les voy a enviar.','Se lo voy a enviar.','Se la voy a enviar.'], ans:2, exp:'<em>el correo</em> = lo, <em>a mis compañeros</em> = les → <strong>se lo</strong>.' },
-  { n:86, tag:"OD",      text:'¿Vas a llamar a tu profesora? → Standart zamirli cevap?', opts:['Sí, le voy a llamar.','Sí, la voy a llamar.','Sí, se voy a llamar.','Sí, me voy a llamar.'], ans:1, exp:'<em>llamar a alguien</em> → kişi OD. <em>tu profesora</em> = dişil tekil → <strong>la</strong>.' },
-  { n:87, tag:"Dönüşlü", text:'Yo ______ antes de salir.', opts:['voy a peinarme','voy peinarme','se voy a peinar','voy a peinarse'], ans:0, exp:'<em>peinarse</em> dönüşlü, "yo" → <em>me</em>; mastara: <strong>voy a peinarme</strong>.' },
-  { n:88, tag:"OD+OI",   text:'Vamos a dar las respuestas al profesor. → İki zamirli doğru cümle?', opts:['Le las vamos a dar.','Las le vamos a dar.','Se lo vamos a dar.','Se las vamos a dar.'], ans:3, exp:'<em>las respuestas</em> = las, <em>al profesor</em> = le → <strong>se las</strong>.' },
-  { n:89, tag:"OD",      text:'Van a lavar el coche. → Zamirli doğru cümle?', opts:['La van a lavar.','Le van a lavar.','Se van a lavar.','Lo van a lavar.'], ans:3, exp:'<em>el coche</em> = erkek tekil OD → <strong>lo</strong>.' },
-  { n:90, tag:"Dönüşlü", text:'Tú vas a prepararte para la entrevista. → Aynı anlamlı doğru cümle?', opts:['Tú te vas a preparar para la entrevista.','Tú vas te a preparar para la entrevista.','Tú se vas a preparar para la entrevista.','Tú vas a te preparar para la entrevista.'], ans:0, exp:'<em>prepararse</em> dönüşlü, "tú" → <em>te</em>. <strong>te vas a preparar</strong>.' },
-  { n:91, tag:"OD+OI",   text:'Voy a enseñar el pasaporte al policía. → İki zamirli doğru cümle?', opts:['Le lo voy a enseñar.','Lo le voy a enseñar.','Se lo voy a enseñar.','Se la voy a enseñar.'], ans:2, exp:'<em>el pasaporte</em> = lo, <em>al policía</em> = le → <strong>se lo</strong>.' },
-  { n:92, tag:"Dönüşlü", text:'Nosotros ______ a las once.', opts:['vamos acostarnos','nos vamos a acostar','se vamos a acostar','vamos a acostarse'], ans:1, exp:'<em>acostarse</em> dönüşlü, "nosotros" → <em>nos</em>. <strong>nos vamos a acostar</strong>.' },
-  { n:93, tag:"OD",      text:'¿Vas a tomar el café? → Zamirli doğru cevap?', opts:['Sí, la voy a tomar.','Sí, lo voy a tomar.','Sí, le voy a tomar.','Sí, se voy a tomar.'], ans:1, exp:'<em>el café</em> = erkek tekil OD → <strong>lo</strong>.' },
-  { n:94, tag:"OD+OI",   text:'Vamos a contar el secreto a Ana. → İki zamirli doğru cümle?', opts:['Le lo vamos a contar.','Lo le vamos a contar.','Se la vamos a contar.','Se lo vamos a contar.'], ans:3, exp:'<em>el secreto</em> = lo, <em>a Ana</em> = le → <strong>se lo</strong>.' },
-  { n:95, tag:"Dönüşlü", text:'Ella ______ después del trabajo.', opts:['se va a relajar','va relajar','va a relajarse se','se va relajar'], ans:0, exp:'<em>relajarse</em> dönüşlü, "ella" → <em>se</em>. <strong>se va a relajar</strong>.' },
-  { n:96, tag:"OD+OI",   text:'Voy a comprar el regalo para ti. → Zamirli doğru cümle?', opts:['Le lo voy a comprar.','Se la voy a comprar.','Te lo voy a comprar.','Me lo voy a comprar.'], ans:2, exp:'<em>el regalo</em> = lo, <em>para ti</em> = te → <strong>te lo</strong>.' },
-  { n:97, tag:"OD",      text:'Van a cerrar las ventanas. → Zamirli doğru cümle?', opts:['Los van a cerrar.','Le van a cerrar.','Las van a cerrar.','Se van a cerrar.'], ans:2, exp:'<em>las ventanas</em> = dişil çoğul OD → <strong>las</strong>.' },
-  { n:98, tag:"Dönüşlü", text:'Yo voy a ponerme la chaqueta. → Aynı anlamlı doğru cümle?', opts:['Yo me voy a poner la chaqueta.','Yo se voy a poner la chaqueta.','Yo voy me a poner la chaqueta.','Yo voy a me poner la chaqueta.'], ans:0, exp:'<em>ponerse</em> dönüşlü, "yo" → <em>me</em>. <strong>me voy a poner</strong>.' },
-  { n:99, tag:"OD+OI",   text:'Vamos a mandar la información a ustedes. → İki zamirli doğru cümle?', opts:['Les la vamos a mandar.','La les vamos a mandar.','Se lo vamos a mandar.','Se la vamos a mandar.'], ans:3, exp:'<em>la información</em> = la, <em>a ustedes</em> = les → <strong>se la</strong>.' },
-  { n:100, tag:"OD",     text:'¿Vas a visitar a tus padres? → Standart zamirli doğru cevap?', opts:['Sí, les voy a visitar.','Sí, los voy a visitar.','Sí, se voy a visitar.','Sí, le voy a visitar.'], ans:1, exp:'<em>visitar a alguien</em> → <em>personal a</em> → kişi OD. <em>tus padres</em> = erkek çoğul → <strong>los</strong>.' },
+const QUESTIONS = [
+  {n:1,  tag:'IR A',     text:'Mañana yo ______ español en casa.',opts:['voy a estudiar','estudio','voy estudiar','estudiar voy'],ans:0,exp:'<strong>voy + a + estudiar</strong> → yakın gelecek yapısı. "Yo" öznesiyle ir = <em>voy</em>. Türkçesi: Yarın evde İspanyolca çalışacağım.'},
+  {n:2,  tag:'IR A',     text:'Nosotros ______ una película esta noche.',opts:['vemos','vamos ver','vamos a ver','ver vamos'],ans:2,exp:'"Bu gece bir film izleyeceğiz." <strong>vamos + a + ver</strong> → nosotros için ir = vamos, ardından mutlaka <em>a</em> gelir.'},
+  {n:3,  tag:'IR A',     text:'Ellos ______ al cine el sábado.',opts:['van ir','van a ir','ir van','van a van'],ans:1,exp:'<strong>van a ir</strong> → ilk <em>van</em> ir fiilinin çekimidir, ikinci <em>ir</em> mastardır.'},
+  {n:4,  tag:'IR A',     text:'Tú ______ a tu madre después de la clase.',opts:['llamas','vas llamar','llamar vas','vas a llamar'],ans:3,exp:'"tú" için <strong>vas + a + llamar</strong>. Türkçesi: Dersten sonra anneni arayacaksın.'},
+  {n:5,  tag:'IR A',     text:'María ______ una carta mañana.',opts:['escribe','va escribir','escribir va','va a escribir'],ans:3,exp:'María üçüncü tekil şahıs → <em>va</em>. Yapı: <strong>va + a + escribir</strong>.'},
+  {n:6,  tag:'Dönüşlü', text:'Vosotros ______ temprano mañana.',opts:['vais levantar','vais a levantaros','levantáis','levantar vais'],ans:1,exp:'<em>levantarse</em> dönüşlü fiil. "Vosotros" için zamir <em>os</em>; mastara eklenir → <strong>levantaros</strong>. Türkçesi: Siz yarın erken kalkacaksınız.'},
+  {n:7,  tag:'IR A',     text:'Ella ______ café después del desayuno.',opts:['toma','va tomar','va a tomar','tomar va'],ans:2,exp:'"Ella" için <em>va</em>. Doğru yapı: <strong>va + a + tomar</strong>.'},
+  {n:8,  tag:'Dönüşlü', text:'Yo ______ en casa este fin de semana.',opts:['voy a quedarme','quedo','voy quedar','quedarme voy'],ans:0,exp:'<em>quedarse</em> dönüşlü fiil. "Yo" için zamir <em>me</em> → <strong>voy a quedarme</strong>.'},
+  {n:9,  tag:'IR A',     text:'Mis amigos ______ fútbol el domingo.',opts:['van a jugar','juegan','van jugar','jugar van'],ans:0,exp:'Çoğul özne → <em>van</em>. Doğru yapı: <strong>van + a + jugar</strong>.'},
+  {n:10, tag:'IR A',     text:'¿Tú ______ la tarea ahora o más tarde?',opts:['haces','vas hacer','hacer vas','vas a hacer'],ans:3,exp:'Sorularda yapı değişmez: <strong>vas + a + hacer</strong>.'},
+  {n:11, tag:'Olumsuz',  text:'Nosotros no ______ mañana.',opts:['viajamos','vamos a viajar','vamos viajar','viajar vamos'],ans:1,exp:'Olumsuzda <em>no</em> çekimli fiilden önce: <strong>no + vamos + a + viajar</strong>. Türkçesi: Biz yarın seyahat etmeyeceğiz.'},
+  {n:12, tag:'IR A',     text:'Lucía ______ una chaqueta nueva.',opts:['compra','va comprar','va a comprar','comprar va'],ans:2,exp:'<strong>va + a + comprar</strong>. Comprar mastar hâlde kalır.'},
+  {n:13, tag:'IR A',     text:'Yo ______ después del trabajo.',opts:['descanso','voy descansar','voy a descansar','descansar voy'],ans:2,exp:'"Yo" için <em>voy</em>. Doğru yapı: <strong>voy + a + descansar</strong>.'},
+  {n:14, tag:'IR A',     text:'Tú ______ un correo al profesor.',opts:['vas a escribir','escribes','vas escribir','escribir vas'],ans:0,exp:'<strong>vas + a + escribir</strong>. <em>un correo</em> = OD, <em>al profesor</em> = OI.'},
+  {n:15, tag:'IR A',     text:'Los niños ______ en el parque esta tarde.',opts:['juegan','van jugar','jugar van','van a jugar'],ans:3,exp:'Çoğul özne → <em>van</em>. Doğru yapı: <strong>van + a + jugar</strong>.'},
+  {n:16, tag:'IR A',     text:'Nosotros ______ la cena juntos.',opts:['preparamos','vamos a preparar','vamos preparar','preparar vamos'],ans:1,exp:'<strong>vamos + a + preparar</strong>. İkinci fiil mastar kalır.'},
+  {n:17, tag:'IR A',     text:'Marta ______ a sus abuelos mañana.',opts:['visita','va a visitar','va visitar','visitar va'],ans:1,exp:'<em>personal a</em> kişiler için kullanılır. Yapı: <strong>va + a + visitar</strong>.'},
+  {n:18, tag:'IR A',     text:'Ustedes ______ español en la clase.',opts:['hablan','van hablar','hablar van','van a hablar'],ans:3,exp:'<em>Ustedes</em> üçüncü çoğul gibi çekimlenir → <em>van</em>. Doğru yapı: <strong>van + a + hablar</strong>.'},
+  {n:19, tag:'Olumsuz',  text:'Yo no ______ café esta noche.',opts:['voy a beber','bebo','voy beber','beber voy'],ans:0,exp:'Olumsuz yakın gelecek: <strong>no + voy + a + beber</strong>. Türkçesi: Bu gece kahve içmeyeceğim.'},
+  {n:20, tag:'IR A',     text:'¿Vosotros ______ mañana por la mañana?',opts:['salís','vais salir','vais a salir','salir vais'],ans:2,exp:'"Vosotros" için <em>vais</em>. Doğru yapı: <strong>vais + a + salir</strong>.'},
+  {n:21,tag:'Okuma',reading:'Mañana Clara va a tener un día muy ocupado. Primero va a levantarse a las siete. Después va a ducharse rápidamente. No va a desayunar en casa. Va a tomar un café cerca de la oficina. A las nueve va a empezar una reunión importante. Su jefe va a explicar un nuevo proyecto. Clara va a tomar muchas notas. Después de la reunión, va a llamar a un cliente. También va a mandarle un correo. Al mediodía va a comer con sus compañeros. Por la tarde va a revisar varios documentos. Luego va a volver a casa en metro. Por la noche no va a salir. Va a acostarse temprano porque está cansada.',text:'¿Qué va a hacer Clara por la noche?',opts:['Va a ir al cine.','Va a llamar a su jefe.','Va a acostarse temprano.','Va a desayunar en casa.'],ans:2,exp:'Metnin sonunda: <em>Va a acostarse temprano porque está cansada.</em> <strong>acostarse</strong> = dönüşlü fiil, "yatacak" anlamına gelir.'},
+  {n:22,tag:'Okuma',reading:'El sábado Daniel va a visitar a su abuela. Va a salir de casa a las diez. Primero va a comprar flores. También va a comprar pan y fruta. Su abuela vive cerca del centro. Daniel va a ir en autobús. Va a llegar antes del mediodía. Su abuela va a preparar sopa. Daniel va a ayudarla en la cocina. Después van a comer juntos. Luego van a ver fotos antiguas. Daniel va a escuchar muchas historias familiares. Por la tarde va a arreglar una lámpara. Antes de salir, va a darle un abrazo a su abuela. Por la noche va a volver a su casa.',text:'¿Qué va a comprar Daniel antes de visitar a su abuela?',opts:['Flores, pan y fruta.','Una lámpara nueva.','Un libro antiguo.','Un billete de tren.'],ans:0,exp:'Metinde: <em>va a comprar flores</em> ve <em>va a comprar pan y fruta</em>.'},
+  {n:23,tag:'Okuma',reading:'Mañana por la mañana Ana va a estudiar en la biblioteca. Va a llevar su ordenador. También va a llevar dos libros grandes. Primero va a buscar información para una presentación. Después va a escribir una introducción. Su amiga Marta va a ayudarla. Marta va a explicarle algunas ideas difíciles. Ana va a entender mejor el tema. Luego las dos van a preparar unas diapositivas. No van a terminar todo por la mañana. Por eso van a continuar después de comer. A las tres van a revisar el texto. A las cinco van a mandar el trabajo al profesor. Después van a tomar café. Finalmente van a volver a casa.',text:'¿Quién va a ayudar a Ana?',opts:['Su profesor.','Su hermano.','Su madre.','Su amiga Marta.'],ans:3,exp:'Metinde açıkça: <em>Su amiga Marta va a ayudarla.</em> <em>-la</em> = Ana\'yı temsil eden OD zamiri.'},
+  {n:24,tag:'Okuma',reading:'El domingo Luis va a limpiar su apartamento. Primero va a abrir las ventanas. Después va a poner música. Va a limpiar la cocina. También va a lavar los platos. Luego va a ordenar el salón. Va a guardar los libros en la estantería. Su hermana va a llamarlo por teléfono. Luis va a contestarle rápidamente. Después va a preparar una comida sencilla. No va a salir por la tarde. Va a quedarse en casa. A las seis va a ver una película. Antes de dormir va a leer un poco. Finalmente va a acostarse a las once.',text:'¿Qué va a hacer Luis a las seis?',opts:['Va a lavar los platos.','Va a ver una película.','Va a llamar a su hermana.','Va a abrir las ventanas.'],ans:1,exp:'Metinde: <em>A las seis va a ver una película.</em> <strong>va a ver</strong> = "izleyecek".'},
+  {n:25,tag:'Okuma',reading:'Esta tarde Elena va a preparar una cena especial. Sus amigos van a venir a su casa. Primero Elena va a ir al mercado. Va a comprar verduras frescas. También va a comprar queso y pan. Después va a volver a casa. Va a lavarse las manos. Luego va a cortar las verduras. Su hermano va a ayudarla. Él va a poner la mesa. Elena va a preparar una ensalada. También va a cocinar pasta. A las ocho sus amigos van a llegar. Todos van a cenar juntos. Después van a hablar y escuchar música.',text:'¿Qué va a hacer el hermano de Elena?',opts:['Va a cocinar pasta.','Va a poner la mesa.','Va a comprar verduras.','Va a lavar los platos.'],ans:1,exp:'Metinde: <em>Él va a poner la mesa.</em> = "Masayı kuracak."'},
+  {n:26,tag:'Okuma',reading:'Mañana Marcos va a viajar a Valencia. Va a levantarse muy temprano. Va a ducharse y vestirse rápido. No va a desayunar mucho. Va a tomar solo un café. Después va a salir de casa a las siete. Va a ir a la estación en taxi. Allí va a comprar un billete. El tren va a salir a las ocho. Durante el viaje va a leer una novela. También va a escribir mensajes a sus amigos. Cuando llegue, va a visitar un museo. Después va a comer paella. Por la tarde va a caminar por el centro. Por la noche va a dormir en un hotel.',text:'¿Qué va a hacer Marcos durante el viaje?',opts:['Va a cocinar paella.','Va a comprar ropa.','Va a leer una novela.','Va a dormir en casa.'],ans:2,exp:'Metinde: <em>Durante el viaje va a leer una novela.</em>'},
+  {n:27,tag:'Okuma',reading:'Esta noche Laura va a estudiar para un examen. Primero va a organizar sus apuntes. Después va a leer tres capítulos. Va a subrayar las ideas importantes. También va a escribir un resumen. Su compañera Paula va a llamarla. Laura va a explicarle una parte del tema. Luego las dos van a practicar preguntas. No van a mirar el móvil. Van a concentrarse en el examen. A las diez Laura va a descansar un poco. Va a tomar té. Después va a repasar los verbos. Antes de dormir va a preparar su mochila. Finalmente va a acostarse temprano.',text:'¿Qué va a preparar Laura antes de dormir?',opts:['Su mochila.','Una cena especial.','Una presentación.','Un regalo.'],ans:0,exp:'Metinde: <em>Antes de dormir va a preparar su mochila.</em>'},
+  {n:28,tag:'Okuma',reading:'El viernes mis padres van a cenar fuera. Primero van a reservar una mesa. Después mi madre va a elegir un vestido. Mi padre va a ponerse una camisa azul. Van a salir de casa a las ocho. Van a ir al restaurante en coche. El camarero va a recibirlos en la entrada. Mis padres van a pedir pescado. También van a pedir una ensalada. Después van a compartir un postre. Mi padre va a pagar la cuenta. Mi madre va a darle las gracias al camarero. Luego van a caminar un poco. Van a volver a casa a las once. Finalmente van a descansar.',text:'¿Qué va a pedir la pareja en el restaurante?',opts:['Carne y arroz.','Pizza y sopa.','Pasta y café.','Pescado y una ensalada.'],ans:3,exp:'Metinde: <em>van a pedir pescado</em> ve <em>van a pedir una ensalada</em>.'},
+  {n:29,tag:'Okuma',reading:'Mañana los estudiantes van a hacer una presentación. Primero van a llegar temprano a clase. Van a abrir sus ordenadores. También van a revisar las diapositivas. La profesora va a escucharlos con atención. Pedro va a explicar la introducción. Sara va a hablar sobre los ejemplos. Carlos va a mostrar unas fotos. Después todos van a responder preguntas. La profesora va a darles algunos consejos. Los estudiantes van a tomar notas. No van a terminar tarde. Después de la clase van a comer juntos. Luego van a descansar un poco. Por la tarde van a estudiar otro tema.',text:'¿Qué va a hacer la profesora después de la presentación?',opts:['Va a mostrar fotos.','Va a comer sola.','Va a abrir su ordenador.','Va a darles algunos consejos.'],ans:3,exp:'Metinde: <em>La profesora va a darles algunos consejos.</em> <em>-les</em> = öğrencilere.'},
+  {n:30,tag:'Okuma',reading:'Este fin de semana Julia va a quedarse en casa. No va a viajar. No va a visitar a nadie. Quiere descansar mucho. El sábado va a levantarse tarde. Después va a preparar un desayuno grande. Va a leer el periódico. Luego va a llamar a su hermana. Va a contarle sus planes. Por la tarde va a ver una serie. También va a ordenar su habitación. El domingo va a cocinar algo sencillo. Va a escuchar música tranquila. Por la noche va a preparar la ropa para el lunes. Finalmente va a acostarse temprano.',text:'¿Qué va a hacer Julia este fin de semana?',opts:['Va a quedarse en casa.','Va a viajar a otra ciudad.','Va a visitar a sus amigos.','Va a trabajar todo el día.'],ans:0,exp:'İlk cümle: <em>Julia va a quedarse en casa.</em> Ayrıca seyahat etmeyeceği de belirtilmiş.'},
+  {n:31,tag:'OD',text:'Voy a comprar el libro mañana. → Zamirli doğru cümle?',opts:['Le voy a comprar mañana.','Me voy a comprar mañana.','Lo voy a comprar mañana.','Se voy a comprar mañana.'],ans:2,exp:'<em>el libro</em> = erkek tekil OD → zamir <strong>lo</strong>.'},
+  {n:32,tag:'OD',text:'Voy a leer la carta esta noche. → Zamirli doğru cümle?',opts:['Lo voy a leer esta noche.','La voy a leer esta noche.','Le voy a leer esta noche.','Me voy a leer esta noche.'],ans:1,exp:'<em>la carta</em> = dişil tekil OD → zamir <strong>la</strong>.'},
+  {n:33,tag:'OD',text:'Vamos a visitar a los abuelos mañana. → Zamirli doğru cümle?',opts:['Los vamos a visitar mañana.','Les vamos a visitar mañana.','Se vamos a visitar mañana.','Nos vamos a visitar mañana.'],ans:0,exp:'<em>personal a</em> ile kişi OD olur. <em>los abuelos</em> = erkek çoğul → <strong>los</strong>.'},
+  {n:34,tag:'OI',text:'Voy a escribir a Ana esta tarde. → Zamirli doğru cümle?',opts:['La voy a escribir esta tarde.','Le voy a escribir esta tarde.','Lo voy a escribir esta tarde.','Se voy a escribir esta tarde.'],ans:1,exp:'<em>escribir a alguien</em> → kişi OI olur → <strong>le</strong>.'},
+  {n:35,tag:'Dönüşlü',text:'Tú ______ temprano mañana.',opts:['vas levantar','te vas levantar','vas a levantarse','te vas a levantar'],ans:3,exp:'<em>levantarse</em> dönüşlü, "tú" için zamir <em>te</em>. Çekimli fiilden önce: <strong>te vas a levantar</strong>.'},
+  {n:36,tag:'Dönüşlü',text:'Ella va a ducharse ahora. → Aynı anlamlı doğru kullanım?',opts:['Ella se va ducharse ahora.','Ella va se a duchar ahora.','Ella se va a duchar ahora.','Ella va a se duchar ahora.'],ans:2,exp:'Zamir iki yere gelebilir: mastara veya çekimli fiilden önce. Doğru: <strong>se va a duchar</strong>.'},
+  {n:37,tag:'OD+OI',text:'Voy a dar el libro a Marta. → İki zamirli doğru cümle?',opts:['Le lo voy a dar.','La lo voy a dar.','Lo le voy a dar.','Se lo voy a dar.'],ans:3,exp:'<em>el libro</em> = lo, <em>a Marta</em> = le. Ama <em>le lo</em> kullanılmaz → <strong>se lo</strong>.'},
+  {n:38,tag:'OD+OI',text:'Vamos a explicar la lección a los estudiantes. → Doğru zamirli cümle?',opts:['Les la vamos a explicar.','La les vamos a explicar.','Se la vamos a explicar.','Los vamos a explicarla.'],ans:2,exp:'<em>la lección</em> = la, <em>a los estudiantes</em> = les → <em>les la</em> olmaz → <strong>se la</strong>.'},
+  {n:39,tag:'OI',text:'Yo voy a mandarle un mensaje. → Aynı anlamlı doğru cümle?',opts:['Yo le voy a mandar un mensaje.','Yo lo voy a mandar un mensaje.','Yo la voy a mandar un mensaje.','Yo me voy a mandar un mensaje.'],ans:0,exp:'<em>-le</em> = "ona". Çekimli fiilden önce: <strong>Le voy a mandar un mensaje</strong>.'},
+  {n:40,tag:'OD',text:'¿Vas a comprar la falda? → Zamirli doğru cevap?',opts:['Sí, lo voy a comprar.','Sí, la voy a comprar.','Sí, le voy a comprar.','Sí, se voy a comprar.'],ans:1,exp:'<em>la falda</em> = dişil tekil OD → <strong>la</strong>.'},
+  {n:41,tag:'OD',text:'Mis padres van a preparar la cena. → Zamirli doğru cümle?',opts:['Mis padres lo van a preparar.','Mis padres la van a preparar.','Mis padres le van a preparar.','Mis padres se van a preparar.'],ans:1,exp:'<em>la cena</em> = dişil tekil → <strong>la</strong>.'},
+  {n:42,tag:'OD',text:'Voy a llamar a Carlos ahora. → Standart zamirli doğru cümle?',opts:['Lo voy a llamar ahora.','Le voy a llamar ahora.','Se voy a llamar ahora.','Me voy a llamar ahora.'],ans:0,exp:'<em>llamar a alguien</em> → kişi OD olur → Carlos için <strong>lo</strong>.'},
+  {n:43,tag:'Dönüşlü',text:'Nosotros ______ para el examen.',opts:['nos vamos preparar','vamos a prepararse','se vamos a preparar','nos vamos a preparar'],ans:3,exp:'<em>prepararse</em> dönüşlü, "nosotros" için zamir <em>nos</em>. <strong>nos vamos a preparar</strong>.'},
+  {n:44,tag:'Dönüşlü',text:'Ella va a ponerse el vestido. → Aynı anlamlı doğru cümle?',opts:['Ella va se a poner el vestido.','Ella pone va a el vestido.','Ella se va a poner el vestido.','Ella va a se poner el vestido.'],ans:2,exp:'<em>ponerse</em> dönüşlü → <strong>se va a poner</strong>.'},
+  {n:45,tag:'OD',text:'Voy a comprar los zapatos. → Zamirli doğru cümle?',opts:['Lo voy a comprar.','Las voy a comprar.','Los voy a comprar.','Les voy a comprar.'],ans:2,exp:'<em>los zapatos</em> = erkek çoğul OD → <strong>los</strong>.'},
+  {n:46,tag:'OD+OI',text:'Vamos a enviar las invitaciones a Laura. → İki zamirli doğru cümle?',opts:['Le las vamos a enviar.','Las le vamos a enviar.','Se los vamos a enviar.','Se las vamos a enviar.'],ans:3,exp:'<em>las invitaciones</em> = las, <em>a Laura</em> = le → <em>le las</em> olmaz → <strong>se las</strong>.'},
+  {n:47,tag:'OI',text:'Tú vas a contarme la verdad. → Aynı anlamlı doğru cümle?',opts:['Tú me vas contar la verdad.','Tú me vas a contar la verdad.','Tú lo vas a contarme la verdad.','Tú vas me a contar la verdad.'],ans:1,exp:'<em>-me</em> = "bana". Çekimli fiilden önce: <strong>me vas a contar</strong>.'},
+  {n:48,tag:'OD+OI',text:'Van a dar los documentos al director. → İki zamirli doğru cümle?',opts:['Se los van a dar.','Le los van a dar.','Los le van a dar.','Se las van a dar.'],ans:0,exp:'<em>los documentos</em> = los, <em>al director</em> = le → <strong>se los</strong>.'},
+  {n:49,tag:'Dönüşlü',text:'Yo ______ después de clase.',opts:['voy a relajarme','voy relajarme','me voy relajar','relajarme voy'],ans:0,exp:'<em>relajarse</em> dönüşlü, zamir mastara eklenir: <strong>voy a relajarme</strong>.'},
+  {n:50,tag:'OD',text:'¿Vas a leer el correo? → Zamirli doğru cevap?',opts:['Sí, le voy a leer.','Sí, lo voy a leer.','Sí, voy a leerlo.','Sí, me voy a leer.'],ans:2,exp:'<em>el correo</em> = erkek tekil OD → <strong>lo</strong>. <em>voy a leerlo</em> veya <em>lo voy a leer</em>.'},
+  {n:51,tag:'OD+OI',text:'Voy a explicar el problema a mi amiga. → İki zamirli doğru cümle?',opts:['Le lo voy a explicar.','La lo voy a explicar.','Lo le voy a explicar.','Se lo voy a explicar.'],ans:3,exp:'<em>el problema</em> = lo, <em>a mi amiga</em> = le → <strong>se lo</strong>.'},
+  {n:52,tag:'Dönüşlü',text:'Nosotros vamos a acostarnos temprano. → Aynı anlamlı doğru cümle?',opts:['Nosotros vamos nos a acostar temprano.','Nosotros nos vamos a acostar temprano.','Nosotros se vamos a acostar temprano.','Nosotros vamos a se acostar temprano.'],ans:1,exp:'<em>acostarse</em> dönüşlü, "nosotros" → <em>nos</em>. <strong>nos vamos a acostar</strong>.'},
+  {n:53,tag:'OD+OI',text:'Ella va a mandar el paquete a su hermano. → İki zamirli doğru cümle?',opts:['Ella le lo va a mandar.','Ella lo le va a mandar.','Ella se la va a mandar.','Ella se lo va a mandar.'],ans:3,exp:'<em>el paquete</em> = lo, <em>a su hermano</em> = le → <strong>se lo</strong>.'},
+  {n:54,tag:'Dönüşlü',text:'Tú ______ para la fiesta.',opts:['vas a vestirte','vas vestirte','te vas vestir','vas a vestirse'],ans:0,exp:'<em>vestirse</em> dönüşlü, "tú" → <em>te</em>; mastara eklenir: <strong>vas a vestirte</strong>.'},
+  {n:55,tag:'OD',text:'Vamos a comprar las flores. → Zamirli doğru cümle?',opts:['Los vamos a comprar.','Las vamos a comprar.','Les vamos a comprar.','Se vamos a comprar.'],ans:1,exp:'<em>las flores</em> = dişil çoğul OD → <strong>las</strong>.'},
+  {n:56,tag:'OD+OI',text:'Voy a decir la verdad a mis padres. → İki zamirli doğru cümle?',opts:['Les la voy a decir.','La les voy a decir.','Se la voy a decir.','Se lo voy a decir.'],ans:2,exp:'<em>la verdad</em> = la, <em>a mis padres</em> = les → <strong>se la</strong>.'},
+  {n:57,tag:'Dönüşlü',text:'Mi hermana va a maquillarse ahora. → Aynı anlamlı doğru cümle?',opts:['Mi hermana va se a maquillar ahora.','Mi hermana se va maquillar ahora.','Mi hermana se va a maquillar ahora.','Mi hermana va a se maquillar ahora.'],ans:2,exp:'<em>maquillarse</em> dönüşlü → <strong>se va a maquillar</strong>.'},
+  {n:58,tag:'OD',text:'Ellos van a traer las sillas. → Zamirli doğru cümle?',opts:['Ellos los van a traer.','Ellos le van a traer.','Ellos se van a traer.','Ellos las van a traer.'],ans:3,exp:'<em>las sillas</em> = dişil çoğul OD → <strong>las</strong>.'},
+  {n:59,tag:'OI',text:'Voy a prestarte mi coche. → Aynı anlamlı doğru cümle?',opts:['Te voy a prestar mi coche.','Lo voy a prestarte mi coche.','Me voy a prestar mi coche.','Se voy a prestar mi coche.'],ans:0,exp:'<em>-te</em> = "sana". <strong>Te voy a prestar mi coche</strong>.'},
+  {n:60,tag:'OD+OI',text:'Vamos a regalar una bicicleta a Pablo. → İki zamirli doğru cümle?',opts:['Le la vamos a regalar.','Se la vamos a regalar.','La le vamos a regalar.','Se lo vamos a regalar.'],ans:1,exp:'<em>una bicicleta</em> = la, <em>a Pablo</em> = le → <strong>se la</strong>.'},
+  {n:61,tag:'Dönüşlü',text:'Yo ______ a las siete mañana.',opts:['me voy a despertar','voy despertar','se voy a despertar','voy a despertarse'],ans:0,exp:'<em>despertarse</em> dönüşlü, "yo" → <em>me</em>. <strong>me voy a despertar</strong>.'},
+  {n:62,tag:'OD+OI',text:'Van a enseñar la casa a los invitados. → İki zamirli doğru cümle?',opts:['Les la van a enseñar.','Se la van a enseñar.','La les van a enseñar.','Se lo van a enseñar.'],ans:1,exp:'<em>la casa</em> = la, <em>a los invitados</em> = les → <strong>se la</strong>.'},
+  {n:63,tag:'OD',text:'¿Vas a preparar el desayuno? → Zamirli doğru cevap?',opts:['Sí, le voy a preparar.','Sí, la voy a preparar.','Sí, lo voy a preparar.','Sí, se voy a preparar.'],ans:2,exp:'<em>el desayuno</em> = erkek tekil OD → <strong>lo</strong>.'},
+  {n:64,tag:'Dönüşlü',text:'Ella ______ en casa este sábado.',opts:['va quedarse','se va quedar','va a quedarse se','va a quedarse'],ans:3,exp:'<em>quedarse</em> dönüşlü, zamir mastara: <strong>va a quedarse</strong>.'},
+  {n:65,tag:'OD+OI',text:'Voy a mostrar las fotos a mi madre. → İki zamirli doğru cümle?',opts:['Le las voy a mostrar.','Las le voy a mostrar.','Se lo voy a mostrar.','Se las voy a mostrar.'],ans:3,exp:'<em>las fotos</em> = las, <em>a mi madre</em> = le → <strong>se las</strong>.'},
+  {n:66,tag:'Dönüşlü',text:'Tú vas a lavarte las manos. → Aynı anlamlı doğru cümle?',opts:['Tú vas te a lavar las manos.','Tú vas a te lavar las manos.','Tú te vas a lavar las manos.','Tú se vas a lavar las manos.'],ans:2,exp:'<em>lavarse</em> dönüşlü, "tú" → <em>te</em>. <strong>te vas a lavar</strong>.'},
+  {n:67,tag:'OD',text:'Vamos a leer los artículos. → Zamirli doğru cümle?',opts:['Las vamos a leer.','Los vamos a leer.','Les vamos a leer.','Se vamos a leer.'],ans:1,exp:'<em>los artículos</em> = erkek çoğul OD → <strong>los</strong>.'},
+  {n:68,tag:'OI',text:'Voy a pedir ayuda a la profesora. → Zamirli doğru cümle?',opts:['Le voy a pedir ayuda.','La voy a pedir ayuda.','Lo voy a pedir ayuda.','Se voy a pedir ayuda.'],ans:0,exp:'<em>pedir algo a alguien</em> → kişi OI → <em>a la profesora</em> → <strong>le</strong>.'},
+  {n:69,tag:'Dönüşlü',text:'Nosotros ______ después del trabajo.',opts:['vamos a relajarnos','vamos relajarnos','se vamos a relajar','vamos a relajarse'],ans:0,exp:'<em>relajarse</em> dönüşlü, "nosotros" → <em>nos</em>; mastara: <strong>vamos a relajarnos</strong>.'},
+  {n:70,tag:'OD',text:'Van a vender la casa. → Zamirli doğru cümle?',opts:['Lo van a vender.','Le van a vender.','Se van a vender.','La van a vender.'],ans:3,exp:'<em>la casa</em> = dişil tekil OD → <strong>la</strong>.'},
+  {n:71,tag:'OD+OI',text:'Voy a contar la historia a mis amigos. → İki zamirli doğru cümle?',opts:['Les la voy a contar.','La les voy a contar.','Se la voy a contar.','Se lo voy a contar.'],ans:2,exp:'<em>la historia</em> = la, <em>a mis amigos</em> = les → <strong>se la</strong>.'},
+  {n:72,tag:'Dönüşlü',text:'Ella va a sentarse cerca de la ventana. → Aynı anlamlı doğru cümle?',opts:['Ella va se a sentar cerca de la ventana.','Ella se va a sentar cerca de la ventana.','Ella va a se sentar cerca de la ventana.','Ella se va sentar cerca de la ventana.'],ans:1,exp:'<em>sentarse</em> dönüşlü → <strong>se va a sentar</strong>.'},
+  {n:73,tag:'OD',text:'¿Vas a ver la serie esta noche? → Zamirli doğru cevap?',opts:['Sí, lo voy a ver.','Sí, la voy a ver.','Sí, le voy a ver.','Sí, se voy a ver.'],ans:1,exp:'<em>la serie</em> = dişil tekil OD → <strong>la</strong>.'},
+  {n:74,tag:'OD+OI',text:'Voy a traer el café a Marta. → İki zamirli doğru cümle?',opts:['Se lo voy a traer.','Le lo voy a traer.','Lo le voy a traer.','Se la voy a traer.'],ans:0,exp:'<em>el café</em> = lo, <em>a Marta</em> = le → <strong>se lo</strong>.'},
+  {n:75,tag:'Dönüşlü',text:'Tú ______ después del gimnasio.',opts:['vas ducharte','vas a ducharse','te vas duchar','vas a ducharte'],ans:3,exp:'<em>ducharse</em> dönüşlü, "tú" → <em>te</em>; mastara: <strong>vas a ducharte</strong>.'},
+  {n:76,tag:'OD',text:'Vamos a escuchar la canción. → Zamirli doğru cümle?',opts:['Lo vamos a escuchar.','Le vamos a escuchar.','La vamos a escuchar.','Se vamos a escuchar.'],ans:2,exp:'<em>la canción</em> = dişil tekil OD → <strong>la</strong>.'},
+  {n:77,tag:'OD+OI',text:'Van a entregar los paquetes a los clientes. → İki zamirli doğru cümle?',opts:['Les los van a entregar.','Los les van a entregar.','Se los van a entregar.','Se las van a entregar.'],ans:2,exp:'<em>los paquetes</em> = los, <em>a los clientes</em> = les → <strong>se los</strong>.'},
+  {n:78,tag:'Dönüşlü',text:'Yo voy a afeitarme mañana. → Aynı anlamlı doğru cümle?',opts:['Yo voy me a afeitar mañana.','Yo voy a me afeitar mañana.','Yo se voy a afeitar mañana.','Yo me voy a afeitar mañana.'],ans:3,exp:'<em>afeitarse</em> dönüşlü, "yo" → <em>me</em>. <strong>me voy a afeitar</strong>.'},
+  {n:79,tag:'OD',text:'Voy a buscar las llaves. → Zamirli doğru cümle?',opts:['Las voy a buscar.','Los voy a buscar.','Les voy a buscar.','Se voy a buscar.'],ans:0,exp:'<em>las llaves</em> = dişil çoğul OD → <strong>las</strong>.'},
+  {n:80,tag:'OD+OI',text:'Vamos a preparar el informe para la directora. → İki zamirli doğru cümle?',opts:['Le lo vamos a preparar.','Se lo vamos a preparar.','Lo le vamos a preparar.','Se la vamos a preparar.'],ans:1,exp:'<em>el informe</em> = lo, <em>para la directora</em> = le → <strong>se lo</strong>.'},
+  {n:81,tag:'Dönüşlü',text:'Ellas ______ para la boda.',opts:['se van a arreglar','van arreglarse','se van arreglar','van a arreglarse se'],ans:0,exp:'<em>arreglarse</em> dönüşlü, "ellas" → <em>se</em>. <strong>se van a arreglar</strong>.'},
+  {n:82,tag:'OD+OI',text:'Tú vas a explicar el ejercicio a mí. → Zamirli doğru cümle?',opts:['Tú se lo vas a explicar.','Tú me la vas a explicar.','Tú le lo vas a explicar.','Tú me lo vas a explicar.'],ans:3,exp:'<em>el ejercicio</em> = lo, <em>a mí</em> = me → <strong>me lo</strong>.'},
+  {n:83,tag:'OD',text:'Voy a comprar una camisa. → Zamirli doğru cümle?',opts:['Lo voy a comprar.','La voy a comprar.','Le voy a comprar.','Se voy a comprar.'],ans:1,exp:'<em>una camisa</em> = dişil tekil OD → <strong>la</strong>.'},
+  {n:84,tag:'Dönüşlü',text:'Nosotros vamos a quedarnos aquí. → Aynı anlamlı doğru cümle?',opts:['Nosotros vamos nos a quedar aquí.','Nosotros se vamos a quedar aquí.','Nosotros nos vamos a quedar aquí.','Nosotros vamos a nos quedar aquí.'],ans:2,exp:'<em>quedarse</em> dönüşlü, "nosotros" → <em>nos</em>. <strong>nos vamos a quedar</strong>.'},
+  {n:85,tag:'OD+OI',text:'Voy a enviar el correo a mis compañeros. → İki zamirli doğru cümle?',opts:['Les lo voy a enviar.','Lo les voy a enviar.','Se lo voy a enviar.','Se la voy a enviar.'],ans:2,exp:'<em>el correo</em> = lo, <em>a mis compañeros</em> = les → <strong>se lo</strong>.'},
+  {n:86,tag:'OD',text:'¿Vas a llamar a tu profesora? → Standart zamirli cevap?',opts:['Sí, le voy a llamar.','Sí, la voy a llamar.','Sí, se voy a llamar.','Sí, me voy a llamar.'],ans:1,exp:'<em>llamar a alguien</em> → kişi OD. <em>tu profesora</em> = dişil tekil → <strong>la</strong>.'},
+  {n:87,tag:'Dönüşlü',text:'Yo ______ antes de salir.',opts:['voy a peinarme','voy peinarme','se voy a peinar','voy a peinarse'],ans:0,exp:'<em>peinarse</em> dönüşlü, "yo" → <em>me</em>; mastara: <strong>voy a peinarme</strong>.'},
+  {n:88,tag:'OD+OI',text:'Vamos a dar las respuestas al profesor. → İki zamirli doğru cümle?',opts:['Le las vamos a dar.','Las le vamos a dar.','Se lo vamos a dar.','Se las vamos a dar.'],ans:3,exp:'<em>las respuestas</em> = las, <em>al profesor</em> = le → <strong>se las</strong>.'},
+  {n:89,tag:'OD',text:'Van a lavar el coche. → Zamirli doğru cümle?',opts:['La van a lavar.','Le van a lavar.','Se van a lavar.','Lo van a lavar.'],ans:3,exp:'<em>el coche</em> = erkek tekil OD → <strong>lo</strong>.'},
+  {n:90,tag:'Dönüşlü',text:'Tú vas a prepararte para la entrevista. → Aynı anlamlı doğru cümle?',opts:['Tú te vas a preparar para la entrevista.','Tú vas te a preparar para la entrevista.','Tú se vas a preparar para la entrevista.','Tú vas a te preparar para la entrevista.'],ans:0,exp:'<em>prepararse</em> dönüşlü, "tú" → <em>te</em>. <strong>te vas a preparar</strong>.'},
+  {n:91,tag:'OD+OI',text:'Voy a enseñar el pasaporte al policía. → İki zamirli doğru cümle?',opts:['Le lo voy a enseñar.','Lo le voy a enseñar.','Se lo voy a enseñar.','Se la voy a enseñar.'],ans:2,exp:'<em>el pasaporte</em> = lo, <em>al policía</em> = le → <strong>se lo</strong>.'},
+  {n:92,tag:'Dönüşlü',text:'Nosotros ______ a las once.',opts:['vamos acostarnos','nos vamos a acostar','se vamos a acostar','vamos a acostarse'],ans:1,exp:'<em>acostarse</em> dönüşlü, "nosotros" → <em>nos</em>. <strong>nos vamos a acostar</strong>.'},
+  {n:93,tag:'OD',text:'¿Vas a tomar el café? → Zamirli doğru cevap?',opts:['Sí, la voy a tomar.','Sí, lo voy a tomar.','Sí, le voy a tomar.','Sí, se voy a tomar.'],ans:1,exp:'<em>el café</em> = erkek tekil OD → <strong>lo</strong>.'},
+  {n:94,tag:'OD+OI',text:'Vamos a contar el secreto a Ana. → İki zamirli doğru cümle?',opts:['Le lo vamos a contar.','Lo le vamos a contar.','Se la vamos a contar.','Se lo vamos a contar.'],ans:3,exp:'<em>el secreto</em> = lo, <em>a Ana</em> = le → <strong>se lo</strong>.'},
+  {n:95,tag:'Dönüşlü',text:'Ella ______ después del trabajo.',opts:['se va a relajar','va relajar','va a relajarse se','se va relajar'],ans:0,exp:'<em>relajarse</em> dönüşlü, "ella" → <em>se</em>. <strong>se va a relajar</strong>.'},
+  {n:96,tag:'OD+OI',text:'Voy a comprar el regalo para ti. → Zamirli doğru cümle?',opts:['Le lo voy a comprar.','Se la voy a comprar.','Te lo voy a comprar.','Me lo voy a comprar.'],ans:2,exp:'<em>el regalo</em> = lo, <em>para ti</em> = te → <strong>te lo</strong>.'},
+  {n:97,tag:'OD',text:'Van a cerrar las ventanas. → Zamirli doğru cümle?',opts:['Los van a cerrar.','Le van a cerrar.','Las van a cerrar.','Se van a cerrar.'],ans:2,exp:'<em>las ventanas</em> = dişil çoğul OD → <strong>las</strong>.'},
+  {n:98,tag:'Dönüşlü',text:'Yo voy a ponerme la chaqueta. → Aynı anlamlı doğru cümle?',opts:['Yo me voy a poner la chaqueta.','Yo se voy a poner la chaqueta.','Yo voy me a poner la chaqueta.','Yo voy a me poner la chaqueta.'],ans:0,exp:'<em>ponerse</em> dönüşlü, "yo" → <em>me</em>. <strong>me voy a poner</strong>.'},
+  {n:99,tag:'OD+OI',text:'Vamos a mandar la información a ustedes. → İki zamirli doğru cümle?',opts:['Les la vamos a mandar.','La les vamos a mandar.','Se lo vamos a mandar.','Se la vamos a mandar.'],ans:3,exp:'<em>la información</em> = la, <em>a ustedes</em> = les → <strong>se la</strong>.'},
+  {n:100,tag:'OD',text:'¿Vas a visitar a tus padres? → Standart zamirli doğru cevap?',opts:['Sí, les voy a visitar.','Sí, los voy a visitar.','Sí, se voy a visitar.','Sí, le voy a visitar.'],ans:1,exp:'<em>visitar a alguien</em> → <em>personal a</em> → kişi OD. <em>tus padres</em> = erkek çoğul → <strong>los</strong>.'},
 ];
 
-// tag → card top stripe color
-const tagColors = {
-  'IR A':      '#BDE0FE',
-  'Dönüşlü':  '#CDB4DB',
-  'Olumsuz':  '#FFF1B6',
-  'Okuma':    '#FFD6E8',
-  'OD':       '#BDE0FE',
-  'OI':       '#FFF1B6',
-  'OD+OI':    '#CDB4DB',
-};
-const tagNumColors = {
-  'IR A':     '#BDE0FE',
-  'Dönüşlü': '#CDB4DB',
-  'Olumsuz':  '#FFF1B6',
-  'Okuma':    '#FFD6E8',
-  'OD':       '#BDE0FE',
-  'OI':       '#FFF1B6',
-  'OD+OI':    '#CDB4DB',
+const SEC_NAMES = {
+  'IR A':'Kısım 1 — IR A + Infinitivo',
+  'Dönüşlü':'Kısım 1 — Dönüşlü Fiiller',
+  'Olumsuz':'Kısım 1 — Olumsuz Yapı',
+  'Okuma':'Kısım 2 — Okuma',
+  'OD':'Kısım 3 — Objeto Directo',
+  'OI':'Kısım 3 — Objeto Indirecto',
+  'OD+OI':'Kısım 3 — OD + OI',
 };
 
-// body bg cycle per 20 questions
-function getBg(n) {
-  if (n <= 20)  return '#FFD6E8';
-  if (n <= 30)  return '#BDE0FE';
-  if (n <= 60)  return '#FFF1B6';
-  if (n <= 80)  return '#CDB4DB';
-  return '#BDE0FE';
+let studentName = '';
+let answers     = {};
+let currentQ    = 0;
+let submitted   = false;
+let writingText = '';
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo(0,0);
 }
 
-let current = 0;
-let correct = 0, wrong = 0;
-const display = document.getElementById('q-display');
-
-function updateScore() {
-  document.getElementById('sc-correct').textContent = correct;
-  document.getElementById('sc-wrong').textContent = wrong;
-  const done = correct + wrong;
-  document.getElementById('sc-remain').textContent = 100 - done;
-  document.getElementById('sc-pct').textContent = done > 0 ? Math.round((correct/100)*100) : '—';
-
-  // progress
-  const pct = Math.round((done/100)*100);
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-label').textContent = done < 100
-    ? `Soru ${allQuestions[current]?.n || done+1} / 100`
-    : 'Tamamlandı';
-  document.getElementById('prog-pct').textContent = pct + '%';
+function startQuiz() {
+  const sel = document.getElementById('name-select');
+  if (!sel.value) { alert('Lütfen adınızı seçin!'); return; }
+  studentName = sel.value;
+  answers = {}; submitted = false; currentQ = 0;
+  document.getElementById('top-student').textContent = studentName;
+  showScreen('quiz');
+  renderQuestion();
 }
 
-function showQuestion(idx) {
-  if (idx >= allQuestions.length) {
-    showFinal();
-    return;
-  }
-  const q = allQuestions[idx];
-  // change body bg
-  document.body.style.background = getBg(q.n);
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const answered = Object.keys(answers).length;
+  document.getElementById('prog-fill').style.width = (answered / 100 * 100) + '%';
+  document.getElementById('prog-section').textContent = SEC_NAMES[q.tag] || q.tag;
+  document.getElementById('prog-cur').textContent = currentQ + 1;
+  document.getElementById('nav-center').textContent = (currentQ + 1) + ' / 100';
+  document.getElementById('bb-answered').textContent = answered;
+  document.getElementById('btn-prev').disabled = (currentQ === 0);
 
-  display.innerHTML = '';
-
-  const card = document.createElement('div');
-  card.className = 'q-card';
-
-  const accent = tagColors[q.tag] || '#BDE0FE';
-  card.style.cssText = `border-top: 4px solid ${accent};`;
-
-  let html = `<div class="q-top">
-    <div class="q-num-badge" style="background:${accent}">${q.n}</div>
-    <span class="q-tag-badge">${q.tag}</span>
-  </div>`;
-
-  if (q.reading) {
-    html += `<div class="reading-box">${q.reading}</div>`;
+  const isLast = (currentQ === 99);
+  const btnNext = document.getElementById('btn-next');
+  if (isLast) {
+    btnNext.textContent = '✔ Teslim Et';
+    btnNext.className = 'btn btn-gold btn-sm';
+    btnNext.onclick = goToConfirm;
+  } else {
+    btnNext.textContent = 'İleri →';
+    btnNext.className = 'btn btn-main btn-sm';
+    btnNext.onclick = () => navigate(1);
   }
 
-  html += `<div class="q-text">${q.text}</div>`;
-  html += `<div class="options">`;
-  q.opts.forEach((opt, i) => {
-    html += `<button class="option" data-i="${i}">
-      <span class="opt-letter">${letters[i]}</span>
-      <span>${opt}</span>
-    </button>`;
+  const ua = answers[q.n];
+  const readingHTML = q.reading
+    ? `<div class="reading-box">${q.reading}</div>`
+    : '';
+
+  const optsHTML = q.opts.map((o,i) => {
+    let cls = 'opt-btn';
+    if (ua !== undefined) {
+      if (i === q.ans) cls += ' correct';
+      if (i === ua && ua !== q.ans) cls += ' wrong';
+    }
+    return `<button class="${cls}" ${ua !== undefined ? 'disabled' : ''} onclick="mcAnswer(${q.n},${i})">
+      <span class="opt-letter">${letters[i]}</span><span>${o}</span></button>`;
+  }).join('');
+
+  document.getElementById('q-area').innerHTML = `
+    <div class="section-badge">${SEC_NAMES[q.tag] || q.tag} <span class="tag-badge">${q.tag}</span></div>
+    <div class="q-card">
+      <div class="q-head">
+        <div class="q-num">${q.n}</div>
+        <div class="q-text">${readingHTML}${q.text}</div>
+      </div>
+      <div class="q-opts">${optsHTML}</div>
+      <div class="explanation ${ua !== undefined ? 'show' : ''}">
+        <div class="exp-label">💡 Açıklama</div>${q.exp}
+      </div>
+    </div>`;
+
+  // score
+  let c=0,w=0;
+  QUESTIONS.forEach(qq => {
+    const a = answers[qq.n]; if(a===undefined)return;
+    if(a===qq.ans)c++; else w++;
   });
-  html += `</div>`;
-  html += `<button class="check-btn" id="check-btn" disabled>Kontrol Et ✓</button>`;
-  html += `<div class="explanation" id="exp">${q.exp}</div>`;
-  html += `<button class="next-btn" id="next-btn">${idx < allQuestions.length-1 ? 'Sonraki Soru →' : 'Sonuçları Gör 🎉'}</button>`;
-
-  card.innerHTML = html;
-  display.appendChild(card);
-
-  let selected = null;
-
-  card.querySelectorAll('.option').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (selected !== null) return;
-      card.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selected = parseInt(btn.dataset.i);
-      document.getElementById('check-btn').disabled = false;
-    });
-  });
-
-  document.getElementById('check-btn').addEventListener('click', () => {
-    if (selected === null) return;
-    const isCorrect = selected === q.ans;
-    if (isCorrect) correct++; else wrong++;
-
-    card.querySelectorAll('.option').forEach((btn, i) => {
-      btn.disabled = true;
-      if (i === q.ans) btn.classList.add('show-correct');
-      else if (i === selected && i !== q.ans) btn.classList.add('wrong');
-      btn.classList.remove('selected');
-    });
-
-    document.getElementById('check-btn').disabled = true;
-    document.getElementById('check-btn').style.display = 'none';
-    document.getElementById('exp').classList.add('show');
-    document.getElementById('next-btn').classList.add('show');
-    updateScore();
-  });
-
-  document.getElementById('next-btn').addEventListener('click', () => {
-    current++;
-    showQuestion(current);
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-
-  updateScore();
+  document.getElementById('sc-correct').textContent=c;
+  document.getElementById('sc-wrong').textContent=w;
 }
 
-function showFinal() {
-  display.innerHTML = '';
-  document.body.style.background = '#CDB4DB';
+function navigate(dir) {
+  currentQ = Math.max(0, Math.min(99, currentQ + dir));
+  renderQuestion();
+}
 
-  const pct = Math.round((correct/100)*100);
+function mcAnswer(qn, chosen) {
+  if (answers[qn] !== undefined) return;
+  answers[qn] = chosen;
+  renderQuestion();
+}
+
+function goToConfirm() {
+  document.getElementById('confirm-name-select').value = studentName;
+  showScreen('confirm');
+}
+
+function confirmQuiz() {
+  const sel = document.getElementById('confirm-name-select');
+  if (!sel.value) { alert('Lütfen adınızı seçin!'); return; }
+  studentName = sel.value;
+  const btn = document.querySelector('#screen-confirm .btn-gold');
+  btn.disabled = true; btn.textContent = '⏳ Kaydediliyor…';
+  submitQuiz();
+}
+
+function submitQuiz() {
+  submitted = true;
+  let correct = 0, wrong = 0;
+  QUESTIONS.forEach(q => {
+    const a = answers[q.n]; if(a===undefined)return;
+    if(a===q.ans)correct++; else wrong++;
+  });
+  const blank = QUESTIONS.filter(q => answers[q.n]===undefined).length;
+  const score = correct;
+  const pct   = score;
   let msg = '';
-  if (pct >= 90) msg = '¡Excelente! Çok başarılısın! 🌟';
-  else if (pct >= 70) msg = '¡Muy bien! Harika bir performans! 🎉';
-  else if (pct >= 50) msg = '¡Bien! Biraz daha pratik yapalım! 💪';
-  else msg = '¡Sigue practicando! Devam et, başarabilirsin! 📚';
+  if(pct>=90) msg='¡Excelente! Muhteşem bir performans! 🌟';
+  else if(pct>=70) msg='¡Muy bien! Harika gidiyorsun! 🎉';
+  else if(pct>=50) msg='¡Bien! Biraz daha pratik yapalım! 💪';
+  else msg='¡Sigue practicando! Devam et, başarabilirsin! 📚';
 
-  document.getElementById('final-score').textContent = pct;
-  document.getElementById('final-msg').textContent = msg;
-  document.getElementById('final-card').classList.add('show');
-
-  document.getElementById('prog-label').textContent = 'Tamamlandı! 🎉';
-  document.getElementById('prog-fill').style.width = '100%';
-  document.getElementById('prog-pct').textContent = '100%';
-
-  // Show writing section
-  buildWriting();
-  document.getElementById('writing-outer').classList.add('show');
-  setTimeout(() => {
-    document.getElementById('writing-outer').scrollIntoView({behavior:'smooth'});
-  }, 600);
+  document.getElementById('res-name').textContent   = studentName;
+  document.getElementById('res-score').innerHTML    = score + '<span>/100</span>';
+  document.getElementById('res-pct').textContent    = '%' + pct + ' başarı';
+  document.getElementById('res-c').textContent      = correct;
+  document.getElementById('res-w').textContent      = wrong;
+  document.getElementById('res-b').textContent      = blank;
+  document.getElementById('res-msg').textContent    = msg;
+  showScreen('result');
+  sendToSheets(studentName, score, correct, wrong, blank);
 }
 
-function buildWriting() {
-  document.getElementById('writing-outer').innerHTML = `
-<div class="writing-card">
-  <div class="writing-header">
-    <h3>✍️ Mis planes y mis regalos</h3>
-    <p>Yazma Bölümü · Ayrıca değerlendirilir — 100 Puan</p>
-  </div>
-  <div class="writing-body">
-    <div class="info-grid">
-      <div class="info-field"><label>Ad ve Soyad</label><input type="text" id="w-name" placeholder="Adınızı ve soyadınızı yazınız..."></div>
-      <div class="info-field"><label>Número de tarea</label><input type="text" value="Özel Ders Ödevi" readonly></div>
-      <div class="info-field"><label>Tema de la tarea</label><input type="text" value="Mis planes y mis regalos" readonly></div>
-      <div class="info-field"><label>Gramática</label><input type="text" value="Ir a + Infinitivo / OD e OI" readonly></div>
-      <div class="info-field" style="grid-column:1/-1"><label>Título de tu texto</label><input type="text" id="w-title" placeholder="Yazınızın başlığını yazınız..."></div>
-    </div>
-
-    <span class="w-section-label">📌 Yönerge Özeti</span>
-    <div class="w-guide">
-      <h4>Dikkat Edilmesi Gerekenler</h4>
-      <ul>
-        <li>En az <strong>25 cümle</strong> yazınız.</li>
-        <li>En az <strong>10 farklı ir a + infinitivo</strong> yapısı kullanınız.</li>
-        <li>En az <strong>6 objeto directo</strong> ve <strong>6 objeto indirecto</strong> örneği ekleyiniz.</li>
-        <li>En az <strong>4 cümlede OD + OI birlikte</strong> kullanınız.</li>
-        <li><strong>Giriş, gelişme ve sonuç</strong> bölümleri olmalıdır.</li>
-        <li>Planlarınızı <strong>zaman ifadeleriyle</strong> destekleyiniz.</li>
-        <li>Cümleler doğal akışta olmalı, liste gibi yazılmamalıdır.</li>
-      </ul>
-    </div>
-
-    <span class="w-section-label">Kontrol Listesi</span>
-    <div class="checklist">
-      <label class="check-item"><input type="checkbox"> En az 25 cümle yazdım.</label>
-      <label class="check-item"><input type="checkbox"> En az 10 ir a + infinitivo kullandım.</label>
-      <label class="check-item"><input type="checkbox"> En az 6 objeto directo kullandım.</label>
-      <label class="check-item"><input type="checkbox"> En az 6 objeto indirecto kullandım.</label>
-      <label class="check-item"><input type="checkbox"> En az 4 cümlede OD + OI birlikte kullandım.</label>
-      <label class="check-item"><input type="checkbox"> Giriş, gelişme, sonuç bölümleri var.</label>
-      <label class="check-item"><input type="checkbox"> Zaman ifadelerini kullandım.</label>
-      <label class="check-item"><input type="checkbox"> Tilde ve yazım kurallarına dikkat ettim.</label>
-    </div>
-
-    <span class="w-section-label">✏️ Yazınızı aşağıya yazınız</span>
-    <textarea class="writing-area" id="writing-area" placeholder="Este fin de semana voy a hacer muchas cosas importantes...
-Primero, voy a visitar a mi madre porque quiero verla.
-También voy a comprar un regalo para ella..."></textarea>
-    <div class="word-counter">Cümle: <span id="sent-count">0</span> &nbsp;|&nbsp; Kelime: <span id="word-count">0</span></div>
-
-    <div class="rubric">
-      <div class="rubric-header">📊 Puanlama Cetveli</div>
-      <table>
-        <tr><th>Kriter</th><th style="text-align:center">Puan</th></tr>
-        <tr><td>Metin konuya uygundur ve gelecek planlarını anlatmaktadır.</td><td>10</td></tr>
-        <tr><td>Metin en az 25 cümleden oluşmuştur.</td><td>10</td></tr>
-        <tr><td>Giriş, gelişme ve sonuç düzeni vardır.</td><td>10</td></tr>
-        <tr><td>Ir a + infinitivo yapısı doğru ve yeterli şekilde kullanılmıştır.</td><td>15</td></tr>
-        <tr><td>En az 10 farklı ir a + infinitivo yapısı kullanılmıştır.</td><td>10</td></tr>
-        <tr><td>Objeto directo zamirleri doğru ve uygun şekilde kullanılmıştır.</td><td>10</td></tr>
-        <tr><td>Objeto indirecto zamirleri doğru ve uygun şekilde kullanılmıştır.</td><td>10</td></tr>
-        <tr><td>En az 4 cümlede OD + OI birlikte kullanılmıştır.</td><td>10</td></tr>
-        <tr><td>Metinde doğal akış, zaman bağlantısı ve anlam bütünlüğü vardır.</td><td>5</td></tr>
-        <tr><td>Cümleler açık, anlamlı ve seviyeye uygundur.</td><td>5</td></tr>
-        <tr><td>Yazım, tilde, noktalama ve genel dil doğruluğuna dikkat edilmiştir.</td><td>5</td></tr>
-        <tr><td><strong>Toplam</strong></td><td><strong>100</strong></td></tr>
-      </table>
-    </div>
-  </div>
-</div>`;
-
-  const ta = document.getElementById('writing-area');
-  ta.addEventListener('input', () => {
-    const text = ta.value.trim();
-    document.getElementById('word-count').textContent = text ? text.split(/\s+/).length : 0;
-    document.getElementById('sent-count').textContent = text ? (text.match(/[.!?]/g)||[]).length : 0;
-  });
+async function sendToSheets(name, score, correct, wrong, blank) {
+  const el = document.getElementById('res-status');
+  try {
+    const now = new Date();
+    const dd=String(now.getDate()).padStart(2,'0'),mm=String(now.getMonth()+1).padStart(2,'0'),yyyy=now.getFullYear();
+    const hh=String(now.getHours()).padStart(2,'0'),min=String(now.getMinutes()).padStart(2,'0'),ss2=String(now.getSeconds()).padStart(2,'0');
+    const formatted='✅ '+score+'/100\n✓'+correct+' ✗'+wrong+'\n'+dd+'.'+mm+'.'+yyyy+'\n'+hh+':'+min+':'+ss2;
+    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({spreadsheetId:SPREADSHEET_ID,sheetName:SHEET_NAME,studentName:name,taskColumn:TASK_COLUMN,score,correct,wrong,blank,formatted})});
+    el.className='status-badge status-ok';
+    el.textContent='✅ Sınav başarıyla kaydedildi!';
+  } catch(e) {
+    el.className='status-badge status-error';
+    el.textContent='⚠️ Kaydedilemedi — Profe\'ye bildirin';
+  }
 }
 
 function skipToWriting() {
-  display.innerHTML = '';
-  document.body.style.background = '#CDB4DB';
-  document.getElementById('final-card').style.display = 'none';
-  buildWriting();
-  document.getElementById('writing-outer').classList.add('show');
-  setTimeout(() => {
-    document.getElementById('writing-outer').scrollIntoView({behavior:'smooth'});
-  }, 200);
+  showScreen('writing');
 }
 
-// START
-showQuestion(0);
+function syncName() {
+  const n = document.getElementById('w-name').value;
+  document.getElementById('writing-confirm-select').value = n;
+}
+
+function updateWordCount() {
+  const text = document.getElementById('writing-input').value.trim();
+  document.getElementById('word-count').textContent  = text ? text.split(/\s+/).length : 0;
+  document.getElementById('sent-count').textContent  = text ? (text.match(/[.!?]/g)||[]).length : 0;
+}
+
+function goToWritingConfirm() {
+  const text = document.getElementById('writing-input').value.trim();
+  if (text.length < 30) { alert('Lütfen yazınızı tamamlayın (en az 30 karakter).'); return; }
+  writingText = text;
+  const nameVal = document.getElementById('w-name').value.trim() || studentName;
+  document.getElementById('writing-confirm-select').value = nameVal || '';
+  showScreen('writing-confirm');
+}
+
+async function confirmWriting() {
+  const sel = document.getElementById('writing-confirm-select');
+  if (!sel.value) { alert('Lütfen adınızı seçin!'); return; }
+  studentName = sel.value;
+  const btn = document.querySelector('#screen-writing-confirm .btn-gold');
+  btn.disabled = true; btn.textContent = '⏳ Gönderiliyor…';
+  const now    = new Date();
+  const tarih  = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR');
+  const title  = document.getElementById('w-title')?.value || '';
+  try {
+    await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+      student_name: studentName,
+      lesson:       LESSON_NAME + (title ? ' — ' + title : ''),
+      submit_date:  tarih,
+      writing_text: writingText
+    });
+    document.getElementById('wres-name').textContent = studentName;
+    document.getElementById('wres-status').className = 'status-badge status-ok';
+    document.getElementById('wres-status').textContent = '✅ Yazınız başarıyla gönderildi!';
+    showScreen('writing-result');
+  } catch(e) {
+    btn.disabled = false; btn.textContent = '✔ Yazıyı Gönder';
+    alert('Gönderilemedi. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.');
+  }
+}
+
+function goToName() {
+  answers={}; submitted=false; currentQ=0; writingText='';
+  document.getElementById('name-select').value='';
+  showScreen('name');
+}
 </script>
 </body>
 </html>
