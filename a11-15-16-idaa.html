@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H4 – 15-16.Ders | A1.1 Ödevi (Dikte + Dinleme)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+.screen{display:none}.screen.active{display:block}
+.week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
+.intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
+.intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
+.intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1.5rem;font-weight:600}
+select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
+select:focus{border-color:#6c4eb8}
+.btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-start:hover{background:#5a3ea0}
+.btn-continue{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:.5rem}
+.btn-continue:hover{background:#5a3ea0}
+.prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;gap:.75rem}
+.quiz-student{font-weight:700;color:#3d2a7a;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:1rem}
+.cnt{padding:.2rem .6rem;border-radius:6px;font-weight:600}
+.cnt-ok{background:#e6f9f0;color:#2e9e6b}
+.cnt-err{background:#fde8e8;color:#d94040}
+.q-badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:.8rem;background:#e8e0f8;color:#6c4eb8}
+.q-text{font-size:.95rem;color:#333;line-height:1.7;margin-bottom:1rem;white-space:pre-wrap}
+.q-help{font-size:.85rem;color:#555;margin-bottom:1rem;line-height:1.6}
+.opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.opt-btn{text-align:left;padding:.7rem 1rem;border:2px solid #d0c8f0;border-radius:9px;background:#fff;cursor:pointer;font-size:.9rem;color:#333;transition:all .15s;font-family:inherit}
+.opt-btn:hover:not(:disabled){background:#f3effb;border-color:#9b7de0}
+.opt-btn.correct{background:#e6f9f0;border-color:#2e9e6b;color:#1a5c3a;font-weight:600}
+.opt-btn.wrong{background:#fde8e8;border-color:#d94040;color:#8b1a1a}
+.opt-btn:disabled{cursor:default}
+.exp-box{display:none;background:#f8f5ff;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:.83rem;color:#444;line-height:1.7;white-space:pre-wrap;margin-bottom:1rem}
+.exp-box.show{display:block}
+.nav{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
+.btn-back{background:#e8e0f8;color:#6c4eb8}
+.btn-next{background:#6c4eb8;color:#fff}
+.btn-finish{background:#e05c5c;color:#fff;white-space:nowrap;flex-shrink:0}
+.nav button:disabled{opacity:.4;cursor:not-allowed}
+.res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
+.res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
+.res-score{text-align:center;font-size:3.5rem;font-weight:800;color:#6c4eb8;margin:.75rem 0}
+.res-breakdown{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem;flex-wrap:wrap}
+.res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.85rem;background:#f3effb;color:#6c4eb8}
+.res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.term-note{background:#eef2ff;border:1.5px solid #a9b8f5;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;font-size:.85rem;color:#33408a;line-height:1.7}
+.term-note-title{font-weight:700;margin-bottom:.35rem;font-size:.9rem}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.submit-warning-title{font-size:1rem;font-weight:700;color:#856404;margin-bottom:.3rem}
+.submit-warning-sub{font-size:.82rem;color:#856404}
+.btn-submit{width:100%;padding:1rem;background:#2e9e6b;color:#fff;border:none;border-radius:10px;font-size:1.05rem;font-weight:800;cursor:pointer;margin-bottom:.75rem;letter-spacing:.3px;font-family:inherit}
+.btn-submit:hover{background:#257a55}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-review{width:100%;padding:.7rem;background:#e8e0f8;color:#6c4eb8;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.submit-msg{background:#e6f9f0;border:1px solid #b8f0d8;border-radius:8px;padding:.85rem;font-size:.9rem;color:#1a5c3a;display:none;margin-bottom:.75rem;text-align:center;font-weight:600;line-height:1.6}
+.review-list{display:none;flex-direction:column;gap:.75rem;margin-top:1rem}
+.rev-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;font-size:.82rem}
+.rev-q{font-weight:600;color:#333;margin-bottom:.3rem;white-space:pre-wrap}
+.rev-chosen{color:#d94040;margin-bottom:.2rem}
+.rev-correct{color:#2e9e6b;margin-bottom:.3rem;font-weight:600}
+.rev-exp{color:#555;line-height:1.7;white-space:pre-wrap}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.6}
+.confirm-btns{display:flex;gap:.75rem}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8}
+.btn-ok{background:#e05c5c;color:#fff}
+.sc-wrap{margin-bottom:.75rem;border-radius:10px;overflow:hidden}
+.sc-wrap iframe{display:block;border:0}
+.audio-controls{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.audio-controls button{padding:.6rem 1rem;border-radius:8px;border:none;background:#6c4eb8;color:#fff;font-weight:600;cursor:pointer;font-family:inherit;font-size:.83rem}
+.audio-controls button.secondary{background:#e8e0f8;color:#6c4eb8}
+.dict-textarea{width:100%;min-height:180px;padding:.85rem;border:2px solid #d0c8f0;border-radius:10px;font-family:inherit;font-size:.9rem;line-height:1.6;resize:vertical;outline:none;margin-bottom:1rem;color:#222}
+.dict-textarea:focus{border-color:#6c4eb8}
+.video-wrap{position:relative;width:100%;border-radius:10px;overflow:hidden;margin-bottom:1rem;background:#000}
+.video-wrap iframe{width:100%;height:220px;display:block;border:0}
+@media(min-width:600px){.video-wrap iframe{height:340px}}
+.diff-panel{background:#fafafa;border:1px solid #e0d8f8;border-radius:10px;padding:1rem;margin-bottom:1rem;font-size:.87rem;line-height:2}
+.diff-title{font-weight:700;color:#3d2a7a;margin-bottom:.5rem;font-size:.82rem;letter-spacing:.3px}
+.diff-ok{background:#d7f5e4;color:#1a5c3a;padding:.05rem .25rem;border-radius:3px}
+.diff-bad{background:#fbdada;color:#8b1a1a;padding:.05rem .25rem;border-radius:3px;text-decoration:underline}
+.diff-miss{background:#ffe6bf;color:#8a5300;padding:.05rem .25rem;border-radius:3px}
+.diff-legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:#666;margin-bottom:1rem}
+.diff-legend span{display:inline-flex;align-items:center;gap:.3rem}
+.diff-legend i{width:.7rem;height:.7rem;border-radius:3px;display:inline-block}
+.dict-score{text-align:center;font-size:2.4rem;font-weight:800;color:#6c4eb8;margin:.4rem 0 1rem}
+.email-status{font-size:.78rem;color:#888;margin-bottom:1rem;text-align:center;min-height:1.1em}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- INTRO -->
+  <div id="introScreen" class="screen active">
+    <div class="week-pill">4. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (15-16. DERS)</div>
+    <div class="intro-title">DİKTE + DİNLEME ÇALIŞMASI</div>
+    <div class="intro-sub">Parça 1: Dikte (50 puan) &middot; Parça 2: Dinleme, 7 soru (50 puan) &middot; Toplam 100 puan</div>
+    <div class="intro-teacher">@ispanyolcacim &bull; Profe Hazel</div>
+    <select id="introName">
+      <option value="">-- Adınızı Seçin --</option>
+      <option value="Ali Ceylan">Ali Ceylan</option>
+      <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
+      <option value="Aysen Gurkan">Aysen Gurkan</option>
+      <option value="Defne Ozer">Defne Ozer</option>
+      <option value="Defne Sonmez">Defne Sonmez</option>
+      <option value="Ece Utkan">Ece Utkan</option>
+      <option value="Melisa Tuncer">Melisa Tuncer</option>
+      <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+      <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+      <option value="Yelda Yilmaz">Yelda Yilmaz</option>
+    </select>
+    <button class="btn-start" onclick="startHomework()">Ödeve Başla</button>
+  </div>
+
+  <!-- PART 1: DICTADO -->
+  <div id="dictadoScreen" class="screen">
+    <div class="week-pill">4. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (15-16. DERS)</div>
+    <span class="q-badge">PARÇA 1 &middot; DİKTE</span>
+    <div class="q-help">Aşağıdaki ses kaydını dinleyip duyduğunuz İspanyolca metni kutuya yazın. Kayıt sizin için 0:38 - 7:42 arası dinletilecektir. İstediğiniz kadar tekrar dinleyebilirsiniz.</div>
+    <div class="sc-wrap">
+      <iframe id="scPlayer" width="100%" height="166" scrolling="no" frameborder="no"
+        src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fprofe-hazel%2Fa1-1-15-16-dictado&color=%236c4eb8&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+      </iframe>
+    </div>
+    <div class="audio-controls">
+      <button onclick="playDictado()">▶ Baştan Dinlemeye Başla</button>
+      <button class="secondary" onclick="pauseDictado()">⏸ Duraklat</button>
+    </div>
+    <textarea class="dict-textarea" id="dictadoInput" placeholder="Duyduğunuz metni buraya yazın..."></textarea>
+    <button class="btn-continue" onclick="confirmDictadoSubmit()">Dikteyi Tamamla</button>
+  </div>
+
+  <!-- DICTADO REVIEW -->
+  <div id="dictadoReviewScreen" class="screen">
+    <div class="week-pill">4. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (15-16. DERS)</div>
+    <span class="q-badge">DİKTE SONUCU</span>
+    <div class="dict-score"><span id="dictScoreVal">0</span>/50</div>
+    <div class="diff-legend">
+      <span><i style="background:#d7f5e4"></i> Doğru yazdığınız</span>
+      <span><i style="background:#fbdada"></i> Hatalı / fazladan</span>
+      <span><i style="background:#ffe6bf"></i> Kaçırdığınız kelime</span>
+    </div>
+    <div class="diff-panel">
+      <div class="diff-title">DOĞRU METİN</div>
+      <div id="refTextDisplay"></div>
+    </div>
+    <div class="diff-panel">
+      <div class="diff-title">SİZİN YAZDIĞINIZ</div>
+      <div id="studentTextDisplay"></div>
+    </div>
+    <div class="email-status" id="emailStatus"></div>
+    <button class="btn-continue" onclick="goToPart2()">Parça 2'ye Geç (Dinleme) →</button>
+  </div>
+
+  <!-- PART 2: LISTENING -->
+  <div id="quizScreen" class="screen">
+    <span class="q-badge">PARÇA 2 &middot; DİNLEME</span>
+    <div class="video-wrap">
+      <iframe src="https://player.vimeo.com/video/204783795" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="quiz-header">
+      <span class="quiz-student" id="quizStudentName"></span>
+      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="q-meta">
+      <span id="qMeta">Soru 1 / 7</span>
+      <span><span class="cnt cnt-ok" id="cntOk">0 Doğru</span>&nbsp;<span class="cnt cnt-err" id="cntErr">0 Yanlış</span></span>
+    </div>
+    <div id="qCard"></div>
+    <div class="nav">
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <input type="hidden" id="resName" value="">
+    <div style="text-align:center">
+      <div class="res-pill">4. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (15-16. DERS)</div>
+    </div>
+    <div class="res-title">DİKTE + DİNLEME ÇALIŞMASI</div>
+    <div class="res-score"><span id="resScore">0</span>/100</div>
+    <div class="res-breakdown">
+      <span class="res-stat" id="resDictScore"></span>
+      <span class="res-stat" id="resListenScore"></span>
+    </div>
+    <div class="res-note" id="resNote"></div>
+    <div class="term-note">
+      <div class="term-note-title">📌 Not</div>
+      Dönemi yarıladık, bu haftasonu ödeviniz çok yoğun ağır bir ödev değildi, bu yüzden eksik ödevlerinizi lütfen tamamlayın, gerekiyorsa konu tekrarlarınızı yapın, Quizlet üzerindeki genel çalışma setlerine lütfen bakın.
+    </div>
+    <div class="submit-warning" id="submitWarning">
+      <div class="submit-warning-title">⚠ ÖDEVİNİZ TESLIM EDILMEDI</div>
+      <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
+    </div>
+    <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
+      <option value="">-- Adınızı Seçin --</option>
+      <option value="Ali Ceylan">Ali Ceylan</option>
+      <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
+      <option value="Aysen Gurkan">Aysen Gurkan</option>
+      <option value="Defne Ozer">Defne Ozer</option>
+      <option value="Defne Sonmez">Defne Sonmez</option>
+      <option value="Ece Utkan">Ece Utkan</option>
+      <option value="Melisa Tuncer">Melisa Tuncer</option>
+      <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+      <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+      <option value="Yelda Yilmaz">Yelda Yilmaz</option>
+    </select>
+    <div class="submit-msg" id="submitMsg"></div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLIM EDIN</button>
+    <button class="btn-review" onclick="toggleReview()">Dinleme Yanlışlarını Gör</button>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+<!-- CONFIRM OVERLAY -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">İptal</button>
+      <button class="btn-ok" onclick="doConfirmYes()">Evet, Onaylıyorum</button>
+    </div>
+  </div>
+</div>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+/* ---------- CONFIG ---------- */
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
+var ODEV_ADI='H4 – 15-16 Dictado';
+var GROUPS={'Ali Ceylan': 'A1.1', 'Beyza Nur Yuksel': 'A1.1', 'Aysen Gurkan': 'A1.1', 'Defne Ozer': 'A1.1', 'Defne Sonmez': 'A1.1', 'Ece Utkan': 'A1.1', 'Melisa Tuncer': 'A1.1', 'Sude Selen Ulker': 'A1.1', 'Sule Soylemez Gul': 'A1.1', 'Yelda Yilmaz': 'A1.1'};
+
+var EMAILJS_PUBLIC_KEY='xNYEbUQNiWJPvbyoJ';
+var EMAILJS_SERVICE_ID='service_4ee1wh7';
+var EMAILJS_TEMPLATE_ID='template_xjyyxhf';
+var TEACHER_EMAIL='ispanyolcacim@gmail.com';
+
+var DICT_START_MS=38000;   /* 0:38 */
+var DICT_END_MS=462000;    /* 7:42 */
+
+var REFERENCE_TEXT="Hoy es un día maravilloso. Juan tiene una fiesta con su familia. Todos van a la casa de Juan para comer juntos. La madre pone la mesa y el padre cocina un pastel delicioso. La hermana y el hermano juegan en el salón con los globos. La abuela y el abuelo hablan en el jardín y se ríen mucho. La tía y el tío llegan con más comida y regalos. Los primos bailan y cantan canciones divertidas. María abraza a su familia. Todos comen pastel y beben zumo. La familia sonríe y está muy feliz. La fiesta es divertida y bonita.";
+
+var Q=[
+{"q":"1. ¿Cuántos años tiene Fran?","o":["Tiene treinta años.","Tiene treinta y cinco años.","Tiene cuarenta años.","Tiene veinticinco años."],"a":0,"exp":"Doğru cevap: A\n📝 Türkçe açıklama:\nMetinde Francisco kendisini tanıtırken “Tengo treinta años.” diyor. Yani 30 yaşında. Burada tener + sayı + años yapısının yaş belirtmek için kullanıldığını da hatırlayalım:\nTengo treinta años. = 30 yaşındayım."},
+{"q":"2. ¿Cómo es él?","o":["Es serio, tímido y antipático.","Es alegre, abierto y bastante simpático.","Es tranquilo, cerrado y muy tímido.","Es trabajador, nervioso y poco sociable."],"a":1,"exp":"Doğru cevap: B\n📝 Türkçe açıklama:\nFrancisco kişiliğini anlatırken şöyle söylüyor:\n“Soy una persona alegre, abierta y me considero bastante simpático.”\nYani kendisini neşeli, dışa açık ve oldukça sempatik biri olarak tanımlıyor. Buradaki abierto/a, kişilikten bahsederken “açık, dışa dönük” anlamında kullanılmıştır."},
+{"q":"3. ¿Qué deportes le gustan hacer?","o":["El fútbol, el baloncesto y el tenis.","El ciclismo, el fútbol y el yoga.","La natación, correr y hacer yoga.","El baloncesto, correr y esquiar."],"a":2,"exp":"Doğru cevap: C\n📝 Türkçe açıklama:\nFrancisco açıkça şöyle diyor:\n“Me gusta la natación, me gusta correr y hacer yoga.”\nDolayısıyla sevdiği sporlar/aktiviteler:\nla natación = yüzme\ncorrer = koşmak\nhacer yoga = yoga yapmak\nBurada gustar fiilinden sonra hem isim hem de mastar fiil gelebileceğini görüyoruz:\nMe gusta la natación.\nMe gusta correr."},
+{"q":"4. ¿Qué deportes no le gustan hacer?","o":["La natación y el yoga.","Correr y nadar.","El tenis y la natación.","Los deportes en equipo, como el fútbol o el baloncesto."],"a":3,"exp":"Doğru cevap: D\n📝 Türkçe açıklama:\nFrancisco:\n“No me gustan mucho los deportes en equipo como el fútbol o el baloncesto.” diyor.\nYani özellikle takım sporlarını, örneğin futbol ve basketbolu, çok sevmediğini söylüyor. Ancak ardından aslında bunlardan tamamen nefret etmediğini, sadece takım sporlarında pek iyi olmadığını da açıklıyor.\nDikkat:\nel deporte → Me gusta el deporte.\nlos deportes → Me gustan los deportes.\nÇoğul olduğu için burada gustan kullanılır."},
+{"q":"5. ¿En qué ciudad vive Fran?","o":["Vive en Boston.","Vive en Madrid.","Vive en Barcelona.","Vive en Nueva York."],"a":0,"exp":"Doğru cevap: A\n📝 Türkçe açıklama:\nFrancisco aslında Madridli ancak şu anda Madrid'de yaşamıyor. Metinde:\n“Vivo en Boston, Massachusetts.” diyor.\nBu nedenle doğru cevap Boston.\nBurada iki bilgiyi karıştırmayalım:\nSoy de Madrid. → Madridliyim / Madrid'denim.\nVivo en Boston. → Boston'da yaşıyorum."},
+{"q":"6. ¿Cuántos años tiene Julián?","o":["Tiene cuarenta años.","Tiene cuarenta y seis años.","Tiene treinta y seis años.","Tiene cincuenta y seis años."],"a":1,"exp":"Doğru cevap: B\n📝 Türkçe açıklama:\nFrancisco en iyi arkadaşından bahsederken:\n“Se llama Julián, tiene cuarenta y seis años y tres hijos.” diyor.\nDolayısıyla Julián 46 yaşında ve ayrıca üç çocuğu var.\ncuarenta y seis = 46"},
+{"q":"7. ¿Cómo es Julián?","o":["Es una persona muy parecida a Francisco y bastante tímida.","Es una persona seria, antipática y poco inteligente.","Es diferente a Francisco, lo apoya y es muy inteligente.","Es una persona deportista que no ayuda mucho a Francisco."],"a":2,"exp":"Doğru cevap: C\n📝 Türkçe açıklama:\nFrancisco, Julián için birkaç önemli özellik söylüyor:\n“Es una persona muy diferente a mí.”\n→ Benden çok farklı bir insan.\n“Me apoya en cualquier circunstancia.”\n→ Her koşulda beni destekliyor.\n“Es una persona muy inteligente y aprendo mucho de él.”\n→ Çok zeki bir insan ve ondan çok şey öğreniyorum.\nBu yüzden en kapsamlı ve doğru seçenek C şıkkıdır."}
+];
+
+var state={cur:0,answered:[],scores:[],okCount:0,errCount:0,name:'',dictadoScore:0,listeningScore:0,total:0,dictadoText:''};
+
+/* ---------- INIT LIBRARIES ---------- */
+var scWidget=null;
+function initSoundCloud(){
+  if(typeof SC==='undefined')return;
+  var ifr=document.getElementById('scPlayer');
+  scWidget=SC.Widget(ifr);
+  scWidget.bind(SC.Widget.Events.READY,function(){
+    scWidget.seekTo(DICT_START_MS);
+  });
+  scWidget.bind(SC.Widget.Events.PLAY_PROGRESS,function(data){
+    if(data.currentPosition>=DICT_END_MS){
+      scWidget.pause();
+      scWidget.seekTo(DICT_START_MS);
+    }
+  });
+}
+window.addEventListener('load',initSoundCloud);
+
+try{
+  if(window.emailjs){emailjs.init({publicKey:EMAILJS_PUBLIC_KEY});}
+}catch(e){}
+
+function playDictado(){
+  if(!scWidget)return;
+  scWidget.seekTo(DICT_START_MS);
+  scWidget.play();
+}
+function pauseDictado(){
+  if(!scWidget)return;
+  scWidget.pause();
+}
+
+/* ---------- FLOW ---------- */
+function startHomework(){
+  var name=document.getElementById('introName').value;
+  if(!name){alert('Lütfen adınızı seçin.');return;}
+  state.name=name;
+  document.getElementById('resName').value=name;
+  document.getElementById('resName2').value=name;
+  document.getElementById('quizStudentName').textContent=name;
+  document.getElementById('introScreen').style.display='none';
+  document.getElementById('dictadoScreen').style.display='block';
+}
+function syncResName(){
+  document.getElementById('resName').value=document.getElementById('resName2').value;
+}
+
+/* ---------- GENERIC CONFIRM DIALOG ---------- */
+var confirmCallback=null;
+function openConfirmDialog(msg,cb){
+  document.getElementById('confirmMsg').textContent=msg;
+  confirmCallback=cb;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){
+  document.getElementById('confirmOverlay').style.display='none';
+  confirmCallback=null;
+}
+function doConfirmYes(){
+  var cb=confirmCallback;
+  closeConfirm();
+  if(cb)cb();
+}
+
+/* ---------- DICTADO SCORING ---------- */
+function tokenize(text){
+  return (text||'').split(/\s+/).filter(function(w){return w.length>0;});
+}
+function normWord(w){
+  return w.toLowerCase().replace(/[.,;:!¡¿?"“”'‘’()]/g,'');
+}
+function lcsMatch(a,b){
+  var n=a.length,m=b.length;
+  var dp=[];
+  for(var i=0;i<=n;i++){dp.push(new Array(m+1).fill(0));}
+  for(i=1;i<=n;i++){
+    for(var j=1;j<=m;j++){
+      if(a[i-1]===b[j-1])dp[i][j]=dp[i-1][j-1]+1;
+      else dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+    }
+  }
+  var i2=n,j2=m;
+  var matchedA=new Array(n).fill(false);
+  var matchedB=new Array(m).fill(false);
+  while(i2>0&&j2>0){
+    if(a[i2-1]===b[j2-1]){matchedA[i2-1]=true;matchedB[j2-1]=true;i2--;j2--;}
+    else if(dp[i2-1][j2]>=dp[i2][j2-1])i2--;
+    else j2--;
+  }
+  return {lcsLength:dp[n][m],matchedA:matchedA,matchedB:matchedB};
+}
+function escapeHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function confirmDictadoSubmit(){
+  var text=document.getElementById('dictadoInput').value.trim();
+  var msg='';
+  if(!text){msg+='Henüz hiçbir şey yazmadınız.\n\n';}
+  msg+='Dikte çalışmanızı teslim etmek üzeresiniz. Kontrollerinizi yaptınız mı?\nYazdığınız metni bir kez daha gözden geçirdiniz mi (büyük/küçük harf, yazım, noktalama)?\n\nDevam etmek istediğinize emin misiniz?';
+  openConfirmDialog(msg,finalizeDictado);
+}
+function finalizeDictado(){
+  var studentText=document.getElementById('dictadoInput').value;
+  state.dictadoText=studentText;
+
+  var refRaw=tokenize(REFERENCE_TEXT);
+  var refNorm=refRaw.map(normWord);
+  var stuRaw=tokenize(studentText);
+  var stuNorm=stuRaw.map(normWord);
+
+  var result=lcsMatch(refNorm,stuNorm);
+  var score=refNorm.length?Math.round(result.lcsLength/refNorm.length*50):0;
+  if(score>50)score=50;
+  if(score<0)score=0;
+  state.dictadoScore=score;
+  document.getElementById('dictScoreVal').textContent=score;
+
+  renderDiff(refRaw,result.matchedA,stuRaw,result.matchedB);
+  sendDictadoEmail(studentText,score);
+
+  document.getElementById('dictadoScreen').style.display='none';
+  document.getElementById('dictadoReviewScreen').style.display='block';
+}
+function renderDiff(refRaw,matchedA,stuRaw,matchedB){
+  var refHtml='';
+  for(var i=0;i<refRaw.length;i++){
+    var w=escapeHtml(refRaw[i]);
+    refHtml+=(matchedA[i]?w:'<span class="diff-miss">'+w+'</span>')+' ';
+  }
+  document.getElementById('refTextDisplay').innerHTML=refHtml;
+
+  var stuHtml='';
+  if(stuRaw.length===0){
+    stuHtml='<span style="color:#999">(Boş bırakıldı)</span>';
+  }else{
+    for(var j=0;j<stuRaw.length;j++){
+      var w2=escapeHtml(stuRaw[j]);
+      stuHtml+=(matchedB[j]?'<span class="diff-ok">'+w2+'</span>':'<span class="diff-bad">'+w2+'</span>')+' ';
+    }
+  }
+  document.getElementById('studentTextDisplay').innerHTML=stuHtml;
+}
+function sendDictadoEmail(text,score){
+  var elStatus=document.getElementById('emailStatus');
+  if(!window.emailjs){
+    elStatus.textContent='Mail servisine ulaşılamadı (emailjs yüklenemedi).';
+    return;
+  }
+  elStatus.textContent='Dikte metniniz öğretmeninize mail olarak gönderiliyor...';
+  emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{
+    student_name:state.name,
+    to_email:TEACHER_EMAIL,
+    to_name:'Profe Hazel',
+    from_name:state.name,
+    odev_adi:ODEV_ADI,
+    dictado_metni:text,
+    dogru_metin:REFERENCE_TEXT,
+    dikte_puani:score,
+    message:text,
+    tarih:new Date().toLocaleDateString('tr-TR')
+  }).then(function(){
+    elStatus.textContent='✓ Dikte metniniz öğretmeninize mail olarak iletildi.';
+  }).catch(function(err){
+    elStatus.textContent='Mail gönderilemedi: '+(err&&err.text?err.text:'bağlantı hatası');
+  });
+}
+function goToPart2(){
+  document.getElementById('dictadoReviewScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  renderQ();
+}
+
+/* ---------- PART 2: LISTENING QUIZ ---------- */
+function esc(s){
+  if(!s)return'';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+function renderQ(){
+  var i=state.cur;var q=Q[i];var html='';
+  html+='<div class="q-text">'+esc(q.q)+'</div>';
+  html+='<div class="opts">';
+  var L=['A','B','C','D'];
+  for(var j=0;j<q.o.length;j++){
+    var cls='opt-btn';var dis='';var ans=state.answered[i];
+    if(ans!==undefined){
+      dis='disabled';
+      if(j===q.a)cls+=' correct';
+      else if(j===ans&&ans!==q.a)cls+=' wrong';
+    }
+    html+='<button class="'+cls+'" '+dis+' onclick="checkAns('+j+')"><strong>'+L[j]+')</strong> '+esc(q.o[j])+'</button>';
+  }
+  html+='</div>';
+  html+='<div class="exp-box'+(state.answered[i]!==undefined?' show':'')+'" id="expBox">'+esc(q.exp)+'</div>';
+  document.getElementById('qCard').innerHTML=html;
+  var done=state.answered[i]!==undefined;
+  document.getElementById('btnBack').disabled=(i===0||!done);
+  document.getElementById('btnNext').disabled=(!done||i===Q.length-1);
+  document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
+  document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
+  document.getElementById('cntOk').textContent=state.okCount+' Doğru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanlış';
+}
+function checkAns(j){
+  var i=state.cur;
+  if(state.answered[i]!==undefined)return;
+  var q=Q[i];state.answered[i]=j;
+  if(j===q.a){state.okCount++;state.scores[i]=1;}
+  else{state.errCount++;state.scores[i]=0;}
+  renderQ();
+}
+function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
+function goBack(){if(state.cur>0){state.cur--;renderQ();}}
+function confirmFinish(){
+  var answered=0;for(var i=0;i<Q.length;i++){if(state.answered[i]!==undefined)answered++;}
+  var unanswered=Q.length-answered;
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevapsız kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istediğinize emin misiniz?';
+  openConfirmDialog(msg,showResult);
+}
+
+/* ---------- RESULT ---------- */
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+
+  var listeningScore=Q.length?Math.round(state.okCount/Q.length*50):0;
+  if(listeningScore>50)listeningScore=50;
+  state.listeningScore=listeningScore;
+
+  var total=state.dictadoScore+listeningScore;
+  if(total>100)total=100;
+  state.total=total;
+
+  document.getElementById('resScore').textContent=total;
+  document.getElementById('resDictScore').textContent='Dikte: '+state.dictadoScore+'/50';
+  document.getElementById('resListenScore').textContent='Dinleme: '+listeningScore+'/50 ('+state.okCount+'/'+Q.length+')';
+  document.getElementById('resNote').textContent='Toplam puanınız dikte ve dinleme bölümlerinin toplamıdır.';
+
+  var rev=document.getElementById('reviewList');
+  var L=['A','B','C','D'];var html2='';
+  for(var i=0;i<Q.length;i++){
+    var ans=state.answered[i];
+    if(ans===undefined||ans===Q[i].a)continue;
+    var q=Q[i];
+    html2+='<div class="rev-item">';
+    html2+='<div class="rev-q">'+esc(q.q)+'</div>';
+    html2+='<div class="rev-chosen">Verdiğiniz cevap: '+(ans===undefined?'(boş)':L[ans]+') '+esc(q.o[ans]))+'</div>';
+    html2+='<div class="rev-correct">Doğru cevap: '+L[q.a]+') '+esc(q.o[q.a])+'</div>';
+    html2+='<div class="rev-exp">'+esc(q.exp)+'</div>';
+    html2+='</div>';
+  }
+  rev.innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanlış soru bulunamadı.</div>';
+}
+function toggleReview(){
+  var rv=document.getElementById('reviewList');
+  rv.style.display=(rv.style.display==='flex'?'none':'flex');
+}
+function submitResult(){
+  var name=document.getElementById('resName').value;
+  if(!name){alert('Lütfen adınızı seçin.');return;}
+  var grup=GROUPS[name]||'A1.1';
+  var jsonPayload=JSON.stringify({
+    ogrenci:name,odev:ODEV_ADI,grup:grup,
+    puan:state.total,
+    dikte_puani:state.dictadoScore,
+    dinleme_puani:state.listeningScore,
+    dogru:state.okCount,yanlis:state.errCount,
+    tarih:new Date().toLocaleDateString('tr-TR')
+  });
+  document.getElementById('submitWarning').style.display='none';
+  document.getElementById('submitMsg').style.display='block';
+  document.getElementById('submitMsg').style.background='#fff3cd';
+  document.getElementById('submitMsg').style.color='#856404';
+  document.getElementById('submitMsg').style.border='1px solid #ffc107';
+  document.getElementById('submitMsg').textContent='Gönderiliyor... (Grup: '+grup+')';
+  document.getElementById('btnSubmit').disabled=true;
+  var msgEl=document.getElementById('submitMsg');
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'data='+encodeURIComponent(jsonPayload)
+  })
+  .then(function(){
+    msgEl.style.background='#e6f9f0';
+    msgEl.style.color='#1a5c3a';
+    msgEl.style.border='1px solid #b8f0d8';
+    msgEl.textContent=name+' öğrencisinin "'+ODEV_ADI+'" ödevi teslim edildi. Puan: '+state.total+'/100.';
+  })
+  .catch(function(err){
+    msgEl.style.background='#fde8e8';
+    msgEl.style.color='#8b1a1a';
+    msgEl.style.border='1px solid #d94040';
+    msgEl.textContent='HATA: '+err.message;
+    document.getElementById('btnSubmit').disabled=false;
+  });
+}
+</script>
+</body>
+</html>
