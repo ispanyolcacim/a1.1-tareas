@@ -42,7 +42,10 @@ select:focus{border-color:#6c4eb8}
 .nav button{padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;font-family:inherit}
 .btn-back{background:#e8e0f8;color:#6c4eb8}
 .btn-next{background:#6c4eb8;color:#fff}
-.btn-finish{background:#e05c5c;color:#fff;white-space:nowrap;flex-shrink:0}
+.btn-finish{background:linear-gradient(135deg,#ff7a7a 0%,#e05c5c 55%,#c0392b 100%);color:#fff;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:.4rem;padding:.62rem 1.25rem;border-radius:999px;font-weight:800;letter-spacing:.2px;box-shadow:0 4px 14px rgba(224,92,92,.45);transition:transform .15s ease,box-shadow .15s ease;animation:finishPulse 2.4s ease-in-out infinite}
+.btn-finish:hover{transform:translateY(-1px) scale(1.04);box-shadow:0 6px 20px rgba(224,92,92,.6)}
+.btn-finish:active{transform:translateY(0) scale(.97)}
+@keyframes finishPulse{0%,100%{box-shadow:0 4px 14px rgba(224,92,92,.45)}50%{box-shadow:0 4px 22px rgba(224,92,92,.8)}}
 .nav button:disabled{opacity:.4;cursor:not-allowed}
 .res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
 .res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
@@ -168,7 +171,7 @@ select:focus{border-color:#6c4eb8}
     </div>
     <div class="quiz-header">
       <span class="quiz-student" id="quizStudentName"></span>
-      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+      <button class="btn-finish" onclick="confirmFinish()">🏁 Testi Bitir</button>
     </div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">
@@ -411,17 +414,15 @@ function sendDictadoEmail(text,score){
     return;
   }
   elStatus.textContent='Dikte metniniz öğretmeninize mail olarak gönderiliyor...';
+  var writingBlock=text.trim()
+    +'\n\n---\nOtomatik Hesaplanan Dikte Puanı: '+score+'/50'
+    +'\n\nDoğru Metin:\n'+REFERENCE_TEXT;
   emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{
     student_name:state.name,
-    to_email:TEACHER_EMAIL,
-    to_name:'Profe Hazel',
-    from_name:state.name,
-    odev_adi:ODEV_ADI,
-    dictado_metni:text,
-    dogru_metin:REFERENCE_TEXT,
-    dikte_puani:score,
-    message:text,
-    tarih:new Date().toLocaleDateString('tr-TR')
+    name:state.name,
+    lesson:ODEV_ADI,
+    submit_date:new Date().toLocaleDateString('tr-TR'),
+    writing_text:writingBlock
   }).then(function(){
     elStatus.textContent='✓ Dikte metniniz öğretmeninize mail olarak iletildi.';
   }).catch(function(err){
