@@ -43,6 +43,7 @@ select:focus{border-color:#6c4eb8}
 .btn-skip{background:#e8e0f8;color:#6c4eb8}
 .btn-next{background:#6c4eb8;color:#fff}
 .btn-finish{background:#e05c5c;color:#fff}
+.btn-finish-top{width:100%;padding:.7rem;background:#e05c5c;color:#fff;border:none;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:1rem}
 .nav button:disabled{opacity:.4;cursor:not-allowed}
 .res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
 .res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
@@ -76,7 +77,6 @@ select:focus{border-color:#6c4eb8}
 </head>
 <body>
 <div class="card">
-
   <!-- INTRO -->
   <div id="introScreen" class="screen active">
     <div class="week-pill">5. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (17-18. DERS)</div>
@@ -90,23 +90,23 @@ select:focus{border-color:#6c4eb8}
     <div class="video-note">Lütfen videoyu detaylıca izleyin, gerekirse tekrarlayın. Bilmediğiniz kelimeler için durdurup sözlükten yararlanın ve cümleleri anlamaya çalışın. Videoyu izlemeyi bitirdikten sonra soruları çözün.</div>
     <select id="introName">
       <option value="">-- Adınızı Seçin --</option>
-      
-      <option value="Arman Aykac">Arman Aykac</option>
-      <option value="Arzu Bayram">Arzu Bayram</option>
+
+      <option value="Ali Ceylan">Ali Ceylan</option>
       <option value="Aysen Gurkan">Aysen Gurkan</option>
-      <option value="Ceren Orucu">Ceren Orucu</option>
-      <option value="Ozgur Guzey">Ozgur Guzey</option>
-      <option value="Rabia Nur Tok">Rabia Nur Tok</option>
-      <option value="Selva Akyuz">Selva Akyuz</option>
-      <option value="Sena Yamak">Sena Yamak</option>
-      <option value="Suleyman Bektas">Suleyman Bektas</option>
-      <option value="Taner Bastar">Taner Bastar</option>
+      <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
+      <option value="Defne Ozer">Defne Ozer</option>
+      <option value="Defne Sonmez">Defne Sonmez</option>
+      <option value="Ece Utkan">Ece Utkan</option>
+      <option value="Melisa Tuncer">Melisa Tuncer</option>
+      <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+      <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+      <option value="Yelda Yilmaz">Yelda Yilmaz</option>
     </select>
     <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
   </div>
-
   <!-- QUIZ -->
   <div id="quizScreen" class="screen">
+    <button class="btn-finish-top" onclick="confirmFinish()">Testi Bitir</button>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">
       <span id="qMeta">Soru 1 / 50</span>
@@ -117,10 +117,8 @@ select:focus{border-color:#6c4eb8}
       <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
       <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
       <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
-      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
     </div>
   </div>
-
   <!-- RESULT -->
   <div id="resultScreen" class="screen">
     <input type="hidden" id="resName" value="">
@@ -140,17 +138,17 @@ select:focus{border-color:#6c4eb8}
     </div>
     <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
       <option value="">-- Adınızı Seçin --</option>
-      
-      <option value="Arman Aykac">Arman Aykac</option>
-      <option value="Arzu Bayram">Arzu Bayram</option>
+
+      <option value="Ali Ceylan">Ali Ceylan</option>
       <option value="Aysen Gurkan">Aysen Gurkan</option>
-      <option value="Ceren Orucu">Ceren Orucu</option>
-      <option value="Ozgur Guzey">Ozgur Guzey</option>
-      <option value="Rabia Nur Tok">Rabia Nur Tok</option>
-      <option value="Selva Akyuz">Selva Akyuz</option>
-      <option value="Sena Yamak">Sena Yamak</option>
-      <option value="Suleyman Bektas">Suleyman Bektas</option>
-      <option value="Taner Bastar">Taner Bastar</option>
+      <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
+      <option value="Defne Ozer">Defne Ozer</option>
+      <option value="Defne Sonmez">Defne Sonmez</option>
+      <option value="Ece Utkan">Ece Utkan</option>
+      <option value="Melisa Tuncer">Melisa Tuncer</option>
+      <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+      <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+      <option value="Yelda Yilmaz">Yelda Yilmaz</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
     <div id="debugPanel" style="display:none;background:#f0f0f0;border:1px solid #ccc;border-radius:6px;padding:.5rem;font-size:.72rem;color:#333;margin-top:.5rem;word-break:break-all;font-family:monospace"></div>
@@ -159,7 +157,6 @@ select:focus{border-color:#6c4eb8}
     <div class="review-list" id="reviewList"></div>
   </div>
 </div>
-
 <!-- CONFIRM OVERLAY -->
 <div class="overlay" id="confirmOverlay">
   <div class="confirm-box">
@@ -170,96 +167,90 @@ select:focus{border-color:#6c4eb8}
     </div>
   </div>
 </div>
-
 <script>
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
-var ODEV_ADI='H5 \u2013 17-18.Ders';
+var ODEV_ADI='H5 – 17-18.Ders';
 var GROUPS={
-  "Arman Aykac":"A1.1",
-  "Arzu Bayram":"A1.1",
+  "Ali Ceylan":"A1.1",
   "Aysen Gurkan":"A1.1",
-  "Ceren Orucu":"A1.1",
-  "Ozgur Guzey":"A1.1",
-  "Rabia Nur Tok":"A1.1",
-  "Selva Akyuz":"A1.1",
-  "Sena Yamak":"A1.1",
-  "Suleyman Bektas":"A1.1",
-  "Taner Bastar":"A1.1"
+  "Beyza Nur Yuksel":"A1.1",
+  "Defne Ozer":"A1.1",
+  "Defne Sonmez":"A1.1",
+  "Ece Utkan":"A1.1",
+  "Melisa Tuncer":"A1.1",
+  "Sude Selen Ulker":"A1.1",
+  "Sule Soylemez Gul":"A1.1",
+  "Yelda Yilmaz":"A1.1"
 };
 var Q=[
-{t:"mc",q:"1. En Estambul ____ mucha gente ve mucha historia.\nA) hay\nB) es\nC) est\u00e1\nD) son",o:["hay","es","est\u00e1","son"],a:0,exp:"Ac\u0131klama: \u0130spanyolcada \"var\" anlam\u0131nda kullan\u0131lan \"hay\" yap\u0131s\u0131, nesne tekil de olsa \u00e7o\u011ful da olsa de\u011fi\u015fmez. (Cevap: A)"},
-{t:"mc",q:"2. En el centro hay monumentos ____.\nA) antiguo\nB) antigua\nC) antiguas\nD) antiguos",o:["antiguo","antigua","antiguas","antiguos"],a:3,exp:"Ac\u0131klama: \"Monumentos\" eril ve \u00e7o\u011ful bir isim oldu\u011fu i\u00e7in s\u0131fat da \"antiguos\" \u015feklinde uyumlu olmal\u0131d\u0131r. (Cevap: D)"},
-{t:"mc",q:"3. Hay mezquitas muy ____.\nA) grande\nB) grandes\nC) granda\nD) grandas",o:["grande","grandes","granda","grandas"],a:1,exp:"Ac\u0131klama: \"Grande\" s\u0131fat\u0131 sessiz harfle bitti\u011fi i\u00e7in \u00e7o\u011ful yapmak i\u00e7in sonuna \"-s\" eklenir: \"grandes\". (Cevap: B)"},
-{t:"mc",q:"4. Hay ____ turistas en Estambul.\nA) mucho\nB) mucha\nC) muchos\nD) much",o:["mucho","mucha","muchos","much"],a:2,exp:"Ac\u0131klama: Turista hem eril hem di\u015fil olabilir (los turistas / las turistas). Burada genel kullan\u0131m olarak 'muchos' tercih edilmi\u015ftir.  (Cevap: C)"},
-{t:"mc",q:"5. Hay ____ energ\u00eda especial en esta ciudad.\nA) un\nB) el\nC) una\nD) la",o:["un","el","una","la"],a:2,exp:"Ac\u0131klama: \"Energ\u00eda\" di\u015fil tekil bir isimdir, \"hay\" yap\u0131s\u0131ndan sonra belgisiz tan\u0131ml\u0131k \"una\" gelir. (Cevap: C)"},
-{t:"mc",q:"6. Hay ____ continentes: Europa y Asia.\nA) un\nB) dos\nC) tres\nD) cuatro",o:["un","dos","tres","cuatro"],a:1,exp:"Ac\u0131klama: Videoda \u0130stanbul'un iki (dos) k\u0131tay\u0131 birle\u015ftirdi\u011fi vurgulanmaktad\u0131r. (Cevap: B)"},
-{t:"mc",q:"7. Hay ____ incre\u00edbiles para ver.\nA) cosa\nB) un cosa\nC) el cosa\nD) cosas",o:["cosa","un cosa","el cosa","cosas"],a:3,exp:"Ac\u0131klama: \"Hay\" yap\u0131s\u0131ndan sonra nesne \u00e7o\u011ful ise isim de \u00e7o\u011ful tak\u0131s\u0131 (-s) almal\u0131d\u0131r: \"cosas\". (Cevap: D)"},
-{t:"mc",q:"8. En esta ciudad ____ autobuses, barcos y trenes.\nA) hay\nB) es\nC) tiene\nD) est\u00e1n",o:["hay","es","tiene","est\u00e1n"],a:0,exp:"Ac\u0131klama: Liste halindeki nesnelerin varl\u0131\u011f\u0131n\u0131 belirtirken \"hay\" kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"9. Bajo el mar hay un t\u00fanel muy ____.\nA) largo\nB) larga\nC) largos\nD) largas",o:["largo","larga","largos","largas"],a:0,exp:"Ac\u0131klama: \"T\u00fanel\" eril tekil bir isimdir, bu y\u00fczden s\u0131fat \"largo\" (uzun) olmal\u0131d\u0131r. (Cevap: A)"},
-{t:"mc",q:"10. En las calles hay mucho ____.\nA) tr\u00e1fico\nB) tr\u00e1fica\nC) tr\u00e1fiques\nD) tr\u00e1ficas",o:["tr\u00e1fico","tr\u00e1fica","tr\u00e1fiques","tr\u00e1ficas"],a:0,exp:"Ac\u0131klama: Trafik kelimesi \u0130spanyolcada \"tr\u00e1fico\" olarak eril ve tekil kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"11. Hay muchos coches ____.\nA) rojo\nB) rojos\nC) roja\nD) rojas",o:["rojo","rojos","roja","rojas"],a:1,exp:"Ac\u0131klama: \"Coches\" (arabalar) eril \u00e7o\u011ful oldu\u011fu i\u00e7in renk s\u0131fat\u0131 da \"rojos\" olur. (Cevap: B)"},
-{t:"mc",q:"12. Hay muchas ____ en la red de transporte.\nA) estaci\u00f3n\nB) el estaci\u00f3n\nC) estacions\nD) estaciones",o:["estaci\u00f3n","el estaci\u00f3n","estacions","estaciones"],a:3,exp:"Ac\u0131klama:\"Estaci\u00f3n\" kelimesinin \u00e7o\u011fulu \"-es\" tak\u0131s\u0131 alarak \"estaciones\" olur. (Cevap: D)"},
-{t:"mc",q:"13. En el mar hay barcos ____.\nA) p\u00fablico\nB) p\u00fablica\nC) p\u00fablicas\nD) p\u00fablicos",o:["p\u00fablico","p\u00fablica","p\u00fablicas","p\u00fablicos"],a:3,exp:"Ac\u0131klama: \"Barcos\" eril \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"p\u00fablicos\" (kamusal/halk tipi) olmal\u0131d\u0131r. (Cevap: D)"},
-{t:"mc",q:"14. Hay ____ de transporte para viajar.\nA) tarjetas\nB) tarjeta\nC) el tarjeta\nD) un tarjeta",o:["tarjetas","tarjeta","el tarjeta","un tarjeta"],a:0,exp:"Ac\u0131klama: \"\u00c7o\u011ful kartlar\" anlam\u0131nda \"tarjetas\" kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"15. En Karak\u00f6y hay museos ____.\nA) moderno\nB) moderna\nC) modernos\nD) modernas",o:["moderno","moderna","modernos","modernas"],a:2,exp:"Ac\u0131klama: \"Museos\" (m\u00fczeler) eril \u00e7o\u011ful bir kelimedir, s\u0131fat\u0131 \"modernos\" olur. (Cevap: C)"},
-{t:"mc",q:"16. En las paredes hay ____.\nA) graffiti\nB) graffitis\nC) el graffiti\nD) un graffiti",o:["graffiti","graffitis","el graffiti","un graffiti"],a:1,exp:"Ac\u0131klama: Videoda duvarlarda bir\u00e7ok \"graffitis\" (grafitiler) oldu\u011fu s\u00f6ylenmektedir. (Cevap: B)"},
-{t:"mc",q:"17. Cerca del mar hay un ____ de lujo.\nA) puerta\nB) puerto\nC) puertas\nD) puertos",o:["puerta","puerto","puertas","puertos"],a:1,exp:"Ac\u0131klama: \"Liman\" kelimesi \u0130spanyolcada eril tekil olarak \"puerto\"dur. (Cevap: B)"},
-{t:"mc",q:"18. Hay tiendas ____ en el barrio.\nA) nuevo\nB) nueva\nC) nuevas\nD) nuevos",o:["nuevo","nueva","nuevas","nuevos"],a:2,exp:"Ac\u0131klama: \"Tiendas\" di\u015fil \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"nuevas\" (yeni) olur. (Cevap: C)"},
-{t:"mc",q:"19. Hay cuadros muy ____.\nA) raros\nB) raro\nC) rara\nD) raras",o:["raros","raro","rara","raras"],a:0,exp:"Ac\u0131klama: \"Cuadros\" (tablolar) eril \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"raros\" (ilgin\u00e7/nadir) olur. (Cevap: A)"},
-{t:"mc",q:"20. Hay esculturas ____.\nA) grande\nB) granda\nC) gran\nD) grandes",o:["grande","granda","gran","grandes"],a:3,exp:"Ac\u0131klama: \"Esculturas\" (heykeller) \u00e7o\u011ful oldu\u011fu i\u00e7in s\u0131fat \"grandes\" olmal\u0131d\u0131r. (Cevap: D)"},
-{t:"mc",q:"21. En la calle hay comida muy ____.\nA) rico\nB) ricos\nC) ricas\nD) rica",o:["rico","ricos","ricas","rica"],a:3,exp:"Ac\u0131klama: \"Comida\" di\u015fil tekil oldu\u011fu i\u00e7in \"rica\" (lezzetli) s\u0131fat\u0131 kullan\u0131l\u0131r. (Cevap: D)"},
-{t:"mc",q:"22. Hay puestos de ____.\nA) simit\nB) el simit\nC) un simit\nD) simits",o:["simit","el simit","un simit","simits"],a:0,exp:"Ac\u0131klama: Videoda \"simit tezgahlar\u0131\" (puestos de simit) ifadesi ge\u00e7mektedir. (Cevap: A)"},
-{t:"mc",q:"23. Hay casta\u00f1as ____.\nA) asado\nB) asada\nC) asadas\nD) asados",o:["asado","asada","asadas","asados"],a:2,exp:"Ac\u0131klama: \"Casta\u00f1as\" (kestaneler) di\u015fil \u00e7o\u011ful oldu\u011fu i\u00e7in \"asadas\" (kavrulmu\u015f) s\u0131fat\u0131 gelir. (Cevap: C)"},
-{t:"mc",q:"24. Hay ____ de pescado en Emin\u00f6n\u00fc.\nA) bocadillo\nB) bocadillos\nC) el bocadillo\nD) la bocadillo",o:["bocadillo","bocadillos","el bocadillo","la bocadillo"],a:1,exp:"Ac\u0131klama: \"Bal\u0131k ekmekler\" \u00e7o\u011ful olarak \"bocadillos\" \u015fekilde ifade edilir. (Cevap: B)"},
-{t:"mc",q:"25. Hay una ____ antigua en Turqu\u00eda.\nA) tradici\u00f3ns\nB) tradici\u00f3n\nC) el tradici\u00f3n\nD) un tradici\u00f3n",o:["tradici\u00f3ns","tradici\u00f3n","el tradici\u00f3n","un tradici\u00f3n"],a:1,exp:"Ac\u0131klama:\"Tradici\u00f3n\" di\u015fil tekil bir isimdir ve \"bir gelenek\" anlam\u0131nda kullan\u0131l\u0131r. (Cevap: B)"},
-{t:"mc",q:"26. Hay una biblioteca con ____ libros.\nA) mucho\nB) mucha\nC) muchas\nD) muchos",o:["mucho","mucha","muchas","muchos"],a:3,exp:"Ac\u0131klama: \"Libros\" eril \u00e7o\u011ful oldu\u011fu i\u00e7in \"bir\u00e7ok\" anlam\u0131nda \"muchos\" kullan\u0131l\u0131r. (Cevap: D)"},
-{t:"mc",q:"27. Hay conciertos de ____.\nA) m\u00fasica\nB) m\u00fasico\nC) m\u00fasicas\nD) m\u00fasicos",o:["m\u00fasica","m\u00fasico","m\u00fasicas","m\u00fasicos"],a:0,exp:"Ac\u0131klama: M\u00fczik genel bir kavram olarak \"m\u00fasica\" \u015feklinde tekil kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"28. Hay ____ gratis en el edificio.\nA) exposici\u00f3n\nB) la exposici\u00f3n\nC) exposiciones\nD) exposicions",o:["exposici\u00f3n","la exposici\u00f3n","exposiciones","exposicions"],a:2,exp:"Ac\u0131klama: \u00dcretsiz sergiler (\u00e7o\u011ful) anlam\u0131nda \"exposiciones\" kullan\u0131l\u0131r. (Cevap: C)"},
-{t:"mc",q:"29. En Maslak hay rascacielos muy ____.\nA) alto\nB) alta\nC) altos\nD) altas",o:["alto","alta","altos","altas"],a:2,exp:"Ac\u0131klama: \"Rascacielos\" (g\u00f6kdelenler) eril \u00e7o\u011ful kabul edilir, s\u0131fat \"altos\" olur. (Cevap: C)"},
-{t:"mc",q:"30. Hay muchas ____ internacionales.\nA) empresa\nB) empresas\nC) un empresa\nD) el empresa",o:["empresa","empresas","un empresa","el empresa"],a:1,exp:"Ac\u0131klama: \"Bir\u00e7ok \u015firket\" anlam\u0131nda \u00e7o\u011ful \"empresas\" kullan\u0131l\u0131r. (Cevap: B)"},
-{t:"mc",q:"31. Hay coches ____.\nA) el\u00e9ctrico\nB) el\u00e9ctrica\nC) el\u00e9ctricas\nD) el\u00e9ctricos",o:["el\u00e9ctrico","el\u00e9ctrica","el\u00e9ctricas","el\u00e9ctricos"],a:3,exp:"Ac\u0131klama: Arabalar eril \u00e7o\u011ful oldu\u011fu i\u00e7in \"el\u00e9ctricos\" (elektrikli) s\u0131fat\u0131 gelir. (Cevap: D)"},
-{t:"mc",q:"32. Hay ____ de agua en la ciudad.\nA) un canal\nB) una canal\nC) el canal\nD) la canal",o:["un canal","una canal","el canal","la canal"],a:0,exp:"Ac\u0131klama: \"Kanal\" kelimesi \u0130spanyolcada \"un canal\" (eril tekil) olarak tan\u0131mlan\u0131r. (Cevap: A)"},
-{t:"mc",q:"33. En el mar a veces hay ____.\nA) delfines\nB) delf\u00edn\nC) el delf\u00edn\nD) un delf\u00edn",o:["delfines","delf\u00edn","el delf\u00edn","un delf\u00edn"],a:0,exp:"Ac\u0131klama: Yunuslar (\u00e7o\u011ful) anlam\u0131nda \"delfines\" kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"34. Hay ____ de pl\u00e1stico en el agua.\nA) la basura\nB) una basura\nC) las basuras\nD) los basura",o:["la basura","una basura","las basuras","los basura"],a:1,exp:"Ac\u0131klama: \u00c7\u00f6p (basura) say\u0131lamayan bir isim olarak genellikle tekil kullan\u0131l\u0131r. (Cevap: B)"},
-{t:"mc",q:"35. En las calles hay ____.\nA) gato\nB) el gato\nC) gatos\nD) un gato",o:["gato","el gato","gatos","un gato"],a:2,exp:"Ac\u0131klama: \u0130stanbul sokaklarındaki kedilerden (\u00e7o\u011ful) bahsederken \"gatos\" kullan\u0131l\u0131r. (Cevap: C)"},
-{t:"mc",q:"36. Hay casas ____ para los animales.\nA) peque\u00f1o\nB) peque\u00f1a\nC) peque\u00f1os\nD) peque\u00f1as",o:["peque\u00f1o","peque\u00f1a","peque\u00f1os","peque\u00f1as"],a:3,exp:"Ac\u0131klama: \"Casas\" di\u015fil \u00e7o\u011ful oldu\u011fu i\u00e7in \"peque\u00f1as\" (k\u00fc\u00e7\u00fck) s\u0131fat\u0131 kullan\u0131l\u0131r. (Cevap: D)"},
-{t:"mc",q:"37. Hay gatos ____, blancos y amarillos.\nA) negro\nB) negra\nC) negramente\nD) negros",o:["negro","negra","negramente","negros"],a:3,exp:"Ac\u0131klama: \"Gatos\" eril \u00e7o\u011ful oldu\u011fu i\u00e7in renk s\u0131fat\u0131 \"negros\" (siyahlar) olur. (Cevap: D)"},
-{t:"mc",q:"38. Hay tiendas de ____.\nA) antig\u00fcedad\nB) antig\u00fcedada\nC) antig\u00fcedades\nD) antig\u00fcedads",o:["antig\u00fcedad","antig\u00fcedada","antig\u00fcedades","antig\u00fcedads"],a:2,exp:"Ac\u0131klama: Antika d\u00fckkanlar\u0131 (\u00e7o\u011ful e\u015fyalar ba\u011flam\u0131nda) \"antig\u00fcedades\" olarak ifade edilir. (Cevap: C)"},
-{t:"mc",q:"39. Hay ____ tradicionales en la ciudad.\nA) mercados\nB) mercado\nC) el mercado\nD) la mercado",o:["mercados","mercado","el mercado","la mercado"],a:0,exp:"Ac\u0131klama:Geleneksel pazarlar (\u00e7o\u011ful) anlam\u0131nda \"mercados\" kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"40. Hay ____ muy amable en Estambul.\nA) gentes\nB) gente\nC) el gente\nD) un gente",o:["gentes","gente","el gente","un gente"],a:1,exp:"Ac\u0131klama: \"Gente\" (halk/insanlar) kelimesi yap\u0131 olarak tekil ama anlam olarak \u00e7o\u011ful dur.\ngente = tekil fiil al\u0131r\nama anlam \u00e7o\u011ful (Cevap: B)"},
-{t:"mc",q:"41. \"Havaalanında çok fazla insan var ama hiç polis yok.\"\nA) Hay mucha gente en el aeropuerto y hay muchos polic\u00edas.\nB) Hay mucha gente en el aeropuerto, pero no hay ning\u00fan polic\u00eda.\nC) Est\u00e1 mucha gente en el aeropuerto pero no hay polic\u00eda.\nD) Hay mucha gente en el aeropuerto, sin embargo hay un polic\u00eda.",o:["Hay mucha gente en el aeropuerto y hay muchos polic\u00edas.","Hay mucha gente en el aeropuerto, pero no hay ning\u00fan polic\u00eda.","Est\u00e1 mucha gente en el aeropuerto pero no hay polic\u00eda.","Hay mucha gente en el aeropuerto, sin embargo hay un polic\u00eda."],a:1,exp:"Ac\u0131klama: \"Hay\" yap\u0131s\u0131 varl\u0131k belirtir. \"Pero\" (ama) z\u0131tl\u0131k ba\u011flac\u0131d\u0131r ve \"ning\u00fan\" (hi\u00e7bir) olumsuzlu\u011fu peki\u015ftirir. (Cevap: B)"},
-{t:"mc",q:"42. \"E\u011fer \u0130spanyolca \u00f6\u011frenmek istiyorsan, her g\u00fcn pratik yapmal\u0131s\u0131n.\"\nA) Si quieres aprender espa\u00f1ol, practicas cada d\u00eda.\nB) Porque quieres aprender espa\u00f1ol, debes practicar.\nC) Si quieres estudiar espa\u00f1ol, tienes practicar cada d\u00eda.\nD) Si quieres aprender espa\u00f1ol, debes practicar todos los d\u00edas.",o:["Si quieres aprender espa\u00f1ol, practicas cada d\u00eda.","Porque quieres aprender espa\u00f1ol, debes practicar.","Si quieres estudiar espa\u00f1ol, tienes practicar cada d\u00eda.","Si quieres aprender espa\u00f1ol, debes practicar todos los d\u00edas."],a:3,exp:"Ac\u0131klama: Ko\u015ful c\u00fccleleri \"Si\" ile ba\u015flar. \"Debes + mastar\" yap\u0131s\u0131 gereklilik ve tavsiye bildirir. (Cevap: D)"},
-{t:"mc",q:"43. \"M\u00fcze saat dokuzda a\u00e7\u0131l\u0131yor ve giri\u015f \u00fccretsizdir.\"\nA) El museo abre a las nueve y la entrada es caro.\nB) El museo se abre a las nueve pero la entrada no es gratis.\nC) El museo abre a las nueve y la entrada es gratuita.\nD) El museo est\u00e1 abierto a las nueve y la entrada hay gratis.",o:["El museo abre a las nueve y la entrada es caro.","El museo se abre a las nueve pero la entrada no es gratis.","El museo abre a las nueve y la entrada es gratuita.","El museo est\u00e1 abierto a las nueve y la entrada hay gratis."],a:2,exp:"Ac\u0131klama: Saatler \"a las\" ile ifade edilir. \"Gratuita\" s\u0131fat\u0131 \"entrada\" (di\u015fil) kelimesiyle uyumludur. (Cevap: C)"},
-{t:"mc",q:"44. \"Bu \u015fehirde ula\u015f\u0131m kart\u0131 almak \u00e7ok kolayd\u0131r.\"\nA) Es muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.\nB) Hay muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.\nC) Es muy dif\u00edcil comprar una tarjeta de transporte en este ciudad.\nD) Est\u00e1 muy f\u00e1cil comprar un tarjeta de transporte en esta ciudad.",o:["Es muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.","Hay muy f\u00e1cil comprar una tarjeta de transporte en esta ciudad.","Es muy dif\u00edcil comprar una tarjeta de transporte en este ciudad.","Est\u00e1 muy f\u00e1cil comprar un tarjeta de transporte en esta ciudad."],a:0,exp:"Ac\u0131klama: Genel bir durumdan bahsederken \"Es + s\u0131fat + mastar\" kal\u0131b\u0131 kullan\u0131l\u0131r. (Cevap: A)"},
-{t:"mc",q:"45. \"Yar\u0131n arkada\u015flar\u0131mla beraber sahilde y\u00fcr\u00fcmek istiyorum.\"\nA) Ma\u00f1ana quiero caminar por la orilla con mis amigos.\nB) Ma\u00f1ana quiero camino por la orilla con mi amigo.\nC) Ma\u00f1ana quieres caminar por el mar con mis amigos.\nD) Ma\u00f1ana voy a caminar por la orilla con mis amigos.",o:["Ma\u00f1ana quiero caminar por la orilla con mis amigos.","Ma\u00f1ana quiero camino por la orilla con mi amigo.","Ma\u00f1ana quieres caminar por el mar con mis amigos.","Ma\u00f1ana voy a caminar por la orilla con mis amigos."],a:0,exp:"Ac\u0131klama: \"Querer\" (istemek) fiilinden sonra gelen ikinci fiil daima mastar (caminar) halde kal\u0131r. (Cevap: A)"},
-{t:"mc",q:"46. \"Madrid'e gitmeden \u00f6nce biraz \u0130spanyolca \u00e7al\u0131\u015fmal\u0131s\u0131n.\"\nA) Despu\u00e9s de ir a Madrid, debes estudiar un poco de espa\u00f1ol.\nB) Antes de ir a Madrid, estudias un poco espa\u00f1ol.\nC) Antes de ir a Madrid, debes estudiar un poco de espa\u00f1ol.\nD) Antes de ir a Madrid, hay que estudia un poco espa\u00f1ol.",o:["Despu\u00e9s de ir a Madrid, debes estudiar un poco de espa\u00f1ol.","Antes de ir a Madrid, estudias un poco espa\u00f1ol.","Antes de ir a Madrid, debes estudiar un poco de espa\u00f1ol.","Antes de ir a Madrid, hay que estudia un poco espa\u00f1ol."],a:2,exp:"Ac\u0131klama: \"-den \u00f6nce\" yap\u0131s\u0131 i\u00e7in \"Antes de + mastar\" kullan\u0131l\u0131r. \"Debes\" ise \"yapmal\u0131s\u0131n\" anlam\u0131n\u0131 verir. (Cevap: C)"},
-{t:"mc",q:"47. \"En sevdi\u011fim yemek bal\u0131k oldu\u011fu i\u00e7in s\u0131k s\u0131k bal\u0131k restoranına giderim.\"\nA) Como mi comida favorita es el pescado, nunca voy a la pesCADER\u00cdA.\nB) Porque mi comida favorita es pescado, voy al restaurante.\nC) Mi comida favorita es el pescado y por eso voy a veces al restaurante.\nD) Como mi comida favorita es el pescado, voy a menudo a un restaurante de pescado.",o:["Como mi comida favorita es el pescado, nunca voy a la pesCADER\u00cdA.","Porque mi comida favorita es pescado, voy al restaurante.","Mi comida favorita es el pescado y por eso voy a veces al restaurante.","Como mi comida favorita es el pescado, voy a menudo a un restaurante de pescado."],a:3,exp:"Ac\u0131klama: C\u00fcmle ba\u015f\u0131nda \"oldu\u011fu i\u00e7in/nedeniyle\" anlam\u0131n\u0131 \"Como\" ba\u011flac\u0131 sa\u011flar. \"A menudo\" ise \"s\u0131k s\u0131k\" demektir. (Cevap: D)"},
-{t:"mc",q:"48. \"Kitap okumay\u0131 seviyorum \u00e7\u00fcnk\u00fc yeni \u015feyler ke\u015ffetmeme yard\u0131mc\u0131 oluyor.\"\nA) Me gusta leer libros porque ayuda a descubrir cosas viejas.\nB) Me gusta leer libros porque me ayuda a descubrir cosas nuevas.\nC) Amo leer libros pero no me ayuda a descubrir cosas nuevas.\nD) Me gusta leer libros porque ayuda descubrir cosas nuevas.",o:["Me gusta leer libros porque ayuda a descubrir cosas viejas.","Me gusta leer libros porque me ayuda a descubrir cosas nuevas.","Amo leer libros pero no me ayuda a descubrir cosas nuevas.","Me gusta leer libros porque ayuda descubrir cosas nuevas."],a:1,exp:"Ac\u0131klama: \"Ayudar\" fiili bir eyleme y\u00f6nelirken \"a\" edatını al\u0131r (ayudar a...). (Cevap: B)"},
-{t:"mc",q:"49. \"D\u00fcn gece film izlerken uyuyakald\u0131m.\"\nA) Anoche me dorm\u00ed mientras veo una pel\u00edcula.\nB) Anoche me qued\u00e9 dormido mientras ve\u00eda una pel\u00edcula.\nC) Ayer noche me dorm\u00ed cuando miraba una pel\u00edcula.\nD) Anoche dorm\u00ed mientras miraba el cine.",o:["Anoche me dorm\u00ed mientras veo una pel\u00edcula.","Anoche me qued\u00e9 dormido mientras ve\u00eda una pel\u00edcula.","Ayer noche me dorm\u00ed cuando miraba una pel\u00edcula.","Anoche dorm\u00ed mientras miraba el cine."],a:1,exp:"Ac\u0131klama: \"Uyuyakalmak\" eylemi \"quedarse dormido\" ile, s\u00fcreklilik bildiren \"izlerken\" k\u0131sm\u0131 ise \"ve\u00eda\" (Imperfecto) ile ifade edilir. (Cevap: B)"},
-{t:"mc",q:"50. \"Gelecek y\u0131l \u0130spanya'da ya\u015famak i\u00e7in \u00e7ok para biriktirmem gerekiyor.\"\nA) Necesito ahorrar mucho dinero para vivir en Espa\u00f1a el pr\u00f3ximo a\u00f1o.\nB) Necesito dinero para vivir en Espa\u00f1a el a\u00f1o pasado.\nC) Tengo que ahorrar mucho dinero porque vivo en Espa\u00f1a el pr\u00f3ximo a\u00f1o.\nD) Hay que ahorrar mucho dinero para vivir en Espa\u00f1a el a\u00f1o que viene.",o:["Necesito ahorrar mucho dinero para vivir en Espa\u00f1a el pr\u00f3ximo a\u00f1o.","Necesito dinero para vivir en Espa\u00f1a el a\u00f1o pasado.","Tengo que ahorrar mucho dinero porque vivo en Espa\u00f1a el pr\u00f3ximo a\u00f1o.","Hay que ahorrar mucho dinero para vivir en Espa\u00f1a el a\u00f1o que viene."],a:0,exp:"Ac\u0131klama: \"Ahorrar\" (para biriktirmek) fiili ve ama\u00e7 bildiren \"para + mastar\" yap\u0131s\u0131 do\u011fru kullan\u0131lm\u0131\u015ft\u0131r. (Cevap: A)"}
+{t:"mc",q:"1. En Estambul ____ mucha gente ve mucha historia.\nA) hay\nB) es\nC) está\nD) son",o:["hay","es","está","son"],a:0,exp:"Acıklama: İspanyolcada \"var\" anlamında kullanılan \"hay\" yapısı, nesne tekil de olsa çoğul da olsa değişmez. (Cevap: A)"},
+{t:"mc",q:"2. En el centro hay monumentos ____.\nA) antiguo\nB) antigua\nC) antiguas\nD) antiguos",o:["antiguo","antigua","antiguas","antiguos"],a:3,exp:"Acıklama: \"Monumentos\" eril ve çoğul bir isim olduğu için sıfat da \"antiguos\" şeklinde uyumlu olmalıdır. (Cevap: D)"},
+{t:"mc",q:"3. Hay mezquitas muy ____.\nA) grande\nB) grandes\nC) granda\nD) grandas",o:["grande","grandes","granda","grandas"],a:1,exp:"Acıklama: \"Grande\" sıfatı sessiz harfle bittiği için çoğul yapmak için sonuna \"-s\" eklenir: \"grandes\". (Cevap: B)"},
+{t:"mc",q:"4. Hay ____ turistas en Estambul.\nA) mucho\nB) mucha\nC) muchos\nD) much",o:["mucho","mucha","muchos","much"],a:2,exp:"Acıklama: Turista hem eril hem dişil olabilir (los turistas / las turistas). Burada genel kullanım olarak 'muchos' tercih edilmiştir.  (Cevap: C)"},
+{t:"mc",q:"5. Hay ____ energía especial en esta ciudad.\nA) un\nB) el\nC) una\nD) la",o:["un","el","una","la"],a:2,exp:"Acıklama: \"Energía\" dişil tekil bir isimdir, \"hay\" yapısından sonra belgisiz tanımlık \"una\" gelir. (Cevap: C)"},
+{t:"mc",q:"6. Hay ____ continentes: Europa y Asia.\nA) un\nB) dos\nC) tres\nD) cuatro",o:["un","dos","tres","cuatro"],a:1,exp:"Acıklama: Videoda İstanbul'un iki (dos) kıtayı birleştirdiği vurgulanmaktadır. (Cevap: B)"},
+{t:"mc",q:"7. Hay ____ increíbiles para ver.\nA) cosa\nB) un cosa\nC) el cosa\nD) cosas",o:["cosa","un cosa","el cosa","cosas"],a:3,exp:"Acıklama: \"Hay\" yapısından sonra nesne çoğul ise isim de çoğul takısı (-s) almalıdır: \"cosas\". (Cevap: D)"},
+{t:"mc",q:"8. En esta ciudad ____ autobuses, barcos y trenes.\nA) hay\nB) es\nC) tiene\nD) están",o:["hay","es","tiene","están"],a:0,exp:"Acıklama: Liste halindeki nesnelerin varlığını belirtirken \"hay\" kullanılır. (Cevap: A)"},
+{t:"mc",q:"9. Bajo el mar hay un túnel muy ____.\nA) largo\nB) larga\nC) largos\nD) largas",o:["largo","larga","largos","largas"],a:0,exp:"Acıklama: \"Túnel\" eril tekil bir isimdir, bu yüzden sıfat \"largo\" (uzun) olmalıdır. (Cevap: A)"},
+{t:"mc",q:"10. En las calles hay mucho ____.\nA) tráfico\nB) tráfica\nC) tráfiques\nD) tráficas",o:["tráfico","tráfica","tráfiques","tráficas"],a:0,exp:"Acıklama: Trafik kelimesi İspanyolcada \"tráfico\" olarak eril ve tekil kullanılır. (Cevap: A)"},
+{t:"mc",q:"11. Hay muchos coches ____.\nA) rojo\nB) rojos\nC) roja\nD) rojas",o:["rojo","rojos","roja","rojas"],a:1,exp:"Acıklama: \"Coches\" (arabalar) eril çoğul olduğu için renk sıfatı da \"rojos\" olur. (Cevap: B)"},
+{t:"mc",q:"12. Hay muchas ____ en la red de transporte.\nA) estación\nB) el estación\nC) estacions\nD) estaciones",o:["estación","el estación","estacions","estaciones"],a:3,exp:"Acıklama:\"Estación\" kelimesinin çoğulu \"-es\" takısı alarak \"estaciones\" olur. (Cevap: D)"},
+{t:"mc",q:"13. En el mar hay barcos ____.\nA) público\nB) pública\nC) públicas\nD) públicos",o:["público","pública","públicas","públicos"],a:3,exp:"Acıklama: \"Barcos\" eril çoğul olduğu için sıfat \"públicos\" (kamusal/halk tipi) olmalıdır. (Cevap: D)"},
+{t:"mc",q:"14. Hay ____ de transporte para viajar.\nA) tarjetas\nB) tarjeta\nC) el tarjeta\nD) un tarjeta",o:["tarjetas","tarjeta","el tarjeta","un tarjeta"],a:0,exp:"Acıklama: \"Çoğul kartlar\" anlamında \"tarjetas\" kullanılır. (Cevap: A)"},
+{t:"mc",q:"15. En Karaköy hay museos ____.\nA) moderno\nB) moderna\nC) modernos\nD) modernas",o:["moderno","moderna","modernos","modernas"],a:2,exp:"Acıklama: \"Museos\" (müzeler) eril çoğul bir kelimedir, sıfatı \"modernos\" olur. (Cevap: C)"},
+{t:"mc",q:"16. En las paredes hay ____.\nA) graffiti\nB) graffitis\nC) el graffiti\nD) un graffiti",o:["graffiti","graffitis","el graffiti","un graffiti"],a:1,exp:"Acıklama: Videoda duvarlarda birçok \"graffitis\" (grafitiler) olduğu söylenmektedir. (Cevap: B)"},
+{t:"mc",q:"17. Cerca del mar hay un ____ de lujo.\nA) puerta\nB) puerto\nC) puertas\nD) puertos",o:["puerta","puerto","puertas","puertos"],a:1,exp:"Acıklama: \"Liman\" kelimesi İspanyolcada eril tekil olarak \"puerto\"dur. (Cevap: B)"},
+{t:"mc",q:"18. Hay tiendas ____ en el barrio.\nA) nuevo\nB) nueva\nC) nuevas\nD) nuevos",o:["nuevo","nueva","nuevas","nuevos"],a:2,exp:"Acıklama: \"Tiendas\" dişil çoğul olduğu için sıfat \"nuevas\" (yeni) olur. (Cevap: C)"},
+{t:"mc",q:"19. Hay cuadros muy ____.\nA) raros\nB) raro\nC) rara\nD) raras",o:["raros","raro","rara","raras"],a:0,exp:"Acıklama: \"Cuadros\" (tablolar) eril çoğul olduğu için sıfat \"raros\" (ilginç/nadir) olur. (Cevap: A)"},
+{t:"mc",q:"20. Hay esculturas ____.\nA) grande\nB) granda\nC) gran\nD) grandes",o:["grande","granda","gran","grandes"],a:3,exp:"Acıklama: \"Esculturas\" (heykeller) çoğul olduğu için sıfat \"grandes\" olmalıdır. (Cevap: D)"},
+{t:"mc",q:"21. En la calle hay comida muy ____.\nA) rico\nB) ricos\nC) ricas\nD) rica",o:["rico","ricos","ricas","rica"],a:3,exp:"Acıklama: \"Comida\" dişil tekil olduğu için \"rica\" (lezzetli) sıfatı kullanılır. (Cevap: D)"},
+{t:"mc",q:"22. Hay puestos de ____.\nA) simit\nB) el simit\nC) un simit\nD) simits",o:["simit","el simit","un simit","simits"],a:0,exp:"Acıklama: Videoda \"simit tezgahları\" (puestos de simit) ifadesi geçmektedir. (Cevap: A)"},
+{t:"mc",q:"23. Hay castañas ____.\nA) asado\nB) asada\nC) asadas\nD) asados",o:["asado","asada","asadas","asados"],a:2,exp:"Acıklama: \"Castañas\" (kestaneler) dişil çoğul olduğu için \"asadas\" (kavrulmuş) sıfatı gelir. (Cevap: C)"},
+{t:"mc",q:"24. Hay ____ de pescado en Eminönü.\nA) bocadillo\nB) bocadillos\nC) el bocadillo\nD) la bocadillo",o:["bocadillo","bocadillos","el bocadillo","la bocadillo"],a:1,exp:"Acıklama: \"Balık ekmekler\" çoğul olarak \"bocadillos\" şekilde ifade edilir. (Cevap: B)"},
+{t:"mc",q:"25. Hay una ____ antigua en Turquía.\nA) tradicións\nB) tradición\nC) el tradición\nD) un tradición",o:["tradicións","tradición","el tradición","un tradición"],a:1,exp:"Acıklama:\"Tradición\" dişil tekil bir isimdir ve \"bir gelenek\" anlamında kullanılır. (Cevap: B)"},
+{t:"mc",q:"26. Hay una biblioteca con ____ libros.\nA) mucho\nB) mucha\nC) muchas\nD) muchos",o:["mucho","mucha","muchas","muchos"],a:3,exp:"Acıklama: \"Libros\" eril çoğul olduğu için \"birçok\" anlamında \"muchos\" kullanılır. (Cevap: D)"},
+{t:"mc",q:"27. Hay conciertos de ____.\nA) música\nB) músico\nC) músicas\nD) músicos",o:["música","músico","músicas","músicos"],a:0,exp:"Acıklama: Müzik genel bir kavram olarak \"música\" şeklinde tekil kullanılır. (Cevap: A)"},
+{t:"mc",q:"28. Hay ____ gratis en el edificio.\nA) exposición\nB) la exposición\nC) exposiciones\nD) exposicions",o:["exposición","la exposición","exposiciones","exposicions"],a:2,exp:"Acıklama: Üretsiz sergiler (çoğul) anlamında \"exposiciones\" kullanılır. (Cevap: C)"},
+{t:"mc",q:"29. En Maslak hay rascacielos muy ____.\nA) alto\nB) alta\nC) altos\nD) altas",o:["alto","alta","altos","altas"],a:2,exp:"Acıklama: \"Rascacielos\" (gökdelenler) eril çoğul kabul edilir, sıfat \"altos\" olur. (Cevap: C)"},
+{t:"mc",q:"30. Hay muchas ____ internacionales.\nA) empresa\nB) empresas\nC) un empresa\nD) el empresa",o:["empresa","empresas","un empresa","el empresa"],a:1,exp:"Acıklama: \"Birçok şirket\" anlamında çoğul \"empresas\" kullanılır. (Cevap: B)"},
+{t:"mc",q:"31. Hay coches ____.\nA) eléctrico\nB) eléctrica\nC) eléctricas\nD) eléctricos",o:["eléctrico","eléctrica","eléctricas","eléctricos"],a:3,exp:"Acıklama: Arabalar eril çoğul olduğu için \"eléctricos\" (elektrikli) sıfatı gelir. (Cevap: D)"},
+{t:"mc",q:"32. Hay ____ de agua en la ciudad.\nA) un canal\nB) una canal\nC) el canal\nD) la canal",o:["un canal","una canal","el canal","la canal"],a:0,exp:"Acıklama: \"Kanal\" kelimesi İspanyolcada \"un canal\" (eril tekil) olarak tanımlanır. (Cevap: A)"},
+{t:"mc",q:"33. En el mar a veces hay ____.\nA) delfines\nB) delfín\nC) el delfín\nD) un delfín",o:["delfines","delfín","el delfín","un delfín"],a:0,exp:"Acıklama: Yunuslar (çoğul) anlamında \"delfines\" kullanılır. (Cevap: A)"},
+{t:"mc",q:"34. Hay ____ de plástico en el agua.\nA) la basura\nB) una basura\nC) las basuras\nD) los basura",o:["la basura","una basura","las basuras","los basura"],a:1,exp:"Acıklama: Çöp (basura) sayılamayan bir isim olarak genellikle tekil kullanılır. (Cevap: B)"},
+{t:"mc",q:"35. En las calles hay ____.\nA) gato\nB) el gato\nC) gatos\nD) un gato",o:["gato","el gato","gatos","un gato"],a:2,exp:"Acıklama: İstanbul sokaklarındaki kedilerden (çoğul) bahsederken \"gatos\" kullanılır. (Cevap: C)"},
+{t:"mc",q:"36. Hay casas ____ para los animales.\nA) pequeño\nB) pequeña\nC) pequeños\nD) pequeñas",o:["pequeño","pequeña","pequeños","pequeñas"],a:3,exp:"Acıklama: \"Casas\" dişil çoğul olduğu için \"pequeñas\" (küçük) sıfatı kullanılır. (Cevap: D)"},
+{t:"mc",q:"37. Hay gatos ____, blancos y amarillos.\nA) negro\nB) negra\nC) negramente\nD) negros",o:["negro","negra","negramente","negros"],a:3,exp:"Acıklama: \"Gatos\" eril çoğul olduğu için renk sıfatı \"negros\" (siyahlar) olur. (Cevap: D)"},
+{t:"mc",q:"38. Hay tiendas de ____.\nA) antigüedad\nB) antigüedada\nC) antigüedades\nD) antigüedads",o:["antigüedad","antigüedada","antigüedades","antigüedads"],a:2,exp:"Acıklama: Antika dükkanları (çoğul eşyalar bağlamında) \"antigüedades\" olarak ifade edilir. (Cevap: C)"},
+{t:"mc",q:"39. Hay ____ tradicionales en la ciudad.\nA) mercados\nB) mercado\nC) el mercado\nD) la mercado",o:["mercados","mercado","el mercado","la mercado"],a:0,exp:"Acıklama:Geleneksel pazarlar (çoğul) anlamında \"mercados\" kullanılır. (Cevap: A)"},
+{t:"mc",q:"40. Hay ____ muy amable en Estambul.\nA) gentes\nB) gente\nC) el gente\nD) un gente",o:["gentes","gente","el gente","un gente"],a:1,exp:"Acıklama: \"Gente\" (halk/insanlar) kelimesi yapı olarak tekil ama anlam olarak çoğul dur.\ngente = tekil fiil alır\nama anlam çoğul (Cevap: B)"},
+{t:"mc",q:"41. \"Havaalanında çok fazla insan var ama hiç polis yok.\"\nA) Hay mucha gente en el aeropuerto y hay muchos policías.\nB) Hay mucha gente en el aeropuerto, pero no hay ningún policía.\nC) Está mucha gente en el aeropuerto pero no hay policía.\nD) Hay mucha gente en el aeropuerto, sin embargo hay un policía.",o:["Hay mucha gente en el aeropuerto y hay muchos policías.","Hay mucha gente en el aeropuerto, pero no hay ningún policía.","Está mucha gente en el aeropuerto pero no hay policía.","Hay mucha gente en el aeropuerto, sin embargo hay un policía."],a:1,exp:"Acıklama: \"Hay\" yapısı varlık belirtir. \"Pero\" (ama) zıtlık bağlacıdır ve \"ningún\" (hiçbir) olumsuzluğu pekiştirir. (Cevap: B)"},
+{t:"mc",q:"42. \"Eğer İspanyolca öğrenmek istiyorsan, her gün pratik yapmalısın.\"\nA) Si quieres aprender español, practicas cada día.\nB) Porque quieres aprender español, debes practicar.\nC) Si quieres estudiar español, tienes practicar cada día.\nD) Si quieres aprender español, debes practicar todos los días.",o:["Si quieres aprender español, practicas cada día.","Porque quieres aprender español, debes practicar.","Si quieres estudiar español, tienes practicar cada día.","Si quieres aprender español, debes practicar todos los días."],a:3,exp:"Acıklama: Koşul cücleleri \"Si\" ile başlar. \"Debes + mastar\" yapısı gereklilik ve tavsiye bildirir. (Cevap: D)"},
+{t:"mc",q:"43. \"Müze saat dokuzda açılıyor ve giriş ücretsizdir.\"\nA) El museo abre a las nueve y la entrada es caro.\nB) El museo se abre a las nueve pero la entrada no es gratis.\nC) El museo abre a las nueve y la entrada es gratuita.\nD) El museo está abierto a las nueve y la entrada hay gratis.",o:["El museo abre a las nueve y la entrada es caro.","El museo se abre a las nueve pero la entrada no es gratis.","El museo abre a las nueve y la entrada es gratuita.","El museo está abierto a las nueve y la entrada hay gratis."],a:2,exp:"Acıklama: Saatler \"a las\" ile ifade edilir. \"Gratuita\" sıfatı \"entrada\" (dişil) kelimesiyle uyumludur. (Cevap: C)"},
+{t:"mc",q:"44. \"Bu şehirde ulaşım kartı almak çok kolaydır.\"\nA) Es muy fácil comprar una tarjeta de transporte en esta ciudad.\nB) Hay muy fácil comprar una tarjeta de transporte en esta ciudad.\nC) Es muy difícil comprar una tarjeta de transporte en este ciudad.\nD) Está muy fácil comprar un tarjeta de transporte en esta ciudad.",o:["Es muy fácil comprar una tarjeta de transporte en esta ciudad.","Hay muy fácil comprar una tarjeta de transporte en esta ciudad.","Es muy difícil comprar una tarjeta de transporte en este ciudad.","Está muy fácil comprar un tarjeta de transporte en esta ciudad."],a:0,exp:"Acıklama: Genel bir durumdan bahsederken \"Es + sıfat + mastar\" kalıbı kullanılır. (Cevap: A)"},
+{t:"mc",q:"45. \"Yarın arkadaşlarımla beraber sahilde yürümek istiyorum.\"\nA) Mañana quiero caminar por la orilla con mis amigos.\nB) Mañana quiero camino por la orilla con mi amigo.\nC) Mañana quieres caminar por el mar con mis amigos.\nD) Mañana voy a caminar por la orilla con mis amigos.",o:["Mañana quiero caminar por la orilla con mis amigos.","Mañana quiero camino por la orilla con mi amigo.","Mañana quieres caminar por el mar con mis amigos.","Mañana voy a caminar por la orilla con mis amigos."],a:0,exp:"Acıklama: \"Querer\" (istemek) fiilinden sonra gelen ikinci fiil daima mastar (caminar) halde kalır. (Cevap: A)"},
+{t:"mc",q:"46. \"Madrid'e gitmeden önce biraz İspanyolca çalışmalısın.\"\nA) Después de ir a Madrid, debes estudiar un poco de español.\nB) Antes de ir a Madrid, estudias un poco español.\nC) Antes de ir a Madrid, debes estudiar un poco de español.\nD) Antes de ir a Madrid, hay que estudia un poco español.",o:["Después de ir a Madrid, debes estudiar un poco de español.","Antes de ir a Madrid, estudias un poco español.","Antes de ir a Madrid, debes estudiar un poco de español.","Antes de ir a Madrid, hay que estudia un poco español."],a:2,exp:"Acıklama: \"-den önce\" yapısı için \"Antes de + mastar\" kullanılır. \"Debes\" ise \"yapmalısın\" anlamını verir. (Cevap: C)"},
+{t:"mc",q:"47. \"En sevdiğim yemek balık olduğu için sık sık balık restoranına giderim.\"\nA) Como mi comida favorita es el pescado, nunca voy a la pesCADERÍA.\nB) Porque mi comida favorita es pescado, voy al restaurante.\nC) Mi comida favorita es el pescado y por eso voy a veces al restaurante.\nD) Como mi comida favorita es el pescado, voy a menudo a un restaurante de pescado.",o:["Como mi comida favorita es el pescado, nunca voy a la pesCADERÍA.","Porque mi comida favorita es pescado, voy al restaurante.","Mi comida favorita es el pescado y por eso voy a veces al restaurante.","Como mi comida favorita es el pescado, voy a menudo a un restaurante de pescado."],a:3,exp:"Acıklama: Cümle başında \"olduğu için/nedeniyle\" anlamını \"Como\" bağlacı sağlar. \"A menudo\" ise \"sık sık\" demektir. (Cevap: D)"},
+{t:"mc",q:"48. \"Kitap okumayı seviyorum çünkü yeni şeyler keşfetmeme yardımcı oluyor.\"\nA) Me gusta leer libros porque ayuda a descubrir cosas viejas.\nB) Me gusta leer libros porque me ayuda a descubrir cosas nuevas.\nC) Amo leer libros pero no me ayuda a descubrir cosas nuevas.\nD) Me gusta leer libros porque ayuda descubrir cosas nuevas.",o:["Me gusta leer libros porque ayuda a descubrir cosas viejas.","Me gusta leer libros porque me ayuda a descubrir cosas nuevas.","Amo leer libros pero no me ayuda a descubrir cosas nuevas.","Me gusta leer libros porque ayuda descubrir cosas nuevas."],a:1,exp:"Acıklama: \"Ayudar\" fiili bir eyleme yönelirken \"a\" edatını alır (ayudar a...). (Cevap: B)"},
+{t:"mc",q:"49. \"Dün gece film izlerken uyuyakaldım.\"\nA) Anoche me dormí mientras veo una película.\nB) Anoche me quedé dormido mientras veía una película.\nC) Ayer noche me dormí cuando miraba una película.\nD) Anoche dormí mientras miraba el cine.",o:["Anoche me dormí mientras veo una película.","Anoche me quedé dormido mientras veía una película.","Ayer noche me dormí cuando miraba una película.","Anoche dormí mientras miraba el cine."],a:1,exp:"Acıklama: \"Uyuyakalmak\" eylemi \"quedarse dormido\" ile, süreklilik bildiren \"izlerken\" kısmı ise \"veía\" (Imperfecto) ile ifade edilir. (Cevap: B)"},
+{t:"mc",q:"50. \"Gelecek yıl İspanya'da yaşamak için çok para biriktirmem gerekiyor.\"\nA) Necesito ahorrar mucho dinero para vivir en España el próximo año.\nB) Necesito dinero para vivir en España el año pasado.\nC) Tengo que ahorrar mucho dinero porque vivo en España el próximo año.\nD) Hay que ahorrar mucho dinero para vivir en España el año que viene.",o:["Necesito ahorrar mucho dinero para vivir en España el próximo año.","Necesito dinero para vivir en España el año pasado.","Tengo que ahorrar mucho dinero porque vivo en España el próximo año.","Hay que ahorrar mucho dinero para vivir en España el año que viene."],a:0,exp:"Acıklama: \"Ahorrar\" (para biriktirmek) fiili ve amaç bildiren \"para + mastar\" yapısı doğru kullanılmıştır. (Cevap: A)"}
 ];
-
 var state={cur:0,answered:[],scores:[],okCount:0,errCount:0};
-
 function startQuiz(){
   var name=document.getElementById('introName').value;
-  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
+  if(!name){alert('Lütfen adınızı seçin.');return;}
   document.getElementById('resName').value=name;
   document.getElementById('resName2').value=name;
   document.getElementById('introScreen').style.display='none';
   document.getElementById('quizScreen').style.display='block';
   renderQ();
 }
-
 function syncResName(){
   document.getElementById('resName').value=document.getElementById('resName2').value;
 }
-
 function esc(s){
   if(!s)return'';
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
-
 function renderQ(){
   var i=state.cur;var q=Q[i];var html='';
   html+='<span class="q-badge">COKTAN SECMELI</span>';
@@ -284,10 +275,9 @@ function renderQ(){
   document.getElementById('btnSkip').disabled=(!done||i>=Q.length-1);
   document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
   document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
-  document.getElementById('cntOk').textContent=state.okCount+' Do\u011fru';
-  document.getElementById('cntErr').textContent=state.errCount+' Yanl\u0131\u015f';
+  document.getElementById('cntOk').textContent=state.okCount+' Doğru';
+  document.getElementById('cntErr').textContent=state.errCount+' Yanlış';
 }
-
 function checkAns(j){
   var i=state.cur;
   if(state.answered[i]!==undefined)return;
@@ -296,32 +286,29 @@ function checkAns(j){
   else{state.errCount++;state.scores[i]=0;}
   renderQ();
 }
-
 function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
 function goBack(){if(state.cur>0){state.cur--;renderQ();}}
 function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
-
 function confirmFinish(){
   var answered=0;for(var i=0;i<Q.length;i++){if(state.answered[i]!==undefined)answered++;}
   var unanswered=Q.length-answered;
-  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevaplad\u0131n\u0131z.';
-  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevaps\u0131z kalacak (0 puan).';
-  msg+='\n\nTesti bitirmek istedi\u011finize emin misiniz?';
+  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
+  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevapsız kalacak (0 puan).';
+  msg+='\n\nTesti bitirmek istediğinize emin misiniz?';
   document.getElementById('confirmMsg').textContent=msg;
   document.getElementById('confirmOverlay').style.display='flex';
 }
 function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
 function doFinish(){closeConfirm();showResult();}
-
 function showResult(){
   document.getElementById('quizScreen').style.display='none';
   document.getElementById('resultScreen').style.display='block';
   var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
   var pct=total*2;if(pct>100)pct=100;
   document.getElementById('resScore').textContent=pct;
-  document.getElementById('resOk').textContent=state.okCount+' Do\u011fru';
-  document.getElementById('resErr').textContent=state.errCount+' Yanl\u0131\u015f';
-  document.getElementById('resNote').textContent='50 sorudan '+state.okCount+' tanesi do\u011fru (her soru 2 puan)';
+  document.getElementById('resOk').textContent=state.okCount+' Doğru';
+  document.getElementById('resErr').textContent=state.errCount+' Yanlış';
+  document.getElementById('resNote').textContent='50 sorudan '+state.okCount+' tanesi doğru (her soru 2 puan)';
   var rev=document.getElementById('reviewList');
   var L=['A','B','C','D'];var html2='';
   for(var i=0;i<Q.length;i++){
@@ -330,22 +317,20 @@ function showResult(){
     var q=Q[i];
     html2+='<div class="rev-item">';
     html2+='<div class="rev-q">'+esc(q.q)+'</div>';
-    html2+='<div class="rev-chosen">Verdi\u011finiz cevap: '+esc(q.o[ans])+'</div>';
-    html2+='<div class="rev-correct">Do\u011fru cevap: '+esc(q.o[q.a])+'</div>';
+    html2+='<div class="rev-chosen">Verdiğiniz cevap: '+esc(q.o[ans])+'</div>';
+    html2+='<div class="rev-correct">Doğru cevap: '+esc(q.o[q.a])+'</div>';
     html2+='<div class="rev-exp">'+esc(q.exp)+'</div>';
     html2+='</div>';
   }
-  rev.innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanl\u0131\u015f soru bulunamad\u0131.</div>';
+  rev.innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanlış soru bulunamadı.</div>';
 }
-
 function toggleReview(){
   var rv=document.getElementById('reviewList');
   rv.style.display=(rv.style.display==='flex'?'none':'flex');
 }
-
 function submitResult(){
   var name=document.getElementById('resName').value;
-  if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
+  if(!name){alert('Lütfen adınızı seçin.');return;}
   var total=0;for(var i=0;i<Q.length;i++){total+=(state.scores[i]||0);}
   var pct=total*2;if(pct>100)pct=100;
   var grup=GROUPS[name]||'A1.1';
@@ -359,10 +344,9 @@ function submitResult(){
   document.getElementById('submitMsg').style.background='#fff3cd';
   document.getElementById('submitMsg').style.color='#856404';
   document.getElementById('submitMsg').style.border='1px solid #ffc107';
-  document.getElementById('submitMsg').textContent='G\u00f6nderiliyor... (Grup: '+grup+')';
+  document.getElementById('submitMsg').textContent='Gönderiliyor... (Grup: '+grup+')';
   document.getElementById('btnSubmit').disabled=true;
   var msgEl=document.getElementById('submitMsg');
-
   fetch(SCRIPT_URL,{
     method:'POST',
     mode:'no-cors',
@@ -373,7 +357,7 @@ function submitResult(){
     msgEl.style.background='#e6f9f0';
     msgEl.style.color='#1a5c3a';
     msgEl.style.border='1px solid #b8f0d8';
-    msgEl.textContent=name+' \u00f6\u011frencisinin "\u201c'+ODEV_ADI+'\u201d \u00f6devi teslim edildi. Puan: '+pct+'/100.';
+    msgEl.textContent=name+' öğrencisinin "“'+ODEV_ADI+'” ödevi teslim edildi. Puan: '+pct+'/100.';
   })
   .catch(function(err){
     msgEl.style.background='#fde8e8';
