@@ -13,10 +13,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
 .intro-sub{color:#888;font-size:.85rem;margin-bottom:.25rem}
 .intro-teacher{color:#9b7de0;font-size:.8rem;margin-bottom:1.5rem;font-weight:600}
+.reminder-box{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:.85rem 1rem;margin-bottom:1.25rem;font-size:.85rem;color:#7a5c00;line-height:1.6}
 select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;outline:none;font-family:inherit;font-size:.95rem}
 select:focus{border-color:#6c4eb8}
 .btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-start:hover{background:#5a3ea0}
+.top-finish{margin-bottom:1rem}
+.btn-finish-top{width:100%;padding:.7rem;background:#e05c5c;color:#fff;border:none;border-radius:9px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-finish-top:hover{background:#c94a4a}
 .prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
 .prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
 .q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:1rem}
@@ -81,33 +85,33 @@ select:focus{border-color:#6c4eb8}
 </head>
 <body>
 <div class="card">
-
   <!-- INTRO -->
   <div id="introScreen" class="screen active">
     <div class="week-pill">5. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (19-20. DERS)</div>
     <div class="intro-title">ESTAR SER TENER FİİLLERİ</div>
     <div class="intro-sub">100 soru · Karma (Her soru 1 puan)</div>
     <div class="intro-teacher">@ispanyolcacim &bull; Profe Hazel</div>
+    <div class="reminder-box">📢 <strong>Hatırlatma:</strong> Önümüzdeki ders bir <strong>dinleme dersi</strong>. Bu yüzden Quizlet'teki <strong>"19-20. Ders Tekrar Seti"</strong> çalışmalarınızı tamamlamanız oldukça önemli! 🎧📚</div>
     <select id="introName">
       <option value="">-- Adınızı Seçin --</option>
-      
-      
-      <option value="Arman Aykac">Arman Aykac</option>
-      <option value="Arzu Bayram">Arzu Bayram</option>
+
+
+      <option value="Ali Ceylan">Ali Ceylan</option>
+      <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
       <option value="Aysen Gurkan">Aysen Gurkan</option>
-      <option value="Ceren Orucu">Ceren Orucu</option>
-      <option value="Ozgur Guzey">Ozgur Guzey</option>
-      <option value="Rabia Nur Tok">Rabia Nur Tok</option>
-      <option value="Selva Akyuz">Selva Akyuz</option>
-      <option value="Sena Yamak">Sena Yamak</option>
-      <option value="Suleyman Bektas">Suleyman Bektas</option>
-      <option value="Taner Bastar">Taner Bastar</option>
+      <option value="Defne Ozer">Defne Ozer</option>
+      <option value="Defne Sonmez">Defne Sonmez</option>
+      <option value="Ece Utkan">Ece Utkan</option>
+      <option value="Melisa Tuncer">Melisa Tuncer</option>
+      <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+      <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+      <option value="Yelda Yilmaz">Yelda Yilmaz</option>
     </select>
     <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
   </div>
-
   <!-- QUIZ -->
   <div id="quizScreen" class="screen">
+    <div class="top-finish"><button class="btn-finish-top" onclick="confirmFinish()">Testi Bitir</button></div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">
       <span id="qMeta">Soru 1 / 100</span>
@@ -118,10 +122,8 @@ select:focus{border-color:#6c4eb8}
       <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
       <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
       <button class="btn-next" id="btnNext" onclick="goNext()" disabled>Ileri</button>
-      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
     </div>
   </div>
-
   <!-- RESULT -->
   <div id="resultScreen" class="screen">
     <input type="hidden" id="resName" value="">
@@ -135,24 +137,25 @@ select:focus{border-color:#6c4eb8}
       <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
     </div>
     <div class="res-note" id="resNote"></div>
+    <div class="reminder-box">📢 <strong>Hatırlatma:</strong> Önümüzdeki ders bir <strong>dinleme dersi</strong>. Bu yüzden Quizlet'teki <strong>"19-20. Ders Tekrar Seti"</strong> çalışmalarınızı tamamlamanız oldukça önemli! 🎧📚</div>
     <div class="submit-warning" id="submitWarning">
       <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
       <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
     </div>
     <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
       <option value="">-- Adınızı Seçin --</option>
-      
-      
-      <option value="Arman Aykac">Arman Aykac</option>
-      <option value="Arzu Bayram">Arzu Bayram</option>
+
+
+      <option value="Ali Ceylan">Ali Ceylan</option>
+      <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
       <option value="Aysen Gurkan">Aysen Gurkan</option>
-      <option value="Ceren Orucu">Ceren Orucu</option>
-      <option value="Ozgur Guzey">Ozgur Guzey</option>
-      <option value="Rabia Nur Tok">Rabia Nur Tok</option>
-      <option value="Selva Akyuz">Selva Akyuz</option>
-      <option value="Sena Yamak">Sena Yamak</option>
-      <option value="Suleyman Bektas">Suleyman Bektas</option>
-      <option value="Taner Bastar">Taner Bastar</option>
+      <option value="Defne Ozer">Defne Ozer</option>
+      <option value="Defne Sonmez">Defne Sonmez</option>
+      <option value="Ece Utkan">Ece Utkan</option>
+      <option value="Melisa Tuncer">Melisa Tuncer</option>
+      <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+      <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+      <option value="Yelda Yilmaz">Yelda Yilmaz</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
     <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
@@ -160,7 +163,6 @@ select:focus{border-color:#6c4eb8}
     <div class="review-list" id="reviewList"></div>
   </div>
 </div>
-
 <!-- CONFIRM OVERLAY -->
 <div class="overlay" id="confirmOverlay">
   <div class="confirm-box">
@@ -171,23 +173,21 @@ select:focus{border-color:#6c4eb8}
     </div>
   </div>
 </div>
-
 <script>
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
-var ODEV_ADI='H5 \u2013 19-20.Ders';
+var ODEV_ADI='H6 \u2013 19-20.Ders';
 var GROUPS={
-  "Arman Aykac":"A1.1",
-  "Arzu Bayram":"A1.1",
+  "Ali Ceylan":"A1.1",
+  "Beyza Nur Yuksel":"A1.1",
   "Aysen Gurkan":"A1.1",
-  "Ceren Orucu":"A1.1",
-  "Ozgur Guzey":"A1.1",
-  "Rabia Nur Tok":"A1.1",
-  "Selva Akyuz":"A1.1",
-  "Sena Yamak":"A1.1",
-  "Suleyman Bektas":"A1.1",
-  "Taner Bastar":"A1.1"
+  "Defne Ozer":"A1.1",
+  "Defne Sonmez":"A1.1",
+  "Ece Utkan":"A1.1",
+  "Melisa Tuncer":"A1.1",
+  "Sude Selen Ulker":"A1.1",
+  "Sule Soylemez Gul":"A1.1",
+  "Yelda Yilmaz":"A1.1"
 };
-
 var Q=[
 {t:"fill",q:"1\nMe llamo Laura. Trabajo en una escuela.\n___ profesora de espa\u00f1ol.\nCevap: soy\nT\u00fcrk\u00e7e:\nBenim ad\u0131m Laura. Bir okulda \u00e7al\u0131\u015f\u0131yorum. \u0130spanyolca \u00f6\u011fretmeniyim.\nEnglish:\nMy name is Laura. I work in a school. I am a Spanish teacher.",a:"soy",exp:"A\u00e7\u0131klama:\nBurada \u00f6\u011frencinin yakalaması gereken ipucu \"trabajo en una escuela\". Yani ki\u015fi okulda \u00e7al\u0131\u015f\u0131yor. Bu bize meslek bilgisini d\u00fc\u015f\u00fcnd\u00fcr\u00fcr. Meslekler, kimlik ve tan\u0131mlay\u0131c\u0131 \u00f6zellikler kal\u0131c\u0131 bilgi kategorisine girer. Bu y\u00fczden burada \"ge\u00e7ici bir durum\" anlatm\u0131yoruz. Dolay\u0131s\u0131yla estar de\u011fil, ser kullan\u0131l\u0131r.\nBu tarz sorularda \u00f6\u011frenciler bazen \"\u015fu an \u00e7al\u0131\u015f\u0131yor \u2192 ge\u00e7ici\" diye d\u00fc\u015f\u00fcnerek estar'a kayabiliyor. Ama odak nokta \"meslek\"tir. Meslek \u2192 her zaman SER."},
 {t:"fill",q:"2\nHace mucho calor hoy. Estoy en la playa con mis amigos.\n___ en la playa ahora.\nCevap: estoy\nT\u00fcrk\u00e7e:\nBug\u00fcn hava \u00e7ok s\u0131cak. Arkada\u015flar\u0131mla plajday\u0131m. \u015eu an plajday\u0131m.\nEnglish:\nIt is very hot today. I am at the beach with my friends. I am at the beach now.",a:"estoy",exp:"A\u00e7\u0131klama:\nBurada \u00e7ok net bir ipucu var: \"ahora\" yani \"\u015fu an\". Bu kelime g\u00f6rd\u00fc\u011f\u00fcm\u00fcz anda zihnimizde alarm \u00e7almal\u0131: ge\u00e7ici durum \u2192 ESTAR. Ayr\u0131ca \"plajda olmak\" bir konumdur. \u0130nsan konumunu s\u00fcrekli de\u011fi\u015ftirebilir. Bu y\u00fczden bu tip yer bildiren c\u00fcclelerde her zaman ESTAR kullan\u0131yoruz.\nK\u0131saca: yer + \u015fu an = ESTAR"},
@@ -290,9 +290,7 @@ var Q=[
 {t:"mc",q:"99. Juan __________ muy listo, siempre sabe todas las respuestas.\nA) est\u00e1\nB) es\nC) tienes\nD) somos",o:["est\u00e1","es","tienes","somos"],a:1,exp:"A\u00e7\u0131klama: 99. sorunun cevab\u0131 B \u015f\u0131kk\u0131d\u0131r. \"Listo\" s\u0131fat\u0131 \"Ser\" ile kullan\u0131ld\u0131\u011f\u0131nda \"zeki\" (kimlik), \"Estar\" ile kullan\u0131ld\u0131\u011f\u0131nda \"haz\u0131r\" (durum) demektir. C\u00fcmlede zekadan bahsediliyor."},
 {t:"mc",q:"100. La sopa que prepar\u00f3 mi madre __________ muy rica.\nA) est\u00e1\nB) es\nC) tienen\nD) soy",o:["est\u00e1","es","tienen","soy"],a:0,exp:"A\u00e7\u0131klama: 100. sorunun cevab\u0131 A \u015f\u0131kk\u0131d\u0131r. Yemeklerin o anki lezzetini (tad\u0131 g\u00fczel) belirtmek i\u00e7in \"Estar\" fiili kullan\u0131l\u0131r."}
 ];
-
 var state={cur:0,answered:[],scores:[],okCount:0,errCount:0,checked:[]};
-
 function startQuiz(){
   var name=document.getElementById('introName').value;
   if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
@@ -302,16 +300,13 @@ function startQuiz(){
   document.getElementById('quizScreen').style.display='block';
   renderQ();
 }
-
 function syncResName(){
   document.getElementById('resName').value=document.getElementById('resName2').value;
 }
-
 function esc(s){
   if(!s)return'';
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
-
 function normalizeAns(s){
   var r=s.trim().toLowerCase()
     .replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u')
@@ -337,7 +332,6 @@ function checkFillCorrect(val, correctAns){
   if(v.indexOf(c)!==-1) return true;
   return false;
 }
-
 function renderQ(){
   var i=state.cur;var q=Q[i];var html='';
   var isFill=(q.t==='fill');
@@ -349,7 +343,6 @@ function renderQ(){
     if(cevapIdx!==-1)qDisplay=q.q.substring(0,cevapIdx);
   }
   html+='<div class="q-text">'+esc(qDisplay)+'</div>';
-
   if(isFill){
     var done=state.checked[i]===true;
     var userAns=state.answered[i]!==undefined?state.answered[i]:'';
@@ -374,10 +367,8 @@ function renderQ(){
     }
     html+='</div>';
   }
-
   html+='<div class="exp-box'+((isFill?state.checked[i]:state.answered[i]!==undefined)?' show':'')+'" id="expBox">'+esc(q.exp)+'</div>';
   document.getElementById('qCard').innerHTML=html;
-
   var done2=(isFill?state.checked[i]===true:state.answered[i]!==undefined);
   document.getElementById('btnBack').disabled=(i===0||!done2);
   document.getElementById('btnNext').disabled=(!done2||i===Q.length-1);
@@ -387,7 +378,6 @@ function renderQ(){
   document.getElementById('cntOk').textContent=state.okCount+' Do\u011fru';
   document.getElementById('cntErr').textContent=state.errCount+' Yanl\u0131\u015f';
 }
-
 function onFillInput(){
   var btn=document.getElementById('btnCheck');
   if(btn){
@@ -395,7 +385,6 @@ function onFillInput(){
     btn.disabled=!val;
   }
 }
-
 function checkFill(){
   var i=state.cur;
   if(state.checked[i])return;
@@ -409,7 +398,6 @@ function checkFill(){
   else{state.errCount++;state.scores[i]=0;}
   renderQ();
 }
-
 function checkAns(j){
   var i=state.cur;
   if(state.answered[i]!==undefined)return;
@@ -418,11 +406,9 @@ function checkAns(j){
   else{state.errCount++;state.scores[i]=0;}
   renderQ();
 }
-
 function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
 function goBack(){if(state.cur>0){state.cur--;renderQ();}}
 function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
-
 function confirmFinish(){
   var answered=0;for(var i=0;i<Q.length;i++){if(Q[i].t==='fill'?state.checked[i]:state.answered[i]!==undefined)answered++;}
   var unanswered=Q.length-answered;
@@ -434,7 +420,6 @@ function confirmFinish(){
 }
 function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
 function doFinish(){closeConfirm();showResult();}
-
 function showResult(){
   document.getElementById('quizScreen').style.display='none';
   document.getElementById('resultScreen').style.display='block';
@@ -466,12 +451,10 @@ function showResult(){
   }
   document.getElementById('reviewList').innerHTML=html2||'<div style="padding:.5rem;color:#666">Yanl\u0131\u015f soru bulunamad\u0131.</div>';
 }
-
 function toggleReview(){
   var rv=document.getElementById('reviewList');
   rv.style.display=(rv.style.display==='flex'?'none':'flex');
 }
-
 function submitResult(){
   var name=document.getElementById('resName').value;
   if(!name){alert('L\u00fctfen ad\u0131n\u0131z\u0131 se\u00e7in.');return;}
@@ -490,7 +473,6 @@ function submitResult(){
   document.getElementById('submitMsg').textContent='G\u00f6nderiliyor... (Grup: '+grup+')';
   document.getElementById('btnSubmit').disabled=true;
   var msgEl=document.getElementById('submitMsg');
-
   fetch(SCRIPT_URL,{
     method:'POST',
     mode:'no-cors',
