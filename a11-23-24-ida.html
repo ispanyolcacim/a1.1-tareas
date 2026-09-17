@@ -6,8 +6,8 @@
 <title>H6 – 23-24.Ders | A1.1 Ödevi</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
-.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem;margin:auto 0}
 .screen{display:none}.screen.active{display:block}
 .week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
 .intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
@@ -17,6 +17,11 @@ select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;colo
 select:focus{border-color:#6c4eb8}
 .btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-start:hover{background:#5a3ea0}
+.quiz-topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:#fff;margin:-2rem -2rem 1rem;padding:1rem 2rem .85rem;border-bottom:2px solid #e8e0f8;border-radius:16px 16px 0 0;box-shadow:0 5px 14px rgba(76,54,130,.09)}
+.quiz-student{min-width:0;color:#777;font-size:.72rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.quiz-student strong{display:block;color:#3d2a7a;font-size:.92rem;letter-spacing:0;text-transform:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.12rem}
+.btn-finish-top{flex:0 0 auto;background:#e05c5c;color:#fff;border:none;border-radius:8px;padding:.62rem .9rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:inherit}
+.btn-finish-top:hover{background:#c94747}
 .prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
 .prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
 .q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:.75rem}
@@ -42,7 +47,6 @@ select:focus{border-color:#6c4eb8}
 .btn-back{background:#e8e0f8;color:#6c4eb8}
 .btn-skip{background:#e8e0f8;color:#6c4eb8}
 .btn-next{background:#6c4eb8;color:#fff}
-.btn-finish{background:#e05c5c;color:#fff}
 .nav button:disabled{opacity:.4;cursor:not-allowed}
 .score-info{background:#f3effb;border-radius:8px;padding:.5rem .85rem;font-size:.78rem;color:#6c4eb8;font-weight:600;margin-bottom:.75rem;text-align:center}
 .res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
@@ -51,6 +55,8 @@ select:focus{border-color:#6c4eb8}
 .res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem;flex-wrap:wrap}
 .res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
 .res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.course-reminder{background:linear-gradient(135deg,#f8f5ff,#fff8e8);border:2px solid #d7c8f5;border-radius:12px;padding:1rem 1.15rem;margin:0 0 1.15rem;color:#4b3d68;line-height:1.7;font-size:.86rem}
+.course-reminder-title{font-size:.95rem;font-weight:800;color:#4a2f9a;margin-bottom:.35rem}
 .submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
 .submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
 .submit-warning-sub{font-size:.85rem;color:#856404}
@@ -72,7 +78,7 @@ select:focus{border-color:#6c4eb8}
 .confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-cancel{background:#e8e0f8;color:#6c4eb8}
 .btn-ok{background:#e05c5c;color:#fff}
-@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}.quiz-topbar{margin:-1.25rem -1.25rem .9rem;padding:.85rem 1.25rem .75rem}.btn-finish-top{padding:.58rem .7rem;font-size:.76rem}}
 </style>
 </head>
 <body>
@@ -80,29 +86,33 @@ select:focus{border-color:#6c4eb8}
 
   <!-- INTRO -->
   <div id="introScreen" class="screen active">
-    <div class="week-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (23-24. DERS)</div>
+    <div class="week-pill">6. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (23-24. DERS)</div>
     <div class="intro-title">DÖNÜŞLÜ FİİLLER (VERBOS REFLEXIVOS)</div>
     <div class="intro-sub">70 soru · 1-50: Çoktan Seçmeli (1p) · 51-70: Video Soruları (2,5p)</div>
     <div class="intro-teacher">@ispanyolcacim · Profe Hazel</div>
     <select id="introName">
       <option value="">-- Adınızı Seçin --</option>
       
-      <option>Arman Aykac</option>
-      <option>Arzu Bayram</option>
+      <option>Ali Ceylan</option>
+      <option>Beyza Nur Yuksel</option>
       <option>Aysen Gurkan</option>
-      <option>Ceren Orucu</option>
-      <option>Ozgur Guzey</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option>
+      <option>Defne Ozer</option>
+      <option>Defne Sonmez</option>
+      <option>Ece Utkan</option>
+      <option>Melisa Tuncer</option>
+      <option>Sude Selen Ulker</option>
+      <option>Sule Soylemez Gul</option>
+      <option>Yelda Yilmaz</option>
     </select>
     <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
   </div>
 
   <!-- QUIZ -->
   <div id="quizScreen" class="screen">
+    <div class="quiz-topbar">
+      <div class="quiz-student">Öğrenci<strong id="quizStudentName">—</strong></div>
+      <button class="btn-finish-top" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">
       <span id="qMeta">Soru 1 / 70</span>
@@ -115,7 +125,6 @@ select:focus{border-color:#6c4eb8}
       <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
       <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
       <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
-      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
     </div>
   </div>
 
@@ -123,7 +132,7 @@ select:focus{border-color:#6c4eb8}
   <div id="resultScreen" class="screen">
     <input type="hidden" id="resName" value="">
     <div style="text-align:center">
-      <div class="res-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (23-24. DERS)</div>
+      <div class="res-pill">6. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (23-24. DERS)</div>
     </div>
     <div class="res-title">DÖNÜŞLÜ FİİLLER (VERBOS REFLEXIVOS)</div>
     <div class="res-score"><span id="resScore">0</span>/100</div>
@@ -132,6 +141,10 @@ select:focus{border-color:#6c4eb8}
       <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
     </div>
     <div class="res-note" id="resNote"></div>
+    <div class="course-reminder">
+      <div class="course-reminder-title">🌟 6. Hafta Sonu</div>
+      Bu kurda 6. haftayı bitirdik ve önümüzde yalnızca son 2 haftalık sürecimiz kaldı. ⏳ Kurumuzu eksiksiz ve güçlü bir şekilde tamamlayabilmek için lütfen varsa eksik ödevlerinizi mümkün olan en kısa sürede bitirip teslim edin. 📚💪 Düzenli tekrar ve zamanında yapılan her ödev, öğrendiklerimizin kalıcı olmasına yardımcı olur. Son iki haftayı hep birlikte en verimli şekilde değerlendirelim! ✨🇪🇸
+    </div>
     <div class="submit-warning" id="submitWarning">
       <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
       <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
@@ -139,16 +152,16 @@ select:focus{border-color:#6c4eb8}
     <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
       <option value="">-- Adınızı Seçin --</option>
       
-      <option>Arman Aykac</option>
-      <option>Arzu Bayram</option>
+      <option>Ali Ceylan</option>
+      <option>Beyza Nur Yuksel</option>
       <option>Aysen Gurkan</option>
-      <option>Ceren Orucu</option>
-      <option>Ozgur Guzey</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option>
+      <option>Defne Ozer</option>
+      <option>Defne Sonmez</option>
+      <option>Ece Utkan</option>
+      <option>Melisa Tuncer</option>
+      <option>Sude Selen Ulker</option>
+      <option>Sule Soylemez Gul</option>
+      <option>Yelda Yilmaz</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
     <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
@@ -174,16 +187,16 @@ var ODEV_ADI='H6 \u2013 23-24.Ders';
 var VIDEO_URL='https://youtu.be/P8pjtbn2bLo';
 
 var GROUPS={
-'Arman Aykac':'A1.1',
-'Arzu Bayram':'A1.1',
+'Ali Ceylan':'A1.1',
+'Beyza Nur Yuksel':'A1.1',
 'Aysen Gurkan':'A1.1',
-'Ceren Orucu':'A1.1',
-'Ozgur Guzey':'A1.1',
-'Rabia Nur Tok':'A1.1',
-'Selva Akyuz':'A1.1',
-'Sena Yamak':'A1.1',
-'Suleyman Bektas':'A1.1',
-'Taner Bastar':'A1.1'
+'Defne Ozer':'A1.1',
+'Defne Sonmez':'A1.1',
+'Ece Utkan':'A1.1',
+'Melisa Tuncer':'A1.1',
+'Sude Selen Ulker':'A1.1',
+'Sule Soylemez Gul':'A1.1',
+'Yelda Yilmaz':'A1.1'
 };
 
 // t: tip (mc), pts: puan, q: soru, o: seçenekler, a: doğru indeks, exp: açıklama
@@ -242,15 +255,15 @@ var Q=[
 {t:'mc',pts:2.5,q:'Soru 52 — VİDEO SORUSU\n\u00bfQu\u00e9 hace ella inmediatamente despu\u00e9s de despertarse hoy?',o:['Se levanta r\u00e1pido','Se ducha','Se queda en la cama un rato','Se va al ba\u00f1o'],a:2,exp:'Soru, \u00f6\u011fretmenin bug\u00fcn uyand\u0131ktan hemen sonra ne yapt\u0131\u011f\u0131n\u0131 soruyor (\u00bfQu\u00e9 hace... inmediatamente?). Videoda \u00f6\u011fretmen "No me levanto inmediatamente" (Hemen kalkmıyorum) diyerek A \u015f\u0131kk\u0131n\u0131 eliyor. "Me quedo en la cama un rato" (Yatakta bir s\u00fcre kal\u0131yorum) dedi\u011fi i\u00e7in do\u011fru cevap C \u015f\u0131kk\u0131d\u0131r. Henüz yataktan \u00e7\u0131kmad\u0131\u011f\u0131 i\u00e7in banyoya gitme (D) veya du\u015f alma (B) eylemleri daha sonra ger\u00e7ekle\u015fecektir.'},
 {t:'mc',pts:2.5,q:'Soru 53 — VİDEO SORUSU\n\u00bfPor qu\u00e9 se lava la cara con agua fr\u00eda?',o:['Porque hace mucho calor','Porque todav\u00eda tiene sue\u00f1o','Porque no hay agua caliente','Porque le gusta el fr\u00edo'],a:1,exp:'Soru, y\u00fczyüzünü neden so\u011fuk suyla y\u0131kad\u0131\u011f\u0131n\u0131 soruyor (\u00bfPor qu\u00e9 se lava la cara...?). Videoda "Me lavo la cara con agua fr\u00eda porque todav\u00eda tengo sue\u00f1o" diyor. Buradaki "todav\u00eda tengo sue\u00f1o" "hala uykum var" demektir. Bu y\u00fczden do\u011fru cevap B \u015f\u0131kk\u0131d\u0131r. Hava s\u0131cakl\u0131\u011f\u0131 (A), suyun bozuk olmas\u0131 (C) veya ki\u015fisel tercih (D) gibi nedenler videoda belirtilmemi\u015ftir.'},
 {t:'mc',pts:2.5,q:'Soru 54 — VİDEO SORUSU\n\u00bfQu\u00e9 parte del cuerpo se lava ella hoy espec\u00edficamente?',o:['Las manos','Los pies','Todo el cuerpo','El pelo'],a:3,exp:'Soru, bug\u00fcn v\u00fccudunun hangi b\u00f6lgesini y\u0131kad\u0131\u011f\u0131n\u0131 soruyor. Videoda normalde du\u015f ald\u0131\u011f\u0131n\u0131 ama bug\u00fcn vaktinin k\u0131s\u0131tl\u0131 oldu\u011funu belirtip "hoy solo me lavo el pelo" (bug\u00fcn sadece sa\u00e7\u0131m\u0131 y\u0131k\u0131yorum) diyor. El pelo \u0130spanyolca sa\u00e7 demektir, bu y\u00fczden do\u011fru cevap D\u2019dir. Eller (A), ayaklar (B) veya t\u00fcm v\u00fcut (C) y\u0131kand\u0131\u011f\u0131na dair bir bilgi o an i\u00e7in verilmemi\u015ftir.'},
-{t:'mc',pts:2.5,q:'Soru 55 — VİDEO SORUSU\n\u00bfPor qu\u00e9 se peina con cuidado esta ma\u00f1ana?',o:['Porque va a una fiesta','Porque tiene mucho tiempo','Porque es un d\u00eda especial','Porque su pelo est\u00e1 un poco loco'],a:3,exp:'Soru, sa\u00e7\u0131n\u0131 neden dikkatli tara\u00f0d\u0131\u011f\u0131n\u0131 soruyor. Videoda "Me peino con cuidado porque mi pelo est\u00e1 un poco loco esta ma\u00f1ana" ifadesini duyuyoruz. "Mi pelo est\u00e1 un poco loco" (Sa\u00e7\u0131m biraz \u00e7\u0131lg\u0131n/kar\u0131\u015f\u0131k) ifadesi tarama nedenini a\u00e7\u0131klar, bu y\u00fczden cevap D\u2019dir. \u00d6zel bir g\u00fcn (C) veya parti (A) s\u00f6z konusu de\u011fildir; aksine acelesi vard\u0131r (B yanl\u0131\u015ft\u0131r).'},
+{t:'mc',pts:2.5,q:'Soru 55 — VİDEO SORUSU\n\u00bfPor qu\u00e9 se peina con cuidado esta ma\u00f1ana?',o:['Porque va a una fiesta','Porque tiene mucho tiempo','Porque es un d\u00eda especial','Porque su pelo est\u00e1 un poco loco'],a:3,exp:'Soru, sa\u00e7\u0131n\u0131 neden dikkatli tarad\u0131\u011f\u0131n\u0131 soruyor. Videoda "Me peino con cuidado porque mi pelo est\u00e1 un poco loco esta ma\u00f1ana" ifadesini duyuyoruz. "Mi pelo est\u00e1 un poco loco" (Sa\u00e7\u0131m biraz \u00e7\u0131lg\u0131n/kar\u0131\u015f\u0131k) ifadesi tarama nedenini a\u00e7\u0131klar, bu y\u00fczden cevap D\u2019dir. \u00d6zel bir g\u00fcn (C) veya parti (A) s\u00f6z konusu de\u011fildir; aksine acelesi vard\u0131r (B yanl\u0131\u015ft\u0131r).'},
 {t:'mc',pts:2.5,q:'Soru 56 — VİDEO SORUSU\n\u00bfQu\u00e9 decide ponerse ella hoy?',o:['Un vestido elegante','Vaqueros y una camiseta c\u00f3moda','Ropa de deporte','Un pijama'],a:1,exp:'Soru, bug\u00fcn ne giymeye karar verdi\u011fini soruyor (\u00bfQu\u00e9 me pongo hoy?). Videoda \u00f6\u011fretmenimiz h\u0131zl\u0131ca karar verdi\u011fini s\u00f6yleyip "Me pongo mis vaqueros favoritos y una camiseta c\u00f3moda" (En sevdi\u011fim kotumu ve rahat bir ti\u015f\u00f6rt\u00fc giyiyorum) diyor. Vaqueros (kot pantolon) ve camiseta (ti\u015f\u00f6rt) kelimeleri B \u015f\u0131kk\u0131n\u0131 do\u011fru yapar.'},
 {t:'mc',pts:2.5,q:'Soru 57 — VİDEO SORUSU\n\u00bfQu\u00e9 hace antes de salir de la habitaci\u00f3n?',o:['Se maquilla mucho','Se mira en el espejo otra vez','Se pone un poco de perfume','Llama a su gato'],a:2,exp:'Soru, odadan \u00e7\u0131kmadan hemen \u00f6nce yapt\u0131\u011f\u0131 eylemi soruyor. Videoda "Antes de salir de la habitaci\u00f3n, me pongo un poco de perfume" (Odadan \u00e7\u0131kmadan \u00f6nce biraz parf\u00fcm s\u0131k\u0131yorum) diyor. Bu y\u00fczden cevap C\u2019dir. Hafif bir makyajdan daha \u00f6nce bahsetmi\u015fti (A), aynaya ise en ba\u015fta bakm\u0131\u015ft\u0131 (B).'},
 {t:'mc',pts:2.5,q:'Soru 58 — VİDEO SORUSU\n\u00bfQu\u00e9 prepara en la cocina?',o:['Un caf\u00e9 con leche','Un t\u00e9 turco','Un desayuno grande','Zumo de naranja'],a:0,exp:'Soru, mutfakta ne haz\u0131rlad\u0131\u011f\u0131n\u0131 soruyor. Videoda "Me preparo un caf\u00e9 con leche muy rico" (Kendime \u00e7ok lezzetli bir s\u00fctl\u00fc kahve haz\u0131rl\u0131yorum) diyor. \u0130spanyolcada caf\u00e9 con leche s\u00fctl\u00fc kahve demektir. Do\u011fru cevap A\u2019d\u0131r. Di\u011fer i\u00e7ecekler (\u00e7ay, meyve suyu) veya b\u00fcy\u00fck bir kahvalt\u0131 sofras\u0131ndan bahsedilmemi\u015ftir.'},
 {t:'mc',pts:2.5,q:'Soru 59 — VİDEO SORUSU\n\u00bfQu\u00e9 hace el gato Zeytin mientras ella bebe su caf\u00e9?',o:['Se tumba a su lado','Se pone a jugar','Se va de la casa','Se pone a comer'],a:0,exp:'Soru, o kahve i\u00e7erken Zeytin\u2019in ne yapt\u0131\u011f\u0131n\u0131 soruyor. Videoda Zeytin\u2019in yakla\u015ft\u0131\u011f\u0131n\u0131 ve "se tumba a mi lado" (yan\u0131ma uzan\u0131yor) dedi\u011fini duyuyoruz. Tumbarse uzanmak demektir, bu y\u00fczden do\u011fru cevap A \u015f\u0131kk\u0131d\u0131r. Zeytin o s\u0131rada oyun oynam\u0131yor (B) veya yemek yemiyor (D).'},
-{t:'mc',pts:2.5,q:'Soru 60 — VİDEO SORUSU\n\u00bfEn qu\u00e9 se concentra ella hoy en lugar de leer las noticias?',o:['En su gato','En la mitolog\u00eda','En el tr\u00e1fico','En sus planes del d\u00eda'],a:3,exp:'Soru, haberleri okumak yerine neye odakland\u0131\u011f\u0131n\u0131 soruyor (\u00bfEn qu\u00e9 se concentra?). Videoda "ama hoy me concentro en mis planes del d\u00eda" (fakat bug\u00fcn g\u00fcn\u00fcn planlar\u0131na odaklan\u0131yorum) diyor. \u0130yi bir organizasyon i\u00e7in buna \u00f6nem verdi\u011fini ekliyor. Bu y\u00fczden do\u011fru cevap D\u2019dir.'},
+{t:'mc',pts:2.5,q:'Soru 60 — VİDEO SORUSU\n\u00bfEn qu\u00e9 se concentra ella hoy en lugar de leer las noticias?',o:['En su gato','En la mitolog\u00eda','En el tr\u00e1fico','En sus planes del d\u00eda'],a:3,exp:'Soru, haberleri okumak yerine neye odakland\u0131\u011f\u0131n\u0131 soruyor (\u00bfEn qu\u00e9 se concentra?). Videoda "pero hoy me concentro en mis planes del d\u00eda" (fakat bug\u00fcn g\u00fcn\u00fcn planlar\u0131na odaklan\u0131yorum) diyor. \u0130yi bir organizasyon i\u00e7in buna \u00f6nem verdi\u011fini ekliyor. Bu y\u00fczden do\u011fru cevap D\u2019dir.'},
 {t:'mc',pts:2.5,q:'Soru 61 — VİDEO SORUSU\n\u00bfA qu\u00e9 hora se va de casa hoy?',o:['A las ocho y media','A las nueve y media','Al mediod\u00eda','A las siete'],a:1,exp:'Soru, evden \u00e7\u0131k\u0131\u015f saatini soruyor. Videoda B\u00f6l\u00fcm 4 ba\u015flad\u0131\u011f\u0131nda "Son las nueve y media. Me voy de casa ahora" (Saat dokuz bu\u00e7uk. \u015eimdi evden \u00e7\u0131k\u0131yorum) diyor. Nueve y media ifadesi 9:30 oldu\u011fu i\u00e7in do\u011fru cevap B \u015f\u0131kk\u0131d\u0131r.'},
 {t:'mc',pts:2.5,q:'Soru 62 — VİDEO SORUSU\n\u00bfC\u00f3mo se siente ella cuando camina por la calle en Antalya?',o:['Se siente cansada','Se siente enfadada','Se siente muy bien','Se siente triste'],a:2,exp:'Soru, sokakta y\u00fcr\u00fcrken nas\u0131l hissetti\u011fini soruyor. Videoda "me siento muy bien porque hace sol en Antalya" (Kendimi \u00e7ok iyi hissediyorum \u00e7\u00fcnk\u00fc Antalya\u2019da g\u00fcne\u015f var) diyor. G\u00fcne\u015fin ona verdi\u011fi mutlulukla kendini iyi hissetti\u011fini belirtti\u011fi i\u00e7in cevap C\u2019dir.'},
-{t:'mc',pts:2.5,q:'Soru 63 — VİDEO SORUSU\n\u00bfQu\u00e9 hace con su amiga en la cafeter\u00eda?',o:['Se pelean por el caf\u00e9','Se ponen a trabajar','Se divierten hablando espa\u00f1ol','Se van r\u00e1pido por el tr\u00e1fico'],a:2,exp:'Soru, kafeteryada arkada\u015f\u0131yla ne yapt\u0131klar\u0131n\u0131 soruyor. Videoda terasta oturdukllar\u0131n\u0131 ve "nos divertimos mucho hablando en espa\u00f1ol" (\u0130spanyolca konu\u015farak \u00e7ok e\u011fleniyoruz) dediklerini duyuyoruz. Divertirse e\u011flenmek demektir, bu y\u00fczden do\u011fru cevap C \u015f\u0131kk\u0131d\u0131r.'},
+{t:'mc',pts:2.5,q:'Soru 63 — VİDEO SORUSU\n\u00bfQu\u00e9 hace con su amiga en la cafeter\u00eda?',o:['Se pelean por el caf\u00e9','Se ponen a trabajar','Se divierten hablando espa\u00f1ol','Se van r\u00e1pido por el tr\u00e1fico'],a:2,exp:'Soru, kafeteryada arkada\u015f\u0131yla ne yapt\u0131klar\u0131n\u0131 soruyor. Videoda terasta oturduklar\u0131n\u0131 ve "nos divertimos mucho hablando en espa\u00f1ol" (\u0130spanyolca konu\u015farak \u00e7ok e\u011fleniyoruz) dediklerini duyuyoruz. Divertirse e\u011flenmek demektir, bu y\u00fczden do\u011fru cevap C \u015f\u0131kk\u0131d\u0131r.'},
 {t:'mc',pts:2.5,q:'Soru 64 — VİDEO SORUSU\n\u00bfQu\u00e9 le pasa a ella si hay mucho tr\u00e1fico?',o:['Se enfada un poco','Se pone a cantar','Se duerme en el coche','Se alegra mucho'],a:0,exp:'Soru, trafik oldu\u011funda ona ne oldu\u011funu/nas\u0131l hissetti\u011fini soruyor. Videoda "me enfado un poco" (biraz sinirleniyorum) diyor. Enfadarse sinirlenmek demektir. Bu y\u00fczden do\u011fru cevap A\u2019d\u0131r. Mutlu olmas\u0131 (D) veya uyumas\u0131 (C) s\u00f6z konusu de\u011fildir.'},
 {t:'mc',pts:2.5,q:'Soru 65 — VİDEO SORUSU\n\u00bfCu\u00e1ndo NO hay tr\u00e1fico en Antalya seg\u00fan el texto?',o:['Por la ma\u00f1ana','Por la tarde','Todo el d\u00eda','Al mediod\u00eda'],a:3,exp:'Soru, Antalya\u2019da ne zaman trafik olmad\u0131\u011f\u0131n\u0131 (no hay tr\u00e1fico) soruyor. Videoda sabah ve ak\u015fam trafik oldu\u011funu ama "al mediod\u00eda no hay nada de tr\u00e1fico" (\u00f6\u011fle vakti hi\u00e7 trafik yok) dedi\u011fini duyuyoruz. Mediod\u00eda g\u00fcn ortas\u0131/\u00f6\u011fle vakti demektir. Do\u011fru cevap D\u2019dir.'},
 {t:'mc',pts:2.5,q:'Soru 66 — VİDEO SORUSU\n\u00bfQu\u00e9 es lo primero que hace al llegar a casa?',o:['Se prepara la cena','Se quita los zapatos','Se pone a leer','Se ducha'],a:1,exp:'Soru, eve var\u0131nca yapt\u0131\u011f\u0131 ilk eylemi soruyor. Videoda "Primero, me quito los zapatos" (\u00d6nce ayakkab\u0131lar\u0131m\u0131 \u00e7\u0131kar\u0131yorum) diyor. Bu, pek \u00e7ok evde yap\u0131lan klasik bir ilk ad\u0131md\u0131r. Bu y\u00fczden do\u011fru cevap B\u2019dir. Yemek veya kitap daha sonraki ad\u0131mlard\u0131r.'},
@@ -260,6 +273,89 @@ var Q=[
 {t:'mc',pts:2.5,q:'Soru 70 — VİDEO SORUSU\n\u00bfC\u00f3mo se duerme ella al final?',o:['Muy despacio','Con dificultad','Muy r\u00e1pido','No se duerme'],a:2,exp:'Soru, finalde nas\u0131l uykuya dald\u0131\u011f\u0131n\u0131 soruyor. Videoda gözleri kapand\u0131ktan sonra "Finalmente, me duermo muy r\u00e1pido" (Sonunda \u00e7ok h\u0131zl\u0131 uyuyakal\u0131yorum) diyor. Yorucu bir g\u00fcnden sonra h\u0131zl\u0131ca uyudu\u011fu i\u00e7in cevap C\u2019dir.'}
 ];
 
+/* Dönüşlü fiil açıklamalarını öğretici ve tutarlı hâle getirir. */
+var REFLEXIVE_INFO={
+  'levantarse':{en:'to get up',why:'Kişi kendi bedenini yatma veya oturma durumundan kaldırdığı için eylem özneye döner. “Levantar” bir şeyi kaldırmak, “levantarse” ise kalkmak demektir.',irr:'Düzensizlik yoktur. “Levantar” düzenli bir -ar fiili gibi çekilir.'},
+  'ducharse':{en:'to take a shower',why:'Duş alma eylemini özne kendi bedeni üzerinde gerçekleştirdiği için dönüşlü zamir kullanılır.',irr:'Düzensizlik yoktur. “Duchar” düzenli bir -ar fiilidir.'},
+  'afeitarse':{en:'to shave oneself',why:'Tıraş etme eylemini kişi kendi yüzü veya bedeni üzerinde yaptığı için dönüşlüdür.',irr:'Düzensizlik yoktur. “Afeitar” düzenli bir -ar fiilidir.'},
+  'llamarse':{en:'to be called / to be named',why:'“Llamarse”, bir kişinin adını söylemek için kullanılan kalıplaşmış pronominal fiildir. Türkçeye kelimesi kelimesine değil, “adı ... olmak” diye çevrilir.',irr:'Düzensizlik yoktur. “Llamar” düzenli çekilir; yalnızca özneye uygun dönüşlü zamir eklenir.'},
+  'lavarse':{en:'to wash oneself',why:'Yıkama eylemini yapan kişi ile yıkanan kişi aynı olduğu için dönüşlü yapı kullanılır.',irr:'Düzensizlik yoktur. “Lavar” düzenli bir -ar fiilidir.'},
+  'cepillarse':{en:'to brush oneself / one’s teeth',why:'Özne kendi dişini veya saçını fırçaladığı için eylem yine öznenin kendisine yönelir.',irr:'Düzensizlik yoktur. “Cepillar” düzenli bir -ar fiilidir.'},
+  'bañarse':{en:'to bathe / to take a bath',why:'Yıkanma eylemi öznenin kendi bedeni üzerinde gerçekleştiği için dönüşlü zamir gerekir.',irr:'Düzensizlik yoktur. “Bañar” düzenli bir -ar fiilidir; “ñ” harfi her çekimde korunur.'},
+  'peinarse':{en:'to comb one’s hair',why:'Özne kendi saçını taradığı için eylemi yapan ve eylemden etkilenen aynı kişidir.',irr:'Düzensizlik yoktur. “Peinar” düzenli bir -ar fiilidir.'},
+  'quedarse':{en:'to stay / to remain',why:'“Quedarse”, bir yerde kalmak anlamında kalıplaşmış pronominal kullanımdır. “Quedar” tek başına buluşmak veya uymak gibi başka anlamlara gelebilir.',irr:'Düzensizlik yoktur. “Quedar” düzenli bir -ar fiili gibi çekilir.'},
+  'despertarse':{en:'to wake up',why:'Uyku hâlinden uyanıklık hâline geçen öznenin kendi durumundaki değişimi anlatıldığı için pronominal kullanılır.',irr:'Düzensizdir: Presente’de e → ie kök değişimi olur (despiert-). Nosotros ve vosotros biçimlerinde kök değişmez: despertamos, despertáis.'},
+  'sentarse':{en:'to sit down',why:'Özne kendi bedenini oturma durumuna getirdiği için fiil dönüşlü kullanılır.',irr:'Düzensizdir: Presente’de e → ie kök değişimi olur (sient-). Nosotros ve vosotros biçimlerinde değişim olmaz: sentamos, sentáis.'},
+  'acostarse':{en:'to go to bed / to lie down',why:'Özne kendi bedenini yatma durumuna getirdiği için dönüşlü yapı kullanılır.',irr:'Düzensizdir: Presente’de o → ue kök değişimi olur (acuest-). Nosotros ve vosotros biçimleri değişmez: acostamos, acostáis.'},
+  'vestirse':{en:'to get dressed',why:'Kişi kıyafeti kendi üzerine giydiği için dönüşlü zamir kullanılır.',irr:'Düzensizdir: Presente’de e → i kök değişimi olur (vist-). Nosotros ve vosotros biçimlerinde kök değişmez: vestimos, vestís.'},
+  'enojarse':{en:'to get angry',why:'Öznenin sakin durumdan öfkeli duruma geçmesini, yani kendi durum değişimini anlattığı için pronominaldir.',irr:'Düzensizlik yoktur. “Enojar” düzenli bir -ar fiilidir.'},
+  'prepararse':{en:'to get ready / to prepare oneself',why:'Özne kendisini bir sınava, yolculuğa veya etkinliğe hazırladığı için dönüşlü kullanılır.',irr:'Düzensizlik yoktur. “Preparar” düzenli bir -ar fiilidir.'},
+  'ponerse':{en:'to put on / to become',why:'Kişi kıyafeti, parfümü veya başka bir şeyi kendi üzerine uyguladığı için “ponerse” kullanılır. “Poner” yalnızca bir şeyi bir yere koymak demektir.',irr:'Düzensizdir: yo biçimi “pongo” olur; bu nedenle “me pongo” denir. Diğer kişilerde pongo dışındaki düzenli kök kullanılır: te pones, se pone, nos ponemos.'},
+  'maquillarse':{en:'to put on makeup',why:'Makyajı yapan ve makyajın uygulandığı kişi aynı olduğu için fiil dönüşlüdür.',irr:'Düzensizlik yoktur. “Maquillar” düzenli bir -ar fiilidir.'},
+  'acordarse':{en:'to remember',why:'“Acordarse de”, “bir şeyi hatırlamak” anlamındaki kalıplaşmış pronominal yapıdır ve ardından “de” gelir.',irr:'Düzensizdir: Presente’de o → ue kök değişimi olur (acuerd-). Nosotros ve vosotros biçimleri değişmez: acordamos, acordáis.'},
+  'limpiarse':{en:'to clean oneself',why:'Temizleme eylemini yapan ile temizlenen aynı özne olduğu için dönüşlü zamir kullanılır.',irr:'Düzensizlik yoktur. “Limpiar” düzenli bir -ar fiilidir.'},
+  'mirarse':{en:'to look at oneself',why:'Özne aynada veya doğrudan kendi bedenine baktığı için eylem öznenin kendisine yönelir.',irr:'Düzensizlik yoktur. “Mirar” düzenli bir -ar fiilidir.'},
+  'quitarse':{en:'to take off',why:'Kişi kendi üzerindeki bir kıyafeti veya eşyayı çıkardığı için dönüşlü yapı kullanılır.',irr:'Düzensizlik yoktur. “Quitar” düzenli bir -ar fiilidir.'},
+  'divertirse':{en:'to have fun / to enjoy oneself',why:'“Divertirse”, kişinin eğlenme durumunu anlatan kalıplaşmış pronominal fiildir.',irr:'Düzensizdir: Presente’de e → ie değişimi olur (diviert-). Nosotros ve vosotros biçimlerinde kök değişmez: divertimos, divertís.'},
+  'sentirse':{en:'to feel',why:'Kişinin kendi fiziksel veya duygusal durumunu ifade ettiği kalıplaşmış pronominal fiildir.',irr:'Düzensizdir: Presente’de e → ie değişimi olur (sient-). Nosotros ve vosotros biçimleri değişmez: sentimos, sentís.'},
+  'despedirse':{en:'to say goodbye',why:'“Despedirse de”, birinden vedalaşarak ayrılmayı anlatan kalıplaşmış pronominal yapıdır ve ardından “de” gelir.',irr:'Düzensizdir: Presente’de e → i değişimi olur (despid-). Nosotros ve vosotros biçimleri değişmez: despedimos, despedís.'},
+  'reírse':{en:'to laugh',why:'“Reírse”, gülme eylemini pronominal biçimde ifade eder; “reírse de” bir şeye/birine gülmek anlamında kullanılır.',irr:'Düzensizdir. Çekimlerde vurgu ve yazım değişir: me río, te ríes, se ríe, nos reímos, os reís, se ríen. Tildeler anlam ve doğru telaffuz için zorunludur.'},
+  'dormirse':{en:'to fall asleep',why:'“Dormir” uyumak, “dormirse” ise uykuya dalmak/uyuyakalmak demektir; öznenin durum değişimini gösterir.',irr:'Düzensizdir: Presente’de o → ue değişimi olur (duerm-). Nosotros ve vosotros biçimleri değişmez: dormimos, dormís.'},
+  'pintarse':{en:'to paint one’s nails / to apply colour to oneself',why:'Özne kendi tırnağını, yüzünü veya bedeninin bir bölümünü boyadığı için dönüşlüdür.',irr:'Düzensizlik yoktur. “Pintar” düzenli bir -ar fiilidir.'},
+  'mancharse':{en:'to get stained / to stain oneself',why:'Lekenin öznenin kendi kıyafetinde veya bedeninde oluştuğunu anlattığı için dönüşlü kullanılır.',irr:'Düzensizlik yoktur. “Manchar” düzenli bir -ar fiilidir.'},
+  'quejarse':{en:'to complain',why:'“Quejarse de”, bir şeyden şikâyet etmek anlamında zorunlu olarak pronominal kullanılan kalıptır ve ardından “de” gelir.',irr:'Düzensizlik yoktur. “Quejar” düzenli bir -ar fiili gibi çekilir.'},
+  'irse':{en:'to leave / to go away',why:'“Ir” gitmek, “irse” ise bir yerden ayrılmak/çekip gitmek demektir. Buradaki “se” anlamı değiştirir; yapı kelimesi kelimesine dönüşlü çevrilmez.',irr:'Çok düzensizdir: me voy, te vas, se va, nos vamos, os vais, se van biçimleri kullanılır.'},
+  'preocuparse':{en:'to worry',why:'“Preocuparse por”, bir kişi veya konu için endişelenmek anlamındaki kalıplaşmış pronominal yapıdır ve ardından “por” gelir.',irr:'Düzensizlik yoktur. “Preocupar” düzenli bir -ar fiilidir.'},
+  'mojarse':{en:'to get wet',why:'Öznenin kuru durumdan ıslak duruma geçmesini anlattığı için dönüşlü/pronominal kullanılır.',irr:'Düzensizlik yoktur. “Mojar” düzenli bir -ar fiilidir.'}
+};
+
+var PRONOUN_INFO={
+  'me':'“me” zamiri “yo” öznesiyle kullanılır.',
+  'te':'“te” zamiri “tú” öznesiyle kullanılır.',
+  'nos':'“nos” zamiri “nosotros/nosotras” öznesiyle kullanılır.',
+  'os':'“os” zamiri “vosotros/vosotras” öznesiyle kullanılır.',
+  'se':'“se” zamiri üçüncü kişi ve resmî hitap özneleriyle kullanılır: él/ella/usted veya ellos/ellas/ustedes. Fiilin sonu, öznenin tekil mi çoğul mu olduğunu gösterir.'
+};
+
+var VIDEO_GRAMMAR=[
+  'Dönüşlü fiil: despertarse. “Se despierta” üçüncü tekil kişidir; öğretmen kendi uyku durumundan uyanıklığa geçtiği için pronominal kullanılır. Düzensizlik: e → ie (despierta). (English: she wakes up)',
+  'Dönüşlü fiil: quedarse. “Se queda” üçüncü tekil kişidir ve bir yerde/durumda kalmayı anlatan kalıplaşmış pronominal yapıdır. Düzensizlik yoktur. (English: she stays)',
+  'Dönüşlü fiil: lavarse. Öğretmen kendi yüzünü yıkadığı için “se lava” kullanılır. Düzensizlik yoktur; lavar düzenli bir -ar fiilidir. (English: she washes her face)',
+  'Dönüşlü fiil: lavarse. Yıkama eylemi öznenin kendi saçı üzerinde gerçekleştiği için dönüşlüdür: se lava el pelo. Düzensizlik yoktur. (English: she washes her hair)',
+  'Dönüşlü fiil: peinarse. Kişi kendi saçını taradığı için “se peina” denir. Düzensizlik yoktur. (English: she combs her hair)',
+  'Dönüşlü fiil: ponerse. Kıyafeti kendi üzerine giydiği için “me pongo” kullanılır. Düzensizlik vardır: poner fiilinin yo biçimi pongo olur. (English: I put on)',
+  'Dönüşlü fiil: ponerse. Parfüm kişinin kendi üzerine uygulandığı için “me pongo perfume” denir. Düzensizlik vardır: yo → pongo. (English: I put on some perfume)',
+  'Dönüşlü kullanım: prepararse. “Me preparo un café” burada “kendime kahve hazırlıyorum” anlamı verir; eylemin sonucu öznenin yararınadır. Düzensizlik yoktur. (English: I prepare myself a coffee)',
+  'Dönüşlü fiil: tumbarse. Kedi kendi bedenini uzanma durumuna getirdiği için “se tumba” kullanılır. Düzensizlik yoktur. (English: it lies down)',
+  'Pronominal fiil: concentrarse en. Kişinin dikkatini bir konuya yöneltmesini anlatır ve “en” ile kullanılır: me concentro en mis planes. Düzensizlik yoktur. (English: I focus on)',
+  'Pronominal fiil: irse. “Ir” gitmek, “irse” ayrılmak/çekip gitmek demektir. Düzensiz çekilir: se va. (English: she leaves)',
+  'Pronominal fiil: sentirse. Kişinin kendi ruhsal/fiziksel durumunu anlatır: me siento bien. Düzensizlik vardır: e → ie (siento). (English: I feel good)',
+  'Pronominal fiil: divertirse. Birlikte eğlenme durumunu anlatır: nos divertimos. Düzensiz fiildir; fakat nosotros biçiminde e → ie değişimi yapılmaz. (English: we have fun)',
+  'Pronominal fiil: enfadarse. Sakin durumdan öfkeli duruma geçişi anlatır: me enfado. Düzensizlik yoktur. (English: I get angry)',
+  'Bu sorunun hedef yapısı “hay”dır; dönüşlü fiil kullanılmaz. “No hay” = yoktur. Burada “se” zamirine ihtiyaç yoktur çünkü öznenin kendisine dönen bir eylem bulunmaz. (English: there is no traffic)',
+  'Dönüşlü fiil: quitarse. Kişi kendi üzerindeki ayakkabıları çıkardığı için “me quito” kullanılır. Düzensizlik yoktur. (English: I take off my shoes)',
+  'Dönüşlü fiil: ponerse. Pijamayı kendi üzerine giydiği için “se pone” kullanılır. Fiil yo biçiminde pongo olur; bu cümlede üçüncü tekil olduğu için pone kullanılmıştır. (English: she puts on her pyjamas)',
+  'Pronominal kalıp: ponerse a + infinitivo = bir şey yapmaya başlamak. “Se pone a leer” okumaya başlar demektir. Poner fiili yo biçiminde düzensizdir; burada üçüncü tekil “pone” kullanılır. (English: she starts reading)',
+  '“Se me cierran los ojos” gerçek bir dönüşlülükten çok istem dışı gerçekleşen durumu anlatır: gözlerim kendiliğinden kapanıyor. Fiil çoğul “los ojos” ile uyumlu olarak “cierran” olur; cerrar fiilinde e → ie değişimi vardır. (English: my eyes close)',
+  'Pronominal fiil: dormirse. “Dormir” uyumak, “dormirse” uykuya dalmak demektir. Düzensizlik vardır: o → ue, bu yüzden “se duerme” denir. (English: she falls asleep)'
+];
+
+function enhanceReflexiveExplanations(){
+  for(var i=0;i<50;i++){
+    var infinitive=(Q[i].q.match(/\(([^)]+)\)/)||[])[1];
+    var info=REFLEXIVE_INFO[infinitive];
+    var correct=Q[i].o[Q[i].a];
+    var pronoun=correct.split(/\s+/)[0];
+    var translation=(Q[i].exp.match(/Çeviri:\s*([^\n]+)/i)||[])[1]||'';
+    translation=translation.replace('BüyüKbaba','Büyükbaba');
+    Q[i].exp='Doğru cevap: '+correct+'.\nTürkçe anlamı: '+translation+'\n\nDÖNÜŞLÜ FİİL ANALİZİ\n• Mastar: '+infinitive+' ('+info.en+')\n• Neden dönüşlü/pronominal? '+info.why+'\n• Zamir seçimi: '+PRONOUN_INFO[pronoun]+' Bu nedenle doğru zamir “'+pronoun+'” olmalıdır.\n• Düzensizlik: '+info.irr+'\n\nKural: Dönüşlü zamir fiilden ayrı ve çekimli fiilin hemen önünde yazılır: '+correct+'.';
+  }
+  for(var j=50;j<70;j++){
+    Q[j].exp+='\n\nDÖNÜŞLÜ FİİL ANALİZİ\n'+VIDEO_GRAMMAR[j-50];
+  }
+}
+enhanceReflexiveExplanations();
+
 var state={cur:0,answered:[],scores:[],okCount:0,errCount:0};
 
 function startQuiz(){
@@ -267,6 +363,7 @@ function startQuiz(){
   if(!n){alert('Lütfen adınızı seçin.');return;}
   document.getElementById('resName').value=n;
   document.getElementById('resName2').value=n;
+  document.getElementById('quizStudentName').textContent=n;
   document.getElementById('introScreen').style.display='none';
   document.getElementById('quizScreen').style.display='block';
   renderQ();
