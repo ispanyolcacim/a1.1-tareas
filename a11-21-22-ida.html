@@ -6,8 +6,8 @@
 <title>H6 – 21-22.Ders | A1.1 Ödevi</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
-.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0eef8;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:1rem}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(100,80,160,.15);max-width:720px;width:100%;padding:2rem;margin:auto 0}
 .screen{display:none}.screen.active{display:block}
 .week-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem}
 .intro-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem}
@@ -38,6 +38,11 @@ select{width:100%;padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;colo
 select:focus{border-color:#6c4eb8}
 .btn-start{width:100%;padding:.85rem;background:#6c4eb8;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-start:hover{background:#5a3ea0}
+.quiz-topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:#fff;margin:-2rem -2rem 1rem;padding:1rem 2rem .85rem;border-bottom:2px solid #e8e0f8;border-radius:16px 16px 0 0;box-shadow:0 5px 14px rgba(76,54,130,.09)}
+.quiz-student{min-width:0;color:#777;font-size:.72rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.quiz-student strong{display:block;color:#3d2a7a;font-size:.92rem;letter-spacing:0;text-transform:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.12rem}
+.btn-finish-top{flex:0 0 auto;background:#e05c5c;color:#fff;border:none;border-radius:8px;padding:.62rem .9rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:inherit}
+.btn-finish-top:hover{background:#c94747}
 .prog-bar{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:1rem;overflow:hidden}
 .prog-fill{height:100%;background:#6c4eb8;transition:width .3s;border-radius:3px}
 .q-meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#888;margin-bottom:.75rem}
@@ -62,7 +67,6 @@ select:focus{border-color:#6c4eb8}
 .btn-back{background:#e8e0f8;color:#6c4eb8}
 .btn-skip{background:#e8e0f8;color:#6c4eb8}
 .btn-next{background:#6c4eb8;color:#fff}
-.btn-finish{background:#e05c5c;color:#fff}
 .nav button:disabled{opacity:.4;cursor:not-allowed}
 .res-pill{display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:.75rem}
 .res-title{font-size:1.1rem;font-weight:800;color:#3d2a7a;margin-bottom:.5rem;text-align:center}
@@ -70,6 +74,8 @@ select:focus{border-color:#6c4eb8}
 .res-stats{display:flex;gap:1rem;justify-content:center;margin-bottom:.75rem}
 .res-stat{padding:.4rem 1rem;border-radius:8px;font-weight:600;font-size:.9rem}
 .res-note{text-align:center;color:#888;font-size:.82rem;margin-bottom:1.25rem}
+.course-reminder{background:linear-gradient(135deg,#f8f5ff,#fff8e8);border:2px solid #d7c8f5;border-radius:12px;padding:1rem 1.15rem;margin:0 0 1.15rem;color:#4b3d68;line-height:1.7;font-size:.86rem}
+.course-reminder-title{font-size:.95rem;font-weight:800;color:#4a2f9a;margin-bottom:.35rem}
 .submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
 .submit-warning-title{font-size:1.1rem;font-weight:800;color:#856404;margin-bottom:.3rem}
 .submit-warning-sub{font-size:.85rem;color:#856404}
@@ -91,7 +97,7 @@ select:focus{border-color:#6c4eb8}
 .confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-cancel{background:#e8e0f8;color:#6c4eb8}
 .btn-ok{background:#e05c5c;color:#fff}
-@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
+@media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}.quiz-topbar{margin:-1.25rem -1.25rem .9rem;padding:.85rem 1.25rem .75rem}.btn-finish-top{padding:.58rem .7rem;font-size:.76rem}}
 </style>
 </head>
 <body>
@@ -150,22 +156,26 @@ Anne + Baba = Los padres.</div>
 
     <select id="introName">
       <option value="">-- Adınızı Seçin --</option>
-      <option>Arman Aykac</option>
-      <option>Arzu Bayram</option>
+      <option>Ali Ceylan</option>
+      <option>Beyza Nur Yuksel</option>
       <option>Aysen Gurkan</option>
-      <option>Ceren Orucu</option>
-      <option>Ozgur Guzey</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option>
+      <option>Defne Ozer</option>
+      <option>Defne Sonmez</option>
+      <option>Ece Utkan</option>
+      <option>Melisa Tuncer</option>
+      <option>Sude Selen Ulker</option>
+      <option>Sule Soylemez Gul</option>
+      <option>Yelda Yilmaz</option>
     </select>
     <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
   </div>
 
   <!-- QUIZ -->
   <div id="quizScreen" class="screen">
+    <div class="quiz-topbar">
+      <div class="quiz-student">Öğrenci<strong id="quizStudentName">—</strong></div>
+      <button class="btn-finish-top" onclick="confirmFinish()">Testi Bitir</button>
+    </div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">
       <span id="qMeta">Soru 1 / 100</span>
@@ -177,7 +187,6 @@ Anne + Baba = Los padres.</div>
       <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
       <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
       <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
-      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
     </div>
   </div>
 
@@ -194,22 +203,26 @@ Anne + Baba = Los padres.</div>
       <span class="res-stat" style="background:#fde8e8;color:#d94040" id="resErr"></span>
     </div>
     <div class="res-note" id="resNote"></div>
+    <div class="course-reminder">
+      <div class="course-reminder-title">🌟 6. Hafta Hatırlatması</div>
+      Bu kurda 6. haftanın içindeyiz ve önümüzde yalnızca son 2 haftalık sürecimiz kaldı. ⏳ Kurumuzu eksiksiz ve güçlü bir şekilde tamamlayabilmek için lütfen varsa eksik ödevlerinizi mümkün olan en kısa sürede bitirip teslim edin. 📚💪 Düzenli tekrar ve zamanında yapılan her ödev, öğrendiklerimizin kalıcı olmasına yardımcı olur. Son iki haftayı hep birlikte en verimli şekilde değerlendirelim! ✨🇪🇸
+    </div>
     <div class="submit-warning" id="submitWarning">
       <div class="submit-warning-title">ÖDEVİNİZİ TESLİM ETMEDİNİZ</div>
       <div class="submit-warning-sub">Lütfen aşağıdaki listeden adınızı seçip gönderin.</div>
     </div>
     <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
       <option value="">-- Adınızı Seçin --</option>
-      <option>Arman Aykac</option>
-      <option>Arzu Bayram</option>
+      <option>Ali Ceylan</option>
+      <option>Beyza Nur Yuksel</option>
       <option>Aysen Gurkan</option>
-      <option>Ceren Orucu</option>
-      <option>Ozgur Guzey</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option>
+      <option>Defne Ozer</option>
+      <option>Defne Sonmez</option>
+      <option>Ece Utkan</option>
+      <option>Melisa Tuncer</option>
+      <option>Sude Selen Ulker</option>
+      <option>Sule Soylemez Gul</option>
+      <option>Yelda Yilmaz</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
     <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
@@ -286,23 +299,23 @@ Anne + Baba = Los padres.</div>
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
 var ODEV_ADI='H6 \u2013 21-22.Ders';
 var GROUPS={
-'Arman Aykac':'A1.1',
-'Arzu Bayram':'A1.1',
+'Ali Ceylan':'A1.1',
+'Beyza Nur Yuksel':'A1.1',
 'Aysen Gurkan':'A1.1',
-'Ceren Orucu':'A1.1',
-'Ozgur Guzey':'A1.1',
-'Rabia Nur Tok':'A1.1',
-'Selva Akyuz':'A1.1',
-'Sena Yamak':'A1.1',
-'Suleyman Bektas':'A1.1',
-'Taner Bastar':'A1.1'
+'Defne Ozer':'A1.1',
+'Defne Sonmez':'A1.1',
+'Ece Utkan':'A1.1',
+'Melisa Tuncer':'A1.1',
+'Sude Selen Ulker':'A1.1',
+'Sule Soylemez Gul':'A1.1',
+'Yelda Yilmaz':'A1.1'
 };
 
 var Q=[
 {q:'1\n__________ libro',a:'el',exp:'Açıklama: İspanyolcada genellikle -o harfi ile biten isimler erildir (masculino) ve "el" artikeli alır.'},
 {q:'2\n__________ televisión',a:'la',exp:'Açıklama: -sión ekiyle biten bütün kelimeler istisnasız dişildir (femenino) ve "la" artikeli alır.'},
 {q:'3\n__________ mesa',a:'la',exp:'Açıklama: Genellikle -a harfi ile biten isimler dişildir (femenino) ve "la" artikeli alır.'},
-{q:'4\n__________ mano',a:'la',exp:'Açıklama: Bu bir istisnadır. Kelime -o ile bitmesine rağmen dişildir. (La mano: El)'},
+{q:'4\n__________ mano',a:'la',exp:'Açıklama: Bu bir istisnadır. Kelime -o ile bitmesine rağmen dişildir ve "la" artikeliyle kullanılır.'},
 {q:'5\n__________ día',a:'el',exp:'Açıklama: Bu bir istisnadır. Kelime -a ile bitmesine rağmen erildir. (El día: Gün)'},
 {q:'6\n__________ canción',a:'la',exp:'Açıklama: -ción ekiyle biten bütün kelimeler dişildir (femenino) ve "la" artikeli alır.'},
 {q:'7\n__________ mapa',a:'el',exp:'Açıklama: İstisna bir kelimedir. Sonu -a ile bittiği halde eril kabul edilir ve "el" artikeli ile kullanılır.'},
@@ -401,6 +414,54 @@ var Q=[
 {q:'100\nAşağıdaki cümleyi İspanyolcaya tildelere ve ñ harfine dikkat ederek çeviriniz.\nSınıfta büyük bir harita var. ___________',a:'Hay un mapa grande en la clase.',exp:'Cevap: Hay un mapa grande en la clase.'}
 ];
 
+/* Her sorunun yönergesini ve öğretici açıklamasını A1.1 düzeyinde netleştirir. */
+var ARTICLE_EN=[
+  'the book','the television','the table','the hand','the day','the song','the map','the university','Monday','the photo',
+  'the problem','freedom','the umbrella','the motorbike','the language','the flower','the colour','milk','the car','the radio',
+  'the sofa','the city','the programme','the room','the light','the birthday','the butterfly','the bull','the class','the pencil'
+];
+var PLURAL_EN=[
+  'the house → the houses','the clock → the clocks','the car → the cars','the teacher → the teachers','the city → the cities',
+  'the postcard → the postcards','the room → the rooms','the month → the months','the country → the countries','the bus → the buses',
+  'Monday → Mondays','the umbrella → the umbrellas','the actress → the actresses','the television → the televisions','the boy → the boys',
+  'the pencil → the pencils','the light → the lights','the colour → the colours','the hotel → the hotels','Tuesday → Tuesdays',
+  'the song → the songs','the French person → the French people','the class → the classes','the fish → the fish','the pair of trousers → the pairs of trousers',
+  'the university → the universities','the exam → the exams','the father + the mother → the parents','the son + the daughter → the children','the grandfather + the grandmother → the grandparents'
+];
+var HAY_EN=[
+  'There is a sofa in the living room.','There is no bread in the kitchen.','There are three books on the table.','Is there milk in the fridge?','There are many trees in the garden.',
+  'There is a large mirror in the bedroom.','There is nobody at home.','There are clean towels in the bathroom.','There are flowers in front of the window.','There is an old radio on the shelf.',
+  'There is a small supermarket on the corner.','There is a playground in the park.','There is no pharmacy in the neighbourhood.','There are many cars on our street.','Is there a bakery near here?',
+  'There is a large library next to the school.','There is a very nice café in the neighbourhood.','There is an ATM in front of the bank.','There are no trees on this avenue.','There are many people in front of the gym.',
+  'There is a very famous museum in the city.','There are many fishermen on the coast.','There is an old theatre in the centre.','There is no underground system in this city.','There is a historic statue in the square.',
+  'There is a lot of noise in the city.','There is a little snow in the mountains.','There are huge ships in the port.','There are few parks in the city.','There is a large cinema in the shopping centre.',
+  'There is a pen on the table.','There is a lot of noise in the street.','There is no money in my bag.','There are two large windows in the office.','There is a modern lamp on the corner.',
+  'There is a lot of traffic on the roads today.','There is no juice in the fridge.','There is a beautiful clock on the wall.','There is a huge stadium in the city.','There is a large map in the classroom.'
+];
+
+function enhanceQuestions(){
+  for(var i=0;i<30;i++){
+    var lines=Q[i].q.split('\n');
+    var word=lines[lines.length-1].replace(/^_+\s*/, '').trim();
+    Q[i].q=(i+1)+'\nAşağıdaki tekil ismin önüne uygun BELİRLİ ARTİKELİ yazınız.\nYalnızca “el” veya “la” yazınız; “un/una” yazmayınız.\n\n__________ '+word;
+    Q[i].exp+='\n\nBu soruda istenen yapı BELİRLİ ARTİKELDİR: “el” (eril) veya “la” (dişil). “Un/una” belirsiz artikeldir ve Türkçede “bir”, İngilizcede “a/an” anlamı verir; bu soruda kabul edilmez. Doğru kullanım: '+Q[i].a+' '+word+'. (English: '+ARTICLE_EN[i]+')';
+  }
+  for(var j=30;j<60;j++){
+    Q[j].exp+='\n\nAdım adım: Önce artikel tekilden çoğula çevrilir (el → los, la → las). Ardından isim, kendi çoğul kuralına göre değiştirilir. Artikel ile isim sayı bakımından mutlaka uyumlu olmalıdır. Bu nedenle yalnızca ismi çoğul yapmak yeterli değildir; iki kelime birlikte yazılmalıdır.\nDoğru tam ifade: '+Q[j].a+'. (English: '+PLURAL_EN[j-30]+')';
+  }
+  for(var k=60;k<100;k++){
+    var ans=Q[k].a;
+    var sentenceType='Olumlu cümlede “hay”, var olan kişi veya nesneyi tanıtır.';
+    if(/^No hay/i.test(ans))sentenceType='Olumsuz cümlede “no”, “hay” sözcüğünden önce gelir: no hay = yok / there is not–there are not.';
+    if(/^¿Hay/i.test(ans))sentenceType='Soru cümlesinde “hay” değişmez; cümlenin başına ve sonuna soru işaretleri getirilir: ¿Hay...? = Var mı? / Is there–Are there...?';
+    var nounNote='“Hay” hem tekil hem çoğul isimlerle aynı biçimde kullanılır; “es/son” gibi değişmez.';
+    if(/^(Hay|¿Hay) (un|una)\b/i.test(ans))nounNote+=' Tek bir sayılabilir varlık ilk kez tanıtıldığı için belirsiz artikel “un/una” kullanılır.';
+    if(/^(Hay|¿Hay) (dos|tres|muchos|muchas|pocos|pocas)\b/i.test(ans))nounNote+=' Sayı veya miktar sözcüğü zaten ismi belirttiği için önüne ayrıca “un/una” getirilmez.';
+    Q[k].exp='Doğru cevap: '+ans+'\n\nYapı: HAY + isim/isim grubu + yer ifadesi. “Hay”, Türkçedeki “var/yok” yapısının; İngilizcedeki “there is/there are” yapısının karşılığıdır. '+sentenceType+' '+nounNote+' Yer bildiren bölüm genellikle cümlenin sonunda kullanılır. İsimle birlikte kullanılan artikel ve sıfatlar cinsiyet ve sayı bakımından uyumlu olmalıdır.\n\nİngilizce karşılığı: '+HAY_EN[k-60];
+  }
+}
+enhanceQuestions();
+
 var state={cur:0,answered:[],scores:[],okCount:0,errCount:0,checked:[]};
 
 function startQuiz(){
@@ -408,6 +469,7 @@ function startQuiz(){
   if(!n){alert('Lütfen adınızı seçin.');return;}
   document.getElementById('resName').value=n;
   document.getElementById('resName2').value=n;
+  document.getElementById('quizStudentName').textContent=n;
   document.getElementById('introScreen').style.display='none';
   document.getElementById('quizScreen').style.display='block';
   renderQ();
@@ -458,7 +520,8 @@ function renderQ(){
   var cls='fill-input'+(done?(state.scores[i]?' correct':' wrong'):'');
 
   var html='';
-  html+='<span class="q-badge">BOŞLUK DOLDURMA</span>';
+  var badge=i<30?'BELİRLİ ARTİKEL: EL / LA':(i<60?'ÇOĞUL YAPI':'HAY İLE ÇEVİRİ');
+  html+='<span class="q-badge">'+badge+'</span>';
   html+='<div class="q-text">'+esc(q.q)+'</div>';
   html+='<div class="fill-wrap">';
   html+='<input type="text" class="'+cls+'" id="fillInput" value="'+esc(userAns)+'" '+(done?'disabled':'')+' placeholder="Cevabınızı yazın..." oninput="onFillInput()" />';
