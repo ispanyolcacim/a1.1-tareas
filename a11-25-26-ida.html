@@ -67,6 +67,14 @@ select:focus{border-color:#6c4eb8}
 .confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-cancel{background:#e8e0f8;color:#6c4eb8}
 .btn-ok{background:#e05c5c;color:#fff}
+
+.intro-warning{background:#f8f5ff;border:1.5px solid #d0c8f0;border-radius:12px;padding:1rem 1.1rem;margin:0 0 1.25rem;color:#4d3b78;font-size:.88rem;line-height:1.7}
+.intro-warning strong{color:#3d2a7a}
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;padding:.75rem .85rem;background:#f8f5ff;border:1px solid #e0d8f8;border-radius:12px}
+.quiz-student{font-size:.84rem;font-weight:700;color:#3d2a7a}
+.btn-finish-top{padding:.65rem 1rem;background:#e05c5c;color:#fff;border:none;border-radius:9px;font-size:.88rem;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(224,92,92,.18)}
+.btn-finish-top:hover{background:#c94d4d}
+.quiz-mini-title{font-size:.78rem;color:#9b7de0;font-weight:700;margin-top:.15rem}
 @media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
 </style>
 </head>
@@ -76,28 +84,40 @@ select:focus{border-color:#6c4eb8}
   <!-- INTRO -->
   <div id="introScreen" class="screen active">
     <div class="week-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (25-26. DERS)</div>
-    <div class="intro-title">VERBOS REFLEXIVOS – DÖNÜŞLÜ FİİLLER</div>
-    <div class="intro-sub">50 soru · Çoktan Seçmeli · Her soru 2 puan</div>
-    <div class="intro-teacher">@ispanyolcacim · Profe Hazel</div>
+    <div class="intro-title">🪞 VERBOS REFLEXIVOS – DÖNÜŞLÜ FİİLLER</div>
+    <div class="intro-sub">📝 50 soru · 🎯 Çoktan Seçmeli · ⭐ Her soru 2 puan</div>
+    <div class="intro-teacher">💜 @ispanyolcacim · 👩🏻‍🏫 Profe Hazel</div>
+    <div class="intro-warning">
+      <strong>📢 7. HAFTADAYIZ!</strong><br>
+      Önümüzdeki hafta bu dönemin <strong>son haftası</strong>. 🌟 Lütfen önceki haftalardan kalan eksik ödevlerinizi tamamlayın, genel konu tekrarlarınızı yapın ve anlamadığınız noktaları yeniden gözden geçirin. 📚✨<br>
+      <strong>Unutmayın:</strong> Düzenli tekrar + eksiksiz ödev = daha güçlü bir İspanyolca temeli. 💪🇪🇸
+    </div>
     <select id="introName">
       <option value="">-- Adınızı Seçin --</option>
       
-      <option>Arman Aykac</option>
-      <option>Arzu Bayram</option>
+      <option>Ali Ceylan</option>
+      <option>Beyza Nur Yuksel</option>
       <option>Aysen Gurkan</option>
-      <option>Ceren Orucu</option>
-      <option>Ozgur Guzey</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option>
+      <option>Defne Ozer</option>
+      <option>Defne Sonmez</option>
+      <option>Ece Utkan</option>
+      <option>Melisa Tuncer</option>
+      <option>Sude Selen Ulker</option>
+      <option>Sule Soylemez Gul</option>
+      <option>Yelda Yilmaz</option>
     </select>
-    <button class="btn-start" onclick="startQuiz()">Teste Başla</button>
+    <button class="btn-start" onclick="startQuiz()">🚀 Teste Başla</button>
   </div>
 
   <!-- QUIZ -->
   <div id="quizScreen" class="screen">
+    <div class="quiz-top">
+      <div>
+        <div class="quiz-student">👤 <span id="quizStudentName"></span></div>
+        <div class="quiz-mini-title">🪞 Verbos Reflexivos · 7. Hafta</div>
+      </div>
+      <button class="btn-finish-top" onclick="confirmFinish()">🏁 Testi Bitir</button>
+    </div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">
       <span id="qMeta">Soru 1 / 50</span>
@@ -105,10 +125,8 @@ select:focus{border-color:#6c4eb8}
     </div>
     <div id="qCard"></div>
     <div class="nav">
-      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>Geri</button>
-      <button class="btn-skip" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
-      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri</button>
-      <button class="btn-finish" onclick="confirmFinish()">Testi Bitir</button>
+      <button class="btn-back" id="btnBack" onclick="goBack()" disabled>⬅️ Geri</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()" disabled>İleri ➡️</button>
     </div>
   </div>
 
@@ -118,7 +136,7 @@ select:focus{border-color:#6c4eb8}
     <div style="text-align:center">
       <div class="res-pill">7. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (25-26. DERS)</div>
     </div>
-    <div class="res-title">VERBOS REFLEXIVOS – DÖNÜŞLÜ FİİLLER</div>
+    <div class="res-title">🎉 VERBOS REFLEXIVOS – DÖNÜŞLÜ FİİLLER</div>
     <div class="res-score"><span id="resScore">0</span>/100</div>
     <div class="res-stats">
       <span class="res-stat" style="background:#e6f9f0;color:#2e9e6b" id="resOk"></span>
@@ -132,20 +150,20 @@ select:focus{border-color:#6c4eb8}
     <select id="resName2" onchange="syncResName()" style="margin-bottom:1rem">
       <option value="">-- Adınızı Seçin --</option>
       
-      <option>Arman Aykac</option>
-      <option>Arzu Bayram</option>
+      <option>Ali Ceylan</option>
+      <option>Beyza Nur Yuksel</option>
       <option>Aysen Gurkan</option>
-      <option>Ceren Orucu</option>
-      <option>Ozgur Guzey</option>
-      <option>Rabia Nur Tok</option>
-      <option>Selva Akyuz</option>
-      <option>Sena Yamak</option>
-      <option>Suleyman Bektas</option>
-      <option>Taner Bastar</option>
+      <option>Defne Ozer</option>
+      <option>Defne Sonmez</option>
+      <option>Ece Utkan</option>
+      <option>Melisa Tuncer</option>
+      <option>Sude Selen Ulker</option>
+      <option>Sule Soylemez Gul</option>
+      <option>Yelda Yilmaz</option>
     </select>
     <div class="submit-msg" id="submitMsg"></div>
-    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">ÖDEVİNİZİ TESLİM EDİN</button>
-    <button class="btn-review" onclick="toggleReview()">Yanlışları Gör</button>
+    <button class="btn-submit" id="btnSubmit" onclick="submitResult()">📩 ÖDEVİNİZİ TESLİM EDİN</button>
+    <button class="btn-review" onclick="toggleReview()">🔎 Yanlışları Gör</button>
     <div class="review-list" id="reviewList"></div>
   </div>
 </div>
@@ -165,16 +183,16 @@ select:focus{border-color:#6c4eb8}
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
 var ODEV_ADI='H7 \u2013 25-26.Ders';
 var GROUPS={
-'Arman Aykac':'A1.1',
-'Arzu Bayram':'A1.1',
+'Ali Ceylan':'A1.1',
+'Beyza Nur Yuksel':'A1.1',
 'Aysen Gurkan':'A1.1',
-'Ceren Orucu':'A1.1',
-'Ozgur Guzey':'A1.1',
-'Rabia Nur Tok':'A1.1',
-'Selva Akyuz':'A1.1',
-'Sena Yamak':'A1.1',
-'Suleyman Bektas':'A1.1',
-'Taner Bastar':'A1.1'
+'Defne Ozer':'A1.1',
+'Defne Sonmez':'A1.1',
+'Ece Utkan':'A1.1',
+'Melisa Tuncer':'A1.1',
+'Sude Selen Ulker':'A1.1',
+'Sule Soylemez Gul':'A1.1',
+'Yelda Yilmaz':'A1.1'
 };
 
 var Q=[
@@ -237,6 +255,7 @@ function startQuiz(){
   if(!n){alert('Lütfen adınızı seçin.');return;}
   document.getElementById('resName').value=n;
   document.getElementById('resName2').value=n;
+  document.getElementById('quizStudentName').textContent=n;
   document.getElementById('introScreen').style.display='none';
   document.getElementById('quizScreen').style.display='block';
   renderQ();
@@ -277,7 +296,6 @@ function renderQ(){
   var done=state.answered[i]!==undefined;
   document.getElementById('btnBack').disabled=(i===0||!done);
   document.getElementById('btnNext').disabled=(!done||i===Q.length-1);
-  document.getElementById('btnSkip').disabled=(!done||i>=Q.length-1);
   document.getElementById('qMeta').textContent='Soru '+(i+1)+' / '+Q.length;
   document.getElementById('progFill').style.width=((i+1)/Q.length*100)+'%';
   document.getElementById('cntOk').textContent=state.okCount+' Doğru';
@@ -293,13 +311,12 @@ function checkAns(j){
 }
 function goNext(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
 function goBack(){if(state.cur>0){state.cur--;renderQ();}}
-function skipQ(){if(state.cur<Q.length-1){state.cur++;renderQ();}}
 function confirmFinish(){
   var answered=0;for(var i=0;i<Q.length;i++){if(state.answered[i]!==undefined)answered++;}
   var unanswered=Q.length-answered;
-  var msg='Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
-  if(unanswered>0)msg+='\n\n'+unanswered+' soru cevapsız kalacak (0 puan).';
-  msg+='\n\nTesti bitirmek istediğinize emin misiniz?';
+  var msg='📝 Toplam '+Q.length+' sorudan '+answered+' tanesini cevapladınız.';
+  if(unanswered>0)msg+='\n\n⚠️ '+unanswered+' soru cevapsız kalacak (0 puan).';
+  msg+='\n\n🏁 Testi bitirmek istediğinize emin misiniz?';
   document.getElementById('confirmMsg').textContent=msg;
   document.getElementById('confirmOverlay').style.display='flex';
 }
