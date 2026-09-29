@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A1.1 – H7 25-26. Ders | Dictado</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#6c4eb8;--purple2:#9b7de0;--dark:#3d2a7a;--bg:#f0eef8;--soft:#f8f5ff;--line:#d0c8f0;--green:#2e9e6b;--red:#d94040;--yellow:#ffc107}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);min-height:100vh;padding:1rem;color:#333}
+.wrap{max-width:820px;margin:0 auto;background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(100,80,160,.15);overflow:hidden}
+.hero{padding:1.8rem 2rem 1.4rem;background:linear-gradient(135deg,#fff,#f8f5ff);border-bottom:1px solid #ece6fa}
+.week-pill{display:inline-block;background:var(--purple);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.5px;padding:.35rem .9rem;border-radius:20px;margin-bottom:.85rem}
+h1{font-size:1.45rem;color:var(--dark);margin-bottom:.35rem;line-height:1.25}
+.sub{color:#777;font-size:.88rem;line-height:1.6}.teacher{color:var(--purple2);font-size:.82rem;font-weight:700;margin-top:.25rem}
+main{padding:1.5rem 2rem 2rem}.screen{display:none}.screen.active{display:block}
+.notice{background:#fff7dc;border:1.5px solid #f2cc67;border-radius:13px;padding:1rem 1.1rem;margin-bottom:1.2rem;line-height:1.65;font-size:.9rem;color:#705615}
+.notice strong{color:#5b4300}.section{background:#fff;border:1.5px solid #e4def5;border-radius:14px;padding:1.15rem;margin-bottom:1rem}
+.section-title{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:.5rem}.section p{font-size:.88rem;line-height:1.7;color:#555}
+select,textarea{width:100%;font-family:inherit;border:2px solid var(--line);border-radius:10px;background:#fff;color:#333;outline:none}
+select{padding:.8rem;font-size:.95rem;margin:.7rem 0 1rem}select:focus,textarea:focus{border-color:var(--purple2);box-shadow:0 0 0 3px rgba(108,78,184,.08)}
+.btn{border:none;border-radius:10px;padding:.82rem 1rem;font-family:inherit;font-weight:800;cursor:pointer;transition:.15s}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-main{width:100%;background:var(--purple);color:#fff;font-size:1rem}.btn-main:hover{background:#5a3ea0}.btn-soft{background:#ece7f8;color:var(--purple)}.btn-green{background:var(--green);color:#fff}.btn-red{background:#e05c5c;color:#fff}
+.studentbar{display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap;background:#f8f5ff;border:1px solid #e4def5;border-radius:12px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.86rem}.studentbar strong{color:var(--dark)}
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:.9rem 0}.time-card{border:1.5px solid #dfd7f3;border-radius:12px;padding:1rem;background:#fbfaff}.time{font-size:1.05rem;font-weight:900;color:var(--purple);margin-bottom:.25rem}.time-label{font-weight:800;color:#3f3370;font-size:.9rem}.time-desc{font-size:.8rem!important;margin-top:.3rem;color:#777!important}
+.player-box{border-radius:14px;overflow:hidden;border:1.5px solid #dfd7f3;margin-top:.9rem;background:#faf9fd}.player-box iframe{display:block;width:100%;height:122px;border:0}
+.audio-controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}.audio-controls button{flex:1;min-width:180px}
+.now-playing{margin-top:.65rem;padding:.65rem .8rem;border-radius:9px;background:#f3effb;color:#5d479a;font-size:.82rem;font-weight:700;display:none}
+.rules{display:grid;gap:.5rem;margin-top:.6rem}.rule{display:flex;gap:.55rem;align-items:flex-start;font-size:.86rem;line-height:1.55;color:#555}.rule span:first-child{font-size:1rem}
+#writingArea{display:none;margin-top:1rem}.writing-head{display:flex;justify-content:space-between;align-items:center;gap:.7rem;flex-wrap:wrap;margin-bottom:.65rem}.counter{font-size:.78rem;color:#777;background:#f5f2fb;border-radius:20px;padding:.3rem .7rem}.counter strong{color:var(--purple)}
+textarea{min-height:330px;resize:vertical;padding:1rem;font-size:1rem;line-height:1.85}
+.submit-note{font-size:.8rem;color:#777;line-height:1.55;margin:.65rem 0 1rem}.submit-note strong{color:#555}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:1rem}.confirm-box{background:#fff;border-radius:15px;padding:1.4rem;max-width:430px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25)}.confirm-box h3{color:var(--dark);margin-bottom:.7rem}.confirm-box p{font-size:.88rem;line-height:1.65;color:#555}.confirm-actions{display:flex;gap:.7rem;margin-top:1rem}.confirm-actions button{flex:1}
+.score-circle{width:138px;height:138px;margin:.5rem auto 1rem;border:10px solid #e8e0f8;border-top-color:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column}.score-num{font-size:2.4rem;line-height:1;font-weight:900;color:var(--purple)}.score-den{font-size:.78rem;color:#888;margin-top:.2rem}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:.8rem 0}.status{border-radius:10px;padding:.8rem;font-size:.82rem;font-weight:700;text-align:center;line-height:1.5}.pending{background:#fff3cd;color:#856404}.ok{background:#e6f9f0;color:#1a5c3a}.err{background:#fde8e8;color:#8b1a1a}
+.result-info{text-align:center;font-size:.86rem;line-height:1.6;color:#666;margin-bottom:1rem}.answer-box{background:#f8f5ff;border-left:4px solid var(--purple);border-radius:0 12px 12px 0;padding:1rem 1.1rem;margin-top:1rem}.answer-box h3{font-size:.95rem;color:var(--dark);margin-bottom:.55rem}.answer-text{font-size:.93rem;line-height:1.85;color:#333}.student-copy{background:#fafafa;border:1px solid #e5e5e5;border-radius:10px;padding:.9rem;margin-top:.8rem;white-space:pre-wrap;font-size:.85rem;line-height:1.7;color:#555}.result-reminder{background:#fff7dc;border:1.5px solid #f2cc67;border-radius:12px;padding:1rem;margin-top:1rem;font-size:.84rem;line-height:1.65;color:#705615}
+.small{font-size:.78rem;color:#888;line-height:1.55}.hidden{display:none!important}
+@media(max-width:620px){.hero,main{padding-left:1.1rem;padding-right:1.1rem}.timeline,.status-grid{grid-template-columns:1fr}.audio-controls button{min-width:100%}textarea{min-height:300px}h1{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="week-pill">7. HAFTA &nbsp;|&nbsp; A1.1 (25-26. DERS) &nbsp;|&nbsp; DİKTE</div>
+    <h1>🎧✍️ Dictado — Verbos Reflexivos & Rutinas</h1>
+    <div class="sub">Dinleme · Dikte · Otomatik değerlendirme · 100 puan</div>
+    <div class="teacher">@ispanyolcacim · Profe Hazel</div>
+  </header>
+
+  <main>
+    <!-- INTRO -->
+    <section id="introScreen" class="screen active">
+      <div class="notice">
+        <strong>📢 7. haftadayız!</strong><br>
+        Önümüzdeki hafta bu dönemin <strong>son haftası</strong>. 🌟 Lütfen önceki haftalardan eksik kalan ödevlerinizi tamamlayın ve öğrendiğimiz konuların genel tekrarını yapın. Bu son iki haftayı mümkün olduğunca verimli kullanalım; özellikle dinleme ve yazma çalışmalarını ihmal etmeyelim. 🇪🇸💪
+      </div>
+
+      <div class="section">
+        <div class="section-title">👤 Önce adınızı seçin</div>
+        <p>Dikte çalışmasına başlamadan önce listeden adınızı seçiniz.</p>
+        <select id="studentSelect">
+          <option value="">-- Adınızı Seçin --</option>
+          <option>Ali Ceylan</option>
+          <option>Beyza Nur Yuksel</option>
+          <option>Aysen Gurkan</option>
+          <option>Defne Ozer</option>
+          <option>Defne Sonmez</option>
+          <option>Ece Utkan</option>
+          <option>Melisa Tuncer</option>
+          <option>Sude Selen Ulker</option>
+          <option>Sule Soylemez Gul</option>
+          <option>Yelda Yilmaz</option>
+        </select>
+        <button class="btn btn-main" onclick="startHomework()">🎧 Dikte Çalışmasına Başla</button>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="workScreen" class="screen">
+      <div class="studentbar">
+        <span>👤 Öğrenci: <strong id="studentNameTop">—</strong></span>
+        <span>🎯 100 puan</span>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🎧 Dinleme Bölümü</div>
+        <p>Ses kaydının tamamını aramanıza gerek yok. Aşağıdaki iki buton sizi doğrudan kullanacağımız bölümlere götürür ve ilgili bölüm bittiğinde ses otomatik olarak durur.</p>
+
+        <div class="timeline">
+          <div class="time-card">
+            <div class="time">00:33 → 05:47</div>
+            <div class="time-label">🐢 Dictado lento</div>
+            <p class="time-desc">Metnin yavaşça ve <strong>iki kez</strong> okunduğu ana dikte bölümü.</p>
+          </div>
+          <div class="time-card">
+            <div class="time">05:47 → 06:49</div>
+            <div class="time-label">⚡ Dictado a ritmo normal</div>
+            <p class="time-desc">Normal hızdaki son okuma. Yazınızı kontrol etmek ve revize etmek için kullanın.</p>
+          </div>
+        </div>
+
+        <div class="player-box">
+          <iframe id="scPlayer" allow="autoplay" scrolling="no" frameborder="no"
+            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/profe-hazel/a1-1-27-28-dictado-tarea&color=%236c4eb8&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        </div>
+        <div class="audio-controls">
+          <button class="btn btn-main" onclick="playSegment(33,347,'🐢 Dictado lento · 00:33–05:47')">▶️ Yavaş Dikteyi Dinle</button>
+          <button class="btn btn-soft" onclick="pauseAudio()">⏸️ Durdur</button>
+          <button class="btn btn-green" onclick="playSegment(347,409,'⚡ Dictado normal · 05:47–06:49')">▶️ Normal Hızda Kontrol Et</button>
+        </div>
+        <div id="nowPlaying" class="now-playing"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">📌 Nasıl yapacaksınız?</div>
+        <div class="rules">
+          <div class="rule"><span>1️⃣</span><span>Önce <strong>Dictado lento</strong> bölümünü dinleyin. Duyduğunuz metni aşağıdaki alana yazın.</span></div>
+          <div class="rule"><span>2️⃣</span><span>Kelimeyi duyamadığınızda kaydı durdurabilir, aynı bölümü tekrar dinleyebilirsiniz.</span></div>
+          <div class="rule"><span>3️⃣</span><span>Yazınız bittikten sonra <strong>Dictado a ritmo normal</strong> bölümünü dinleyip metninizi son kez kontrol edin.</span></div>
+          <div class="rule"><span>4️⃣</span><span>Hazır olduğunuzda ödevinizi teslim edin. Teslimden <strong>önce doğru metin gösterilmeyecektir.</strong></span></div>
+        </div>
+        <button id="showWritingBtn" class="btn btn-main" style="margin-top:1rem" onclick="showWriting()">✍️ Yazma Alanını Aç</button>
+      </div>
+
+      <div id="writingArea" class="section">
+        <div class="writing-head">
+          <div class="section-title" style="margin:0">✍️ Duyduğunuz Metni Yazın</div>
+          <div class="counter"><strong id="wordCount">0</strong> kelime</div>
+        </div>
+        <textarea id="dictationText" spellcheck="false" autocomplete="off" placeholder="Duyduğunuz İspanyolca metni buraya yazın..." oninput="updateCount()"></textarea>
+        <div class="submit-note">💡 Otomatik puanlamada <strong>büyük/küçük harf ve noktalama işaretleri puanı etkilemez</strong>. Kelimelerin doğru yazımı ve İspanyolca aksanlar (á, é, í, ó, ú vb.) dikkate alınır.</div>
+        <button id="submitBtn" class="btn btn-red" style="width:100%;font-size:1rem" onclick="confirmSubmit()">📩 Dikteyi Teslim Et ve Puanımı Gör</button>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="resultScreen" class="screen">
+      <div style="text-align:center">
+        <div class="week-pill">✅ DİKTE TAMAMLANDI</div>
+        <h1 style="font-size:1.25rem">🎧✍️ Sonucunuz</h1>
+        <p class="small" id="resultStudent"></p>
+      </div>
+
+      <div class="score-circle">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-den">/ 100</div>
+      </div>
+      <div class="result-info" id="scoreInfo"></div>
+
+      <div class="status-grid">
+        <div id="sheetStatus" class="status pending">⏳ Google Sheets'e kaydediliyor...</div>
+        <div id="emailStatus" class="status pending">⏳ Yazınız e-posta ile gönderiliyor...</div>
+      </div>
+
+      <div class="answer-box">
+        <h3>✅ Doğru Metin</h3>
+        <div class="answer-text" id="correctAnswer"></div>
+      </div>
+
+      <div class="answer-box" style="border-left-color:#9b7de0">
+        <h3>📝 Sizin Yazdığınız Metin</h3>
+        <div class="student-copy" id="studentCopy"></div>
+      </div>
+
+      <div class="result-reminder">🌟 <strong>7. haftayı tamamlamak üzereyiz.</strong> Önümüzdeki hafta bu dönemin son haftası. Varsa eksik ödevlerinizi tamamlamayı ve genel konu tekrarlarınızı yapmayı unutmayın. Düzenli tekrar, öğrendiğiniz İspanyolcayı kalıcı hâle getirmenin en önemli parçalarından biri. 📚🇪🇸</div>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3>📩 Dikteyi teslim etmek üzeresiniz</h3>
+    <p id="confirmText"></p>
+    <div class="confirm-actions">
+      <button class="btn btn-soft" onclick="closeConfirm()">← Yazıma Dön</button>
+      <button class="btn btn-red" onclick="submitHomework()">✅ Evet, Teslim Et</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+/* =========================
+   AYARLAR
+   ========================= */
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq_OLfdF0_TmRKszWrb9U5mydRjsfwadjqsPBFinCAvlmzN7LPJ-92EumF3-PMJu8D-Q/exec';
+var ODEV_ADI='25-26 Dictado'; // Google Sheets'teki sütun adıyla birebir aynı
+var GROUP='A1.1';
+
+emailjs.init('xNYEbUQNiWJPvbyoJ');
+var EMAILJS_SERVICE='service_4ee1wh7';
+var EMAILJS_TEMPLATE='template_xjyyxhf';
+
+var CORRECT_TEXT='En mi casa, todos tenemos rutinas diferentes. Yo me despierto a las seis, me levanto y me visto rápido. Mi hermano se queda en la cama hasta tarde y siempre se ducha en cinco minutos. Mi madre se maquilla antes de ir al trabajo y mi padre se afeita mientras escucha la radio. Por la noche, yo me relajo viendo series, pero mi hermana se acuesta temprano porque tiene que madrugar. Todos tenemos rutinas diferentes, pero nos gusta vivir juntos.';
+
+var student='';
+var isSubmitting=false;
+var widget=null;
+var segmentEndMs=null;
+var segmentStartMs=null;
+
+window.addEventListener('load',function(){
+  try{
+    var iframe=document.getElementById('scPlayer');
+    widget=SC.Widget(iframe);
+    widget.bind(SC.Widget.Events.PLAY_PROGRESS,function(e){
+      if(segmentEndMs!==null && e.currentPosition>=segmentEndMs){
+        widget.pause();
+        widget.seekTo(segmentStartMs||0);
+        segmentEndMs=null;
+        document.getElementById('nowPlaying').textContent='✅ Seçilen dinleme bölümü tamamlandı.';
+      }
+    });
+  }catch(e){console.error('SoundCloud widget error:',e);}
+});
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function startHomework(){
+  var sel=document.getElementById('studentSelect');
+  if(!sel.value){alert('Lütfen adınızı seçin.');return;}
+  student=sel.value;
+  document.getElementById('studentNameTop').textContent=student;
+  showScreen('workScreen');
+}
+
+function playSegment(startSec,endSec,label){
+  if(!widget){alert('Ses oynatıcı henüz hazır değil. Lütfen birkaç saniye sonra tekrar deneyin.');return;}
+  segmentStartMs=startSec*1000;
+  segmentEndMs=endSec*1000;
+  var np=document.getElementById('nowPlaying');
+  np.style.display='block';
+  np.textContent='🔊 Şimdi çalıyor: '+label;
+  widget.seekTo(segmentStartMs);
+  setTimeout(function(){widget.play();},250);
+}
+
+function pauseAudio(){
+  if(widget)widget.pause();
+  var np=document.getElementById('nowPlaying');
+  np.style.display='block';
+  np.textContent='⏸️ Ses durduruldu.';
+}
+
+function showWriting(){
+  document.getElementById('writingArea').style.display='block';
+  document.getElementById('showWritingBtn').style.display='none';
+  setTimeout(function(){document.getElementById('dictationText').focus();},100);
+}
+
+function updateCount(){
+  var t=document.getElementById('dictationText').value.trim();
+  document.getElementById('wordCount').textContent=t?tokenize(t).length:0;
+}
+
+function tokenize(text){
+  return (text.toLowerCase().match(/[a-záéíóúüñ]+/g)||[]);
+}
+
+/* Kelime bazlı Levenshtein mesafesi:
+   - Noktalama ve büyük/küçük harf yok sayılır.
+   - İspanyolca aksanlar korunur; rapido ≠ rápido.
+   - Eksik/fazla/yanlış kelimeler hata olarak sayılır. */
+function wordDistance(a,b){
+  var m=a.length,n=b.length;
+  var prev=new Array(n+1),cur=new Array(n+1);
+  for(var j=0;j<=n;j++)prev[j]=j;
+  for(var i=1;i<=m;i++){
+    cur[0]=i;
+    for(var j=1;j<=n;j++){
+      var cost=a[i-1]===b[j-1]?0:1;
+      cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+cost);
+    }
+    var tmp=prev;prev=cur;cur=tmp;
+  }
+  return prev[n];
+}
+
+function calculateScore(userText){
+  var expected=tokenize(CORRECT_TEXT);
+  var actual=tokenize(userText);
+  var distance=wordDistance(expected,actual);
+  var base=Math.max(expected.length,actual.length,1);
+  var accuracy=Math.max(0,1-distance/base);
+  var score=Math.round(accuracy*100);
+  return {score:score,errors:distance,expectedWords:expected.length,actualWords:actual.length};
+}
+
+function confirmSubmit(){
+  var text=document.getElementById('dictationText').value.trim();
+  if(!text){alert('Lütfen önce dikte metninizi yazın.');return;}
+  var words=tokenize(text).length;
+  if(words<20){
+    if(!confirm('Metniniz şu anda yalnızca '+words+' kelime. Dikte metninin tamamını yazdığınızdan emin misiniz?'))return;
+  }
+  document.getElementById('confirmText').innerHTML='<strong>'+student+'</strong>, yazınız teslim edildikten sonra otomatik puanınız hesaplanacak ve doğru metin ekranda gösterilecektir.<br><br>Yazınızı son kez kontrol ettiniz mi?';
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirmOverlay').style.display='none';}
+
+async function submitHomework(){
+  if(isSubmitting)return;
+  isSubmitting=true;
+  closeConfirm();
+  pauseAudio();
+
+  var text=document.getElementById('dictationText').value.trim();
+  var r=calculateScore(text);
+  var now=new Date();
+  var dateOnly=now.toLocaleDateString('tr-TR');
+  var fullDate=dateOnly+' '+now.toLocaleTimeString('tr-TR');
+
+  document.getElementById('resultStudent').textContent='👤 '+student+' · A1.1 · H7 25-26. Ders';
+  document.getElementById('scoreNum').textContent=r.score;
+  document.getElementById('scoreInfo').innerHTML='Beklenen metin: <strong>'+r.expectedWords+' kelime</strong> · Yazdığınız: <strong>'+r.actualWords+' kelime</strong><br>Kelime bazlı fark/hata sayısı: <strong>'+r.errors+'</strong>';
+  document.getElementById('correctAnswer').textContent=CORRECT_TEXT;
+  document.getElementById('studentCopy').textContent=text;
+  showScreen('resultScreen');
+
+  // 1) GOOGLE SHEETS
+  var sheetStatus=document.getElementById('sheetStatus');
+  var payload=JSON.stringify({
+    ogrenci:student,
+    odev:ODEV_ADI,
+    grup:GROUP,
+    puan:r.score,
+    dogru:Math.max(0,r.expectedWords-r.errors),
+    yanlis:r.errors,
+    tarih:dateOnly
+  });
+  var sheetPromise=fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'data='+encodeURIComponent(payload)
+  }).then(function(){
+    sheetStatus.className='status ok';
+    sheetStatus.textContent='✅ Google Sheets: '+ODEV_ADI+' → '+r.score+'/100';
+    return true;
+  }).catch(function(err){
+    console.error(err);
+    sheetStatus.className='status err';
+    sheetStatus.textContent='⚠️ Google Sheets kaydı başarısız.';
+    return false;
+  });
+
+  // 2) EMAILJS
+  var emailStatus=document.getElementById('emailStatus');
+  var emailPromise=emailjs.send(EMAILJS_SERVICE,EMAILJS_TEMPLATE,{
+    student_name:student,
+    lesson:'A1.1 – H7 25-26. Ders – Dictado | Puan: '+r.score+'/100',
+    submit_date:fullDate,
+    writing_text:'PUAN: '+r.score+'/100\n\nÖĞRENCİNİN DİKTE METNİ:\n'+text+'\n\n---\nBeklenen kelime: '+r.expectedWords+' | Yazılan kelime: '+r.actualWords+' | Fark/Hata: '+r.errors
+  }).then(function(){
+    emailStatus.className='status ok';
+    emailStatus.textContent='✅ Dikte metni ve puan e-posta ile gönderildi.';
+    return true;
+  }).catch(function(err){
+    console.error(err);
+    emailStatus.className='status err';
+    emailStatus.textContent='⚠️ E-posta gönderilemedi. Sayfayı kapatmadan tekrar deneyin.';
+    return false;
+  });
+
+  await Promise.all([sheetPromise,emailPromise]);
+  isSubmitting=false;
+}
+</script>
+</body>
+</html>
