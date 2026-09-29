@@ -341,6 +341,148 @@ body {
 .result-student-list { display: flex; flex-direction: column; gap: 5px; }
 .result-student-item { padding: 9px 14px; border-radius: var(--radius-sm); background: var(--primary-bg); border: 1.5px solid var(--border); font-size: 14px; color: var(--primary-dark); font-weight: 600; }
 .result-student-item.active-student { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 800; }
+
+
+/* ============================================================
+   25-26. DERS TASARIM DİLİNE UYARLAMA
+   ============================================================ */
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f0eef8;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:1rem;
+  color:#333;
+}
+.screen{
+  display:none;
+  width:100%;
+  max-width:720px;
+  min-height:0;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 4px 24px rgba(100,80,160,.15);
+  padding:2rem;
+  margin:0 auto;
+}
+.screen.active{display:block;}
+#cover{padding:2rem;align-items:initial;justify-content:initial;}
+.cover-inner{max-width:none;margin:0;width:100%;}
+.cover-card{padding:0;border:0;box-shadow:none;border-radius:0;background:transparent;}
+.pill-badge{
+  display:inline-block;background:#6c4eb8;color:#fff;font-size:.72rem;font-weight:700;
+  letter-spacing:.5px;padding:.3rem .85rem;border-radius:20px;margin-bottom:1rem;text-transform:none;
+}
+.cover-title{font-size:1.3rem;font-weight:800;color:#3d2a7a;margin-bottom:.3rem;letter-spacing:0;}
+.cover-sub{color:#888;font-size:.85rem;margin-bottom:.25rem;font-weight:400;}
+.teacher-tag{background:transparent;border:0;padding:0;color:#9b7de0;font-size:.8rem;margin-bottom:1.25rem;font-weight:600;}
+.topic-chips{gap:.5rem;margin-bottom:1.1rem;}
+.topic-chip{background:#f8f5ff;border:1px solid #e0d8f8;border-radius:10px;padding:.75rem;font-size:.78rem;color:#4d3b78;min-width:145px;}
+.topic-chip span{font-size:.9rem;color:#6c4eb8;margin-bottom:.15rem;}
+.intro-warning{background:#f8f5ff;border:1.5px solid #d0c8f0;border-radius:12px;padding:1rem 1.1rem;margin:0 0 1.25rem;color:#4d3b78;font-size:.88rem;line-height:1.7;}
+.intro-warning strong{color:#3d2a7a;}
+.notice-bar{background:#fff8dc;border:1.5px solid #f1d37a;border-radius:10px;padding:.8rem 1rem;font-size:.8rem;color:#785d16;line-height:1.55;margin-bottom:1rem;}
+.student-list-label{font-size:.74rem;color:#6c4eb8;margin-bottom:.45rem;letter-spacing:.05em;}
+.student-select{padding:.75rem;border:2px solid #d0c8f0;border-radius:8px;color:#333;background:#fff;margin-bottom:1rem;font-size:.95rem;font-weight:400;}
+.student-select:focus{border-color:#6c4eb8;}
+.start-btn{padding:.85rem;background:#6c4eb8;border-radius:10px;font-size:1rem;font-weight:700;box-shadow:none;letter-spacing:0;}
+.start-btn:hover{background:#5a3ea0;}
+
+.grammar-note-banner{background:#f8f5ff;border:1px solid #e0d8f8;border-radius:12px;padding:1rem;margin-bottom:1rem;gap:.8rem;}
+.grammar-note-icon{font-size:1.4rem;}
+.grammar-note-title{font-size:.78rem;color:#6c4eb8;margin-bottom:.25rem;}
+.grammar-note-body{font-size:.8rem;color:#555;line-height:1.55;margin-bottom:.65rem;}
+.grammar-note-body strong{color:#3d2a7a !important;}
+.grammar-note-btn{background:#6c4eb8;color:#fff;padding:.55rem .9rem;font-size:.78rem;border-radius:8px;box-shadow:none;}
+.grammar-note-btn:hover{background:#5a3ea0;color:#fff;transform:none;box-shadow:none;}
+
+.quiz-header{background:transparent;padding:0;color:#333;}
+.quiz-header-top{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;
+  margin-bottom:1rem;padding:.75rem .85rem;background:#f8f5ff;border:1px solid #e0d8f8;border-radius:12px;
+}
+.quiz-title-small{font-size:.84rem;font-weight:700;color:#3d2a7a;letter-spacing:0;opacity:1;}
+.quiz-mini-title{font-size:.78rem;color:#9b7de0;font-weight:700;margin-top:.15rem;}
+.quiz-student{font-size:.84rem;font-weight:700;color:#3d2a7a;}
+.score-badges{gap:.35rem;}
+.badge{padding:.2rem .6rem;border-radius:6px;font-size:.78rem;font-weight:600;background:#e8e0f8;color:#6c4eb8;}
+.badge.correct{background:#e6f9f0;color:#2e9e6b;}
+.badge.wrong{background:#fde8e8;color:#d94040;}
+.btn-finish-top{padding:.65rem 1rem;background:#e05c5c;color:#fff;border:none;border-radius:9px;font-size:.88rem;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(224,92,92,.18);}
+.btn-finish-top:hover{background:#c94d4d;}
+.progress-bar-wrap{height:6px;background:#e8e0f8;border-radius:3px;margin-bottom:.35rem;overflow:hidden;}
+.progress-bar{background:#6c4eb8;border-radius:3px;}
+.progress-label{font-size:.78rem;color:#888;opacity:1;margin-top:0;text-align:right;font-weight:600;}
+#quiz>.notice-bar{margin:.65rem 0 0 !important;max-width:none !important;width:100% !important;}
+.quiz-body{max-width:none;padding:1rem 0 .25rem;overflow:visible;}
+.q-section-label{background:#e8e0f8;color:#6c4eb8;border-radius:5px;padding:.2rem .6rem;font-size:.72rem;letter-spacing:.5px;margin-bottom:.8rem;}
+.q-number{font-size:.78rem;color:#888;letter-spacing:0;margin-bottom:.55rem;}
+.q-text{font-size:.95rem;color:#333;line-height:1.75;margin-bottom:1rem;}
+.answer-input{padding:.75rem;border:2px solid #d0c8f0;border-radius:9px;font-size:.9rem;color:#333;font-weight:400;}
+.answer-input:focus{border-color:#6c4eb8;}
+.check-btn{padding:.7rem 1rem;background:#6c4eb8;border-radius:9px;font-size:.88rem;font-weight:700;}
+.feedback-box{font-size:.83rem;line-height:1.7;border-radius:9px;padding:.85rem 1rem;}
+.explanation-box{background:#f8f5ff;border:0;border-left:4px solid #6c4eb8;border-radius:0 8px 8px 0;color:#444;font-size:.83rem;line-height:1.75;}
+.explanation-label{color:#6c4eb8;}
+.nav-row{max-width:none;padding:.6rem 0 0;gap:.5rem;justify-content:center;}
+.nav-btn{flex:0 1 auto;min-width:105px;padding:.55rem 1.1rem;border:none;border-radius:8px;font-size:.88rem;font-weight:600;}
+.nav-btn:not(.next-btn):not(.finish-btn){background:#e8e0f8;color:#6c4eb8;}
+.nav-btn.next-btn{background:#6c4eb8;color:#fff;border:0;}
+.nav-btn.finish-btn{background:#6c4eb8;color:#fff;border:0;}
+.nav-btn.end-btn{display:none !important;}
+
+#hora{padding:2rem;}
+#horaTopNote{margin:.65rem 0 1rem !important;}
+.grammar-note-compact{background:#f8f5ff;border:1px solid #e0d8f8;border-radius:10px;padding:.75rem .85rem;margin-bottom:1rem;}
+.grammar-note-compact-text{color:#555;font-size:.78rem;}
+.grammar-note-compact-text strong{color:#3d2a7a !important;}
+.grammar-note-compact-btn{background:#6c4eb8;color:#fff;border-radius:7px;padding:.5rem .75rem;font-size:.75rem;}
+#horaPanel{padding:0;width:100%;}
+.section-panel{border:1px solid #e0d8f8;border-radius:12px;padding:1rem;}
+.section-title{font-size:1rem;color:#3d2a7a;}
+.section-progress{font-size:.78rem;color:#888;}
+.answer-bank{background:#f8f5ff;border:1px solid #e0d8f8;border-radius:10px;padding:.75rem;gap:.45rem;}
+.drag-chip{border:1.5px solid #d0c8f0;border-radius:8px;padding:.55rem .75rem;font-size:.78rem;color:#4d3b78;box-shadow:none;}
+.dnd-grid{gap:.75rem;}
+.dnd-item{background:#fafafa;border:1px solid #e0d8f8;border-radius:9px;padding:.75rem;}
+.dnd-clock{font-size:1.05rem;color:#3d2a7a;}
+.drop-zone{border:2px dashed #d0c8f0;border-radius:8px;padding:.65rem;min-height:40px;font-size:.78rem;}
+.section-check-btn{background:#6c4eb8;border-radius:9px;padding:.75rem;font-size:.9rem;}
+.section-next-btn{background:#2e9e6b;border-radius:9px;padding:.75rem;font-size:.9rem;}
+
+#result{padding:2rem;}
+.result-inner{max-width:none;padding:0;}
+.result-header-banner{background:transparent;color:#333;border-radius:0;padding:0;margin-bottom:1rem;text-align:center;}
+.result-title{font-size:1.1rem;color:#3d2a7a;}
+.result-student-name{color:#888;opacity:1;font-size:.85rem;}
+.result-score-big{font-size:3.5rem;color:#6c4eb8;}
+.result-score-sub{font-size:.82rem;color:#888;opacity:1;}
+.stat-card{border:1px solid #e0d8f8;box-shadow:none;border-radius:8px;padding:.6rem;}
+.submit-warning{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:1rem 1.25rem;font-size:.95rem;color:#856404;}
+.submit-btn-big{padding:1.1rem;background:#2e9e6b;border-radius:10px;font-size:1.15rem;box-shadow:none;}
+.review-section-title{color:#3d2a7a;border-bottom:1px solid #e0d8f8;}
+.review-item{border:1px solid #e0d8f8;border-radius:8px;padding:.75rem;}
+.result-student-section{display:none;}
+
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:9999;padding:1rem;}
+.confirm-box{background:#fff;border-radius:14px;padding:1.5rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.25);}
+.confirm-msg{font-size:.9rem;color:#333;white-space:pre-wrap;margin-bottom:1.25rem;line-height:1.65;}
+.confirm-btns{display:flex;gap:.75rem;}
+.confirm-btns button{flex:1;padding:.7rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-cancel{background:#e8e0f8;color:#6c4eb8;}
+.btn-ok{background:#e05c5c;color:#fff;}
+
+@media(max-width:640px){
+  body{padding:.65rem;}
+  .screen,#cover,#hora,#result{padding:1.25rem;}
+  .dnd-grid{grid-template-columns:1fr;}
+  .result-score-big{font-size:2.8rem;}
+  .btn-finish-top{width:100%;}
+  .quiz-header-top{align-items:stretch;}
+}
+
 </style>
 </head>
 <body>
@@ -350,9 +492,14 @@ body {
   <div class="cover-inner">
     <div class="pill-badge">7. Hafta Ödevi | A1.1 — 27-28. Ders</div>
     <div class="cover-card">
-      <div class="cover-title">SAHİPLİK SIFATLARI + SAATLER</div>
-      <div class="cover-sub">100 soru &middot; Boşluk Doldurma + Sürükle-Bırak</div>
-      <div class="teacher-tag">&#127981; @ispanyolcacim &bull; Profe Hazel</div>
+      <div class="cover-title">🏠 SAHİPLİK SIFATLARI + 🕐 SAATLER</div>
+      <div class="cover-sub">📝 100 soru · ✍️ Boşluk Doldurma + 🧩 Sürükle-Bırak · ⭐ 100 puan</div>
+      <div class="teacher-tag">💜 @ispanyolcacim &bull; 👩🏻‍🏫 Profe Hazel</div>
+      <div class="intro-warning">
+        <strong>📢 7. HAFTADAYIZ!</strong><br>
+        Önümüzdeki hafta bu dönemin <strong>son haftası</strong>. 🌟 Lütfen önceki haftalardan kalan eksik ödevlerinizi tamamlayın, genel konu tekrarlarınızı yapın ve anlamadığınız noktaları yeniden gözden geçirin. 📚✨<br>
+        <strong>Unutmayın:</strong> Düzenli tekrar + eksiksiz ödev = daha güçlü bir İspanyolca temeli. 💪🇪🇸
+      </div>
       <div class="topic-chips">
         <div class="topic-chip"><span>1-30</span>Posesivos Átonos</div>
         <div class="topic-chip"><span>31-60</span>Posesivos Tónicos</div>
@@ -377,7 +524,7 @@ body {
       <select class="student-select" id="studentSelect" onchange="onSelectChange()">
         <option value="">-- Adınızı seçin --</option>
       </select>
-      <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">Ödeve Başla &#8594;</button>
+      <button class="start-btn" id="startBtn" disabled onclick="startQuiz()">🚀 Ödeve Başla</button>
     </div>
   </div>
 </div>
@@ -386,25 +533,27 @@ body {
 <div id="quiz" class="screen">
   <div class="quiz-header">
     <div class="quiz-header-top">
-      <div class="quiz-title-small">SAHİPLİK SIFATLARI — A1.1 7. Hafta</div>
-      <div class="score-badges">
-        <div class="badge correct" id="correctBadge">D: 0</div>
-        <div class="badge wrong" id="wrongBadge">Y: 0</div>
+      <div>
+        <div class="quiz-student">👤 <span id="quizStudentName"></span></div>
+        <div class="quiz-mini-title">🏠 Sahiplik Sıfatları · A1.1 · 7. Hafta</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;">
+        <div class="score-badges">
+          <div class="badge correct" id="correctBadge">0 Doğru</div>
+          <div class="badge wrong" id="wrongBadge">0 Yanlış</div>
+        </div>
+        <button class="btn-finish-top" onclick="confirmFinishAll()">🏁 Testi Bitir</button>
       </div>
     </div>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="progressBar" style="width:0%"></div>
-    </div>
-    <div class="progress-label" id="progressLabel">1 / 60</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">Soru 1 / 60</div>
   </div>
   <div class="notice-bar" style="margin:10px 16px 0;max-width:568px;align-self:center;width:calc(100% - 32px);">&#9888;&#65039; Sekmeyi kapatmadan ara verirseniz kaldığınız yerden devam edebilirsiniz.</div>
   <div class="quiz-body" id="quizBody"></div>
   <div class="nav-row">
-    <button class="nav-btn" id="prevBtn" disabled onclick="goPrev()">&#8592; Geri</button>
-    <button class="nav-btn" id="skipBtn" disabled onclick="goSkip()">Atla</button>
-    <button class="nav-btn next-btn" id="nextBtn" disabled onclick="goNext()">İleri &#8594;</button>
-    <button class="nav-btn finish-btn" id="finishBtn" style="display:none" onclick="goToHora()">Saatler Bölümüne Geç &#8594;</button>
-    <button class="nav-btn end-btn" onclick="confirmEnd()">Testi Bitir</button>
+    <button class="nav-btn" id="prevBtn" disabled onclick="goPrev()">⬅️ Geri</button>
+    <button class="nav-btn next-btn" id="nextBtn" disabled onclick="goNext()">İleri ➡️</button>
+    <button class="nav-btn finish-btn" id="finishBtn" style="display:none" onclick="goToHora()">🕐 Saatler Bölümüne Geç ➡️</button>
   </div>
 </div>
 
@@ -412,15 +561,19 @@ body {
 <div id="hora" class="screen">
   <div class="quiz-header">
     <div class="quiz-header-top">
-      <div class="quiz-title-small">LA HORA — A1.1 7. Hafta</div>
-      <div class="score-badges">
-        <div class="badge correct" id="horaCorrectBadge">D: 0</div>
-        <div class="badge wrong" id="horaWrongBadge">Y: 0</div>
+      <div>
+        <div class="quiz-student">👤 <span id="horaStudentName"></span></div>
+        <div class="quiz-mini-title">🕐 La Hora · A1.1 · 7. Hafta</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;">
+        <div class="score-badges">
+          <div class="badge correct" id="horaCorrectBadge">0 Doğru</div>
+          <div class="badge wrong" id="horaWrongBadge">0 Yanlış</div>
+        </div>
+        <button class="btn-finish-top" onclick="confirmFinishAll()">🏁 Testi Bitir</button>
       </div>
     </div>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="horaProgressBar" style="width:0%"></div>
-    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="horaProgressBar" style="width:0%"></div></div>
     <div class="progress-label" id="horaProgressLabel">Bölüm 1 / 4</div>
   </div>
 
@@ -438,18 +591,22 @@ body {
 <div id="result" class="screen">
   <div class="result-inner">
     <div class="result-header-banner">
-      <div class="result-title">SAHİPLİK SIFATLARI + SAATLER</div>
+      <div class="result-title">🎉 SAHİPLİK SIFATLARI + SAATLER</div>
       <div class="result-student-name" id="resultStudentName"></div>
       <div class="result-score-big" id="resultScore">0</div>
       <div class="result-score-sub" id="resultScoreSub"></div>
+      <div class="intro-warning" style="margin:1rem 0 0;text-align:left;">
+        <strong>🌟 7. haftayı tamamlamak üzeresiniz!</strong><br>
+        Önümüzdeki hafta dönemimizin son haftası. Eksik ödevlerinizi tamamlayın, genel tekrarlarınızı yapın ve özellikle zorlandığınız konulara yeniden dönün. 📚💪
+      </div>
     </div>
     <div class="result-stats">
       <div class="stat-card"><div class="stat-num green" id="statCorrect">0</div><div class="stat-label">Doğru</div></div>
       <div class="stat-card"><div class="stat-num red" id="statWrong">0</div><div class="stat-label">Yanlış</div></div>
       <div class="stat-card"><div class="stat-num" id="statTotal">100</div><div class="stat-label">Toplam</div></div>
     </div>
-    <div class="submit-warning" id="submitWarning">ÖDEVİNİZ HENÜZ TESLİM EDİLMEDİ!</div>
-    <button class="submit-btn-big" id="submitBtn" onclick="submitHomework()">ÖDEVİNİZİ TESLİM EDİN</button>
+    <div class="submit-warning" id="submitWarning">📢 ÖDEVİNİZ HENÜZ TESLİM EDİLMEDİ!</div>
+    <button class="submit-btn-big" id="submitBtn" onclick="submitHomework()">📩 ÖDEVİNİZİ TESLİM EDİN</button>
     <div class="submitted-msg" id="submittedMsg"></div>
     <div class="review-section">
       <div class="review-section-title">Yanlış Cevaplanan Sorular</div>
@@ -462,14 +619,25 @@ body {
   </div>
 </div>
 
+<!-- TESTİ BİTİR ONAY PENCERESİ -->
+<div class="overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" onclick="closeFinishConfirm()">İptal</button>
+      <button class="btn-ok" onclick="doFinishAll()">Evet, Bitir</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ============================================================
 // ÖĞRENCİ VERİSİ
 // ============================================================
 var STUDENTS_BY_GROUP = {
   "A1.1": [
-    "Arman Aykac","Arzu Bayram","Aysen Gurkan","Ceren Orucu","Ozgur Guzey",
-    "Rabia Nur Tok","Selva Akyuz","Sena Yamak","Suleyman Bektas","Taner Bastar"
+    "Ali Ceylan","Beyza Nur Yuksel","Aysen Gurkan","Defne Ozer","Defne Sonmez",
+    "Ece Utkan","Melisa Tuncer","Sude Selen Ulker","Sule Soylemez Gul","Yelda Yilmaz"
   ]
 };
 var STUDENT_GROUP_MAP = {};
@@ -811,8 +979,10 @@ function onSelectChange(){
 // START
 // ============================================================
 function startQuiz(){
-  fillIndex=0; fillAnswers={}; fillChecked={};
+  fillIndex=0; fillAnswers={}; fillChecked={}; horaResults={}; horaSectionIndex=0; submitted=false;
   fillCorrect=0; fillWrong=0;
+  document.getElementById('quizStudentName').textContent=selectedStudent || '';
+  var hs=document.getElementById('horaStudentName'); if(hs) hs.textContent=selectedStudent || '';
   showScreen('quiz'); renderFill();
 }
 function showScreen(id){
@@ -827,9 +997,9 @@ function renderFill(){
   var q=FILL_QUESTIONS[fillIndex];
   var pct=Math.round((fillIndex/60)*100);
   document.getElementById('progressBar').style.width=pct+'%';
-  document.getElementById('progressLabel').textContent=(fillIndex+1)+' / 60';
-  document.getElementById('correctBadge').textContent='D: '+fillCorrect;
-  document.getElementById('wrongBadge').textContent='Y: '+fillWrong;
+  document.getElementById('progressLabel').textContent='Soru '+(fillIndex+1)+' / 60';
+  document.getElementById('correctBadge').textContent=fillCorrect+' Doğru';
+  document.getElementById('wrongBadge').textContent=fillWrong+' Yanlış';
   var ck=fillChecked[fillIndex]!==undefined;
   var section = fillIndex < 30
     ? '<div class="q-section-label">Posesivos Átonos (1-30)</div>'
@@ -875,23 +1045,46 @@ function checkFill(){
   fb.className='feedback-box '+(ok?'correct':'wrong');
   fb.innerHTML=buildFillFeedback(q,ok);
   fb.style.display='block';
-  document.getElementById('correctBadge').textContent='D: '+fillCorrect;
-  document.getElementById('wrongBadge').textContent='Y: '+fillWrong;
+  document.getElementById('correctBadge').textContent=fillCorrect+' Doğru';
+  document.getElementById('wrongBadge').textContent=fillWrong+' Yanlış';
   updateFillNav(true);
 }
 function updateFillNav(unlocked){
   var isLast=fillIndex===59;
   document.getElementById('prevBtn').disabled=!unlocked||fillIndex===0;
-  document.getElementById('skipBtn').disabled=!unlocked;
   document.getElementById('nextBtn').disabled=!unlocked||isLast;
   document.getElementById('nextBtn').style.display=isLast?'none':'inline-block';
   document.getElementById('finishBtn').style.display=(unlocked&&isLast)?'inline-block':'none';
 }
 function goPrev(){ if(fillIndex>0){fillIndex--;renderFill();} }
 function goNext(){ if(fillIndex<59){fillIndex++;renderFill();} }
-function goSkip(){ if(fillIndex<59){fillIndex++;renderFill();} }
-function confirmEnd(){ if(confirm('Testi bitirmek istediğinize emin misiniz?')) goToHora(); }
-function goToHora(){ horaSectionIndex=0; renderHoraSection(); showScreen('hora'); }
+function goToHora(){ horaSectionIndex=0; var hs=document.getElementById('horaStudentName'); if(hs) hs.textContent=selectedStudent || ''; renderHoraSection(); showScreen('hora'); }
+
+
+function getAnsweredCount(){
+  var fillAnswered=Object.keys(fillChecked).length;
+  var horaAnswered=Object.keys(horaResults).length;
+  return fillAnswered+horaAnswered;
+}
+function confirmFinishAll(){
+  var answered=getAnsweredCount();
+  var unanswered=100-answered;
+  var msg='🏁 Testi bitirmek üzeresiniz.\n\n'+
+          '✅ Cevaplanan: '+answered+' soru\n'+
+          '⚪ Cevapsız: '+unanswered+' soru\n\n'+
+          'Cevapsız sorular 0 puan olarak değerlendirilecektir.\n\n'+
+          'Emin misiniz?';
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeFinishConfirm(){
+  document.getElementById('confirmOverlay').style.display='none';
+}
+function doFinishAll(){
+  closeFinishConfirm();
+  buildResultScreen();
+  showScreen('result');
+}
 
 // ============================================================
 // HORA SECTIONS (61-100) — sürükle-bırak
@@ -904,8 +1097,8 @@ function renderHoraSection(){
   for(var si=0;si<horaSectionIndex;si++) totalDone+=10;
   var horaTotal=Object.keys(horaResults).length;
   var horaCorrect=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
-  document.getElementById('horaCorrectBadge').textContent='D: '+horaCorrect;
-  document.getElementById('horaWrongBadge').textContent='Y: '+(horaTotal-horaCorrect);
+  document.getElementById('horaCorrectBadge').textContent=horaCorrect+' Doğru';
+  document.getElementById('horaWrongBadge').textContent=(horaTotal-horaCorrect)+' Yanlış';
   document.getElementById('horaProgressBar').style.width=(horaSectionIndex/4*100)+'%';
   document.getElementById('horaProgressLabel').textContent='Bölüm '+(horaSectionIndex+1)+' / 4';
 
@@ -1108,8 +1301,8 @@ function showFeedbacks(){
   // update header badges
   var hc=Object.keys(horaResults).filter(function(k){return horaResults[k]===true;}).length;
   var hw=Object.keys(horaResults).length-hc;
-  document.getElementById('horaCorrectBadge').textContent='D: '+hc;
-  document.getElementById('horaWrongBadge').textContent='Y: '+hw;
+  document.getElementById('horaCorrectBadge').textContent=hc+' Doğru';
+  document.getElementById('horaWrongBadge').textContent=hw+' Yanlış';
 }
 
 function nextSection(){
