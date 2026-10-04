@@ -736,17 +736,15 @@ function updateGate(){
   const title=document.getElementById('ta-title').value.trim();
   const checked=document.getElementById('chk-photo').checked;
 
+  /* Teslim butonu yalnızca öğrencinin ekranda gördüğü minimum koşullara bağlıdır.
+     Gizli koşul yok: 120 kelime + 4 paragraf + 5 farklı gustar tipi fiil +
+     4 farklı kişi yapısı + fotoğraf/kopya kutucuğu. */
   const ready=
     checked &&
-    title.length>0 &&
     wc>=120 &&
     pc>=4 &&
-    sc>=12 &&
     gc>=5 &&
-    pr>=4 &&
-    hasGustaAndGustan(text) &&
-    hasPorque(text) &&
-    hasNegative(text);
+    pr>=4;
 
   document.getElementById('btn-goconfirm').disabled=!ready;
 }
@@ -766,28 +764,16 @@ function goToConfirm(){
     alert('Lütfen önce "Ödevimin fotoğrafını çektim / yazımın bir kopyasını aldım" kutucuğunu işaretleyin.');
     return;
   }
-  if(!title){
-    alert('Lütfen yazınız için İspanyolca bir başlık girin.');
-    return;
-  }
-  if(wc<120 || pc<4 || sc<12 || gc<5 || pr<4){
+  if(wc<120 || pc<4 || gc<5 || pr<4){
     alert(
-      'Teslim için minimum 120 kelime, 4 paragraf, 12 cümle, 5 farklı gustar tipi fiil ve 4 farklı kişi yapısı gereklidir.\n\n'+
+      'Teslim için minimum 120 kelime, 4 paragraf, 5 farklı gustar tipi fiil ve 4 farklı kişi yapısı gereklidir.\n\n'+
       'Şu an:\n'+
-      wc+' kelime\n'+pc+' paragraf\n'+sc+' cümle\n'+gc+' farklı gustar tipi fiil\n'+pr+' farklı kişi yapısı'
+      wc+' kelime\n'+pc+' paragraf\n'+gc+' farklı gustar tipi fiil\n'+pr+' farklı kişi yapısı'
     );
     return;
   }
-  if(!hasGustaAndGustan(text)){
-    alert('Yazınızda hem "gusta" hem de "gustan" kullanmalısınız.');
-    return;
-  }
-  if(!hasPorque(text)){
-    alert('Yazınızda en az bir kez "porque" kullanarak neden belirtmelisiniz.');
-    return;
-  }
-  if(!hasNegative(text)){
-    alert('Yazınızda en az bir olumsuz cümle bulunmalıdır.');
+  if(!title){
+    alert('Lütfen yazınız için İspanyolca bir başlık girin.');
     return;
   }
 
