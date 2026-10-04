@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1.1 · 8. Hafta · 31-32. Ders · Yazma Ödevi · Gustar y su familia</title>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p1:#f0eef8;
+  --p2:#e8e0f8;
+  --p3:#d0c8f0;
+  --p4:#9b7de0;
+  --p5:#6c4eb8;
+  --dark:#3d2a7a;
+  --mid:#74678f;
+  --white:#fff;
+  --green:#2e9e6b;
+  --red:#d95d68;
+  --gold1:#fff7dc;
+  --gold2:#e2bf63;
+  --blue1:#eef6ff;
+  --blue2:#6d8fc7;
+  --r:14px
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(160deg,#f7f5fc,#f0eef8 55%,#fbfaff);
+  min-height:100vh;color:#333
+}
+.header{
+  background:linear-gradient(135deg,var(--p4),var(--p5));
+  padding:18px 20px 14px;text-align:center;
+  box-shadow:0 4px 18px rgba(108,78,184,.28);
+  position:relative;overflow:hidden
+}
+.header::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(255,255,255,.09) 14px,rgba(255,255,255,.09) 15px)
+}
+.htag{
+  display:inline-block;background:rgba(255,255,255,.22);
+  border:1.5px solid rgba(255,255,255,.5);border-radius:20px;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;
+  padding:4px 14px;margin-bottom:8px;color:#fff;position:relative
+}
+.header h1{font-size:clamp(17px,4vw,24px);font-weight:900;color:#fff;position:relative}
+.header-sub{font-size:12px;color:rgba(255,255,255,.93);margin-top:5px;position:relative}
+
+.screen{display:none;animation:fi .28s ease}
+.screen.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.nb{max-width:470px;margin:0 auto;padding:32px 20px;text-align:center}
+.nb h2{font-size:21px;color:var(--dark);margin-bottom:5px}
+.nb p{font-size:13px;color:var(--mid);margin-bottom:20px}
+
+.sel,.tin{
+  width:100%;padding:13px 16px;font-size:15px;background:#fff;
+  border:2px solid var(--p3);border-radius:var(--r);
+  color:#333;appearance:none;margin-bottom:14px;font-family:inherit
+}
+.sel:focus,.tin:focus{outline:none;border-color:var(--p4)}
+
+.ib{
+  background:#fff;border:1.5px solid var(--p3);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:18px;text-align:left;
+  font-size:13px;line-height:1.75;box-shadow:0 3px 14px rgba(108,78,184,.08)
+}
+.ibr{display:flex;align-items:flex-start;gap:9px;margin-bottom:5px}
+.ibd{width:8px;height:8px;border-radius:50%;background:var(--p4);flex-shrink:0;margin-top:6px}
+.ibh{height:1px;background:var(--p2);margin:9px 0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:12px 24px;border:none;border-radius:var(--r);
+  font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;font-family:inherit
+}
+.bm{background:linear-gradient(135deg,var(--p4),var(--p5));color:#fff;box-shadow:0 4px 12px rgba(108,78,184,.3)}
+.bm:hover:not(:disabled){transform:translateY(-2px)}
+.bo{background:#fff;border:2px solid var(--p3);color:var(--dark)}
+.bo:hover:not(:disabled){background:var(--p1)}
+.bg{background:linear-gradient(135deg,#f7dc94,#d9a942);color:#533f12}
+.bf{width:100%}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
+
+.qw{max-width:760px;margin:0 auto;padding:16px}
+.sb{
+  display:inline-flex;align-items:center;background:linear-gradient(90deg,var(--p4),var(--p5));
+  border-radius:20px;padding:6px 16px;font-size:12px;font-weight:900;
+  letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:10px;
+  box-shadow:0 2px 8px rgba(108,78,184,.25)
+}
+.konu{
+  background:linear-gradient(135deg,rgba(155,125,224,.13),rgba(108,78,184,.08));
+  border:1.5px solid var(--p4);border-radius:var(--r);
+  padding:15px 18px;margin-bottom:14px
+}
+.konu h2{font-size:17px;color:var(--dark);margin-bottom:7px}
+.konu p{font-size:13px;color:#555;line-height:1.75}
+
+.card,.resw{
+  background:#fff;border:1.5px solid var(--p3);border-radius:var(--r);
+  overflow:hidden;box-shadow:0 3px 14px rgba(108,78,184,.09);margin-bottom:14px
+}
+.cardpad{padding:16px 18px}
+.wtitle{padding:0 0 9px;font-size:13px;font-weight:900;color:var(--dark)}
+
+.taform{display:grid;gap:10px;margin-bottom:14px}
+.tarow{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:10px;font-size:12.5px}
+.tarow label{font-weight:800;color:var(--p5)}
+.tarow .staticv{
+  background:var(--p1);border:1.5px solid var(--p3);border-radius:8px;
+  padding:9px 12px;font-size:13px;color:#333
+}
+.tarow input{
+  padding:9px 12px;font-size:13px;border:1.5px solid var(--p3);
+  border-radius:8px;font-family:inherit;color:#333
+}
+.tarow input:focus{outline:none;border-color:var(--p4)}
+
+.instr{
+  background:var(--blue1);border-left:3px solid var(--blue2);
+  border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:2px;
+  font-size:12.5px;line-height:1.85;color:#29435e
+}
+.instrl{
+  font-size:10px;font-weight:900;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--blue2);margin-bottom:6px
+}
+.instr ul{margin-left:18px}
+.instr li{margin-bottom:4px}
+
+.resh{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 16px;background:var(--p1);cursor:pointer
+}
+.resh h3{font-size:13px;font-weight:900;color:var(--dark)}
+.rest{
+  font-size:11px;font-weight:800;color:var(--p5);background:#fff;
+  border:1.5px solid var(--p3);border-radius:20px;padding:4px 12px;white-space:nowrap
+}
+.resb{padding:14px 18px;font-size:13px;line-height:1.85;color:#3f3f3f}
+.resb.collapsed{display:none}
+
+.promptgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.promptitem{
+  background:#faf9fe;border:1.5px solid var(--p3);border-radius:10px;
+  padding:10px 12px;font-size:12.5px;line-height:1.55
+}
+.kural{
+  background:#f8f5ff;border:1.5px dashed var(--p4);
+  border-radius:12px;padding:14px 16px;margin-bottom:12px
+}
+.kurall{
+  font-size:10px;font-weight:900;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--p5);margin-bottom:8px
+}
+.kural .q{
+  font-size:14px;font-weight:800;color:var(--dark);text-align:center;
+  margin:10px 0;padding:10px;background:#fff;border-radius:10px;border:1px solid var(--p3)
+}
+.goodexample{
+  background:#eef9f3;border:1.5px solid #9cd9bb;border-radius:10px;
+  padding:10px 12px;margin:8px 0;color:#27684d
+}
+.badexample{
+  background:#fff0f1;border:1.5px solid #efb2b8;border-radius:10px;
+  padding:10px 12px;margin:8px 0;color:#8f333b
+}
+.gramgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.gramitem{
+  background:#faf9fe;border:1.5px solid var(--p3);border-radius:10px;
+  padding:10px 12px;font-size:12.5px;line-height:1.55
+}
+.people{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px
+}
+.person{
+  background:linear-gradient(135deg,#faf9fe,var(--p1));
+  border:1.5px solid var(--p3);border-radius:10px;padding:10px 12px;
+  font-size:12.5px;line-height:1.55
+}
+
+table.rubric{width:100%;border-collapse:collapse;font-size:12.5px}
+.rubric th{
+  background:linear-gradient(90deg,var(--p4),var(--p5));
+  padding:10px 14px;text-align:left;font-size:11px;letter-spacing:.5px;
+  text-transform:uppercase;color:#fff
+}
+.rubric td{padding:9px 14px;border-bottom:1px solid var(--p2);vertical-align:top}
+.rubric tr:last-child td{border-bottom:none;font-weight:900;background:#fff9e8}
+.rubric tr:nth-child(even) td{background:#fbfaff}
+.rubric .pts{text-align:right;color:#7b5a16;font-weight:900;white-space:nowrap}
+
+textarea.wta{
+  width:calc(100% - 36px);min-height:330px;padding:14px 16px;
+  font-size:14px;line-height:1.85;font-family:inherit;color:#333;
+  background:#faf9fe;border:2px solid var(--p3);border-radius:10px;
+  resize:vertical;margin:10px 18px 0;transition:border-color .2s
+}
+textarea.wta:focus{outline:none;border-color:var(--p4)}
+
+.countergrid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+  padding:10px 18px 14px
+}
+.counter{
+  border:1px solid var(--p3);background:#fff;border-radius:10px;
+  padding:9px 11px;font-size:11.5px;color:var(--mid)
+}
+.counter strong{display:block;font-size:14px;color:var(--dark);margin-top:2px}
+.counter strong.low{color:var(--red)}
+.counter strong.ok{color:var(--green)}
+
+.gatebox{
+  display:flex;align-items:flex-start;gap:10px;background:var(--gold1);
+  border:1.5px solid var(--gold2);border-radius:10px;
+  padding:12px 16px;margin:0 18px 16px
+}
+.gatebox input[type=checkbox]{
+  width:19px;height:19px;margin-top:1px;accent-color:var(--p5);cursor:pointer;flex-shrink:0
+}
+.gatebox label{font-size:12.5px;line-height:1.6;color:#5d4b1e;cursor:pointer}
+.gatebox .warn{font-size:11px;color:#a04040;margin-top:4px;font-weight:800}
+.wnav{display:flex;justify-content:center;padding:0 18px 18px}
+
+.cfw{max-width:440px;margin:0 auto;padding:40px 20px;text-align:center}
+.cfw h2{font-size:22px;color:var(--dark);margin-bottom:8px}
+.cfw p{font-size:14px;color:var(--mid);margin-bottom:20px;line-height:1.6}
+.ns{
+  background:var(--p1);border:2px solid var(--p4);border-radius:var(--r);
+  padding:14px 18px;margin-bottom:20px;font-size:14px;font-weight:800;color:var(--p5)
+}
+.rw{max-width:470px;margin:0 auto;padding:28px 20px;text-align:center}
+.rc{
+  background:#fff;border:1.5px solid var(--p3);border-radius:20px;
+  padding:28px 22px;margin-bottom:14px;box-shadow:0 6px 24px rgba(108,78,184,.12)
+}
+.re{font-size:50px;margin-bottom:10px}
+.rn{font-size:14px;color:var(--mid);margin-bottom:3px}
+.rt{font-size:15px;font-weight:800;color:var(--dark);margin-bottom:16px}
+.stb{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 20px;
+  border-radius:50px;font-size:13px;font-weight:800;margin-bottom:14px
+}
+.stok{background:#eaf8f1;border:1.5px solid #9fd9bc;color:#28684d}
+.ster{background:#fff0f1;border:1.5px solid #efb2b8;color:#963942}
+.stpnd{background:#fff7dc;border:1.5px solid #e2bf63;color:#806219}
+.rp{font-size:13px;color:var(--mid);line-height:1.7;margin-top:6px}
+.ra{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+
+.notice{
+  display:flex;align-items:flex-start;gap:10px;
+  background:#fff8dc;border:1.5px solid #f1d37a;border-radius:var(--r);
+  padding:12px 16px;margin-bottom:16px;font-size:12.5px;
+  line-height:1.65;color:#71591c;text-align:left
+}
+.notice .ic{font-size:18px;flex-shrink:0}
+
+@media(max-width:560px){
+  .promptgrid,.gramgrid,.people,.countergrid{grid-template-columns:1fr}
+  .tarow{grid-template-columns:1fr;gap:5px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="htag">8. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (31-32. DERS) &nbsp;|&nbsp; YAZMA</div>
+  <h1>🇪🇸 A1.1 – 31-32. Ders – Yazma Ödevi</h1>
+  <div class="header-sub">Gustar y su familia &nbsp;•&nbsp; Las cosas que me gustan &nbsp;•&nbsp; 100 puan &nbsp;•&nbsp; @ispanyolcacim &nbsp;•&nbsp; Profe Hazel</div>
+</div>
+
+<!-- İSİM EKRANI -->
+<div class="screen active" id="sc-name">
+  <div class="nb">
+    <h2>💜 Adınızı seçin</h2>
+    <p>Yazma ödevine başlamadan önce lütfen listeden adınızı seçin.</p>
+
+    <select class="sel" id="name-sel">
+      <option value="">-- Adınızı Seçin --</option>
+        <option>Ali Ceylan</option>
+        <option>Beyza Nur Yuksel</option>
+        <option>Aysen Gurkan</option>
+        <option>Defne Ozer</option>
+        <option>Defne Sonmez</option>
+        <option>Ece Utkan</option>
+        <option>Melisa Tuncer</option>
+        <option>Sude Selen Ulker</option>
+        <option>Sule Soylemez Gul</option>
+        <option>Yelda Yilmaz</option>
+    </select>
+
+    <div class="notice">
+      <span class="ic">🎓</span>
+      <span><strong>8. hafta — son hafta:</strong> Bu yazma çalışmasında <strong>gustar ve aynı mantıkla çalışan fiilleri</strong> gerçek bir metin içinde kullanacağız. Özellikle <strong>me / te / le / nos / os / les</strong> ile <strong>tekil–çoğul fiil uyumuna</strong> dikkat edin.</span>
+    </div>
+
+    <div class="ib">
+      <div class="ibr"><div class="ibd"></div><span><strong>Konu:</strong> <em>Las cosas que me gustan</em></span></div>
+      <div class="ibr"><div class="ibd"></div><span><strong>Minimum:</strong> 120 kelime &amp; 4 paragraf &amp; 12 cümle.</span></div>
+      <div class="ibr"><div class="ibd"></div><span><strong>Gramer:</strong> En az <strong>5 farklı gustar tipi fiil</strong> ve <strong>4 farklı kişi yapısı</strong>.</span></div>
+      <div class="ibr"><div class="ibd"></div><span><strong>Beklenti:</strong> Kendinizden, ailenizden veya arkadaşlarınızdan doğal ve bağlantılı paragraflarla bahsedin.</span></div>
+      <div class="ibh"></div>
+      <div class="ibr"><div class="ibd" style="background:var(--p5)"></div><span>Yazınız bu sayfadan doğrudan <strong>Profe Hazel'e e-posta ile</strong> iletilecek ve ödev tesliminiz öğrenci takip tablosuna kaydedilecektir.</span></div>
+    </div>
+
+    <button class="btn bm bf" onclick="startWriting()">▶ Yazma Ödevine Başla</button>
+  </div>
+</div>
+
+<!-- YAZMA EKRANI -->
+<div class="screen" id="sc-writing">
+  <div class="qw">
+
+    <div class="sb">✍️ Yazma Ödevi · 100 puan</div>
+
+    <div class="konu">
+      <h2>Konu: Las cosas que me gustan</h2>
+      <p>Bu ödevde <strong>sevdiğiniz, çok sevdiğiniz, ilginizi çeken, sizin için önemli olan ve hoşlanmadığınız şeylerden</strong> bahsedeceksiniz.<br><br>
+      Ancak yalnızca kendinizden bahsetmeyeceksiniz. Ailenizden veya arkadaşlarınızdan da örnekler vererek <strong>gustar ve benzer yapıları farklı kişilerle</strong> kullanacaksınız.</p>
+    </div>
+
+    <div class="card">
+      <div class="cardpad">
+
+        <div class="wtitle">📋 Yazınızın Başına Ekleyin</div>
+
+        <div class="taform">
+          <div class="tarow"><label>Nombre y Apellido</label><div class="staticv" id="ta-name">—</div></div>
+          <div class="tarow"><label>Número de tarea</label><div class="staticv">A1.1 (31+32)</div></div>
+          <div class="tarow"><label>Tema de la tarea</label><div class="staticv">Gustar y su familia</div></div>
+          <div class="tarow"><label>Título de tu texto</label><input class="tin" id="ta-title" placeholder="Örn. Las cosas que me gustan…" style="margin-bottom:0" oninput="updateGate()"></div>
+        </div>
+
+        <div class="instr">
+          <div class="instrl">Yönerge</div>
+          Yazınız:
+          <ul>
+            <li>En az <strong>120 kelime</strong> olmalıdır.</li>
+            <li>En az <strong>4 paragraftan</strong> oluşmalıdır.</li>
+            <li>En az <strong>12 cümle</strong> yazınız.</li>
+            <li><strong>gustar</strong> fiilini hem <strong>gusta</strong> hem de <strong>gustan</strong> biçiminde kullanınız.</li>
+            <li>En az <strong>5 farklı “gustar tipi” fiil</strong> kullanınız.</li>
+            <li>Yalnızca <strong>me gusta</strong> kullanmayınız.</li>
+            <li>En az <strong>4 farklı kişi yapısı</strong> kullanınız.</li>
+            <li>Örneğin: <strong>A mí me… / A mi madre le… / A mis amigos les… / A nosotros nos…</strong></li>
+            <li>Sevdiğiniz ve sevmediğiniz şeylerden bahsediniz.</li>
+            <li>En az bir yerde <strong>porque</strong> kullanarak neden belirtiniz.</li>
+            <li>Aynı kelimeleri ve aynı yapıları sürekli tekrar etmemeye çalışınız.</li>
+            <li>Artikel, tekil–çoğul ve fiil uyumuna dikkat ediniz.</li>
+            <li>Yazım ve <strong>tilde</strong> kullanımını kontrol ediniz.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resw" style="border:none;border-radius:0;box-shadow:none;border-top:1.5px solid var(--p3);margin-bottom:0">
+        <div class="resh" onclick="toggleBox('ideas')"><h3>💭 Yazınızda Nelerden Bahsedebilirsiniz?</h3><span class="rest" id="ideas-tog">Gizle</span></div>
+        <div class="resb" id="ideas">
+          <p style="margin-bottom:10px"><strong>Aşağıdaki soruların hepsini cevaplamak zorunda değilsiniz.</strong> Sorular yalnızca size fikir vermek içindir.</p>
+
+          <div class="wtitle" style="padding:4px 0 8px">🙋 SEN</div>
+          <div class="promptgrid">
+            <div class="promptitem"><strong>¿Qué te gusta hacer en tu tiempo libre?</strong><br>Boş zamanlarında ne yapmayı seviyorsun?</div>
+            <div class="promptitem"><strong>¿Qué música te gusta?</strong><br>Hangi müzikleri seviyorsun?</div>
+            <div class="promptitem"><strong>¿Qué comidas te gustan?</strong><br>Hangi yemekleri seviyorsun?</div>
+            <div class="promptitem"><strong>¿Te gusta viajar?</strong><br>Seyahat etmeyi seviyor musun?</div>
+            <div class="promptitem"><strong>¿Te gusta estudiar español? ¿Por qué?</strong><br>İspanyolca çalışmayı seviyor musun? Neden?</div>
+            <div class="promptitem"><strong>¿Qué cosas te encantan?</strong><br>Neleri çok seviyorsun?</div>
+            <div class="promptitem"><strong>¿Qué temas te interesan?</strong><br>Hangi konular ilgini çekiyor?</div>
+            <div class="promptitem"><strong>¿Qué cosas son importantes para ti?</strong><br>Hangi şeyler senin için önemli?</div>
+            <div class="promptitem"><strong>¿Qué cosas te molestan?</strong><br>Neler seni rahatsız ediyor?</div>
+            <div class="promptitem"><strong>¿Qué cosas no te gustan?</strong><br>Neleri sevmiyorsun?</div>
+          </div>
+
+          <div class="wtitle" style="padding:16px 0 8px">👨‍👩‍👧‍👦 AİLEN / ARKADAŞLARIN</div>
+          <div class="promptgrid">
+            <div class="promptitem"><strong>¿Qué le gusta a tu madre / padre / hermano / hermana?</strong><br>Annen / baban / kardeşin neyi seviyor?</div>
+            <div class="promptitem"><strong>¿Qué les gusta a tus amigos?</strong><br>Arkadaşların neleri seviyor?</div>
+            <div class="promptitem"><strong>¿Qué os gusta hacer juntos?</strong><br>Birlikte ne yapmayı seviyorsunuz?</div>
+            <div class="promptitem"><strong>¿Qué le encanta a una persona de tu familia?</strong><br>Ailenden biri neyi çok seviyor?</div>
+            <div class="promptitem"><strong>¿Qué les interesa a tus amigos?</strong><br>Arkadaşlarının ilgisini neler çekiyor?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resw">
+      <div class="resh" onclick="toggleBox('paragraphs')"><h3>🧩 Önerilen Paragraf Yapısı</h3><span class="rest" id="paragraphs-tog">Gizle</span></div>
+      <div class="resb" id="paragraphs">
+        <p><strong>1. Paragraf – Presentación</strong><br>Kendinizi kısaca tanıtın ve genel olarak sevdiğiniz şeylerden bahsedin.</p><br>
+        <p><strong>2. Paragraf – Mis gustos</strong><br>Sevdiğiniz yemekler, aktiviteler, müzikler, filmler, yerler veya hobilerden bahsedin.</p><br>
+        <p><strong>3. Paragraf – Mi familia y mis amigos</strong><br>Bu bölümde başka kişilerden bahsedin.</p><br>
+        <p><strong>4. Paragraf – Lo que no me gusta</strong><br>Sevmediğiniz veya sizi rahatsız eden şeyleri anlatın.</p>
+      </div>
+    </div>
+
+    <div class="resw">
+      <div class="resh" onclick="toggleBox('grammar')"><h3>🧠 Ana Gramer — Gustar ve Ailesi</h3><span class="rest" id="grammar-tog">Gizle</span></div>
+      <div class="resb" id="grammar">
+
+        <div class="kural">
+          <div class="kurall">⭐ GUSTAR</div>
+          <div class="q">Tekil isim / mastar → gusta &nbsp;&nbsp;•&nbsp;&nbsp; Çoğul isim → gustan</div>
+          <div class="gramgrid">
+            <div class="gramitem"><strong>Me gusta el café.</strong><br>Kahveyi seviyorum.</div>
+            <div class="gramitem"><strong>Me gusta viajar.</strong><br>Seyahat etmeyi seviyorum.</div>
+            <div class="gramitem"><strong>Me gustan los libros.</strong><br>Kitapları seviyorum.</div>
+            <div class="gramitem"><strong>Me gustan las películas españolas.</strong><br>İspanyol filmlerini seviyorum.</div>
+          </div>
+        </div>
+
+        <div class="wtitle">👤 KİŞİLER</div>
+        <div class="people">
+          <div class="person"><strong>a mí → me</strong></div>
+          <div class="person"><strong>a ti → te</strong></div>
+          <div class="person"><strong>a él / ella / usted → le</strong></div>
+          <div class="person"><strong>a nosotros/as → nos</strong></div>
+          <div class="person"><strong>a vosotros/as → os</strong></div>
+          <div class="person"><strong>a ellos / ellas / ustedes → les</strong></div>
+        </div>
+
+        <div class="gramgrid" style="margin-top:12px">
+          <div class="gramitem"><strong>A mí me gusta el chocolate.</strong><br>Ben çikolatayı seviyorum.</div>
+          <div class="gramitem"><strong>A ti te gustan los animales.</strong><br>Sen hayvanları seviyorsun.</div>
+          <div class="gramitem"><strong>A mi madre le encanta cocinar.</strong><br>Annem yemek yapmaya bayılıyor.</div>
+          <div class="gramitem"><strong>A nosotros nos gusta viajar.</strong><br>Biz seyahat etmeyi seviyoruz.</div>
+          <div class="gramitem"><strong>A vosotros os interesa el español.</strong><br>Sizin İspanyolca ilginizi çekiyor.</div>
+          <div class="gramitem"><strong>A mis amigos les gustan los videojuegos.</strong><br>Arkadaşlarım video oyunlarını seviyor.</div>
+        </div>
+
+        <div class="wtitle" style="padding-top:16px">❤️ GUSTAR AİLESİ</div>
+        <p style="margin-bottom:10px">Yazınızda bunlardan <strong>en az 5 farklı fiil</strong> kullanınız.</p>
+
+        <div class="gramgrid">
+          <div class="gramitem"><strong>gustar</strong><br>sevmek / hoşuna gitmek<br><em>Me gusta el verano.</em></div>
+          <div class="gramitem"><strong>encantar</strong><br>çok sevmek / bayılmak<br><em>Me encanta bailar. / Me encantan los perros.</em></div>
+          <div class="gramitem"><strong>interesar</strong><br>ilgisini çekmek<br><em>Me interesa la historia. / Me interesan los idiomas.</em></div>
+          <div class="gramitem"><strong>importar</strong><br>önemli olmak / önemsemek<br><em>Me importa mi familia. / Me importan mis amigos.</em></div>
+          <div class="gramitem"><strong>molestar</strong><br>rahatsız etmek<br><em>Me molesta el ruido. / Me molestan los lugares muy llenos.</em></div>
+          <div class="gramitem"><strong>doler</strong><br>ağrımak<br><em>Me duele la cabeza. / Me duelen los ojos.</em></div>
+        </div>
+
+        <div class="kural" style="margin-top:14px">
+          <div class="kurall">⭐ ÇOK ÖNEMLİ: GUSTA MI, GUSTAN MI?</div>
+          <p>Fiil <strong>kişiye göre değil</strong>, hoşumuza giden şeyin <strong>tekil veya çoğul olmasına göre</strong> değişir.</p>
+          <div class="goodexample"><strong>Me gusta el libro.</strong><br>el libro = tekil</div>
+          <div class="goodexample"><strong>Me gustan los libros.</strong><br>los libros = çoğul</div>
+        </div>
+
+        <div class="gramgrid">
+          <div class="gramitem"><strong>Me encanta esta canción.</strong><br>Bu şarkıya bayılıyorum.</div>
+          <div class="gramitem"><strong>Me encantan estas canciones.</strong><br>Bu şarkılara bayılıyorum.</div>
+          <div class="gramitem"><strong>Me interesa este tema.</strong><br>Bu konu ilgimi çekiyor.</div>
+          <div class="gramitem"><strong>Me interesan estos temas.</strong><br>Bu konular ilgimi çekiyor.</div>
+          <div class="gramitem"><strong>Me molesta el ruido.</strong><br>Gürültü beni rahatsız ediyor.</div>
+          <div class="gramitem"><strong>Me molestan los ruidos fuertes.</strong><br>Yüksek sesler beni rahatsız ediyor.</div>
+        </div>
+
+        <div class="kural" style="margin-top:14px">
+          <div class="kurall">🤕 DOLER MANTIĞI</div>
+          <div class="goodexample"><strong>Me duele la cabeza.</strong><br>Başım ağrıyor.<br><small>İspanyolca mantığıyla: “Baş bana ağrı veriyor.”</small></div>
+          <div class="goodexample"><strong>Me duelen los ojos.</strong><br>Gözlerim ağrıyor.<br><small>İspanyolca mantığıyla: “Gözler bana ağrı veriyor.”</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resw">
+      <div class="resh" onclick="toggleBox('important')"><h3>🚨 En Önemli Kural</h3><span class="rest" id="important-tog">Gizle</span></div>
+      <div class="resb" id="important">
+        <p><strong>Bu bir soru-cevap ödevi değildir.</strong> Soruları tek tek cevaplamayın.</p>
+
+        <div class="badexample">
+          ❌ <em>¿Qué te gusta?</em><br>
+          <em>Me gusta la música.</em><br><br>
+          <em>¿Qué le gusta a tu madre?</em><br>
+          <em>A mi madre le gusta cocinar.</em><br><br>
+          <em>¿Qué les gusta a tus amigos?</em><br>
+          <em>A mis amigos les gusta salir.</em>
+        </div>
+
+        <p>Bunun yerine düşüncelerinizi birbirine bağlayarak <strong>paragraflar oluşturun.</strong></p>
+      </div>
+    </div>
+
+    <div class="resw">
+      <div class="resh" onclick="toggleBox('checklist')"><h3>🎯 Ödevde Mutlaka Bulunması Gerekenler</h3><span class="rest" id="checklist-tog">Gizle</span></div>
+      <div class="resb" id="checklist">
+        <p>☐ <strong>gusta</strong> kullandım.</p>
+        <p>☐ <strong>gustan</strong> kullandım.</p>
+        <p>☐ <strong>encantar</strong> kullandım.</p>
+        <p>☐ <strong>interesar</strong> kullandım.</p>
+        <p>☐ En az <strong>2 başka gustar tipi fiil</strong> kullandım.</p>
+        <p>☐ <strong>me</strong> kullandım.</p>
+        <p>☐ <strong>le</strong> kullandım.</p>
+        <p>☐ <strong>les</strong> kullandım.</p>
+        <p>☐ <strong>nos veya os</strong> kullandım.</p>
+        <p>☐ En az bir olumsuz cümle yazdım.</p>
+        <p>☐ En az bir cümlede <strong>porque</strong> ile neden açıkladım.</p>
+        <p>☐ Tekil / çoğul uyumunu kontrol ettim.</p>
+        <p>☐ Yazımı ve tildeleri kontrol ettim.</p>
+      </div>
+    </div>
+
+    <div class="resw">
+      <div class="resh" onclick="toggleBox('rubric')"><h3>📊 Puanlama Cetveli</h3><span class="rest" id="rubric-tog">Gizle</span></div>
+      <div class="resb" id="rubric" style="padding:0">
+        <table class="rubric">
+          <thead><tr><th>Kriter</th><th class="pts">Puan</th></tr></thead>
+          <tbody>
+            <tr><td>İçerik ve yönergeye uygunluk</td><td class="pts">15</td></tr>
+            <tr><td><strong>Gustar – gusta / gustan</strong> kullanımı</td><td class="pts">20</td></tr>
+            <tr><td>Gustar ailesinden farklı fiiller</td><td class="pts">20</td></tr>
+            <tr><td><strong>me / te / le / nos / os / les</strong> kullanımı</td><td class="pts">15</td></tr>
+            <tr><td>Tekil – çoğul uyumu</td><td class="pts">10</td></tr>
+            <tr><td>Cümle yapısı ve gramer doğruluğu</td><td class="pts">10</td></tr>
+            <tr><td>Kelime bilgisi ve çeşitlilik</td><td class="pts">5</td></tr>
+            <tr><td>Yazım / tilde / noktalama</td><td class="pts">5</td></tr>
+            <tr><td><strong>TOPLAM</strong></td><td class="pts"><strong>100</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="wtitle" style="padding:16px 18px 4px">✏️ Yazınızı Aşağıya Yazın</div>
+
+      <textarea class="wta" id="wtext" placeholder="Metninizi buraya yazın…" oninput="updateGate()"></textarea>
+
+      <div class="countergrid">
+        <div class="counter">Kelime sayısı<strong id="wc-num" class="low">0 / Minimum 120</strong></div>
+        <div class="counter">Paragraf sayısı<strong id="pc-num" class="low">0 / Minimum 4</strong></div>
+        <div class="counter">Gustar ailesinden kullanılan farklı fiil<strong id="gc-num" class="low">0 / Minimum 5</strong></div>
+        <div class="counter">Farklı kişi yapısı<strong id="pr-num" class="low">0 / Minimum 4</strong></div>
+      </div>
+
+      <div class="gatebox">
+        <input type="checkbox" id="chk-photo" onchange="updateGate()">
+        <label for="chk-photo">
+          <strong>Ödevimin fotoğrafını çektim / yazımın bir kopyasını aldım.</strong>
+          <div class="warn">⚠️ Bu kutucuğu işaretlemeden teslim butonu aktif olmayacaktır.</div>
+        </label>
+      </div>
+
+      <div class="wnav">
+        <button class="btn bm bf" id="btn-goconfirm" onclick="goToConfirm()" disabled>✔ Yazıyı Tamamladım, Teslim Et</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ONAY -->
+<div class="screen" id="sc-confirm">
+  <div class="cfw">
+    <div class="re">📨</div>
+    <h2>Yazınızı teslim etmek üzeresiniz</h2>
+    <p>Öğrenci adınızı son kez kontrol edin. Teslimden sonra yazınız Profe Hazel'e e-posta ile gönderilecek ve teslim kaydınız tabloya işlenecektir.</p>
+
+    <select class="sel" id="cf-sel">
+      <option value="">-- Adınızı Seçin --</option>
+        <option>Ali Ceylan</option>
+        <option>Beyza Nur Yuksel</option>
+        <option>Aysen Gurkan</option>
+        <option>Defne Ozer</option>
+        <option>Defne Sonmez</option>
+        <option>Ece Utkan</option>
+        <option>Melisa Tuncer</option>
+        <option>Sude Selen Ulker</option>
+        <option>Sule Soylemez Gul</option>
+        <option>Yelda Yilmaz</option>
+    </select>
+
+    <div class="ns" id="confirm-summary">—</div>
+
+    <button class="btn bm bf" id="cf-btn" onclick="confirmSubmit()">✔ Evet, Teslim Et</button>
+    <button class="btn bo bf" style="margin-top:10px" onclick="backToWriting()">← Yazıya Dön</button>
+  </div>
+</div>
+
+<!-- SONUÇ -->
+<div class="screen" id="sc-result">
+  <div class="rw">
+    <div class="rc">
+      <div class="re">🎉</div>
+      <div class="rn" id="rs-name"></div>
+      <div class="rt">A1.1 · 31-32. Ders · Yazma Ödevi</div>
+      <div class="stb stpnd" id="rs-email">⏳ E-posta gönderiliyor…</div><br>
+      <div class="stb stpnd" id="rs-sheet">⏳ Teslim kaydı işleniyor…</div>
+      <div class="rp" id="rs-info"></div>
+
+      <div class="notice" style="margin-top:16px;margin-bottom:0">
+        <span class="ic">💜</span>
+        <span><strong>8. hafta:</strong> <em>Las cosas que me gustan</em> yazma ödevinizi tamamladınız. Yazınız öğretmen değerlendirmesi için iletildi. ✅</span>
+      </div>
+    </div>
+
+    <div class="ra">
+      <button class="btn bo" onclick="goName()">🔄 Yeniden Başla</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+/* =========================
+   MEVCUT BAĞLANTI AYARLARI
+   ========================= */
+emailjs.init('xNYEbUQNiWJPvbyoJ');
+
+const EMAILJS_SERVICE='service_4ee1wh7';
+const EMAILJS_TEMPLATE='template_xjyyxhf';
+
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec';
+
+const LESSON_NAME='A1.1 – 8. Hafta 31-32. Ders (Gustar y su familia – Yazma Ödevi)';
+
+/* Google Sheets'teki sütun başlığı BİREBİR budur. */
+const SHEET_COLUMN=`31-32. Ders
+YAZMA ÖDEVİ
+EL VERBO GUSTAR Y SU FAMILIA`;
+
+let student='';
+let submitted=false;
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sc-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function startWriting(){
+  const s=document.getElementById('name-sel');
+  if(!s.value){alert('Lütfen adınızı seçin!');return;}
+  student=s.value;
+  document.getElementById('ta-name').textContent=student;
+  show('writing');
+  updateGate();
+}
+
+function toggleBox(id){
+  const el=document.getElementById(id);
+  const btn=document.getElementById(id+'-tog');
+  el.classList.toggle('collapsed');
+  btn.textContent=el.classList.contains('collapsed')?'Göster':'Gizle';
+}
+
+function countWords(t){
+  t=t.trim();
+  return t===''?0:t.split(/\s+/).filter(Boolean).length;
+}
+
+function countParas(t){
+  if(!t.trim()) return 0;
+  return t.split(/\n\s*\n|\n/).map(x=>x.trim()).filter(Boolean).length;
+}
+
+function countSentences(t){
+  if(!t.trim()) return 0;
+  const m=t.match(/[^.!?¿¡]+[.!?]+/g);
+  if(m) return m.length;
+  return t.split(/\n+/).map(x=>x.trim()).filter(Boolean).length;
+}
+
+function normalizeText(t){
+  return t.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[¿?¡!.,;:()"“”'’\[\]{}]/g,' ');
+}
+
+/* Yaklaşık sayaç:
+   gustar, encantar, interesar, importar, molestar, doler
+   fiillerinden metinde kullanılan farklı aile üyelerini sayar. */
+function countGustarFamily(text){
+  const t=normalizeText(text);
+  const families=[
+    {name:'gustar', re:/\b(gusta|gustan)\b/},
+    {name:'encantar', re:/\b(encanta|encantan)\b/},
+    {name:'interesar', re:/\b(interesa|interesan)\b/},
+    {name:'importar', re:/\b(importa|importan)\b/},
+    {name:'molestar', re:/\b(molesta|molestan)\b/},
+    {name:'doler', re:/\b(duele|duelen)\b/}
+  ];
+  return families.filter(f=>f.re.test(t)).length;
+}
+
+/* me / te / le / nos / os / les arasındaki farklı zamirleri yaklaşık sayar. */
+function countPersonStructures(text){
+  const t=' '+normalizeText(text)+' ';
+  const found=new Set();
+  ['me','te','le','nos','os','les'].forEach(p=>{
+    const re=new RegExp('\\b'+p+'\\b');
+    if(re.test(t)) found.add(p);
+  });
+  return found.size;
+}
+
+function hasGustaAndGustan(text){
+  const t=normalizeText(text);
+  return /\bgusta\b/.test(t) && /\bgustan\b/.test(t);
+}
+
+function hasPorque(text){
+  return /\bporque\b/.test(normalizeText(text));
+}
+
+function hasNegative(text){
+  return /\bno\b/.test(normalizeText(text));
+}
+
+function updateGate(){
+  const text=document.getElementById('wtext').value;
+  const wc=countWords(text);
+  const pc=countParas(text);
+  const sc=countSentences(text);
+  const gc=countGustarFamily(text);
+  const pr=countPersonStructures(text);
+
+  const wcEl=document.getElementById('wc-num');
+  const pcEl=document.getElementById('pc-num');
+  const gcEl=document.getElementById('gc-num');
+  const prEl=document.getElementById('pr-num');
+
+  wcEl.textContent=wc+' / Minimum 120';
+  pcEl.textContent=pc+' / Minimum 4';
+  gcEl.textContent=gc+' / Minimum 5';
+  prEl.textContent=pr+' / Minimum 4';
+
+  wcEl.className=wc>=120?'ok':'low';
+  pcEl.className=pc>=4?'ok':'low';
+  gcEl.className=gc>=5?'ok':'low';
+  prEl.className=pr>=4?'ok':'low';
+
+  const title=document.getElementById('ta-title').value.trim();
+  const checked=document.getElementById('chk-photo').checked;
+
+  const ready=
+    checked &&
+    title.length>0 &&
+    wc>=120 &&
+    pc>=4 &&
+    sc>=12 &&
+    gc>=5 &&
+    pr>=4 &&
+    hasGustaAndGustan(text) &&
+    hasPorque(text) &&
+    hasNegative(text);
+
+  document.getElementById('btn-goconfirm').disabled=!ready;
+}
+
+function goToConfirm(){
+  const text=document.getElementById('wtext').value.trim();
+  const title=document.getElementById('ta-title').value.trim();
+  const checked=document.getElementById('chk-photo').checked;
+
+  const wc=countWords(text);
+  const pc=countParas(text);
+  const sc=countSentences(text);
+  const gc=countGustarFamily(text);
+  const pr=countPersonStructures(text);
+
+  if(!checked){
+    alert('Lütfen önce "Ödevimin fotoğrafını çektim / yazımın bir kopyasını aldım" kutucuğunu işaretleyin.');
+    return;
+  }
+  if(!title){
+    alert('Lütfen yazınız için İspanyolca bir başlık girin.');
+    return;
+  }
+  if(wc<120 || pc<4 || sc<12 || gc<5 || pr<4){
+    alert(
+      'Teslim için minimum 120 kelime, 4 paragraf, 12 cümle, 5 farklı gustar tipi fiil ve 4 farklı kişi yapısı gereklidir.\n\n'+
+      'Şu an:\n'+
+      wc+' kelime\n'+pc+' paragraf\n'+sc+' cümle\n'+gc+' farklı gustar tipi fiil\n'+pr+' farklı kişi yapısı'
+    );
+    return;
+  }
+  if(!hasGustaAndGustan(text)){
+    alert('Yazınızda hem "gusta" hem de "gustan" kullanmalısınız.');
+    return;
+  }
+  if(!hasPorque(text)){
+    alert('Yazınızda en az bir kez "porque" kullanarak neden belirtmelisiniz.');
+    return;
+  }
+  if(!hasNegative(text)){
+    alert('Yazınızda en az bir olumsuz cümle bulunmalıdır.');
+    return;
+  }
+
+  document.getElementById('cf-sel').value=student;
+  document.getElementById('confirm-summary').innerHTML=
+    '<strong>'+student+'</strong><br>'+
+    wc+' kelime · '+pc+' paragraf · '+sc+' cümle<br>'+
+    gc+' farklı gustar tipi fiil · '+pr+' farklı kişi yapısı';
+
+  show('confirm');
+}
+
+function backToWriting(){
+  show('writing');
+}
+
+function confirmSubmit(){
+  if(submitted)return;
+
+  try{
+    const s=document.getElementById('cf-sel');
+    if(!s || !s.value){alert('Lütfen adınızı seçin!');return;}
+
+    student=s.value;
+    document.getElementById('ta-name').textContent=student;
+
+    const b=document.getElementById('cf-btn');
+    b.disabled=true;
+    b.textContent='⏳ Gönderiliyor…';
+
+    doSubmit();
+  }catch(e){
+    const b=document.getElementById('cf-btn');
+    if(b){b.disabled=false;b.textContent='✔ Evet, Teslim Et';}
+    alert('Hata: '+e.message);
+  }
+}
+
+async function doSubmit(){
+  const text=document.getElementById('wtext').value.trim();
+  const title=document.getElementById('ta-title').value.trim();
+
+  const wc=countWords(text);
+  const pc=countParas(text);
+  const sc=countSentences(text);
+  const gc=countGustarFamily(text);
+  const pr=countPersonStructures(text);
+
+  const now=new Date();
+  const date=now.toLocaleDateString('tr-TR');
+  const time=now.toLocaleTimeString('tr-TR');
+  const tarih=date+' '+time;
+
+  const fullText=
+    'ÖĞRENCİ: '+student+'\n'+
+    'BAŞLIK: '+title+'\n'+
+    'NÚMERO DE TAREA: A1.1 (31+32)\n'+
+    'TEMA: Gustar y su familia\n'+
+    'KELİME SAYISI: '+wc+'\n'+
+    'PARAGRAF SAYISI: '+pc+'\n'+
+    'CÜMLE SAYISI: '+sc+'\n'+
+    'FARKLI GUSTAR TİPİ FİİL: '+gc+'\n'+
+    'FARKLI KİŞİ YAPISI: '+pr+'\n'+
+    'TESLİM TARİHİ: '+tarih+'\n\n'+
+    '--- YAZI ---\n\n'+text;
+
+  document.getElementById('rs-name').textContent=student;
+  document.getElementById('rs-info').innerHTML=
+    '<strong>'+title+'</strong><br>'+
+    wc+' kelime · '+pc+' paragraf · '+sc+' cümle<br>'+
+    gc+' farklı gustar tipi fiil · '+pr+' farklı kişi yapısı<br><br>'+
+    'Teslim: '+tarih;
+
+  show('result');
+
+  const emailStatus=document.getElementById('rs-email');
+  const sheetStatus=document.getElementById('rs-sheet');
+
+  /* 1) EMAILJS — A2.2 örneğindeki servis / template / public key mantığı */
+  const emailPromise=emailjs.send(EMAILJS_SERVICE,EMAILJS_TEMPLATE,{
+    student_name:student,
+    lesson:LESSON_NAME,
+    submit_date:tarih,
+    writing_text:fullText,
+    title:title,
+    word_count:wc
+  }).then(()=>{
+    emailStatus.className='stb stok';
+    emailStatus.textContent='✅ Yazınız e-posta ile gönderildi!';
+    return true;
+  }).catch(()=>{
+    emailStatus.className='stb ster';
+    emailStatus.textContent='⚠️ E-posta gönderilemedi';
+    return false;
+  });
+
+  /* 2) GOOGLE SHEETS — A1.1 mevcut Apps Script bağlantısı
+     Sütun adı SHEET_COLUMN değişkeninde birebir tanımlıdır.
+     Yazma ödevine otomatik puan verilmez; durum "Kontrol edilecek" olarak gönderilir. */
+  const formatted='📝 Kontrol edilecek\n'+date+'\n'+time;
+
+  const payload={
+    odev:SHEET_COLUMN,
+    ogrenci:student,
+    grup:'A1.1',
+    tip:'yazma',
+    durum:'Kontrol edilecek',
+    formatted:formatted,
+    tarih:tarih,
+    baslik:title,
+    kelime:wc
+  };
+
+  const url=SCRIPT_URL+'?data='+encodeURIComponent(JSON.stringify(payload));
+
+  const sheetPromise=new Promise(resolve=>{
+    let done=false;
+    const ok=()=>{
+      if(done)return;
+      done=true;
+      sheetStatus.className='stb stok';
+      sheetStatus.textContent='✅ Teslim kaydınız tabloya gönderildi!';
+      resolve(true);
+    };
+
+    try{
+      const img=new Image();
+      img.onload=ok;
+      img.onerror=ok;
+      img.src=url;
+    }catch(e){}
+
+    fetch(url,{method:'GET',mode:'no-cors'})
+      .then(ok)
+      .catch(ok);
+
+    setTimeout(ok,3500);
+  });
+
+  await Promise.all([emailPromise,sheetPromise]);
+  submitted=true;
+}
+
+function goName(){
+  student='';
+  submitted=false;
+
+  document.getElementById('name-sel').value='';
+  document.getElementById('cf-sel').value='';
+  document.getElementById('ta-title').value='';
+  document.getElementById('wtext').value='';
+  document.getElementById('chk-photo').checked=false;
+  document.getElementById('ta-name').textContent='—';
+
+  const b=document.getElementById('cf-btn');
+  if(b){b.disabled=false;b.textContent='✔ Evet, Teslim Et';}
+
+  document.getElementById('rs-email').className='stb stpnd';
+  document.getElementById('rs-email').textContent='⏳ E-posta gönderiliyor…';
+  document.getElementById('rs-sheet').className='stb stpnd';
+  document.getElementById('rs-sheet').textContent='⏳ Teslim kaydı işleniyor…';
+
+  updateGate();
+  show('name');
+}
+</script>
+</body>
+</html>
