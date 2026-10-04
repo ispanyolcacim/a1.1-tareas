@@ -872,19 +872,16 @@ async function doSubmit(){
 
   /* 2) GOOGLE SHEETS — A1.1 mevcut Apps Script bağlantısı
      Sütun adı SHEET_COLUMN değişkeninde birebir tanımlıdır.
-     Yazma ödevine otomatik puan verilmez; durum "Kontrol edilecek" olarak gönderilir. */
-  const formatted='📝 Kontrol edilecek\n'+date+'\n'+time;
+     Yazma ödevine otomatik puan verilmez; hücreye yalnızca "🟡 Kontrol Bekliyor" gönderilir. */
+  const formatted='🟡 Kontrol Bekliyor';
 
   const payload={
     odev:SHEET_COLUMN,
     ogrenci:student,
     grup:'A1.1',
     tip:'yazma',
-    durum:'Kontrol edilecek',
-    formatted:formatted,
-    tarih:tarih,
-    baslik:title,
-    kelime:wc
+    durum:'🟡 Kontrol Bekliyor',
+    formatted:'🟡 Kontrol Bekliyor'
   };
 
   const url=SCRIPT_URL+'?data='+encodeURIComponent(JSON.stringify(payload));
