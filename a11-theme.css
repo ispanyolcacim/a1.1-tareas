@@ -372,6 +372,13 @@ body:not(:has(#sc-name.active)):not(:has(#sc-start.active)) > .header::before { 
   --ink: #443d2d;
 }
 body { max-width: none; box-shadow: none; }
+/* Keep standalone quiz and result screens centered in every template. */
+body > :is(#quiz, #result) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+}
 h1, h2, .intro-title, .cover-title, .res-title, .result-title {
   color: var(--a11-primary-dark);
   font-family: 'Nunito', sans-serif;
