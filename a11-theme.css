@@ -659,3 +659,50 @@ select:focus, input[type='text']:focus, textarea:focus { border-color: var(--a11
   .a11-lesson-icon { flex-basis: 32px; height: 32px; font-size: 18px; }
   .a11-quiz-status .top-bar { flex-basis: 100%; }
 }
+
+/* A1.1 assignment covers use the same card as the 5–6 lesson. */
+body > #introScreen {
+  box-sizing: border-box;
+  width: min(608px, calc(100% - 28px));
+  max-width: 608px;
+  margin: 14px auto 32px;
+  padding: clamp(20px, 4vw, 28px);
+  border: 1px solid var(--a11-border);
+  border-top: 5px solid var(--a11-primary-light);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--a11-shadow);
+}
+body > #introScreen::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: #ffdb53;
+  box-shadow: 20px 0 #e9a6ba, 40px 0 #a5cdb7;
+}
+:is(#introScreen, #cover) :is(h1, .intro-title, .cover-title) {
+  color: var(--a11-ink);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+body > #introScreen :is(.week-pill, .name-label, .name-select, .start-btn) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+body > #introScreen :is(.intro-sub, .intro-desc, .logo-tag, .week-pill) {
+  text-align: left;
+}
+body > #introScreen .logo-tag {
+  padding: .45rem .85rem;
+  border: 1px solid var(--a11-border);
+  border-radius: 12px;
+  background: var(--a11-soft);
+}
+body > #introScreen .name-label {
+  color: var(--a11-ink);
+}
