@@ -78,7 +78,7 @@ select:focus{border-color:#6c4eb8}
 @media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}}
 </style>
 <script src="student-roster.js" defer></script>
-<link rel="stylesheet" href="a11-theme.css?v=20261102-center">
+<link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
 </head>
 <body>
 <div class="card">
@@ -113,12 +113,19 @@ select:focus{border-color:#6c4eb8}
 
   <!-- QUIZ -->
   <div id="quizScreen" class="screen">
+  <header class="a11-lesson-banner">
+    <span class="a11-lesson-icon" aria-hidden="true">📘</span>
+    <div>
+      <h2>Dönüşlü Fiiller</h2>
+      <p>Verbos reflexivos · A1.1 Ödevi (25–26. Ders)</p>
+    </div>
+  </header>
     <div class="quiz-top">
       <div>
         <div class="quiz-student">👤 <span id="quizStudentName"></span></div>
         <div class="quiz-mini-title">🪞 Verbos Reflexivos · 7. Hafta</div>
       </div>
-      <button class="btn-finish-top" onclick="confirmFinish()">🏁 Testi Bitir</button>
+      <button class="btn-finish-top a11-finish" onclick="confirmFinish()">🏁 Bitir</button>
     </div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="q-meta">

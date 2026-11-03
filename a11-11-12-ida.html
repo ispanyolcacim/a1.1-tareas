@@ -80,7 +80,7 @@ h1.main-title{font-size:1.55rem;font-weight:800;color:var(--pur);text-align:cent
 @media(max-width:480px){h1.main-title{font-size:1.3rem}.res-score{font-size:2.5rem}.nav-row{gap:.4rem}}
 </style>
 <script src="student-roster.js" defer></script>
-<link rel="stylesheet" href="a11-theme.css?v=20261102-center">
+<link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
 </head>
 <body>
 <div id="introScreen">
@@ -112,12 +112,20 @@ h1.main-title{font-size:1.55rem;font-weight:800;color:var(--pur);text-align:cent
   <div class="notice">Soruları yanıtladıktan sonra &ldquo;Testi Bitir&rdquo; butonuna basarak ödevinizi teslim edebilirsiniz.</div>
 </div>
 <div id="quizScreen">
+  <header class="a11-lesson-banner">
+    <span class="a11-lesson-icon" aria-hidden="true">📘</span>
+    <div>
+      <h2>Ses Bakımından Düzensiz Fiiller</h2>
+      <p>Verbos con cambio vocálico · A1.1 Ödevi (11–12. Ders)</p>
+    </div>
+  </header>
   <div class="quiz-header">
     <div class="quiz-meta" id="qMeta">Soru 1 / 100</div>
     <div class="counters">
       <span class="cnt-ok" id="cntOk">✅ 0</span>
       <span class="cnt-err" id="cntErr">❌ 0</span>
     </div>
+    <button class="nav-btn finish a11-finish" id="btnFinish" onclick="confirmFinish()">🏁 Bitir</button>
   </div>
   <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
   <div class="q-card" id="qCard"></div>
@@ -125,7 +133,6 @@ h1.main-title{font-size:1.55rem;font-weight:800;color:var(--pur);text-align:cent
     <button class="nav-btn" id="btnBack" onclick="goBack()" disabled>← Geri</button>
     <button class="nav-btn" id="btnSkip" onclick="skipQ()" disabled>Atla</button>
     <button class="nav-btn primary" id="btnNext" onclick="goNext()" disabled>İleri →</button>
-    <button class="nav-btn finish" id="btnFinish" onclick="confirmFinish()">Testi Bitir</button>
   </div>
 </div>
 <div id="resultScreen">
