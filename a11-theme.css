@@ -706,3 +706,36 @@ body > #introScreen .logo-tag {
 body > #introScreen .name-label {
   color: var(--a11-ink);
 }
+
+/* Keep the same cover treatment on dictation, writing and multi-format tasks. */
+:is(#cover:has(.cover-inner), section#introScreen, #sc-name) {
+  box-sizing: border-box;
+  width: min(608px, calc(100% - 28px));
+  margin-inline: auto;
+  padding: clamp(20px, 4vw, 28px);
+  background: #fff;
+  border: 1px solid var(--a11-border);
+  border-top: 5px solid var(--a11-primary-light);
+  border-radius: 16px;
+  box-shadow: var(--a11-shadow);
+}
+:is(#cover:has(.cover-inner), section#introScreen, #sc-name)::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: #ffdb53;
+  box-shadow: 20px 0 #e9a6ba, 40px 0 #a5cdb7;
+}
+body:has(> #sc-name.active) > .header {
+  box-sizing: border-box;
+  width: min(608px, calc(100% - 28px));
+  margin-inline: auto;
+  overflow-wrap: anywhere;
+}
+:is(#introScreen, #cover, #sc-name) select {
+  max-width: 100%;
+  min-width: 0;
+}
