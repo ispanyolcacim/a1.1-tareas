@@ -98,6 +98,9 @@ select:focus{border-color:#6c4eb8}
 .btn-cancel{background:#e8e0f8;color:#6c4eb8}
 .btn-ok{background:#e05c5c;color:#fff}
 @media(max-width:480px){.card{padding:1.25rem}.res-score{font-size:2.8rem}.quiz-topbar{margin:-1.25rem -1.25rem .9rem;padding:.85rem 1.25rem .75rem}.btn-finish-top{padding:.58rem .7rem;font-size:.76rem}}
+.quiz-topbar{margin:.75rem 0 1rem;position:relative;padding:.75rem 1rem;border-radius:12px}
+.quiz-student{display:grid;gap:.2rem;line-height:1.35}
+.quiz-student strong{white-space:normal;overflow-wrap:anywhere;margin:0}
 </style>
 <script src="student-roster.js" defer></script>
 <link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
@@ -182,7 +185,7 @@ Anne + Baba = Los padres.</div>
     </div>
   </header>
     <div class="quiz-topbar">
-      <div class="quiz-student">Öğrenci<strong id="quizStudentName">—</strong></div>
+      <div class="quiz-student"><span>Öğrenci</span><strong id="quizStudentName">—</strong></div>
       <button class="btn-finish-top a11-finish" onclick="confirmFinish()">🏁 Bitir</button>
     </div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
