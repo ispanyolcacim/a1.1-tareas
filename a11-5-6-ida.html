@@ -122,7 +122,7 @@ body{
 .review-exp{background:var(--card2);border-radius:8px;padding:.5rem .72rem;font-size:.8rem;line-height:1.65;color:var(--muted);}
 </style>
 <script src="student-roster.js" defer></script>
-<link rel="stylesheet" href="a11-theme.css?v=20261102-center">
+<link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
 </head>
 <body>
 <div id="intro">
@@ -151,14 +151,23 @@ body{
   <button class="start-btn" onclick="startQuiz()">Teste Başla →</button>
 </div>
 <div id="quiz">
+  <header class="a11-lesson-banner">
+    <span class="a11-lesson-icon" aria-hidden="true">📘</span>
+    <div>
+      <h2>Özne Zamirleri &amp; El Alfabeto</h2>
+      <p>Los pronombres y el alfabeto · A1.1 Ödevi (5–6. Ders)</p>
+    </div>
+  </header>
+  <div class="a11-quiz-status">
   <div class="top-bar">
     <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
     <div class="prog-label" id="progLabel">1 / 100</div>
   </div>
   <div class="score-bar">
     <span class="s-correct">✓ <span id="sCorrect">0</span> doğru</span>
-    <button class="finish-btn-sm" onclick="showResult()">Testi Bitir →</button>
     <span class="s-wrong">✗ <span id="sWrong">0</span> yanlış</span>
+  </div>
+    <button class="finish-btn-sm a11-finish" onclick="showResult()">🏁 Bitir</button>
   </div>
   <div id="qArea"></div>
 </div>

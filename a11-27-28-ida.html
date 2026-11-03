@@ -485,7 +485,7 @@ body{
 
 </style>
 <script src="student-roster.js" defer></script>
-<link rel="stylesheet" href="a11-theme.css?v=20261102-center">
+<link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
 </head>
 <body>
 
@@ -533,6 +533,13 @@ body{
 
 <!-- QUIZ (soru 1-60 boşluk doldurma) -->
 <div id="quiz" class="screen">
+  <header class="a11-lesson-banner">
+    <span class="a11-lesson-icon" aria-hidden="true">📘</span>
+    <div>
+      <h2>Sahiplik Sıfatları</h2>
+      <p>Adjetivos posesivos · A1.1 Ödevi (27–28. Ders)</p>
+    </div>
+  </header>
   <div class="quiz-header">
     <div class="quiz-header-top">
       <div>
@@ -544,7 +551,7 @@ body{
           <div class="badge correct" id="correctBadge">0 Doğru</div>
           <div class="badge wrong" id="wrongBadge">0 Yanlış</div>
         </div>
-        <button class="btn-finish-top" onclick="confirmFinishAll()">🏁 Testi Bitir</button>
+        <button class="btn-finish-top a11-finish" onclick="confirmFinishAll()">🏁 Bitir</button>
       </div>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
@@ -561,6 +568,13 @@ body{
 
 <!-- HORA SCREEN (soru 61-100 drag-drop) -->
 <div id="hora" class="screen">
+  <header class="a11-lesson-banner">
+    <span class="a11-lesson-icon" aria-hidden="true">📘</span>
+    <div>
+      <h2>La Hora</h2>
+      <p>Saatler · A1.1 Ödevi (27–28. Ders)</p>
+    </div>
+  </header>
   <div class="quiz-header">
     <div class="quiz-header-top">
       <div>
@@ -572,7 +586,7 @@ body{
           <div class="badge correct" id="horaCorrectBadge">0 Doğru</div>
           <div class="badge wrong" id="horaWrongBadge">0 Yanlış</div>
         </div>
-        <button class="btn-finish-top" onclick="confirmFinishAll()">🏁 Testi Bitir</button>
+        <button class="btn-finish-top a11-finish" onclick="confirmFinishAll()">🏁 Bitir</button>
       </div>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="horaProgressBar" style="width:0%"></div></div>
