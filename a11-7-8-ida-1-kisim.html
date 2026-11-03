@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>-AR / -ER / -IR Fiiller | A1.1 H2 7-8.Ders · 1. Kısım</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f0fa;--card:#fff;--card2:#ede8f7;
+  --accent:#6c3fc5;--accent2:#9b59b6;--blue:#1a5276;
+  --green:#1a7a45;--text:#2d3436;--muted:#7a7060;
+  --border:#dfe6e9;--radius:14px;--shadow:0 4px 24px rgba(108,92,231,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Plus Jakarta Sans",sans-serif;
+  min-height:100vh;max-width:620px;margin:0 auto;
+  box-shadow:0 0 60px rgba(0,0,0,.08);
+  background-image:radial-gradient(ellipse at 5% 10%,#ede8f7 0%,transparent 45%),
+                   radial-gradient(ellipse at 95% 90%,#d6eaf8 0%,transparent 45%);
+}
+/* INTRO */
+#intro{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2.5rem 1.5rem;text-align:center;}
+.week-pill{display:inline-block;background:var(--blue);color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.4rem;border-radius:50px;margin-bottom:1rem;}
+.intro-icon{font-size:3.5rem;margin-bottom:.8rem;display:block;animation:sway 3s ease-in-out infinite;}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+#intro h1{font-family:"Fraunces",serif;font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;color:var(--accent);margin-bottom:.3rem;line-height:1.1;}
+.intro-sub{color:var(--blue);font-weight:700;font-size:.95rem;margin-bottom:.3rem;}
+.intro-desc{color:var(--muted);font-size:.85rem;margin-bottom:1.4rem;}
+.teacher-badge{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid var(--border);background:var(--card);border-radius:50px;padding:.4rem 1.1rem;margin-bottom:1.4rem;font-size:.83rem;}
+.teacher-badge .handle{color:var(--blue);font-weight:700;}
+.topic-chips{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.8rem;}
+.chip{background:var(--card);border:1.5px solid var(--border);color:var(--accent);font-size:.75rem;font-weight:600;padding:.22rem .7rem;border-radius:50px;}
+.name-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin-bottom:1.2rem;width:100%;max-width:400px;text-align:left;box-shadow:var(--shadow);}
+.name-box label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+.name-select{width:100%;border:1.5px solid var(--border);background:var(--card2);border-radius:10px;padding:.7rem 1rem;font-size:.93rem;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);outline:none;}
+.start-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.95rem 2.8rem;font-size:1rem;font-weight:700;border-radius:50px;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;box-shadow:0 4px 20px rgba(181,69,27,.3);transition:transform .2s;}
+.start-btn:hover{transform:translateY(-3px);}
+/* QUIZ */
+#quiz{display:none;padding:1.8rem 1.2rem 4rem;}
+.top-bar{display:flex;align-items:center;gap:1rem;margin-bottom:.4rem;}
+.prog-wrap{flex:1;background:var(--border);border-radius:50px;height:7px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:50px;transition:width .4s ease;}
+.prog-label{font-size:.8rem;color:var(--muted);white-space:nowrap;}
+.score-bar{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;margin-bottom:1.3rem;}
+.s-correct{color:#1a7a45;font-weight:600;}
+.s-wrong{color:var(--accent);font-weight:600;}
+.finish-btn-sm{background:var(--accent);color:#fff;border:none;border-radius:50px;padding:.35rem 1rem;font-size:.75rem;font-weight:700;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.warn-box{background:#fff8e1;border:2px solid #f9a825;border-radius:10px;padding:.65rem .9rem;font-size:.8rem;color:#5a3a00;margin-bottom:.85rem;line-height:1.6;}
+.warn-box strong{color:var(--accent);}
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.5rem 1.2rem;box-shadow:var(--shadow);animation:slideUp .3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;}
+.q-type-badge{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .65rem;border-radius:50px;display:inline-block;margin-bottom:.45rem;}
+.badge-mc{background:#e8f0fb;color:var(--blue);}
+.badge-fill{background:#fef3e2;color:#a05a00;}
+.q-text{font-family:"Fraunces",serif;font-size:clamp(.95rem,2.4vw,1.12rem);font-weight:700;line-height:1.5;margin-bottom:1rem;}
+.choices{display:flex;flex-direction:column;gap:.5rem;}
+.choice-btn{background:var(--card2);border:2px solid transparent;color:var(--text);padding:.62rem .9rem;border-radius:10px;cursor:pointer;font-size:.87rem;text-align:left;font-family:"Plus Jakarta Sans",sans-serif;display:flex;align-items:flex-start;gap:.6rem;transition:all .17s;line-height:1.4;}
+.choice-btn:hover:not(:disabled){border-color:var(--accent2);background:#fdf3e8;}
+.choice-btn.correct{border-color:#1a7a45;background:#eafaf2;color:#1a7a45;}
+.choice-btn.wrong{border-color:var(--accent);background:#fdf0ec;color:var(--accent);}
+.choice-btn:disabled{cursor:default;}
+.cletter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--border);font-size:.68rem;font-weight:700;flex-shrink:0;color:var(--muted);margin-top:1px;}
+.correct .cletter{background:#1a7a45;color:#fff;}
+.wrong .cletter{background:var(--accent);color:#fff;}
+.fill-wrap{display:flex;flex-direction:column;gap:.5rem;}
+.fill-input{border:2px solid var(--border);background:var(--card2);border-radius:10px;padding:.72rem 1rem;font-size:.97rem;font-family:"Plus Jakarta Sans",sans-serif;color:var(--text);outline:none;transition:border-color .2s;width:100%;}
+.fill-input:focus{border-color:var(--accent2);}
+.fill-input.correct-input{border-color:#1a7a45;background:#eafaf2;color:#1a7a45;font-weight:600;}
+.fill-input.wrong-input{border-color:var(--accent);background:#fdf0ec;color:var(--accent);}
+.fill-submit{background:linear-gradient(135deg,var(--blue),#2471a3);color:#fff;border:none;padding:.62rem 1.5rem;border-radius:10px;font-size:.87rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;align-self:flex-start;}
+.fill-submit:disabled{opacity:.5;cursor:default;}
+.explanation{display:none;margin-top:.85rem;padding:.8rem 1rem;border-radius:10px;font-size:.83rem;line-height:1.75;}
+.explanation.show{display:block;animation:slideUp .22s ease;}
+.exp-ok{background:#eafaf2;border-left:4px solid #1a7a45;color:#0d4a28;}
+.exp-err{background:#fdf0ec;border-left:4px solid var(--accent);color:#6b1a0a;}
+.exp-es{font-style:italic;margin-top:.4rem;display:block;}
+.exp-tr{font-weight:700;color:var(--blue);display:block;}.exp-en{font-style:italic;color:var(--muted);display:block;}
+.nav-row{display:flex;gap:.65rem;margin-top:1rem;flex-wrap:wrap;}
+.nav-btn{flex:1;min-width:80px;padding:.62rem .9rem;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-size:.83rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;transition:all .17s;}
+.nav-btn:hover{border-color:var(--accent2);color:var(--accent);}
+.nav-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;}
+.nav-btn:disabled{opacity:.35;cursor:default;}
+/* RESULT */
+#result{display:none;padding:2rem 1.2rem 4rem;}
+.result-hero{text-align:center;margin-bottom:1.8rem;}
+.result-icon{font-size:3.5rem;display:block;margin-bottom:.6rem;}
+.result-score{font-family:"Fraunces",serif;font-size:5rem;font-weight:900;color:var(--blue);line-height:1;}
+.result-sub{color:var(--muted);font-size:.87rem;margin-top:.3rem;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.2rem;}
+.stat-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:.85rem;text-align:center;box-shadow:var(--shadow);}
+.stat-val{font-family:"Fraunces",serif;font-size:1.9rem;font-weight:900;line-height:1;}
+.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:.2rem;font-weight:600;}
+.clr-g{color:#1a7a45;}.clr-r{color:var(--accent);}.clr-b{color:var(--blue);}
+.name-section{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.name-section label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem;}
+.name-row{display:flex;gap:.6rem;flex-wrap:wrap;}
+.name-confirm{background:var(--blue);color:#fff;border:none;border-radius:10px;padding:.65rem 1.2rem;font-size:.87rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.name-confirm:disabled{opacity:.6;}
+#sendStatus{font-size:.79rem;margin-top:.4rem;display:none;}
+.summary-card{display:none;background:linear-gradient(135deg,var(--blue),#2471a3);color:#fff;border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:.85rem;}
+.summary-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:.25rem;}
+.summary-name{font-family:"Fraunces",serif;font-size:1.2rem;font-weight:900;margin-bottom:.65rem;}
+.summary-scores{display:flex;gap:.8rem;}
+.sum-box{background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .9rem;text-align:center;flex:1;}
+.sum-val{font-family:"Fraunces",serif;font-size:1.5rem;font-weight:900;}
+.sum-lbl{font-size:.66rem;opacity:.8;margin-top:.1rem;}
+.notice-box{display:none;background:#fff8e1;border:2px solid #f9a825;border-radius:var(--radius);padding:.85rem 1.1rem;font-size:.85rem;color:#5a3a00;line-height:1.7;margin-bottom:.85rem;}
+.action-btns{display:none;flex-direction:column;gap:.6rem;margin-bottom:.85rem;}
+.action-btns.show{display:flex;}
+.btn-review{background:var(--card);border:1.5px solid var(--border);color:var(--text);padding:.78rem;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.btn-restart{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.78rem;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.review-title{font-family:"Fraunces",serif;font-size:1.1rem;font-weight:900;color:var(--accent);margin-bottom:.85rem;}
+.review-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:.65rem;box-shadow:var(--shadow);}
+.review-qnum{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.22rem;}
+.review-q{font-weight:700;margin-bottom:.38rem;line-height:1.5;font-size:.88rem;}
+.review-your{color:var(--accent);font-size:.83rem;margin-bottom:.22rem;}
+.review-correct{color:#1a7a45;font-size:.83rem;margin-bottom:.33rem;}
+.review-exp{background:var(--card2);border-radius:8px;padding:.5rem .72rem;font-size:.8rem;line-height:1.65;color:var(--muted);}
+</style>
+<script src="student-roster.js" defer></script>
+<link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
+</head>
+<body><aside style="max-width:540px;margin:1rem auto;padding:.75rem;text-align:center;background:#fff5c7;border-radius:12px;color:#242424">Bu ödevin <a href="a11-7-8-ida-2-kisim.html">2. Kısmı da var</a>. İlk kısmı teslim ettikten sonra devam edebilirsiniz.</aside>
+<div id="intro">
+  <span class="intro-icon">📚</span>
+  <div class="week-pill">2. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (7–8. DERS)</div>
+  <h1>-AR / -ER / -IR Fiiller</h1>
+  <div class="intro-sub">Geniş Zaman &amp; Kelime Bilgisi</div>
+  <div class="intro-desc">1. Kısım · 50 soru</div>
+  <p class="intro-desc">1. Kısım · 50 soru</p>
+  <div class="teacher-badge"><span class="handle">@ispanyolcacim</span><span style="color:var(--border)">•</span><span style="color:var(--muted)">Profe Hazel</span></div>
+  <div class="name-box">
+    <label>👤 Adınızı seçin</label>
+    <select id="introName" class="name-select">
+    <option value="">— Adınızı seçin —</option>
+    <option value="Ali Ceylan">Ali Ceylan</option>
+    <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
+    <option value="Aysen Gurkan">Aysen Gurkan</option>
+    <option value="Defne Ozer">Defne Ozer</option>
+    <option value="Defne Sonmez">Defne Sonmez</option>
+    <option value="Ece Utkan">Ece Utkan</option>
+    <option value="Melisa Tuncer">Melisa Tuncer</option>
+    <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+    <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+    <option value="Yelda Yilmaz">Yelda Yilmaz</option>
+  </select>
+  </div>
+  <button class="start-btn" onclick="startQuiz()">Teste Başla →</button>
+</div>
+<div id="quiz">
+  <header class="a11-lesson-banner">
+    <span class="a11-lesson-icon" aria-hidden="true">📘</span>
+    <div>
+      <h2>-AR / -ER / -IR Fiiller</h2>
+      <p>Geniş zaman ve kelime bilgisi · A1.1 Ödevi (7–8. Ders)</p>
+    </div>
+  </header>
+  <div class="a11-quiz-status">
+  <div class="top-bar">
+    <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-label" id="progLabel">1 / 100</div>
+  </div>
+  <div class="score-bar">
+    <span class="s-correct">✓ <span id="sCorrect">0</span> doğru</span>
+    <span class="s-wrong">✗ <span id="sWrong">0</span> yanlış</span>
+  </div>
+    <button class="finish-btn-sm a11-finish" onclick="showResult()">🏁 Bitir</button>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div id="result">
+  <div class="result-hero">
+    <span class="result-icon" id="resIcon">🎉</span>
+    <div class="week-pill">2. HAFTA ÖDEVİ &nbsp;|&nbsp; A1.1 (7–8. DERS)</div>
+    <div class="result-score" id="resPct">0</div>
+    <div class="result-sub">/ 100 puan</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-val clr-g" id="stOk">0</div><div class="stat-lbl">✓ Doğru</div></div>
+    <div class="stat-box"><div class="stat-val clr-r" id="stErr">0</div><div class="stat-lbl">✗ Yanlış</div></div>
+    <div class="stat-box"><div class="stat-val clr-b" id="stPct">0</div><div class="stat-lbl">Puan</div></div>
+  </div>
+  <div class="name-section">
+    <label>👤 Adınızı onaylayın — ödev çizelgesine işlenecek</label>
+    <div class="name-row">
+      <select class="name-select" id="studentName" style="flex:1;min-width:160px;">
+    <option value="">— Adınızı seçin —</option>
+    <option value="Ali Ceylan">Ali Ceylan</option>
+    <option value="Beyza Nur Yuksel">Beyza Nur Yuksel</option>
+    <option value="Aysen Gurkan">Aysen Gurkan</option>
+    <option value="Defne Ozer">Defne Ozer</option>
+    <option value="Defne Sonmez">Defne Sonmez</option>
+    <option value="Ece Utkan">Ece Utkan</option>
+    <option value="Melisa Tuncer">Melisa Tuncer</option>
+    <option value="Sude Selen Ulker">Sude Selen Ulker</option>
+    <option value="Sule Soylemez Gul">Sule Soylemez Gul</option>
+    <option value="Yelda Yilmaz">Yelda Yilmaz</option>
+  </select>
+      <button class="name-confirm" id="confirmBtn" onclick="confirmName()">Onayla ✓</button>
+    </div>
+    <div id="sendStatus"></div>
+  </div>
+  <div class="summary-card" id="summaryCard">
+    <div class="summary-label">✅ Ödeviniz teslim edildi!</div>
+    <div class="summary-name" id="summaryName"></div>
+    <div style="font-size:.82rem;opacity:.8;margin-bottom:.7rem;" id="summaryOdev"></div>
+    <div class="summary-scores">
+      <div class="sum-box"><div class="sum-val" id="sumPuan">0</div><div class="sum-lbl">Puan / 100</div></div>
+      <div class="sum-box"><div class="sum-val" id="sumDogru">0</div><div class="sum-lbl">✓ Doğru</div></div>
+      <div class="sum-box"><div class="sum-val" id="sumYanlis">0</div><div class="sum-lbl">✗ Yanlış</div></div>
+    </div>
+  </div>
+  <div class="notice-box" id="noticeBox">
+    🎉 <strong>Test tamamlandı!</strong><br>
+    Yanlışlarınız için <strong>WhatsApp grubundan</strong> sorun!
+  </div>
+  <div class="action-btns" id="actionBtns">
+    <button class="btn-review" onclick="toggleReview()">🔍 Hatalarımı gözden geçir</button>
+    <button class="btn-restart" onclick="restart()">🔄 Testi Tekrar Çöz</button>
+  </div>
+  <div id="reviewSection"></div>
+</div>
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwbAQtk4nhM73aqYCKwg0z5s5qxPaCAWeLncNVHtSQ2jHbuo7SomG4PJpOBN8C0sXzTQw/exec";
+const RESULT_TITLE="2. HAFTA ÖDEVİ | A1.1 (7–8. DERS)";
+const ODEV_ADI='H2 – 7-8.Ders (1. KISIM)';
+const GROUPS={
+  'Ali Ceylan':'A1.1',
+  'Beyza Nur Yuksel':'A1.1',
+  'Aysen Gurkan':'A1.1',
+  'Defne Ozer':'A1.1',
+  'Defne Sonmez':'A1.1',
+  'Ece Utkan':'A1.1',
+  'Melisa Tuncer':'A1.1',
+  'Sude Selen Ulker':'A1.1',
+  'Sule Soylemez Gul':'A1.1',
+  'Yelda Yilmaz':'A1.1'
+};
+const WARN='';
+const Q=[
+{t:"mc",q:"La vendedora ______ (vender) frutas frescas.",o:["vendo", "vendemos", "vende", "vendes"],a:2,exp:"VENDER: -er fiil, ella → -e eki | 🇪🇸 La vendedora vende frutas frescas. | 🇹🇷 Satıcı taze meyveler satar. | 🇬🇧 The saleswoman sells fresh fruits.",es:"La vendedora vende frutas frescas.",tr:"Satıcı taze meyveler satar.",en:"The saleswoman sells fresh fruits."},
+{t:"mc",q:"¿Qué significa 'caminar' en turco?",o:["koşmak", "seyahat etmek", "yürümek", "dans etmek"],a:2,exp:"CAMINAR = yürümek (-ar fiil) | 🇪🇸 Me gusta caminar por el parque. | 🇹🇷 Caminar = yürümek. | 🇬🇧 Caminar = to walk.",es:"Me gusta caminar por el parque.",tr:"Caminar = yürümek.",en:"Caminar = to walk."},
+{t:"mc",q:"¿Qué significa 'subir' en turco?",o:["açmak", "yazmak", "karar vermek", "binmek / çıkmak"],a:3,exp:"SUBIR = binmek / yukarı çıkmak (-ir fiil) | 🇪🇸 Subo las escaleras cada día. | 🇹🇷 Subir = binmek / çıkmak. | 🇬🇧 Subir = to go up / to get on.",es:"Subo las escaleras cada día.",tr:"Subir = binmek / çıkmak.",en:"Subir = to go up / to get on."},
+{t:"mc",q:"'La mujer' ne anlama gelir?",o:["Kız", "Kadın", "Erkek", "Çocuk"],a:1,exp:"LA MUJER = kadın (feminen, belirli artikel) | 🇪🇸 La mujer trabaja mucho. | 🇹🇷 La mujer = kadın. | 🇬🇧 La mujer = the woman.",es:"La mujer trabaja mucho.",tr:"La mujer = kadın.",en:"La mujer = the woman."},
+{t:"mc",q:"¿Qué significa 'la mañana' en turco?",o:["gece", "sabah", "akşam", "öğleden sonra"],a:1,exp:"LA MAÑANA = sabah | 🇪🇸 La mañana es mi parte favorita del día. | 🇹🇷 La mañana = sabah. | 🇬🇧 La mañana = morning.",es:"La mañana es mi parte favorita del día.",tr:"La mañana = sabah.",en:"La mañana = morning."},
+{t:"mc",q:"'-IR' ile biten fiillerde 'él/ella' için hangi ek kullanılır?",o:["-o", "-es", "-e", "-imos"],a:2,exp:"-ir fiillerinde él/ella → -e (vive, escribe, decide…) | 🇪🇸 Él vive, ella escribe, él decide. | 🇹🇷 -ir fiillerde él/ella → -e eki. | 🇬🇧 -ir verbs: él/ella takes -e.",es:"Él vive, ella escribe, él decide.",tr:"-ir fiillerde él/ella → -e eki.",en:"-ir verbs: él/ella takes -e."},
+{t:"mc",q:"Los niños ______ (correr) en el parque cada tarde.",o:["corre", "corres", "corren", "corremos"],a:2,exp:"CORRER: -er fiil, ellos/ellas → -en eki | 🇪🇸 Los niños corren en el parque cada tarde. | 🇹🇷 Çocuklar her öğleden sonra parkta koşar. | 🇬🇧 The children run in the park every afternoon.",es:"Los niños corren en el parque cada tarde.",tr:"Çocuklar her öğleden sonra parkta koşar.",en:"The children run in the park every afternoon."},
+{t:"mc",q:"Nosotros ______ (comprender) la lección.",o:["comprendes", "comprende", "comprendo", "comprendemos"],a:3,exp:"COMPRENDER: -er fiil, nosotros → -emos eki | 🇪🇸 Nosotros comprendemos la lección. | 🇹🇷 Biz dersi anlarız. | 🇬🇧 We understand the lesson.",es:"Nosotros comprendemos la lección.",tr:"Biz dersi anlarız.",en:"We understand the lesson."},
+{t:"mc",q:"Yo ______ (escribir) una carta a mi madre.",o:["escribes", "escribe", "escribimos", "escribo"],a:3,exp:"ESCRIBIR: -ir fiil, yo → -o eki | 🇪🇸 Yo escribo una carta a mi madre. | 🇹🇷 Ben anneme bir mektup yazıyorum. | 🇬🇧 I write a letter to my mother.",es:"Yo escribo una carta a mi madre.",tr:"Ben anneme bir mektup yazıyorum.",en:"I write a letter to my mother."},
+{t:"mc",q:"Nosotros ______ (mirar) las estrellas por la noche.",o:["miras", "miro", "mira", "miramos"],a:3,exp:"MIRAR: -ar fiil, nosotros → -amos eki | 🇪🇸 Nosotros miramos las estrellas por la noche. | 🇹🇷 Biz geceleri yıldızlara bakarız. | 🇬🇧 We look at the stars at night.",es:"Nosotros miramos las estrellas por la noche.",tr:"Biz geceleri yıldızlara bakarız.",en:"We look at the stars at night."},
+{t:"mc",q:"¿Qué significa 'la fruta' en turco?",o:["sebze", "et", "ekmek", "meyve"],a:3,exp:"LA FRUTA = meyve | 🇪🇸 Me gustan las frutas frescas. | 🇹🇷 La fruta = meyve. | 🇬🇧 La fruta = fruit.",es:"Me gustan las frutas frescas.",tr:"La fruta = meyve.",en:"La fruta = fruit."},
+{t:"mc",q:"¿Qué significa 'cada mañana' en turco?",o:["Her gece", "Her sabah", "Her akşam", "Her öğleden sonra"],a:1,exp:"cada mañana = her sabah (tekil form) | 🇪🇸 Yo desayuno cada mañana. | 🇹🇷 Cada mañana = her sabah. | 🇬🇧 Cada mañana = every morning.",es:"Yo desayuno cada mañana.",tr:"Cada mañana = her sabah.",en:"Cada mañana = every morning."},
+{t:"mc",q:"¿Qué significa 'el niño' en turco?",o:["erkek", "bebek", "çocuk (erkek)", "kız"],a:2,exp:"EL NIÑO = erkek çocuk | 🇪🇸 El niño juega en el parque. | 🇹🇷 El niño = erkek çocuk. | 🇬🇧 El niño = the (male) child / boy.",es:"El niño juega en el parque.",tr:"El niño = erkek çocuk.",en:"El niño = the (male) child / boy."},
+{t:"mc",q:"Ella ______ (caminar) al trabajo todos los días.",o:["caminamos", "caminas", "camino", "camina"],a:3,exp:"CAMINAR: -ar fiil, ella → -a eki | 🇪🇸 Ella camina al trabajo todos los días. | 🇹🇷 O her gün işe yürüyerek gider. | 🇬🇧 She walks to work every day.",es:"Ella camina al trabajo todos los días.",tr:"O her gün işe yürüyerek gider.",en:"She walks to work every day."},
+{t:"mc",q:"Nosotros ______ (escuchar) música clásica.",o:["escucha", "escuchas", "escucho", "escuchamos"],a:3,exp:"ESCUCHAR: -ar fiil, nosotros → -amos eki | 🇪🇸 Nosotros escuchamos música clásica. | 🇹🇷 Biz klasik müzik dinleriz. | 🇬🇧 We listen to classical music.",es:"Nosotros escuchamos música clásica.",tr:"Biz klasik müzik dinleriz.",en:"We listen to classical music."},
+{t:"mc",q:"¿Qué significa 'decidir' en turco?",o:["keşfetmek", "var olmak", "karar vermek", "yazmak"],a:2,exp:"DECIDIR = karar vermek (-ir fiil) | 🇪🇸 Tengo que decidir pronto. | 🇹🇷 Decidir = karar vermek. | 🇬🇧 Decidir = to decide.",es:"Tengo que decidir pronto.",tr:"Decidir = karar vermek.",en:"Decidir = to decide."},
+{t:"mc",q:"'La cocina' ne anlama gelir?",o:["bahçe", "oda", "mutfak", "banyo"],a:2,exp:"LA COCINA = mutfak | 🇪🇸 Cocino en la cocina. | 🇹🇷 La cocina = mutfak. | 🇬🇧 La cocina = the kitchen.",es:"Cocino en la cocina.",tr:"La cocina = mutfak.",en:"La cocina = the kitchen."},
+{t:"mc",q:"Ellos ______ (beber) agua fría.",o:["bebes", "bebo", "beben", "bebe"],a:2,exp:"BEBER: -er fiil, ellos → -en eki | 🇪🇸 Ellos beben agua fría. | 🇹🇷 Onlar soğuk su içerler. | 🇬🇧 They drink cold water.",es:"Ellos beben agua fría.",tr:"Onlar soğuk su içerler.",en:"They drink cold water."},
+{t:"mc",q:"Nosotros ______ (correr) en el parque los sábados.",o:["corre", "corro", "corremos", "corres"],a:2,exp:"CORRER: -er fiil, nosotros → -emos eki | 🇪🇸 Nosotros corremos en el parque los sábados. | 🇹🇷 Biz cumartesi günleri parkta koşarız. | 🇬🇧 We run in the park on Saturdays.",es:"Nosotros corremos en el parque los sábados.",tr:"Biz cumartesi günleri parkta koşarız.",en:"We run in the park on Saturdays."},
+{t:"mc",q:"¿Qué significa 'abrazar' en turco?",o:["bakmak", "sarılmak", "yürümek", "öpmek"],a:1,exp:"ABRAZAR = sarılmak (-ar fiil) | 🇪🇸 Me gusta abrazar a mi familia. | 🇹🇷 Abrazar = sarılmak. | 🇬🇧 Abrazar = to hug.",es:"Me gusta abrazar a mi familia.",tr:"Abrazar = sarılmak.",en:"Abrazar = to hug."},
+{t:"mc",q:"'Unos' ve 'unas' ne tür artikeldir?",o:["Belirsiz artikeller", "Sıfatlar", "Belirli artikeller", "Zamirler"],a:0,exp:"UN/UNA/UNOS/UNAS = belirsiz (a/an, some/a few) | 🇪🇸 Tengo unos libros y unas revistas. | 🇹🇷 Unos/unas belirsiz çoğul artikeldir. | 🇬🇧 Unos/unas = indefinite plural articles.",es:"Tengo unos libros y unas revistas.",tr:"Unos/unas belirsiz çoğul artikeldir.",en:"Unos/unas = indefinite plural articles."},
+{t:"mc",q:"¿Qué significa 'besar' en turco?",o:["yürümek", "sarılmak", "öpmek", "dans etmek"],a:2,exp:"BESAR = öpmek (-ar fiil) | 🇪🇸 Me gusta besar a mi perro. | 🇹🇷 Besar = öpmek. | 🇬🇧 Besar = to kiss.",es:"Me gusta besar a mi perro.",tr:"Besar = öpmek.",en:"Besar = to kiss."},
+{t:"mc",q:"¿Qué significa 'compartir' en turco?",o:["paylaşmak", "yazmak", "keşfetmek", "karar vermek"],a:0,exp:"COMPARTIR = paylaşmak (-ir fiil) | 🇪🇸 Compartir es importante. | 🇹🇷 Compartir = paylaşmak. | 🇬🇧 Compartir = to share.",es:"Compartir es importante.",tr:"Compartir = paylaşmak.",en:"Compartir = to share."},
+{t:"mc",q:"Ellos ______ (mirar) las fotos.",o:["miran", "miras", "mira", "miro"],a:0,exp:"MIRAR: -ar fiil, ellos → -an eki | 🇪🇸 Ellos miran las fotos del viaje. | 🇹🇷 Onlar fotoğraflara bakarlar. | 🇬🇧 They look at the photos.",es:"Ellos miran las fotos del viaje.",tr:"Onlar fotoğraflara bakarlar.",en:"They look at the photos."},
+{t:"mc",q:"Vosotros ______ (hablar) mucho en clase.",o:["hablas", "habláis", "habla", "hablo"],a:1,exp:"HABLAR: -ar fiil, vosotros → -áis eki | 🇪🇸 Vosotros habláis mucho en clase. | 🇹🇷 Siz derste çok konuşursunuz. | 🇬🇧 You (all) talk a lot in class.",es:"Vosotros habláis mucho en clase.",tr:"Siz derste çok konuşursunuz.",en:"You (all) talk a lot in class."},
+{t:"mc",q:"El señor ______ (comer) en el restaurante.",o:["como", "comemos", "come", "comes"],a:2,exp:"COMER: -er fiil, él → -e eki | 🇪🇸 El señor come en el restaurante. | 🇹🇷 Bay lokantada yemek yer. | 🇬🇧 The man eats at the restaurant.",es:"El señor come en el restaurante.",tr:"Bay lokantada yemek yer.",en:"The man eats at the restaurant."},
+{t:"mc",q:"¿Qué significa 'cantar' en turco?",o:["dans etmek", "dinlemek", "şarkı söylemek", "konuşmak"],a:2,exp:"CANTAR = şarkı söylemek (-ar fiil) | 🇪🇸 Me gusta cantar en la ducha. | 🇹🇷 Cantar = şarkı söylemek. | 🇬🇧 Cantar = to sing.",es:"Me gusta cantar en la ducha.",tr:"Cantar = şarkı söylemek.",en:"Cantar = to sing."},
+{t:"mc",q:"Tú ______ (bailar) muy bien.",o:["bailamos", "bailo", "baila", "bailas"],a:3,exp:"BAILAR: -ar fiil, tú → -as eki | 🇪🇸 Tú bailas muy bien. | 🇹🇷 Sen çok iyi dans edersin. | 🇬🇧 You dance very well.",es:"Tú bailas muy bien.",tr:"Sen çok iyi dans edersin.",en:"You dance very well."},
+{t:"mc",q:"¿Qué significa 'existir' en turco?",o:["keşfetmek", "var olmak", "yazmak", "karar vermek"],a:1,exp:"EXISTIR = var olmak (-ir fiil) | 🇪🇸 Los problemas existen para solucionarse. | 🇹🇷 Existir = var olmak. | 🇬🇧 Existir = to exist.",es:"Los problemas existen para solucionarse.",tr:"Existir = var olmak.",en:"Existir = to exist."},
+{t:"mc",q:"'Fresca' sıfatı hangi durumu gösterir?",o:["maskülen tekil", "feminen tekil", "maskülen çoğul", "feminen çoğul"],a:1,exp:"fresco(m/t) → fresca(f/t) → frescos(m/ç) → frescas(f/ç) | 🇪🇸 Una fruta fresca es deliciosa. | 🇹🇷 Fresca feminen tekil sıfat formudur. | 🇬🇧 Fresca = feminine singular adjective.",es:"Una fruta fresca es deliciosa.",tr:"Fresca feminen tekil sıfat formudur.",en:"Fresca = feminine singular adjective."},
+{t:"mc",q:"Yo ______ (bailar) con mis amigos los viernes.",o:["bailas", "baila", "bailamos", "bailo"],a:3,exp:"BAILAR: -ar fiil, yo → -o eki | 🇪🇸 Yo bailo con mis amigos los viernes. | 🇹🇷 Ben cumaları arkadaşlarımla dans ederim. | 🇬🇧 I dance with my friends on Fridays.",es:"Yo bailo con mis amigos los viernes.",tr:"Ben cumaları arkadaşlarımla dans ederim.",en:"I dance with my friends on Fridays."},
+{t:"mc",q:"Ella ______ (vivir) en un apartamento pequeño.",o:["vive", "vivimos", "vives", "vivo"],a:0,exp:"VIVIR: -ir fiil, ella → -e eki | 🇪🇸 Ella vive en un apartamento pequeño. | 🇹🇷 O küçük bir dairede yaşar. | 🇬🇧 She lives in a small apartment.",es:"Ella vive en un apartamento pequeño.",tr:"O küçük bir dairede yaşar.",en:"She lives in a small apartment."},
+{t:"mc",q:"¿Qué significa 'la leche' en turco?",o:["meyve suyu", "kahve", "süt", "su"],a:2,exp:"LA LECHE = süt | 🇪🇸 El bebé bebe la leche. | 🇹🇷 La leche = süt. | 🇬🇧 La leche = milk.",es:"El bebé bebe la leche.",tr:"La leche = süt.",en:"La leche = milk."},
+{t:"mc",q:"'-AR' ile biten fiillerde 'nosotros' için hangi ek kullanılır?",o:["-as", "-a", "-amos", "-o"],a:2,exp:"-ar fiillerinde nosotros → -amos (hablamos, bailamos…) | 🇪🇸 Nosotros hablamos, bailamos, cantamos. | 🇹🇷 -ar fiillerde nosotros → -amos eki. | 🇬🇧 -ar verbs: nosotros takes -amos.",es:"Nosotros hablamos, bailamos, cantamos.",tr:"-ar fiillerde nosotros → -amos eki.",en:"-ar verbs: nosotros takes -amos."},
+{t:"mc",q:"Nosotros ______ (cantar) juntos en el coro.",o:["cantamos", "canta", "canto", "cantas"],a:0,exp:"CANTAR: -ar fiil, nosotros → -amos eki | 🇪🇸 Nosotros cantamos juntos en el coro. | 🇹🇷 Biz koroda birlikte şarkı söyleriz. | 🇬🇧 We sing together in the choir.",es:"Nosotros cantamos juntos en el coro.",tr:"Biz koroda birlikte şarkı söyleriz.",en:"We sing together in the choir."},
+{t:"mc",q:"El bebé ______ (beber) leche.",o:["bebes", "bebemos", "bebo", "bebe"],a:3,exp:"BEBER: -er fiil, él/ella → -e eki | 🇪🇸 El bebé bebe leche. | 🇹🇷 Bebek süt içer. | 🇬🇧 The baby drinks milk.",es:"El bebé bebe leche.",tr:"Bebek süt içer.",en:"The baby drinks milk."},
+{t:"mc",q:"Ustedes ______ (vivir) en España.",o:["vivo", "vives", "viven", "vive"],a:2,exp:"VIVIR: -ir fiil, ustedes → -en eki | 🇪🇸 Ustedes viven en España. | 🇹🇷 Siz İspanya'da yaşarsınız. | 🇬🇧 You (all) live in Spain.",es:"Ustedes viven en España.",tr:"Siz İspanya'da yaşarsınız.",en:"You (all) live in Spain."},
+{t:"mc",q:"La mujer ______ (beber) café en la cocina.",o:["bebemos", "bebo", "bebe", "bebes"],a:2,exp:"BEBER: -er fiil, ella → -e eki | 🇪🇸 La mujer bebe café en la cocina. | 🇹🇷 Kadın mutfakta kahve içer. | 🇬🇧 The woman drinks coffee in the kitchen.",es:"La mujer bebe café en la cocina.",tr:"Kadın mutfakta kahve içer.",en:"The woman drinks coffee in the kitchen."},
+{t:"mc",q:"Trabajar fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["trabajo – trabajas – trabaja – trabajamos – trabajáis – trabajan", "trabajo – trabajas – trabaja – trabajamos – trabajan – trabajáis", "trabajo – trabajas – trabaja – trabajamos – trabajéis – trabajan", "trabajo – trabajas – trabaja – trabajamos – trabajáis – trabajen"],a:0,exp:"Trabajar düzenli bir -AR fiilidir: yo trabajo, tú trabajas, él trabaja, nosotros trabajamos, vosotros trabajáis, ellos trabajan. | 🇪🇸 Trabajar es un verbo regular en -AR. | 🇹🇷 Trabajar düzenli -AR fiildir. | 🇬🇧 Trabajar is a regular -AR verb.",es:"Trabajar es un verbo regular en -AR.",tr:"Trabajar düzenli -AR fiildir.",en:"Trabajar is a regular -AR verb."},
+{t:"mc",q:"Aprender fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["aprendo – aprendes – aprende – aprendemos – aprendéis – aprenden", "aprendo – aprendes – aprende – aprendemos – aprenden – aprendéis", "aprendo – aprendes – aprende – aprendemos – aprendéis – aprendan", "aprendo – aprendes – aprende – aprendemos – aprendáis – aprenden"],a:0,exp:"Aprender düzenli bir -ER fiilidir: yo aprendo, tú aprendes, él aprende, nosotros aprendemos, vosotros aprendéis, ellos aprenden. | 🇪🇸 Aprender es un verbo regular en -ER. | 🇹🇷 Aprender düzenli -ER fiildir. | 🇬🇧 Aprender is a regular -ER verb.",es:"Aprender es un verbo regular en -ER.",tr:"Aprender düzenli -ER fiildir.",en:"Aprender is a regular -ER verb."},
+{t:"mc",q:"Tú ______ (abrir) la ventana cada mañana.",o:["abrimos", "abres", "abre", "abro"],a:1,exp:"ABRIR: -ir fiil, tú → -es eki | 🇪🇸 Tú abres la ventana cada mañana. | 🇹🇷 Sen her sabah pencereyi açarsın. | 🇬🇧 You open the window every morning.",es:"Tú abres la ventana cada mañana.",tr:"Sen her sabah pencereyi açarsın.",en:"You open the window every morning."},
+{t:"mc",q:"Asistir fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["asisto – asistes – asiste – asistimos – asistís – asisten", "asisto – asistes – asiste – asistimos – asisten – asistís", "asisto – asistes – asiste – asistimos – asistéis – asisten", "asisto – asistes – asiste – asistimos – asistís – asistan"],a:0,exp:"Asistir düzenli bir -IR fiilidir: yo asisto, tú asistes, él asiste, nosotros asistimos, vosotros asistís, ellos asisten. | 🇪🇸 Asistir es un verbo regular en -IR. | 🇹🇷 Asistir düzenli -IR fiildir. | 🇬🇧 Asistir is a regular -IR verb.",es:"Asistir es un verbo regular en -IR.",tr:"Asistir düzenli -IR fiildir.",en:"Asistir is a regular -IR verb."},
+{t:"mc",q:"'Cada domingo' ne anlama gelir?",o:["Her pazar", "Her cumartesi", "Her cuma", "Her perşembe"],a:0,exp:"cada domingo = her pazar (tekil form) | 🇪🇸 Visito a mi familia cada domingo. | 🇹🇷 Cada domingo = her pazar. | 🇬🇧 Cada domingo = every Sunday.",es:"Visito a mi familia cada domingo.",tr:"Cada domingo = her pazar.",en:"Cada domingo = every Sunday."},
+{t:"mc",q:"Él ______ (hablar) con su profesora.",o:["habla", "hablas", "hablamos", "hablo"],a:0,exp:"HABLAR: -ar fiil, él/ella → -a eki | 🇪🇸 Él habla con su profesora. | 🇹🇷 O öğretmeniyle konuşur. | 🇬🇧 He talks with his teacher.",es:"Él habla con su profesora.",tr:"O öğretmeniyle konuşur.",en:"He talks with his teacher."},
+{t:"mc",q:"'Interesante' sıfatı feminen çoğulda nasıl olur?",o:["interesanta", "interesanto", "interesantes", "interesantas"],a:2,exp:"interesante hem m. hem f. için aynı kök, çoğulda -s eklenir | 🇪🇸 Son películas interesantes. | 🇹🇷 Interesante feminen çoğulda interesantes olur. | 🇬🇧 Feminine plural → interesantes.",es:"Son películas interesantes.",tr:"Interesante feminen çoğulda interesantes olur.",en:"Feminine plural → interesantes."},
+{t:"mc",q:"Nosotros ______ (vivir) cerca de la playa.",o:["vive", "vivimos", "vivo", "vives"],a:1,exp:"VIVIR: -ir fiil, nosotros → -imos eki | 🇪🇸 Nosotros vivimos cerca de la playa. | 🇹🇷 Biz sahilin yakınında yaşarız. | 🇬🇧 We live near the beach.",es:"Nosotros vivimos cerca de la playa.",tr:"Biz sahilin yakınında yaşarız.",en:"We live near the beach."},
+{t:"mc",q:"¿Qué significa 'el día' en turco?",o:["akşam", "gece", "gün", "sabah"],a:2,exp:"EL DÍA = gün | 🇪🇸 El día es largo en verano. | 🇹🇷 El día = gün. | 🇬🇧 El día = the day.",es:"El día es largo en verano.",tr:"El día = gün.",en:"El día = the day."},
+{t:"mc",q:"Nosotros ______ (hablar) español en casa.",o:["hablamos", "hablo", "hablas", "habla"],a:0,exp:"HABLAR: -ar fiil, nosotros → -amos eki | 🇪🇸 Nosotros hablamos español en casa. | 🇹🇷 Biz evde İspanyolca konuşuruz. | 🇬🇧 We speak Spanish at home.",es:"Nosotros hablamos español en casa.",tr:"Biz evde İspanyolca konuşuruz.",en:"We speak Spanish at home."},
+{t:"mc",q:"¿Qué significa 'escuchar' en turco?",o:["bakmak", "söylemek", "konuşmak", "dinlemek"],a:3,exp:"ESCUCHAR = dinlemek (-ar fiil) | 🇪🇸 Me gusta escuchar música. | 🇹🇷 Escuchar = dinlemek. | 🇬🇧 Escuchar = to listen.",es:"Me gusta escuchar música.",tr:"Escuchar = dinlemek.",en:"Escuchar = to listen."},
+{t:"mc",q:"Tú ______ (leer) un libro interesante.",o:["lees", "leemos", "lee", "leo"],a:0,exp:"LEER: -er fiil, tú → -es eki | 🇪🇸 Tú lees un libro interesante. | 🇹🇷 Sen ilginç bir kitap okuyorsun. | 🇬🇧 You read an interesting book.",es:"Tú lees un libro interesante.",tr:"Sen ilginç bir kitap okuyorsun.",en:"You read an interesting book."},
+{t:"mc",q:"Vosotros ______ (vivir) en Barcelona.",o:["vives", "vive", "vivís", "vivo"],a:2,exp:"VIVIR: -ir fiil, vosotros → -ís eki | 🇪🇸 Vosotros vivís en Barcelona. | 🇹🇷 Siz Barselona'da yaşarsınız. | 🇬🇧 You (all) live in Barcelona.",es:"Vosotros vivís en Barcelona.",tr:"Siz Barselona'da yaşarsınız.",en:"You (all) live in Barcelona."},
+{t:"mc",q:"Alfonso ______ (decidir) desayunar cada día.",o:["decido", "decide", "decides", "decidimos"],a:1,exp:"DECIDIR: -ir fiil, él → -e eki | 🇪🇸 Alfonso decide desayunar cada día. | 🇹🇷 Alfonso her gün kahvaltı yapmaya karar verir. | 🇬🇧 Alfonso decides to have breakfast every day.",es:"Alfonso decide desayunar cada día.",tr:"Alfonso her gün kahvaltı yapmaya karar verir.",en:"Alfonso decides to have breakfast every day."},
+{t:"mc",q:"¿Qué significa 'abrir' en turco?",o:["yazmak", "açmak", "okumak", "kapatmak"],a:1,exp:"ABRIR = açmak (-ir fiil) | 🇪🇸 Abrir significa 'açmak' en turco. | 🇹🇷 Abrir Türkçede açmak anlamına gelir. | 🇬🇧 Abrir means to open.",es:"Abrir significa 'açmak' en turco.",tr:"Abrir Türkçede açmak anlamına gelir.",en:"Abrir means to open."},
+{t:"mc",q:"¿Qué significa 'el café' en turco?",o:["kahve", "süt", "çay", "su"],a:0,exp:"EL CAFÉ = kahve | 🇪🇸 Me gusta el café con leche. | 🇹🇷 El café = kahve. | 🇬🇧 El café = coffee.",es:"Me gusta el café con leche.",tr:"El café = kahve.",en:"El café = coffee."},
+{t:"mc",q:"Algunos hombres ______ (escribir) cartas a algunas mujeres.",o:["escriben", "escribimos", "escribe", "escribís"],a:0,exp:"ESCRIBIR: -ir fiil, ellos → -en eki | 🇪🇸 Algunos hombres escriben cartas a algunas mujeres. | 🇹🇷 Bazı erkekler bir kaç kadına mektup yazar. | 🇬🇧 Some men write letters to some women.",es:"Algunos hombres escriben cartas a algunas mujeres.",tr:"Bazı erkekler bir kaç kadına mektup yazar.",en:"Some men write letters to some women."},
+{t:"mc",q:"Tú ______ (vender) ropa en el mercado.",o:["vendo", "vendemos", "vendes", "vende"],a:2,exp:"VENDER: -er fiil, tú → -es eki | 🇪🇸 Tú vendes ropa en el mercado. | 🇹🇷 Sen pazarda kıyafet satarsın. | 🇬🇧 You sell clothes at the market.",es:"Tú vendes ropa en el mercado.",tr:"Sen pazarda kıyafet satarsın.",en:"You sell clothes at the market."},
+{t:"mc",q:"El hombre ______ (leer) el periódico cada mañana.",o:["lee", "leemos", "leo", "lees"],a:0,exp:"LEER: -er fiil, él → -e eki | 🇪🇸 El hombre lee el periódico cada mañana. | 🇹🇷 Adam her sabah gazete okur. | 🇬🇧 The man reads the newspaper every morning.",es:"El hombre lee el periódico cada mañana.",tr:"Adam her sabah gazete okur.",en:"The man reads the newspaper every morning."},
+{t:"mc",q:"Preparar fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["preparo – preparas – prepara – preparamos – preparáis – preparan", "preparo – preparas – prepara – preparamos – preparan – preparáis", "preparo – preparas – prepara – preparamos – preparéis – preparan", "preparo – preparas – prepara – preparamos – preparáis – preparen"],a:0,exp:"Preparar düzenli bir -AR fiilidir: yo preparo, tú preparas, él prepara, nosotros preparamos, vosotros preparáis, ellos preparan. | 🇪🇸 Preparar es un verbo regular en -AR. | 🇹🇷 Preparar düzenli -AR fiildir. | 🇬🇧 Preparar is a regular -AR verb.",es:"Preparar es un verbo regular en -AR.",tr:"Preparar düzenli -AR fiildir.",en:"Preparar is a regular -AR verb."},
+{t:"mc",q:"Tú ______ (comer) una manzana.",o:["comes", "comemos", "como", "come"],a:0,exp:"COMER: -er fiil, tú → -es eki | 🇪🇸 Tú comes una manzana. | 🇹🇷 Sen bir elma yiyorsun. | 🇬🇧 You eat an apple.",es:"Tú comes una manzana.",tr:"Sen bir elma yiyorsun.",en:"You eat an apple."},
+{t:"mc",q:"Nosotros ______ (abrir) las ventanas cada mañana.",o:["abres", "abro", "abre", "abrimos"],a:3,exp:"ABRIR: -ir fiil, nosotros → -imos eki | 🇪🇸 Nosotros abrimos las ventanas cada mañana. | 🇹🇷 Biz her sabah pencereleri açarız. | 🇬🇧 We open the windows every morning.",es:"Nosotros abrimos las ventanas cada mañana.",tr:"Biz her sabah pencereleri açarız.",en:"We open the windows every morning."},
+{t:"mc",q:"Tú ______ (vivir) en Madrid.",o:["vives", "vivimos", "vive", "vivo"],a:0,exp:"VIVIR: -ir fiil, tú → -es eki | 🇪🇸 Tú vives en Madrid. | 🇹🇷 Sen Madrid'de yaşarsın. | 🇬🇧 You live in Madrid.",es:"Tú vives en Madrid.",tr:"Sen Madrid'de yaşarsın.",en:"You live in Madrid."},
+{t:"mc",q:"Yo ______ (vivir) en una ciudad grande.",o:["vivimos", "vive", "vivo", "vives"],a:2,exp:"VIVIR: -ir fiil, yo → -o eki | 🇪🇸 Yo vivo en una ciudad grande. | 🇹🇷 Ben büyük bir şehirde yaşarım. | 🇬🇧 I live in a big city.",es:"Yo vivo en una ciudad grande.",tr:"Ben büyük bir şehirde yaşarım.",en:"I live in a big city."},
+{t:"mc",q:"'Todos los lunes' ne anlama gelir?",o:["Bazı pazartesiler", "Her pazartesi", "Her pazar", "Her salı"],a:1,exp:"todos los + gün = her … (çoğul form) | 🇪🇸 Voy al gimnasio todos los lunes. | 🇹🇷 Todos los lunes = her pazartesi. | 🇬🇧 Todos los lunes = every Monday.",es:"Voy al gimnasio todos los lunes.",tr:"Todos los lunes = her pazartesi.",en:"Todos los lunes = every Monday."},
+{t:"mc",q:"'¿Dónde vives?' sorusunda 'dónde' ne anlama gelir?",o:["nerede", "ne zaman", "kim", "nasıl"],a:0,exp:"DÓNDE = nerede = WHERE | 🇪🇸 ¿Dónde vives tú? | 🇹🇷 Dónde = nerede. | 🇬🇧 Dónde = where.",es:"¿Dónde vives tú?",tr:"Dónde = nerede.",en:"Dónde = where."},
+{t:"mc",q:"'-ER' ile biten fiillerde 'ellos/ustedes' için hangi ek kullanılır?",o:["-en", "-e", "-es", "-o"],a:0,exp:"-er fiillerinde ellos/ustedes → -en (comen, beben, corren…) | 🇪🇸 Ellos comen, beben, corren. | 🇹🇷 -er fiillerde ellos/ustedes → -en eki. | 🇬🇧 -er verbs: ellos/ustedes takes -en.",es:"Ellos comen, beben, corren.",tr:"-er fiillerde ellos/ustedes → -en eki.",en:"-er verbs: ellos/ustedes takes -en."},
+{t:"mc",q:"Yo ______ (dibujar) un árbol en el papel.",o:["dibujamos", "dibujas", "dibujo", "dibuja"],a:2,exp:"DIBUJAR: -ar fiil, yo → -o eki | 🇪🇸 Yo dibujo un árbol en el papel. | 🇹🇷 Ben kağıda bir ağaç çiziyorum. | 🇬🇧 I draw a tree on the paper.",es:"Yo dibujo un árbol en el papel.",tr:"Ben kağıda bir ağaç çiziyorum.",en:"I draw a tree on the paper."},
+{t:"mc",q:"'Un libro interesante' ifadesinde sıfatın yeri nerededir?",o:["İsmin önünde", "Artikelin önünde", "İsmin arkasında", "Cümlenin başında"],a:2,exp:"libro interesante (sıfat ismin sonuna gelir) | 🇪🇸 Un libro interesante, una película interesante. | 🇹🇷 İspanyolcada sıfat ismin arkasına gelir: un libro interesante. | 🇬🇧 Adjective follows noun: un libro interesante.",es:"Un libro interesante, una película interesante.",tr:"İspanyolcada sıfat ismin arkasına gelir: un libro interesante.",en:"Adjective follows noun: un libro interesante."},
+{t:"mc",q:"Beber fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["bebo – bebes – bebe – bebemos – bebéis – beben", "bebo – bebes – bebe – bebemos – beben – bebéis", "bebo – bebes – bebe – bebemos – bebáis – beben", "bebo – bebes – bebe – bebemos – bebéis – beban"],a:0,exp:"Beber düzenli bir -ER fiilidir: yo bebo, tú bebes, él bebe, nosotros bebemos, vosotros bebéis, ellos beben. | 🇪🇸 Beber es un verbo regular en -ER. | 🇹🇷 Beber düzenli -ER fiildir. | 🇬🇧 Beber is a regular -ER verb.",es:"Beber es un verbo regular en -ER.",tr:"Beber düzenli -ER fiildir.",en:"Beber is a regular -ER verb."},
+{t:"mc",q:"Ellos ______ (cantar) en el concierto.",o:["canta", "canto", "cantas", "cantan"],a:3,exp:"CANTAR: -ar fiil, ellos → -an eki | 🇪🇸 Ellos cantan en el concierto. | 🇹🇷 Onlar konserde şarkı söyler. | 🇬🇧 They sing at the concert.",es:"Ellos cantan en el concierto.",tr:"Onlar konserde şarkı söyler.",en:"They sing at the concert."},
+{t:"mc",q:"Tú ______ (hablar) muy rápido.",o:["habla", "hablamos", "hablas", "hablo"],a:2,exp:"HABLAR: -ar fiil, tú → -as eki | 🇪🇸 Tú hablas muy rápido. | 🇹🇷 Sen çok hızlı konuşursun. | 🇬🇧 You speak very fast.",es:"Tú hablas muy rápido.",tr:"Sen çok hızlı konuşursun.",en:"You speak very fast."},
+{t:"mc",q:"Yo ______ (hablar) con mi amigo todos los días.",o:["hablas", "hablamos", "hablan", "hablo"],a:3,exp:"HABLAR: mastar -ar atılır, kök habl-, yo → -o eki | 🇪🇸 Yo hablo con mi amigo todos los días. | 🇹🇷 Ben her gün arkadaşımla konuşurum. | 🇬🇧 I talk with my friend every day.",es:"Yo hablo con mi amigo todos los días.",tr:"Ben her gün arkadaşımla konuşurum.",en:"I talk with my friend every day."},
+{t:"mc",q:"¿Qué significa 'recibir' en turco?",o:["almak / teslim almak", "yazmak", "göndermek", "açmak"],a:0,exp:"RECIBIR = almak, teslim almak (-ir fiil) | 🇪🇸 Recibo muchos correos cada día. | 🇹🇷 Recibir = almak / teslim almak. | 🇬🇧 Recibir = to receive.",es:"Recibo muchos correos cada día.",tr:"Recibir = almak / teslim almak.",en:"Recibir = to receive."},
+{t:"mc",q:"Abrir fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["abro – abres – abre – abrimos – abrís – abren", "abro – abres – abre – abrimos – abren – abrís", "abro – abres – abre – abrimos – abréis – abren", "abro – abres – abre – abrimos – abrís – abran"],a:0,exp:"Abrir düzenli bir -IR fiilidir: yo abro, tú abres, él abre, nosotros abrimos, vosotros abrís, ellos abren. | 🇪🇸 Abrir es un verbo regular en -IR. | 🇹🇷 Abrir düzenli -IR fiildir. | 🇬🇧 Abrir is a regular -IR verb.",es:"Abrir es un verbo regular en -IR.",tr:"Abrir düzenli -IR fiildir.",en:"Abrir is a regular -IR verb."},
+{t:"mc",q:"'Frescas' sıfatı hangi durumu gösterir?",o:["feminen çoğul", "feminen tekil", "maskülen tekil", "maskülen çoğul"],a:0,exp:"fresco → fresca → frescos → frescas | 🇪🇸 Frutas frescas, ensaladas frescas. | 🇹🇷 Frescas feminen çoğul sıfat formudur. | 🇬🇧 Frescas = feminine plural adjective.",es:"Frutas frescas, ensaladas frescas.",tr:"Frescas feminen çoğul sıfat formudur.",en:"Frescas = feminine plural adjective."},
+{t:"mc",q:"İspanyolcada sıfat nereye gelir?",o:["Fiilin önüne", "İsmin önüne", "Cümlenin başına", "İsmin sonuna"],a:3,exp:"libro interesante, frutas frescas (sıfat + isim uyumu) | 🇪🇸 Un libro interesante, frutas frescas. | 🇹🇷 İspanyolcada sıfat ismin sonuna gelir ve isme uyumlanır. | 🇬🇧 Adjectives follow the noun in Spanish.",es:"Un libro interesante, frutas frescas.",tr:"İspanyolcada sıfat ismin sonuna gelir ve isme uyumlanır.",en:"Adjectives follow the noun in Spanish."},
+{t:"mc",q:"'Todas las tardes' ne anlama gelir?",o:["Her gece", "Her sabah", "Her akşam üzeri", "Her gün"],a:2,exp:"todas las tardes = her akşam üzeri (çoğul form) | 🇪🇸 Salgo a caminar todas las tardes. | 🇹🇷 Todas las tardes = her akşam üzeri. | 🇬🇧 Todas las tardes = every afternoon.",es:"Salgo a caminar todas las tardes.",tr:"Todas las tardes = her akşam üzeri.",en:"Todas las tardes = every afternoon."},
+{t:"mc",q:"¿Qué significa 'creer' en turco?",o:["düşünmek", "anlamak", "öğrenmek", "inanmak"],a:3,exp:"CREER = inanmak (-er fiil) | 🇪🇸 Yo creo en ti. | 🇹🇷 Creer = inanmak. | 🇬🇧 Creer = to believe.",es:"Yo creo en ti.",tr:"Creer = inanmak.",en:"Creer = to believe."},
+{t:"mc",q:"Compartir fiilinin geniş zamanda 6 özneye göre doğru çekimi hangisidir?",o:["comparto – compartes – comparte – compartimos – compartís – comparten", "comparto – compartes – comparte – compartimos – comparten – compartís", "comparto – compartes – comparte – compartimos – compartéis – comparten", "comparto – compartes – comparte – compartimos – compartís – compartan"],a:0,exp:"Compartir düzenli bir -IR fiilidir: yo comparto, tú compartes, él comparte, nosotros compartimos, vosotros compartís, ellos comparten. | 🇪🇸 Compartir es un verbo regular en -IR. | 🇹🇷 Compartir düzenli -IR fiildir. | 🇬🇧 Compartir is a regular -IR verb.",es:"Compartir es un verbo regular en -IR.",tr:"Compartir düzenli -IR fiildir.",en:"Compartir is a regular -IR verb."},
+{t:"mc",q:"Ustedes ______ (comer) en un restaurante italiano.",o:["comen", "como", "comes", "come"],a:0,exp:"COMER: -er fiil, ustedes → -en eki | 🇪🇸 Ustedes comen en un restaurante italiano. | 🇹🇷 Siz bir İtalyan restoranında yemek yiyorsunuz. | 🇬🇧 You (all) eat at an Italian restaurant.",es:"Ustedes comen en un restaurante italiano.",tr:"Siz bir İtalyan restoranında yemek yiyorsunuz.",en:"You (all) eat at an Italian restaurant."},
+{t:"mc",q:"¿Qué significa 'el desayuno' en turco?",o:["kahvaltı", "akşam yemeği", "öğle yemeği", "atıştırmalık"],a:0,exp:"EL DESAYUNO = kahvaltı | 🇪🇸 El desayuno es importante. | 🇹🇷 El desayuno = kahvaltı. | 🇬🇧 El desayuno = breakfast.",es:"El desayuno es importante.",tr:"El desayuno = kahvaltı.",en:"El desayuno = breakfast."},
+{t:"mc",q:"Nosotros ______ (comer) juntos los domingos.",o:["come", "como", "comes", "comemos"],a:3,exp:"COMER: -er fiil, nosotros → -emos eki | 🇪🇸 Nosotros comemos juntos los domingos. | 🇹🇷 Biz pazar günleri birlikte yemek yeriz. | 🇬🇧 We eat together on Sundays.",es:"Nosotros comemos juntos los domingos.",tr:"Biz pazar günleri birlikte yemek yeriz.",en:"We eat together on Sundays."},
+{t:"mc",q:"Tú ______ (beber) mucha agua.",o:["bebemos", "bebes", "bebe", "bebo"],a:1,exp:"BEBER: -er fiil, tú → -es eki | 🇪🇸 Tú bebes mucha agua. | 🇹🇷 Sen çok su içersin. | 🇬🇧 You drink a lot of water.",es:"Tú bebes mucha agua.",tr:"Sen çok su içersin.",en:"You drink a lot of water."},
+{t:"mc",q:"'-ER' ile biten fiillerde 'tú' için hangi ek kullanılır?",o:["-es", "-emos", "-o", "-e"],a:0,exp:"-er fiillerinde tú → -es (comes, bebes, corres…) | 🇪🇸 Tú comes, tú bebes, tú corres. | 🇹🇷 -er fiillerde tú → -es eki. | 🇬🇧 -er verbs: tú takes -es.",es:"Tú comes, tú bebes, tú corres.",tr:"-er fiillerde tú → -es eki.",en:"-er verbs: tú takes -es."},
+{t:"mc",q:"Ustedes ______ (escribir) los ejercicios en casa.",o:["escriben", "escribes", "escribo", "escribe"],a:0,exp:"ESCRIBIR: -ir fiil, ustedes → -en eki | 🇪🇸 Ustedes escriben los ejercicios en casa. | 🇹🇷 Siz egzersizleri evde yazarsınız. | 🇬🇧 You (all) write the exercises at home.",es:"Ustedes escriben los ejercicios en casa.",tr:"Siz egzersizleri evde yazarsınız.",en:"You (all) write the exercises at home."},
+{t:"mc",q:"'Cada tarde' ne anlama gelir?",o:["Her sabah", "Her akşam üzeri", "Her gün", "Her gece"],a:1,exp:"cada tarde = her akşam üzeri (tekil form) | 🇪🇸 Leo un libro cada tarde. | 🇹🇷 Cada tarde = her akşam üzeri. | 🇬🇧 Cada tarde = every afternoon.",es:"Leo un libro cada tarde.",tr:"Cada tarde = her akşam üzeri.",en:"Cada tarde = every afternoon."},
+{t:"mc",q:"¿Qué artículo usamos con 'libro' (masculino singular)?",o:["la", "el", "los", "una"],a:1,exp:"Maskülen tekil belirli artikel = EL | 🇪🇸 El libro es interesante. | 🇹🇷 Libro eril tekil isimdir, belirli artikel el kullanılır. | 🇬🇧 Libro is masculine singular → el.",es:"El libro es interesante.",tr:"Libro eril tekil isimdir, belirli artikel el kullanılır.",en:"Libro is masculine singular → el."},
+{t:"mc",q:"Usted ______ (hablar) muy bien el español.",o:["hablas", "habla", "hablamos", "hablo"],a:1,exp:"USTED → 3. tekil çekim kullanılır → habla | 🇪🇸 Usted habla muy bien el español. | 🇹🇷 Siz İspanyolcayı çok iyi konuşursunuz. | 🇬🇧 You (formal) speak Spanish very well.",es:"Usted habla muy bien el español.",tr:"Siz İspanyolcayı çok iyi konuşursunuz.",en:"You (formal) speak Spanish very well."},
+{t:"mc",q:"'Todas las noches' ne anlama gelir?",o:["Her akşam üzeri", "Her gece", "Her öğle", "Her sabah"],a:1,exp:"todas las noches = her gece (çoğul form) | 🇪🇸 Estudio todas las noches. | 🇹🇷 Todas las noches = her gece. | 🇬🇧 Todas las noches = every night.",es:"Estudio todas las noches.",tr:"Todas las noches = her gece.",en:"Todas las noches = every night."},
+{t:"mc",q:"Las chicas ______ (aprender) español en clase.",o:["aprende", "aprendemos", "aprenden", "aprendes"],a:2,exp:"APRENDER: -er fiil, ellas → -en eki | 🇪🇸 Las chicas aprenden español en clase. | 🇹🇷 Kızlar derste İspanyolca öğrenir. | 🇬🇧 The girls learn Spanish in class.",es:"Las chicas aprenden español en clase.",tr:"Kızlar derste İspanyolca öğrenir.",en:"The girls learn Spanish in class."},
+{t:"mc",q:"¿Qué significa 'el hombre' en turco?",o:["erkek / adam", "kadın", "çocuk", "kız"],a:0,exp:"EL HOMBRE = erkek, adam | 🇪🇸 El hombre trabaja mucho. | 🇹🇷 El hombre = erkek / adam. | 🇬🇧 El hombre = the man.",es:"El hombre trabaja mucho.",tr:"El hombre = erkek / adam.",en:"El hombre = the man."},
+{t:"mc",q:"Ellas ______ (bailar) en la discoteca los viernes.",o:["bailas", "bailan", "bailo", "baila"],a:1,exp:"BAILAR: -ar fiil, ellas → -an eki | 🇪🇸 Ellas bailan en la discoteca los viernes. | 🇹🇷 Onlar cumaları diskotekte dans ederler. | 🇬🇧 They dance at the disco on Fridays.",es:"Ellas bailan en la discoteca los viernes.",tr:"Onlar cumaları diskotekte dans ederler.",en:"They dance at the disco on Fridays."},
+{t:"mc",q:"Yo ______ (cantar) en la ducha todas las mañanas.",o:["cantamos", "canta", "cantas", "canto"],a:3,exp:"CANTAR: -ar fiil, yo → -o eki | 🇪🇸 Yo canto en la ducha todas las mañanas. | 🇹🇷 Ben her sabah duşta şarkı söylerim. | 🇬🇧 I sing in the shower every morning.",es:"Yo canto en la ducha todas las mañanas.",tr:"Ben her sabah duşta şarkı söylerim.",en:"I sing in the shower every morning."},
+{t:"mc",q:"¿Qué significa 'la ventana' en turco?",o:["sandalye", "masa", "pencere", "kapı"],a:2,exp:"LA VENTANA = pencere | 🇪🇸 Abre la ventana, por favor. | 🇹🇷 La ventana = pencere. | 🇬🇧 La ventana = the window.",es:"Abre la ventana, por favor.",tr:"La ventana = pencere.",en:"La ventana = the window."},
+{t:"mc",q:"¿Qué significa 'viajar' en turco?",o:["dans etmek", "yürümek", "şarkı söylemek", "seyahat etmek"],a:3,exp:"VIAJAR = seyahat etmek (-ar fiil) | 🇪🇸 Me encanta viajar por el mundo. | 🇹🇷 Viajar = seyahat etmek. | 🇬🇧 Viajar = to travel.",es:"Me encanta viajar por el mundo.",tr:"Viajar = seyahat etmek.",en:"Viajar = to travel."},
+{t:"mc",q:"Tú ______ (mirar) la televisión por la noche.",o:["miro", "miramos", "mira", "miras"],a:3,exp:"MIRAR: -ar fiil, tú → -as eki | 🇪🇸 Tú miras la televisión por la noche. | 🇹🇷 Sen geceleri televizyon izlersin. | 🇬🇧 You watch television at night.",es:"Tú miras la televisión por la noche.",tr:"Sen geceleri televizyon izlersin.",en:"You watch television at night."},
+{t:"mc",q:"'-AR' ile biten fiillerin köküne 'tú' için hangi ek eklenir?",o:["-as", "-o", "-a", "-amos"],a:0,exp:"-ar fiillerinde tú → -as (hablas, bailas, caminas…) | 🇪🇸 Tú hablas, tú bailas, tú caminas. | 🇹🇷 -ar fiillerde tú → -as eki. | 🇬🇧 -ar verbs: tú takes -as.",es:"Tú hablas, tú bailas, tú caminas.",tr:"-ar fiillerde tú → -as eki.",en:"-ar verbs: tú takes -as."},
+{t:"mc",q:"Vosotros ______ (comer) en casa.",o:["comes", "coméis", "como", "come"],a:1,exp:"COMER: -er fiil, vosotros → -éis eki | 🇪🇸 Vosotros coméis en casa. | 🇹🇷 Siz evde yemek yersiniz. | 🇬🇧 You (all) eat at home.",es:"Vosotros coméis en casa.",tr:"Siz evde yemek yersiniz.",en:"You (all) eat at home."},
+{t:"mc",q:"Nosotros ______ (aprender) español en clase.",o:["aprendes", "aprenden", "aprendemos", "aprende"],a:2,exp:"APRENDER: -er fiil, nosotros → -emos eki | 🇪🇸 Nosotros aprendemos español en clase. | 🇹🇷 Biz derste İspanyolca öğreniriz. | 🇬🇧 We learn Spanish in class.",es:"Nosotros aprendemos español en clase.",tr:"Biz derste İspanyolca öğreniriz.",en:"We learn Spanish in class."},
+{t:"mc",q:"¿Qué significa 'descubrir' en turco?",o:["açmak", "yazmak", "keşfetmek", "paylaşmak"],a:2,exp:"DESCUBRIR = keşfetmek (-ir fiil) | 🇪🇸 Me gusta descubrir lugares nuevos. | 🇹🇷 Descubrir = keşfetmek. | 🇬🇧 Descubrir = to discover.",es:"Me gusta descubrir lugares nuevos.",tr:"Descubrir = keşfetmek.",en:"Descubrir = to discover."},
+{t:"mc",q:"Ellos ______ (vivir) en el mismo edificio.",o:["viven", "vivo", "vives", "vive"],a:0,exp:"VIVIR: -ir fiil, ellos → -en eki | 🇪🇸 Ellos viven en el mismo edificio. | 🇹🇷 Onlar aynı binada yaşarlar. | 🇬🇧 They live in the same building.",es:"Ellos viven en el mismo edificio.",tr:"Onlar aynı binada yaşarlar.",en:"They live in the same building."}
+].slice(0, 50);
+let cur=0,score=0,err=0,wrongList=[],state=new Array(Q.length).fill(null);
+function startQuiz(){
+  const n=document.getElementById('introName').value;
+  if(!n){alert('Lütfen adınızı seçin!');return;}
+  window._introName=n;
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  render();
+}
+function render(){
+  document.getElementById('progFill').style.width=((cur/Q.length)*100)+'%';
+  document.getElementById('progLabel').textContent=(cur+1)+' / '+Q.length;
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  const q=Q[cur];
+  document.getElementById('qArea').innerHTML=WARN+(q.t==='mc'?buildMC(q,cur):buildFill(q,cur));
+  if(state[cur]!==null)restoreState(cur);
+}
+function buildMC(q,i){
+  return'<div class="q-card"><div class="q-num">SORU '+(i+1)+'</div><span class="q-type-badge badge-mc">ÇOKTAN SEÇMELİ</span><div class="q-text">'+q.q+'</div><div class="choices" id="ch'+i+'">'+
+  q.o.map((o,j)=>'<button class="choice-btn" id="cb'+i+'_'+j+'" onclick="answerMC('+i+','+j+')"><span class="cletter">'+'abcd'[j]+'</span>'+o+'</button>').join('')+
+  '</div><div class="explanation" id="exp'+i+'"></div>'+navRow(i)+'</div>';
+}
+function buildFill(q,i){
+  return'<div class="q-card"><div class="q-num">SORU '+(i+1)+'</div><span class="q-type-badge badge-fill">BOŞLUK DOLDURMA</span><div class="q-text">'+q.q+'</div><div class="fill-wrap"><input class="fill-input" id="fi'+i+'" placeholder="Cevabınızı yazın..." onkeydown="if(event.key===\'Enter\')answerFill('+i+')"><button class="fill-submit" id="fs'+i+'" onclick="answerFill('+i+')">Kontrol Et →</button></div><div class="explanation" id="exp'+i+'"></div>'+navRow(i)+'</div>';
+}
+function navRow(i){
+  return'<div class="nav-row"><button class="nav-btn" onclick="skipQ()" '+(state[i]!==null?'disabled':'')+'>Atla</button><button class="nav-btn" onclick="prev()" '+(i===0?'disabled':'')+'>← Geri</button><button class="nav-btn primary" onclick="next()">'+(i===Q.length-1?'Bitir ✓':'İleri →')+'</button></div>';
+}
+function showExp(i,ok){
+  const q=Q[i],el=document.getElementById('exp'+i);
+  if(!el)return;
+  el.className='explanation show '+(ok?'exp-ok':'exp-err');
+  el.innerHTML=(ok?'✅ ':'❌ Doğrusu: <strong>'+q.a+'</strong><br>')+q.exp+
+    '<span class="exp-es">🇪🇸 '+q.es+'</span><span class="exp-tr">🇹🇷 '+q.tr+'</span><span class="exp-en">🇬🇧 '+q.en+'</span>';
+}
+function answerMC(i,j){
+  if(state[i]!==null)return;
+  const q=Q[i],ok=j===q.a;
+  state[i]={chosen:q.o[j],correct:q.o[q.a],ok};
+  if(ok)score++;else{err++;wrongList.push({idx:i,chosen:q.o[j],correct:q.o[q.a]});}
+  for(let k=0;k<4;k++){
+    const b=document.getElementById('cb'+i+'_'+k);
+    if(!b)continue;b.disabled=true;
+    if(k===q.a)b.classList.add('correct');
+    else if(k===j&&!ok)b.classList.add('wrong');
+  }
+  showExp(i,ok);
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  if(allAnswered())setTimeout(showResult,700);
+}
+function answerFill(i){
+  const inp=document.getElementById('fi'+i);
+  if(!inp||state[i]!==null)return;
+  const user=inp.value.trim();if(!user)return;
+  const q=Q[i],ok=user.toLowerCase()===q.a.toLowerCase();
+  state[i]={chosen:user,correct:q.a,ok};
+  if(ok)score++;else{err++;wrongList.push({idx:i,chosen:user,correct:q.a});}
+  inp.classList.add(ok?'correct-input':'wrong-input');
+  inp.disabled=true;
+  document.getElementById('fs'+i).disabled=true;
+  if(!ok){const d=document.createElement('div');d.style.cssText='font-size:.8rem;color:#6c5ce7;margin-top:.3rem;font-weight:600;';d.textContent='Doğrusu: '+q.a;inp.parentNode.insertBefore(d,inp.nextSibling);}
+  showExp(i,ok);
+  document.getElementById('sCorrect').textContent=score;
+  document.getElementById('sWrong').textContent=err;
+  if(allAnswered())setTimeout(showResult,700);
+}
+function restoreState(i){
+  const s=state[i],q=Q[i];if(!s)return;
+  if(q.t==='mc'){
+    for(let k=0;k<4;k++){const b=document.getElementById('cb'+i+'_'+k);if(!b)continue;b.disabled=true;if(k===q.a)b.classList.add('correct');else if(q.o[k]===s.chosen&&!s.ok)b.classList.add('wrong');}
+  }else{
+    const inp=document.getElementById('fi'+i);
+    if(inp){inp.value=s.chosen;inp.classList.add(s.ok?'correct-input':'wrong-input');inp.disabled=true;}
+    document.getElementById('fs'+i).disabled=true;
+    if(!s.ok){const d=document.createElement('div');d.style.cssText='font-size:.8rem;color:#6c5ce7;margin-top:.3rem;font-weight:600;';d.textContent='Doğrusu: '+q.a;if(inp)inp.parentNode.insertBefore(d,inp.nextSibling);}
+  }
+  showExp(i,s.ok);
+}
+function allAnswered(){return state.every(s=>s!==null);}
+function skipQ(){next();}
+function prev(){if(cur>0){cur--;render();}}
+function next(){if(cur<Q.length-1){cur++;render();}else showResult();}
+function showResult(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('result').style.display='block';
+  const pct=Math.round(score/Q.length*100);
+  window._lastPct=pct;
+  document.getElementById('resPct').textContent=pct;
+  document.getElementById('resIcon').textContent=pct>=90?'🏆':pct>=70?'🎉':pct>=50?'👏':'📚';
+  document.getElementById('stOk').textContent=score;
+  document.getElementById('stErr').textContent=err;
+  document.getElementById('stPct').textContent=pct;
+  document.getElementById('noticeBox').style.display='block';
+  document.getElementById('actionBtns').classList.add('show');
+  if(window._introName){
+    const sel=document.getElementById('studentName');
+    if(sel)for(let i=0;i<sel.options.length;i++)if(sel.options[i].text===window._introName){sel.selectedIndex=i;break;}
+  }
+  // Önceki onay sıfırlansın (tekrar yapıldıysa)
+  document.getElementById('confirmBtn').disabled=false;
+  document.getElementById('confirmBtn').textContent='Onayla ✓';
+  document.getElementById('studentName').disabled=false;
+  document.getElementById('sendStatus').style.display='none';
+  document.getElementById('summaryCard').style.display='none';
+  window.scrollTo(0,0);
+}
+function confirmName(){
+  const val=document.getElementById('studentName').value;
+  if(!val){alert('Lütfen adınızı seçin!');return;}
+  const grup=GROUPS[val]||'A1.1';
+  const pct=window._lastPct;
+  document.getElementById('studentName').disabled=true;
+  document.getElementById('confirmBtn').disabled=true;
+  document.getElementById('confirmBtn').textContent='✓ Kaydedildi';
+  document.getElementById('summaryName').textContent=val;
+  document.getElementById('summaryOdev').textContent=ODEV_ADI+' · '+grup;
+  document.getElementById('sumPuan').textContent=pct;
+  document.getElementById('sumDogru').textContent=score;
+  document.getElementById('sumYanlis').textContent=err;
+  document.getElementById('summaryCard').style.display='block';
+  const st=document.getElementById('sendStatus');
+  st.style.display='block';st.style.color='var(--muted)';st.textContent='⏳ Kaydediliyor...';
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ogrenci:val,grup:grup,odev:ODEV_ADI,puan:pct,dogru:score,yanlis:err})})
+  .then(()=>{st.style.display='none';})
+  .catch(()=>{st.style.color='var(--muted)';st.textContent='⚠️ Bağlantı hatası, lütfen tekrar deneyin.';});
+}
+function toggleReview(){
+  const sec=document.getElementById('reviewSection');
+  const btn=document.querySelector('.btn-review');
+  if(sec.innerHTML&&sec.style.display!=='none'){sec.style.display='none';btn.textContent='🔍 Hatalarımı gözden geçir';return;}
+  btn.textContent='▲ Kapat';
+  if(wrongList.length===0){sec.innerHTML='<div class="review-title">🎉 Hiç hata yok!</div>';sec.style.display='block';return;}
+  let h='<div class="review-title">❌ Yanlış Sorular ('+wrongList.length+')</div>';
+  wrongList.forEach(w=>{
+    const q=Q[w.idx];
+    h+='<div class="review-card"><div class="review-qnum">SORU '+(w.idx+1)+'</div><div class="review-q">'+q.q+'</div><div class="review-your">❌ Cevabınız: '+w.chosen+'</div><div class="review-correct">✅ Doğru: '+w.correct+'</div><div class="review-exp">'+q.exp+'<br><span style="font-style:italic;color:#1a5276">🇪🇸 '+q.es+'</span><br><strong style="color:#1a5276">🇹🇷 '+q.tr+'</strong><br><span style="color:#555">🇬🇧 '+q.en+'</span></div></div>';
+  });
+  sec.innerHTML=h;sec.style.display='block';sec.scrollIntoView({behavior:'smooth'});
+}
+function restart(){
+  cur=0;score=0;err=0;wrongList=[];state=new Array(Q.length).fill(null);
+  document.getElementById('result').style.display='none';
+  document.getElementById('reviewSection').innerHTML='';
+  document.getElementById('reviewSection').style.display='none';
+  document.getElementById('actionBtns').classList.remove('show');
+  document.getElementById('noticeBox').style.display='none';
+  document.querySelector('.btn-review').textContent='🔍 Hatalarımı gözden geçir';
+  document.getElementById('quiz').style.display='block';
+  render();window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
