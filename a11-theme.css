@@ -629,7 +629,7 @@ select:focus, input[type='text']:focus, textarea:focus { border-color: var(--a11
 .a11-quiz-status .top-bar { flex: 1 1 170px; margin: 0; }
 .a11-quiz-status .score-bar { gap: 12px; margin: 0; }
 .a11-quiz-status .s-wrong { color: #bc3655; }
-button.a11-finish {
+:is(#quiz, #quizScreen, #hora) button.a11-finish {
   width: auto;
   min-width: 0;
   min-height: 40px;
@@ -644,8 +644,8 @@ button.a11-finish {
   white-space: nowrap;
   box-shadow: none;
 }
-button.a11-finish:hover { background: #fff0f6; color: #8e1948; }
-button.a11-finish:focus-visible { outline: 3px solid #f5a3c5; outline-offset: 3px; }
+:is(#quiz, #quizScreen, #hora) button.a11-finish:hover { background: #fff0f6; color: #8e1948; }
+:is(#quiz, #quizScreen, #hora) button.a11-finish:focus-visible { outline: 3px solid #f5a3c5; outline-offset: 3px; }
 #quizScreen > button.a11-finish { margin-inline-start: auto; }
 #sc-writing > .a11-lesson-banner { width: calc(100% - 32px); }
 #quiz .q-text, #quizScreen .q-text { font-family: 'Nunito', sans-serif; }
