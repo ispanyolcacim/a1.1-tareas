@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#ffdb53">
+  <title>A1.1 (7+8) Yazma Ödevi · ¿Quién soy?</title>
+  <link rel="stylesheet" href="a11-theme.css?v=20261103-sunshine">
+  <script src="student-roster.js" defer></script>
+  <style>
+    *{box-sizing:border-box}[hidden]{display:none!important}body{line-height:1.65}button,a,input,select,textarea{touch-action:manipulation}
+    .writing-wrap{width:min(940px,calc(100% - 32px));margin:auto;padding:24px 0 48px}.writing-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;font-weight:800}
+    .writing-nav a,.portal-link{color:#38354a;text-decoration:none;background:#fff;border:1px solid #f0e4ae;border-radius:999px;padding:9px 15px;display:inline-block;font-weight:800}.writing-hero{text-align:center;padding:30px 8px 25px}.writing-kicker{display:inline-block;padding:5px 14px;border-radius:999px;background:#fff1bc;font-weight:900;font-size:13px}.writing-hero h1{font-size:clamp(32px,6vw,46px);line-height:1.2;margin:16px 0 10px}.writing-hero p{margin:6px 0;color:#656174}.writing-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}.writing-tags span{background:#fff;border:1px solid #f0e4ae;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:800}
+    .writing-card{margin-bottom:18px;background:#fff;border:1px solid #f0e4ae;border-radius:22px;padding:24px;box-shadow:0 4px 22px #38354a08}.writing-card h2{font-size:23px;line-height:1.3;margin:0 0 14px}.writing-card h3{font-size:18px;margin:0 0 9px}.writing-card p{margin:9px 0}.writing-card ul{padding-left:24px;margin:0}.writing-card li{margin:8px 0}.writing-note{background:#fff8de;border:1px solid #f0e4ae;border-radius:14px;padding:15px 17px;margin-top:15px}.writing-note p{margin:5px 0}.question-grid,.verb-grid,.starter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.question,.starter{background:#fffaf0;border-radius:13px;padding:12px 14px}.question strong,.starter strong{display:block}.question span,.starter span{font-size:14px;color:#656174}.verb-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 20px}.verb{border-bottom:1px solid #f0e4ae;padding:9px 0;font-size:14px}.verb strong{display:block}.verb span{color:#656174}.writing-example{border-left:4px solid #ffdb53;background:#fffaf0;padding:14px 17px;border-radius:0 12px 12px 0;font-weight:700}
+    .writing-field{display:block;font-weight:800;margin:14px 0 7px}.writing-select{width:100%;border:1.5px solid #e5dba9;background:#fffdf4;border-radius:12px;padding:13px 14px;font-size:16px;color:#343145}.writing-btn{border:0;border-radius:13px;padding:13px 18px;background:#ffdb53;color:#29263b;font:900 15px 'Nunito',sans-serif;cursor:pointer;line-height:1.4}.writing-btn.secondary{background:#fff;border:1.5px solid #e5dba9}.writing-btn:disabled{opacity:.45;cursor:not-allowed}.writing-btn:focus-visible,.writing-select:focus-visible,textarea:focus-visible,.portal-link:focus-visible{outline:3px solid #7764bc;outline-offset:3px}.writing-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}.writing-actions .writing-btn{flex:1;min-width:180px}.writing-name{font-size:14px;color:#656174;margin-bottom:15px}.writing-name strong{color:#343145}.writing-text{width:100%;min-height:285px;border:1.5px solid #e5dba9;border-radius:14px;background:#fffdf4;padding:17px;font-size:17px;line-height:1.8;color:#343145;resize:vertical}.writing-counters{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.writing-counter{padding:12px 14px;border-radius:12px;background:#f7f6fa;font-size:13px;color:#656174}.writing-counter strong{display:block;font-size:19px;color:#343145}.writing-counter.ready{background:#e8f7ef}.writing-hint{font-size:13px;color:#656174}.copy-feedback{font-size:14px;font-weight:700;min-height:1.6em;margin-top:8px}.copy-confirm{display:flex;align-items:flex-start;gap:12px;border:1.5px solid #e9d473;background:#fff8de;border-radius:14px;padding:16px;margin:16px 0 10px;cursor:pointer}.copy-confirm input{flex:0 0 auto;width:22px;height:22px;margin:2px 0 0;accent-color:#716434;cursor:pointer}.copy-confirm small{display:block;font-size:13px;font-weight:400;margin-top:3px}.writing-message{padding:12px 15px;border-radius:12px;margin:12px 0;background:#fff8de;border:1px solid #e9d473;font-weight:700;font-size:14px}.writing-error{background:#fff0f2;border-color:#e9b1bd;color:#962f49}.writing-success{background:#e8f7ef;border-color:#b6decb;color:#256243}.confirm-meta{white-space:pre-line;background:#fffaf0;border-radius:14px;padding:15px;margin-top:15px}.confirm-text{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #f0e4ae;border-radius:14px;padding:17px;max-height:360px;overflow:auto;margin:15px 0}.writing-foot{text-align:center;color:#656174;font-size:13px}.writing-status{padding:12px 15px;border-radius:12px;background:#fff8de;margin:10px 0;font-weight:800}.writing-status.ok{background:#e8f7ef;color:#256243}.writing-status.error{background:#fff0f2;color:#962f49}
+    @media(max-width:650px){.writing-wrap{width:calc(100% - 24px);padding-top:16px}.writing-card{padding:19px 16px}.question-grid,.starter-grid{grid-template-columns:1fr}.verb-grid{grid-template-columns:1fr 1fr}.writing-text{min-height:340px;font-size:16px}.writing-hero{padding-top:24px}.writing-card h2{font-size:21px}.writing-actions{flex-direction:column}.writing-actions .writing-btn{width:100%;min-width:0}}
+  </style>
+</head>
+<body>
+<main class="writing-wrap">
+  <nav class="writing-nav" aria-label="Sayfa bağlantıları"><span>🇪🇸 @ispanyolcacim · Profe Hazel</span><a href="https://www.ispanyolcacim.com/ogrenci-portali.html">← Öğrenci Portalına Dön</a></nav>
+  <header class="writing-hero">
+    <span class="writing-kicker">A1.1 · 2. Hafta · 7+8. Ders</span>
+    <h1>✍️ ¿Quién soy?</h1>
+    <p><strong>Ben kimim? · Kendimi tanıtıyorum</strong></p>
+    <div class="writing-tags"><span>📝 40–60 kelime hedefi</span><span>💬 8–10 kısa cümle hedefi</span><span>🔤 Presente · Düzenli fiiller</span></div>
+  </header>
+
+  <section id="screen-name" aria-labelledby="intro-heading">
+    <div class="writing-card">
+      <h2 id="intro-heading">🌻 İlk tanıtma yazınız</h2>
+      <p>7+8. dersin iki kısmını tamamladıktan sonra öğrendiğiniz yapılarla <strong>kendinizi İspanyolca tanıttığınız kısa bir paragraf</strong> yazın. Adınızdan, yaşadığınız yerden, işinizden veya eğitiminizden, konuştuğunuz dillerden ve günlük hayatınızdan söz edin.</p>
+      <p>🎯 Hedefiniz <strong>40–60 kelime ve 8–10 kısa cümle</strong>. <strong>En az 5 farklı düzenli fiil</strong> kullanmaya çalışın. Cümlelerinizi <span lang="es"><strong>y</strong></span> ve <span lang="es"><strong>también</strong></span> ile bağlayabilirsiniz.</p>
+      <div class="writing-note">🌱 Bildiğiniz yapılarla, kendi cümlelerinizle yazın. Kısa ve anlaşılır cümleler yeterli. Örneği kendi bilgilerinize göre yeniden oluşturun.</div>
+      <label class="writing-field" for="name-select">👤 Adınız soyadınız</label>
+      <select class="writing-select" id="name-select"><option value="">— Adınızı seçin —</option><option>Ali Ceylan</option><option>Aysen Gurkan</option><option>Beyza Nur Yuksel</option><option>Bilge Selcuk</option><option>Ceyda Sarac</option><option>Defne Ozer</option><option>Defne Sonmez</option><option>Ece Utkan</option><option>Ergin Yaldiz</option><option>Fatih Soylemez</option><option>Fatma Busra Sevindik</option><option>Ferda Bade Cubuk</option><option>Fidan Buyukturk</option><option>Hasan Can Serim</option><option>Leyla Yuksel</option><option>Melisa Tuncer</option><option>Serdar Mehrabirad</option><option>Sude Selen Ulker</option><option>Sule Soylemez Gul</option><option>Sureyya Samur</option><option>Yasemin Bedir</option><option>Yelda Yilmaz</option></select>
+      <div class="writing-actions"><button class="writing-btn" id="start-button" type="button" onclick="startWriting()">✏️ Yazmaya Başla</button></div>
+      <div id="name-message" class="writing-message writing-error" role="alert" hidden></div>
+    </div>
+    <div class="writing-card"><h2>📨 Yazınızı nasıl teslim edeceksiniz?</h2><p>Yazınızı sayfadaki alana yazın. Bir kopyasını alın, onay kutucuğunu işaretleyin ve teslim ekranında adınızı kontrol edin. Yazınız <strong>Profe Hazel’e e-posta ile iletilecek</strong>; teslim bilgisi öğrenci portalına gönderilecek. Değerlendirme sonrasında puanınızı portaldan takip edebilirsiniz.</p></div>
+  </section>
+
+  <section id="screen-writing" aria-labelledby="writing-heading" hidden>
+    <div class="writing-card">
+      <h2 id="writing-heading">🧭 Yazınızda neler anlatabilirsiniz?</h2>
+      <p class="writing-name">👤 Öğrenci: <strong id="writing-student">—</strong></p>
+      <div class="question-grid">
+        <div class="question"><strong lang="es">¿Cuál es tu nombre? ¿De dónde eres?</strong><span>Adınız ne? Nerelisiniz?</span></div>
+        <div class="question"><strong lang="es">¿Dónde vives? ¿Con quién vives?</strong><span>Nerede, kiminle yaşıyorsunuz?</span></div>
+        <div class="question"><strong lang="es">¿Trabajas o estudias?</strong><span>Çalışıyor musunuz, öğrenci misiniz?</span></div>
+        <div class="question"><strong lang="es">¿Qué idiomas hablas?</strong><span>Hangi dilleri konuşuyorsunuz?</span></div>
+        <div class="question"><strong lang="es">¿Qué estudias o aprendes?</strong><span>Neler çalışıyor veya öğreniyorsunuz?</span></div>
+        <div class="question"><strong lang="es">¿Qué haces normalmente?</strong><span>Günlük hayatınızda neler yapıyorsunuz?</span></div>
+      </div>
+      <p class="writing-hint">Sorular fikir vermek içindir. Cevapları bir liste şeklinde değil, birbirini takip eden cümlelerle tek bir paragrafta birleştirin.</p>
+    </div>
+    <div class="writing-card">
+      <h2>🔤 Düzenli fiil desteği</h2>
+      <p>Yazınızda en az <strong>5 farklı düzenli fiile</strong> yer vermeye çalışın. Aşağıdaki biçimler <span lang="es"><strong>yo</strong></span> için kullanılır.</p>
+      <div class="verb-grid">
+        <div class="verb"><strong lang="es">🏡 vivir → vivo</strong><span>yaşamak → yaşıyorum</span></div>
+        <div class="verb"><strong lang="es">💼 trabajar → trabajo</strong><span>çalışmak → çalışıyorum</span></div>
+        <div class="verb"><strong lang="es">📚 estudiar → estudio</strong><span>ders çalışmak / eğitim görmek</span></div>
+        <div class="verb"><strong lang="es">🗣️ hablar → hablo</strong><span>konuşmak → konuşuyorum</span></div>
+        <div class="verb"><strong lang="es">🧠 aprender → aprendo</strong><span>öğrenmek → öğreniyorum</span></div>
+        <div class="verb"><strong lang="es">🎧 escuchar → escucho</strong><span>dinlemek → dinliyorum</span></div>
+        <div class="verb"><strong lang="es">📖 leer → leo</strong><span>okumak → okuyorum</span></div>
+        <div class="verb"><strong lang="es">✍️ escribir → escribo</strong><span>yazmak → yazıyorum</span></div>
+        <div class="verb"><strong lang="es">🍽️ comer → como</strong><span>yemek yemek → yemek yiyorum</span></div>
+        <div class="verb"><strong lang="es">🥤 beber → bebo</strong><span>içmek → içiyorum</span></div>
+        <div class="verb"><strong lang="es">🚶 caminar → camino</strong><span>yürümek → yürüyorum</span></div>
+        <div class="verb"><strong lang="es">🍳 cocinar → cocino</strong><span>yemek pişirmek → yemek pişiriyorum</span></div>
+      </div>
+      <div class="writing-note">📌 Kendinizi tanıtırken <span lang="es"><strong>Mi nombre es… / Soy de…</strong></span> diyebilirsiniz. Bu ödevde düzenli Presente fiillerini kullanmanız yeterli; henüz işlemediğiniz yapıları kullanmanız gerekmiyor.</div>
+    </div>
+    <div class="writing-card">
+      <h2>💬 Kısa bir örnek</h2>
+      <p class="writing-example" lang="es">Mi nombre es Elif. Soy de Turquía. Vivo en Ankara con mi familia. Trabajo en una oficina pequeña. Hablo turco y un poco de inglés. Estudio español dos días a la semana. Aprendo palabras nuevas en casa. Por la tarde escucho música. Leo libros y camino por el parque.</p>
+      <p class="writing-hint">Bu metin bir yol göstericidir. Kendi adınızı, şehrinizi, hayatınızı ve günlük etkinliklerinizi anlatın.</p>
+      <div class="starter-grid"><div class="starter"><strong lang="es">por la mañana / por la tarde / por la noche</strong><span>sabah / öğleden sonra / gece</span></div><div class="starter"><strong lang="es">cada día / y / también</strong><span>her gün / ve / ayrıca, de-da</span></div></div>
+    </div>
+    <div class="writing-card">
+      <h2>✏️ ¿Quién soy? — Yazınız</h2>
+      <label class="writing-field" for="writing-text">Kendinizi tanıtan paragrafınızı aşağıya yazın.</label>
+      <textarea class="writing-text" id="writing-text" lang="es" spellcheck="true" placeholder="Mi nombre es… Soy de… Vivo en…" oninput="onWritingInput()" aria-describedby="writing-requirements"></textarea>
+      <div class="writing-counters"><div class="writing-counter" id="word-counter">Kelime sayısı<strong id="word-count">0</strong><span>Hedef: 40–60 kelime</span></div><div class="writing-counter" id="sentence-counter">Tamamlanan cümle<strong id="sentence-count">0</strong><span>Hedef: 8–10 cümle</span></div></div>
+      <p class="writing-hint" id="writing-requirements">Teslim için <strong>en az 40 kelime, noktalama işaretiyle tamamlanmış 8 cümle ve aşağıdaki onay kutucuğu</strong> gerekir. 60 kelime / 10 cümle üst sınır değildir. Beş farklı düzenli fiil kullanımı öğretmeniniz tarafından değerlendirilecektir.</p>
+      <div class="writing-actions"><button class="writing-btn secondary" id="copy-button" type="button" onclick="copyWriting()">📋 Yazımın Kopyasını Al</button></div>
+      <p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite"></p>
+      <label class="copy-confirm" for="copy-confirm"><input type="checkbox" id="copy-confirm" onchange="updateWritingGate()"><span><strong>Ödevimi tamamladım ve yazımın bir kopyasını aldım.</strong><small>Bu kutucuğu işaretlemeden ödevinizi teslim edemezsiniz. Metni değiştirirseniz yeni halinin kopyasını alıp tekrar onaylayın.</small></span></label>
+      <div id="writing-message" class="writing-message writing-error" role="alert" hidden></div>
+      <div class="writing-actions"><button class="writing-btn" id="review-button" type="button" onclick="goToConfirm()" disabled>✔ Yazıyı Tamamladım, Teslim Et</button></div>
+    </div>
+  </section>
+
+  <section id="screen-confirm" aria-labelledby="confirm-heading" hidden>
+    <div class="writing-card">
+      <h2 id="confirm-heading">📨 Son kontrol</h2>
+      <p>Yazınız Profe Hazel’e e-posta ile gönderilecek. Adınızı ve metninizi kontrol edin.</p>
+      <label class="writing-field" for="confirm-name-select">👤 Adınız soyadınız</label>
+      <select class="writing-select" id="confirm-name-select"><option value="">— Adınızı seçin —</option><option>Ali Ceylan</option><option>Aysen Gurkan</option><option>Beyza Nur Yuksel</option><option>Bilge Selcuk</option><option>Ceyda Sarac</option><option>Defne Ozer</option><option>Defne Sonmez</option><option>Ece Utkan</option><option>Ergin Yaldiz</option><option>Fatih Soylemez</option><option>Fatma Busra Sevindik</option><option>Ferda Bade Cubuk</option><option>Fidan Buyukturk</option><option>Hasan Can Serim</option><option>Leyla Yuksel</option><option>Melisa Tuncer</option><option>Serdar Mehrabirad</option><option>Sude Selen Ulker</option><option>Sule Soylemez Gul</option><option>Sureyya Samur</option><option>Yasemin Bedir</option><option>Yelda Yilmaz</option></select>
+      <div class="confirm-meta" id="confirm-summary"></div>
+      <div class="confirm-text" id="confirm-text" lang="es"></div>
+      <div id="submit-message" class="writing-message writing-error" role="alert" hidden></div>
+      <div class="writing-actions"><button class="writing-btn" id="submit-button" type="button" onclick="confirmAndSubmit()">✔ Evet, Ödevi Teslim Et</button><button class="writing-btn secondary" id="back-button" type="button" onclick="showWritingScreen('writing')">← Yazıma Dön</button></div>
+    </div>
+  </section>
+
+  <section id="screen-result" aria-labelledby="result-heading" hidden>
+    <div class="writing-card">
+      <h2 id="result-heading">✅ Yazınız iletildi!</h2>
+      <p><strong id="result-student"></strong> · A1.1 · 7+8. Ders · ¿Quién soy?</p>
+      <div class="writing-status ok" id="email-status" role="status">✅ Yazınız Profe Hazel’e e-posta ile iletildi.</div>
+      <div class="writing-status" id="sheet-status" role="status" aria-live="polite">⏳ Teslim bilgisi portala gönderiliyor…</div>
+      <button class="writing-btn secondary" id="retry-record-button" type="button" onclick="retrySubmissionRecord()" hidden>🔄 Teslim Bilgisini Tekrar Gönder</button>
+      <div class="writing-note"><p>🌻 Yazınız öğretmeniniz tarafından değerlendirilecek. Sonucunuzu öğrenci portalında <strong>7+8. dersin Yazma Ödevi</strong> alanından takip edebilirsiniz.</p><p>Yazınızın sizdeki kopyasını saklayın.</p></div>
+      <div class="writing-actions"><a class="portal-link" href="https://www.ispanyolcacim.com/ogrenci-portali.html">Öğrenci Portalına Dön ↗</a></div>
+    </div>
+  </section>
+  <p class="writing-foot">🌱 Kendi cümlelerinizle, adım adım.<br>🇪🇸 @ispanyolcacim · Profe Hazel</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+'use strict';
+const EMAILJS_SERVICE = 'service_4ee1wh7';
+const EMAILJS_TEMPLATE = 'template_xjyyxhf';
+const EMAILJS_PUBLIC_KEY = 'xNYEbUQNiWJPvbyoJ';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5of6JJIjmFa2r95o4GEFje1O3d_wKc0ztk4qK2sGCJ2uadYhYWKMO7r6TRDuWe3YtCg/exec';
+const SHEET_COLUMN = '7-8 Escritura';
+const LESSON_NAME = 'A1.1 H2 – 7-8. Ders (Yazma) · ¿Quién soy?';
+let currentStudent = '';
+let isSubmitting = false;
+let emailAccepted = false;
+let emailInitialized = false;
+let recordIsSending = false;
+let submittedRecord = null;
+
+function writingMetrics(text) {
+  const trimmed = String(text || '').trim();
+  return {
+    words: trimmed ? trimmed.split(/\s+/u).filter(token => /[\p{L}\p{N}]/u.test(token)).length : 0,
+    sentences: (trimmed.match(/[^.!?]+[.!?]+(?=\s|$)/gu) || []).length
+  };
+}
+
+function showWritingMessage(id, message) {
+  const el = document.getElementById(id);
+  el.textContent = message;
+  el.hidden = !message;
+}
+
+function showWritingScreen(name) {
+  if (isSubmitting && name !== 'result') return;
+  for (const id of ['name', 'writing', 'confirm', 'result']) document.getElementById('screen-' + id).hidden = id !== name;
+  window.scrollTo({top: 0, behavior: 'instant'});
+}
+
+function startWriting() {
+  const name = document.getElementById('name-select').value.trim();
+  if (!name) { showWritingMessage('name-message', 'Lütfen önce adınızı seçin.'); return; }
+  currentStudent = name;
+  document.getElementById('writing-student').textContent = name;
+  showWritingMessage('name-message', '');
+  showWritingScreen('writing');
+  updateWritingGate();
+}
+
+function onWritingInput() {
+  document.getElementById('copy-confirm').checked = false;
+  document.getElementById('copy-feedback').textContent = '';
+  showWritingMessage('writing-message', '');
+  updateWritingGate();
+}
+
+function updateWritingGate() {
+  const metrics = writingMetrics(document.getElementById('writing-text').value);
+  document.getElementById('word-count').textContent = metrics.words;
+  document.getElementById('sentence-count').textContent = metrics.sentences;
+  document.getElementById('word-counter').className = 'writing-counter' + (metrics.words >= 40 ? ' ready' : '');
+  document.getElementById('sentence-counter').className = 'writing-counter' + (metrics.sentences >= 8 ? ' ready' : '');
+  document.getElementById('review-button').disabled = isSubmitting || emailAccepted || metrics.words < 40 || metrics.sentences < 8 || !document.getElementById('copy-confirm').checked;
+}
+
+function validateWriting() {
+  const text = document.getElementById('writing-text').value.trim();
+  const metrics = writingMetrics(text);
+  if (!document.getElementById('copy-confirm').checked) return {error: 'Lütfen ödevinizi tamamladığınızı ve bir kopyasını aldığınızı kutucukla onaylayın.'};
+  if (metrics.words < 40 || metrics.sentences < 8) return {error: 'Teslim için en az 40 kelime ve noktalama işaretiyle tamamlanmış 8 cümle yazın.'};
+  return {text, metrics};
+}
+
+async function copyWriting() {
+  const input = document.getElementById('writing-text');
+  const text = input.value.trim();
+  const feedback = document.getElementById('copy-feedback');
+  if (!text) { feedback.textContent = 'Önce yazınızı yazın.'; return; }
+  const copy = 'A1.1 · 7+8. Ders · ¿Quién soy?\nÖğrenci: ' + currentStudent + '\n\n' + text;
+  try {
+    await navigator.clipboard.writeText(copy);
+    feedback.textContent = '✅ Yazınız kopyalandı. Saklamak için notlarınıza veya bir dosyaya yapıştırın; ardından kutucuğu onaylayın.';
+  } catch (_) {
+    input.focus();
+    input.select();
+    feedback.textContent = 'Metniniz seçildi. Kopyalayın (Mac: ⌘C / Windows: Ctrl+C veya telefonda Kopyala), ardından saklayıp kutucuğu onaylayın.';
+  }
+}
+
+function goToConfirm() {
+  if (isSubmitting || emailAccepted) return;
+  const draft = validateWriting();
+  if (draft.error) { showWritingMessage('writing-message', draft.error); return; }
+  document.getElementById('confirm-name-select').value = currentStudent;
+  document.getElementById('confirm-summary').textContent = 'A1.1 · 7+8. Ders · ¿Quién soy?\n' + draft.metrics.words + ' kelime · ' + draft.metrics.sentences + ' cümle';
+  document.getElementById('confirm-text').textContent = draft.text;
+  showWritingMessage('submit-message', '');
+  showWritingScreen('confirm');
+}
+
+async function confirmAndSubmit() {
+  if (isSubmitting || emailAccepted) return;
+  const draft = validateWriting();
+  if (draft.error) { showWritingScreen('writing'); showWritingMessage('writing-message', draft.error); return; }
+  const name = document.getElementById('confirm-name-select').value.trim();
+  if (!name) { showWritingMessage('submit-message', 'Lütfen adınızı kontrol edip seçin.'); return; }
+  if (!window.emailjs || typeof window.emailjs.send !== 'function') {
+    showWritingMessage('submit-message', 'Gönderim bağlantısı yüklenemedi. Yazınızın kopyasını saklayıp bağlantınızı kontrol edin ve tekrar deneyin.');
+    return;
+  }
+  isSubmitting = true;
+  const button = document.getElementById('submit-button');
+  button.disabled = true;
+  button.textContent = '⏳ Gönderiliyor…';
+  document.getElementById('back-button').disabled = true;
+  showWritingMessage('submit-message', '');
+  const date = new Date().toLocaleString('tr-TR', {timeZone: 'Europe/Istanbul'});
+  const fullText = 'ÖĞRENCİ: ' + name + '\nBAŞLIK: ¿Quién soy?\nNÚMERO DE TAREA: A1.1 (7+8)\nTEMA: Kendimi tanıtıyorum · Presente / Düzenli fiiller\nKELİME SAYISI: ' + draft.metrics.words + '\nCÜMLE SAYISI: ' + draft.metrics.sentences + '\nTESLİM TARİHİ: ' + date + '\n\n--- YAZI ---\n\n' + draft.text;
+  try {
+    if (!emailInitialized) { window.emailjs.init(EMAILJS_PUBLIC_KEY); emailInitialized = true; }
+    await window.emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+      student_name: name,
+      lesson: LESSON_NAME,
+      submit_date: date,
+      writing_text: fullText,
+      title: '¿Quién soy?',
+      word_count: draft.metrics.words
+    });
+    emailAccepted = true;
+    currentStudent = name;
+    submittedRecord = {odev: SHEET_COLUMN, ogrenci: name, grup: 'A1.1', tip: 'yazma', durum: '🟡 Kontrol Bekliyor', formatted: '🟡 Kontrol Bekliyor'};
+    document.getElementById('result-student').textContent = name;
+    showWritingScreen('result');
+  } catch (_) {
+    showWritingMessage('submit-message', 'E-posta gönderilemedi. Yazınız burada duruyor. Bağlantınızı kontrol edip tekrar deneyin.');
+  } finally {
+    isSubmitting = false;
+    button.disabled = emailAccepted;
+    button.textContent = emailAccepted ? '✅ Yazınız İletildi' : '✔ Evet, Ödevi Teslim Et';
+    document.getElementById('back-button').disabled = emailAccepted;
+    updateWritingGate();
+  }
+  if (emailAccepted) await retrySubmissionRecord();
+}
+
+async function retrySubmissionRecord() {
+  if (!emailAccepted || !submittedRecord || recordIsSending) return;
+  recordIsSending = true;
+  const status = document.getElementById('sheet-status');
+  const retry = document.getElementById('retry-record-button');
+  status.className = 'writing-status';
+  status.textContent = '⏳ Teslim bilgisi portala gönderiliyor…';
+  retry.hidden = true;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    await fetch(SCRIPT_URL + '?data=' + encodeURIComponent(JSON.stringify(submittedRecord)), {method: 'GET', mode: 'no-cors', signal: controller.signal});
+    status.className = 'writing-status ok';
+    status.textContent = '✅ Teslim bilginiz portala gönderildi. Değerlendirme sonrasında sonucunuzu portaldan takip edebilirsiniz.';
+  } catch (_) {
+    status.className = 'writing-status error';
+    status.textContent = 'Yazınız e-posta ile iletildi. Teslim bilgisi portala aktarılamadı; aşağıdaki butonla tekrar deneyebilirsiniz.';
+    retry.hidden = false;
+  } finally {
+    clearTimeout(timeout);
+    recordIsSending = false;
+  }
+}
+
+updateWritingGate();
+</script>
+</body>
+</html>
