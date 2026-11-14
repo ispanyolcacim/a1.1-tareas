@@ -10,7 +10,7 @@
  const answered=()=>states.filter(s=>s.checked).length;
  function clipComplete(id){return questions.every((q,i)=>q.audioId!==id||states[i].checked);}
  function stopAudio(){document.querySelectorAll('#audioRack audio').forEach(a=>a.pause());}
- function changeScreen(screen){stopAudio();['cover','quiz','result'].forEach(id=>$(id).hidden=id!==screen);window.scrollTo({top:0,behavior:'instant'});}
+ function changeScreen(screen){stopAudio();['cover','quiz','confirm','result'].forEach(id=>$(id).hidden=id!==screen);document.body.dataset.screen=screen;window.scrollTo({top:0,behavior:'instant'});}
  function start(){
   student=$('introName').value.trim();if(!student){$('coverError').textContent='Başlamadan önce adını seç.';$('introName').focus();return;}
   $('coverError').textContent='';const draft=readDraft();
@@ -20,7 +20,7 @@
   }else{states=questions.map(q=>({value:q.type==='mc'?null:'',checked:false}));cur=0;sent=false;}
   $('studentLabel').textContent=student;changeScreen('quiz');render();save();
  }
- function go(index){cur=Math.max(0,Math.min(49,index));render();save();$('questionTitle').focus({preventScroll:true});const q=questions[cur],anchor=q.audioId?$('audioRack'):q.textId?$('readingCard'):$('questionCard');anchor.scrollIntoView({block:'start',behavior:'smooth'});}
+ function go(index){$('questionList').open=false;cur=Math.max(0,Math.min(49,index));render();save();$('questionTitle').focus({preventScroll:true});const q=questions[cur],anchor=q.audioId?$('audioRack'):q.textId?$('readingCard'):$('questionCard');anchor.scrollIntoView({block:'start',behavior:'smooth'});}
  function updateNavigation(){
   const current=questions[cur].section;
   $('sectionNav').innerHTML=data.sections.map((s,i)=>'<button type="button" data-section="'+i+'" class="section-tab '+(s.id===current?'active':'')+'" '+(s.id===current?'aria-current="step"':'')+'><span>'+s.emoji+'</span><span>'+esc(s.title)+'<small>'+states.slice(i*10,i*10+10).filter(a=>a.checked).length+'/10</small></span></button>').join('');
@@ -30,20 +30,22 @@
    return '<button type="button" data-index="'+i+'" class="map-button '+c+' '+(i===cur?'current':'')+'" aria-label="'+(i+1)+'. soru'+(states[i].checked?', cevaplandı':'')+'" '+(i===cur?'aria-current="step"':'')+'>'+(i+1)+'</button>';
   }).join('');
   $('questionMap').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.index))));
-  $('answeredCount').textContent=answered()+' / 50 cevaplandı';$('position').textContent=(cur+1)+' / 50';$('progressBar').style.width=(answered()*2)+'%';
+  $('answeredCount').textContent=answered()+' / 50 soru yanıtlandı';$('position').textContent='Soru '+(cur+1)+' / 50';$('navPosition').textContent=(cur+1)+' / 50';$('progressBar').style.width=(answered()*2)+'%';$('progressTrack').setAttribute('aria-valuenow',answered());
+  $('currentSection').textContent=data.sections.find(s=>s.id===current).title;
+  const sum=E.summarize(questions,states);$('liveCorrect').textContent=sum.correct;$('liveWrong').textContent=sum.wrong;$('liveAccent').textContent=sum.accent;
  }
  function render(){
   const q=questions[cur],s=states[cur],section=data.sections.find(x=>x.id===q.section);
   $('sectionEyebrow').textContent=section.emoji+' '+section.title+' · Soru '+(cur+1);
   $('questionTitle').textContent=q.prompt;
-  $('questionHint').textContent=q.hint||(q.type==='fill'?'Cevabını yaz, ardından Kontrol et düğmesine bas.':'Bir cevap seç, ardından Kontrol et düğmesine bas.');
+  $('questionHint').textContent=q.hint||(q.type==='fill'?'Cevabını yaz, ardından Kontrol et düğmesine bas.':'Bir seçeneğe tıkla. Doğru cevap ve açıklama hemen görünecek.');
   if(q.textId){const text=data.texts[q.textId];$('readingTitle').textContent=text.title;$('readingText').textContent=text.text;$('readingCard').hidden=false;}else $('readingCard').hidden=true;
   updateAudio(q.audioId);
-  $('answerArea').innerHTML=q.type==='mc'?'<fieldset class="choices"><legend class="sr-only">Cevabını seç</legend>'+q.options.map((o,j)=>'<label class="choice '+(s.value===j?'selected':'')+'"><input type="radio" name="answer" value="'+j+'" '+(s.value===j?'checked':'')+' '+(s.checked?'disabled':'')+'><span class="choice-letter">'+'ABCD'[j]+'</span><span>'+esc(o)+'</span></label>').join('')+'</fieldset>':'<label for="answerInput" class="input-label">Cevabın</label><div class="input-wrap"><input id="answerInput" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" maxlength="250" '+(q.inputMode?'inputmode="'+q.inputMode+'"':'')+' value="'+esc(s.value)+'" '+(s.checked?'disabled':'')+' placeholder="İspanyolca cevabını yaz…"></div>';
-  $('answerArea').querySelectorAll('input[type=radio]').forEach(input=>input.addEventListener('change',()=>{s.value=Number(input.value);$('answerArea').querySelectorAll('.choice').forEach(c=>c.classList.toggle('selected',c.contains(input)));save();}));
+  $('answerArea').innerHTML=q.type==='mc'?'<fieldset class="choices"><legend class="sr-only">Cevabını seç</legend>'+q.options.map((o,j)=>'<label class="choice '+(s.checked?(j===q.correct?'correct':s.value===j?'wrong':''):(s.value===j?'selected':''))+'"><input type="radio" name="answer" value="'+j+'" '+(s.value===j?'checked':'')+' '+(s.checked?'disabled':'')+'><span class="choice-letter" aria-hidden="true">'+'ABCD'[j]+'</span><span>'+esc(o)+'</span><span class="choice-status" aria-hidden="true">'+(s.checked?(j===q.correct?'✓':s.value===j?'✗':''):'')+'</span></label>').join('')+'</fieldset>':'<label for="answerInput" class="input-label">Cevabın</label><div class="input-wrap"><input id="answerInput" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" maxlength="250" '+(q.inputMode?'inputmode="'+q.inputMode+'"':'')+' value="'+esc(s.value)+'" '+(s.checked?'disabled':'')+' placeholder="İspanyolca cevabını yaz…"></div>';
+  $('answerArea').querySelectorAll('input[type=radio]').forEach(input=>input.addEventListener('change',()=>{s.value=Number(input.value);check();}));
   const input=$('answerInput');if(input){input.addEventListener('input',()=>{s.value=input.value;save();});input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check();}});}
-  $('checkButton').disabled=s.checked;$('checkButton').textContent=s.checked?'✓ Yanıt kaydedildi':'Kontrol et ✓';$('answerError').textContent='';
-  $('previousButton').disabled=cur===0;$('nextButton').textContent=cur===49?'Sonucu gör →':'İleri →';
+  $('answerActions').hidden=q.type==='mc';$('checkButton').disabled=s.checked;$('checkButton').textContent=s.checked?'✓ Yanıt kaydedildi':'Kontrol et ✓';$('answerError').textContent='';
+  $('previousButton').disabled=cur===0;$('nextButton').textContent=cur===49?'Teslime geç →':'İleri →';
   renderFeedback();updateNavigation();
  }
  function check(){
@@ -54,11 +56,8 @@
  function renderFeedback(){
   const q=questions[cur],s=states[cur],box=$('feedback');box.hidden=!s.checked;
   if(!s.checked)return;
-  if(q.audioId&&!clipComplete(q.audioId)){
-   box.className='feedback saved';box.innerHTML='<strong>🎧 Yanıtın kaydedildi.</strong><p>Bu kaydın tüm sorularını tamamladığında cevap açıklamalarını ve konuşma metnini görebilirsin.</p>';return;
-  }
   const r=E.grade(q,s.value);box.className='feedback '+r.status;
-  box.innerHTML='<strong>'+(r.status==='correct'?'✅ Doğru · 2 puan':r.status==='accent'?'✍️ Yapı doğru; vurgu işaretini düzelt · 1 puan':'🌱 Birlikte bakalım · 0 puan')+'</strong>'+(r.status==='correct'?'':'<p class="model-answer">'+(q.type==='fill'?'Doğru cevap örneği: ':'Doğru cevap: ')+'<span lang="es">'+esc(r.answer)+'</span></p>')+'<p>'+esc(q.explanation)+'</p>'+(q.evidence?'<p class="evidence" lang="es">🇪🇸 '+esc(q.evidence)+'</p>':'')+(q.translation?'<p class="translation">🇹🇷 '+esc(q.translation)+'</p>':'');
+  box.innerHTML='<strong>'+(r.status==='correct'?'✅ Doğru · 2 puan':r.status==='accent'?'✍️ Yapı doğru; vurgu işaretini düzelt · 1 puan':'✗ Yanlış · 0 puan')+'</strong>'+(r.status==='correct'?'':'<p class="model-answer">'+(q.type==='fill'?'Doğru cevap örneği: ':'Doğru cevap: ')+'<span lang="es">'+esc(r.answer)+'</span></p>')+'<p>'+esc(q.explanation)+'</p>'+(q.evidence?'<p class="evidence" lang="es">🇪🇸 '+esc(q.evidence)+'</p>':'')+(q.translation?'<p class="translation">🇹🇷 '+esc(q.translation)+'</p>':'');
  }
  function setupAudio(){
   $('audioRack').innerHTML=data.clips.map(clip=>{
@@ -84,18 +83,20 @@
   });
  }
  function requestFinish(){
-  const left=50-answered();
-  if(left){$('finishMessage').textContent=left+' soru henüz kontrol edilmedi. Bu sorular boş sayılacak ve 0 puan alacak.';$('finishDialog').showModal();}
-  else showResult();
+  if(sent){showResult();return;}
+  syncStudentSelect();const left=50-answered();
+  $('confirmProgress').textContent=left?answered()+' / 50 soru yanıtlandı. '+left+' soru henüz kontrol edilmedi; teslim edersen bu sorular boş sayılır ve 0 puan alır.':'50 / 50 soru yanıtlandı. Ödevin teslim edilmeye hazır!';
+  $('confirmProgress').classList.toggle('has-blanks',!!left);
+  $('sendButton').disabled=false;$('sendButton').textContent='✔ Ödevi Teslim Et';$('sendStatus').textContent='';changeScreen('confirm');
  }
  function syncStudentSelect(){
   const select=$('studentName');if(!Array.from(select.options).some(o=>o.value===student)){const option=document.createElement('option');option.value=student;option.textContent=student;select.appendChild(option);}select.value=student;
  }
  function showResult(){
-  $('finishDialog').close();changeScreen('result');const sum=E.summarize(questions,states);
+  changeScreen('result');const sum=E.summarize(questions,states);
   $('resultName').textContent=student;$('resultPoints').textContent=sum.points;$('resultCorrect').textContent=sum.correct;$('resultAccent').textContent=sum.accent;$('resultWrong').textContent=sum.wrong;$('resultBlank').textContent=sum.blank;
   $('sectionResults').innerHTML=data.sections.map(s=>{const d=sum.sections[s.id];return '<div class="section-result"><div><strong>'+s.emoji+' '+esc(s.title)+'</strong><span>'+d.points+' / '+d.max+'</span></div><progress max="'+d.max+'" value="'+d.points+'">'+d.points+'</progress><p>'+(d.points>=18?'Bu bölümde çok iyi ilerledin.':esc(s.description)+' Bu bölümdeki cevaplarını gözden geçir.')+'</p></div>';}).join('');
-  syncStudentSelect();$('sendButton').disabled=sent;$('sendButton').textContent=sent?'✓ Ödev gönderildi':'Adımı onayla ve ödevi teslim et';$('sendStatus').textContent=sent?'Gönderimin tamamlandı. Sonucunu öğrenci portalından kontrol edebilirsin.':'Sonucunun sisteme işlenmesi için adını onaylayıp teslim düğmesine bas.';
+  $('resultSendStatus').textContent=sent?'✓ Ödevin gönderildi. Sonucunu öğrenci portalından kontrol edebilirsin.':'';
   $('reviewList').innerHTML=questions.map((q,i)=>{
    const state=states[i],r=state.checked?E.grade(q,state.value):{status:'blank',points:0,answer:q.type==='mc'?q.options[q.correct]:q.answers[0]};
    if(r.status==='correct')return '';
@@ -107,11 +108,12 @@
  async function submit(){
   if(sending||sent)return;
   const selected=$('studentName').value.trim();if(selected!==student){$('sendStatus').textContent='Bu çalışma '+student+' adına başladı. Teslim için aynı adı seç.';$('studentName').focus();return;}
-  sending=true;$('sendButton').disabled=true;$('sendButton').textContent='⏳ Gönderiliyor…';$('sendStatus').textContent='Sonucun gönderiliyor. Lütfen sayfayı kapatma.';
+  showResult();$('retrySubmission').hidden=true;
+  sending=true;$('sendButton').disabled=true;$('sendButton').textContent='⏳ Gönderiliyor…';$('resultSendStatus').textContent='⏳ Sonucun gönderiliyor. Lütfen sayfayı kapatma.';
   try{
    await fetch(SEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(E.payload(student,E.summarize(questions,states)))});
-   sent=true;save();$('sendButton').textContent='✓ Ödev gönderildi';$('sendStatus').textContent='Ödevin gönderildi. Sonucunu öğrenci portalından kontrol edebilirsin.';
-  }catch(_){$('sendStatus').textContent='Gönderim tamamlanamadı. Cevapların korunuyor; bağlantını kontrol edip yeniden dene.';$('sendButton').disabled=false;$('sendButton').textContent='Yeniden gönder';}
+   sent=true;save();$('sendButton').textContent='✓ Ödev gönderildi';$('resultSendStatus').textContent='✓ Ödevin gönderildi. Sonucunu öğrenci portalından kontrol edebilirsin.';
+  }catch(_){$('resultSendStatus').textContent='Gönderim tamamlanamadı. Cevapların korunuyor; bağlantını kontrol edip yeniden dene.';$('retrySubmission').hidden=false;$('sendButton').disabled=false;$('sendButton').textContent='Yeniden gönder';}
   finally{sending=false;}
  }
  function printHomework(){
@@ -126,9 +128,10 @@
    if(questions.length!==50||data.sections.some(s=>questions.filter(q=>q.section===s.id).length!==10))throw Error('count');
    setupAudio();$('startButton').disabled=false;$('loadingNote').hidden=true;
    $('coverSections').innerHTML=data.sections.map(s=>'<div class="cover-section"><span>'+s.emoji+'</span><div><strong>'+esc(s.title)+'</strong><small>10 soru · 20 puan</small></div></div>').join('');
-   $('startButton').addEventListener('click',start);$('checkButton').addEventListener('click',check);$('previousButton').addEventListener('click',()=>go(cur-1));$('nextButton').addEventListener('click',()=>cur===49?requestFinish():go(cur+1));$('finishButton').addEventListener('click',requestFinish);$('finishContinue').addEventListener('click',()=>$('finishDialog').close());$('finishConfirm').addEventListener('click',showResult);$('sendButton').addEventListener('click',submit);$('backToQuestions').addEventListener('click',()=>{changeScreen('quiz');render();});$('switchStudent').addEventListener('click',()=>changeScreen('cover'));$('printButton').addEventListener('click',printHomework);$('restartButton').addEventListener('click',()=>$('restartDialog').showModal());$('restartCancel').addEventListener('click',()=>$('restartDialog').close());$('restartConfirm').addEventListener('click',()=>{states=questions.map(q=>({value:q.type==='mc'?null:'',checked:false}));cur=0;sent=false;save();$('restartDialog').close();changeScreen('quiz');render();});
+   $('startButton').addEventListener('click',start);$('checkButton').addEventListener('click',check);$('previousButton').addEventListener('click',()=>go(cur-1));$('nextButton').addEventListener('click',()=>cur===49?requestFinish():go(cur+1));$('finishButton').addEventListener('click',requestFinish);$('confirmBack').addEventListener('click',()=>{changeScreen('quiz');render();});$('retrySubmission').addEventListener('click',requestFinish);$('sendButton').addEventListener('click',submit);$('backToQuestions').addEventListener('click',()=>{changeScreen('quiz');render();});$('switchStudent').addEventListener('click',()=>changeScreen('cover'));$('printButton').addEventListener('click',printHomework);$('restartButton').addEventListener('click',()=>$('restartDialog').showModal());$('restartCancel').addEventListener('click',()=>$('restartDialog').close());$('restartConfirm').addEventListener('click',()=>{states=questions.map(q=>({value:q.type==='mc'?null:'',checked:false}));cur=0;sent=false;save();$('restartDialog').close();changeScreen('quiz');render();});
    $('introName').addEventListener('change',()=>{const name=$('introName').value;try{$('draftNote').textContent=localStorage.getItem(data.version+':'+name)?'Bu isimle kayıtlı bir çalışman var. Başladığında kaldığın yerden devam edeceksin.':'';}catch(_){}});
   }catch(_){$('loadingNote').textContent='Çalışma yüklenemedi. Sayfayı yenileyip tekrar dene.';}
  }
  init();
 })();
+
