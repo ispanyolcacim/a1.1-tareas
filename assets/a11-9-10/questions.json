@@ -1,0 +1,826 @@
+{
+  "version": "a11-9-10-v2-20261114",
+  "title": "Presentación personal",
+  "sections": [
+    {
+      "id": "structure",
+      "emoji": "🧩",
+      "title": "Yapıyı kullan",
+      "description": "Fiiller, zamirler, iyelikler ve temel edatlar."
+    },
+    {
+      "id": "transform",
+      "emoji": "🔄",
+      "title": "Dönüştür ve düzelt",
+      "description": "Tú–usted dönüşümü ve cümle düzeltme."
+    },
+    {
+      "id": "reading",
+      "emoji": "📖",
+      "title": "Oku ve anla",
+      "description": "İki kişinin tanıtımından doğru bilgileri çıkar."
+    },
+    {
+      "id": "production",
+      "emoji": "✍️",
+      "title": "Sor ve cümle kur",
+      "description": "Cevaptan soru üret, kişi kartlarını cümlelere dönüştür."
+    },
+    {
+      "id": "listening",
+      "emoji": "🎧",
+      "title": "Dinle ve keşfet",
+      "description": "Üç kısa kayıt, on soru. İstediğin kadar tekrar dinleyebilirsin."
+    }
+  ],
+  "texts": {
+    "ana": {
+      "title": "Ana se presenta",
+      "text": "Hola, me llamo Ana. Tengo veintisiete años. Soy mexicana, pero vivo en Madrid. Soy enfermera. Mi teléfono es el 612 345 678."
+    },
+    "diego": {
+      "title": "Diego se presenta",
+      "text": "Me llamo Diego. Tengo treinta y dos años. Soy argentino. Vivo en Valencia y soy profesor. Hablo español e inglés."
+    }
+  },
+  "clips": [
+    {
+      "id": "lucia",
+      "title": "1 · Kendimi tanıtıyorum",
+      "src": "assets/a11-9-10/audio-1.mp3",
+      "description": "Bir kişinin kendisini tanıttığı kısa konuşmayı dinle.",
+      "turns": [
+        [
+          "es-ES-ElviraNeural",
+          "Hola. Me llamo Lucía. Tengo veinticuatro años. Soy mexicana, pero vivo en Sevilla, en España. Soy enfermera. Trabajo en un hospital de Sevilla. Mucho gusto. ¿Y tú?"
+        ]
+      ],
+      "translation": "Merhaba. Benim adım Lucía. Yirmi dört yaşındayım. Meksikalıyım ama İspanya’nın Sevilla şehrinde yaşıyorum. Hemşireyim. Sevilla’daki bir hastanede çalışıyorum. Memnun oldum. Ya sen?",
+      "duration": 19.9
+    },
+    {
+      "id": "pablo",
+      "title": "2 · Yeni biriyle tanışıyorum",
+      "src": "assets/a11-9-10/audio-2.mp3",
+      "description": "Eva ile yeni tanıştığı kişinin konuşmasını dinle.",
+      "turns": [
+        [
+          "es-ES-ElviraNeural",
+          "Hola, ¿cómo te llamas?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Hola, me llamo Pablo. ¿Y tú?"
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "Me llamo Eva. ¿Dónde vives, Pablo?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Vivo en Granada."
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "¿Cuál es tu número de teléfono?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Es el seis, uno, dos, tres, cuatro, cinco, seis, siete, ocho."
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "Perfecto, muchas gracias."
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "De nada."
+        ]
+      ],
+      "translation": "Eva: Merhaba, adın ne? — Pablo: Merhaba, benim adım Pablo. Ya senin? — Eva: Benim adım Eva. Nerede yaşıyorsun, Pablo? — Pablo: Granada’da yaşıyorum. — Eva: Telefon numaran nedir? — Pablo: 612 345 678. — Eva: Harika, çok teşekkürler. — Pablo: Rica ederim.",
+      "duration": 33.6
+    },
+    {
+      "id": "registro",
+      "title": "3 · Kursa kayıt yaptırıyorum",
+      "src": "assets/a11-9-10/audio-3.mp3",
+      "description": "Kayıt görevlisi ile Luis García’nın konuşmasını dinle.",
+      "turns": [
+        [
+          "es-ES-ElviraNeural",
+          "Buenos días. ¿Cómo se llama usted?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Buenos días. Me llamo Luis García."
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "¿Cuántos años tiene usted?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Tengo cuarenta y dos años."
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "¿De dónde es usted?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Soy de Colombia, pero vivo en Málaga."
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "¿A qué se dedica usted?"
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Soy médico."
+        ],
+        [
+          "es-ES-ElviraNeural",
+          "Muchas gracias, señor García."
+        ],
+        [
+          "es-ES-AlvaroNeural",
+          "Gracias a usted."
+        ]
+      ],
+      "translation": "Görevli: Günaydın. Adınız ne? — Luis: Günaydın. Benim adım Luis García. — Görevli: Kaç yaşındasınız? — Luis: Kırk iki yaşındayım. — Görevli: Nerelisiniz? — Luis: Kolombiyalıyım ama Málaga’da yaşıyorum. — Görevli: Ne iş yapıyorsunuz? — Luis: Doktorum. — Görevli: Çok teşekkürler, García Bey. — Luis: Ben teşekkür ederim.",
+      "duration": 34.6
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Boşluğu fiil ve gerekli zamirle tamamla: Yo ______ Lucía. (llamarse)",
+      "answers": [
+        "me llamo"
+      ],
+      "explanation": "Yo ile me llamo kullanılır. Me zamiri çekimli fiilden önce gelir.",
+      "translation": "Benim adım Lucía."
+    },
+    {
+      "id": 2,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Boşluğu tamamla: Tú ______ diecinueve años. (tener)",
+      "answers": [
+        "tienes"
+      ],
+      "explanation": "Yaş için tener kullanırız: tú tienes.",
+      "translation": "Sen on dokuz yaşındasın."
+    },
+    {
+      "id": 3,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Boşluğu tamamla: Usted ______ en Madrid. (vivir)",
+      "answers": [
+        "vive"
+      ],
+      "explanation": "Usted, vivir fiilinin vive biçimini alır.",
+      "translation": "Siz Madrid’de yaşıyorsunuz. (resmî hitap)"
+    },
+    {
+      "id": 4,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Boşluğu tamamla: Ella ______ profesora. (ser)",
+      "answers": [
+        "es"
+      ],
+      "explanation": "Ella ile ser fiili es olur. Meslek belirtirken burada es profesora deriz.",
+      "translation": "O öğretmen."
+    },
+    {
+      "id": 5,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Eksik zamiri yaz: ¿Cómo ______ llamas?",
+      "answers": [
+        "te"
+      ],
+      "explanation": "Tú için te llamas kullanılır. Me llamo / te llamas / se llama.",
+      "accentPartial": false,
+      "translation": "Adın ne?"
+    },
+    {
+      "id": 6,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Senin anlamını veren iyeliği yaz: ¿Cuál es ______ número de teléfono?",
+      "answers": [
+        "tu"
+      ],
+      "explanation": "Tu, senin anlamındaki iyeliktir; tilde almaz. Tú ise sen zamiridir.",
+      "accentPartial": false,
+      "translation": "Telefon numaran nedir?"
+    },
+    {
+      "id": 7,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Köken bildiren edatı yaz: Soy ______ Turquía.",
+      "answers": [
+        "de"
+      ],
+      "explanation": "Soy de + yer kökenimizi belirtir.",
+      "accentPartial": false,
+      "translation": "Türkiye’denim."
+    },
+    {
+      "id": 8,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Yaşanılan yeri bildiren edatı yaz: Vivo ______ Çanakkale.",
+      "answers": [
+        "en"
+      ],
+      "explanation": "Vivo en + yer, nerede yaşadığımızı belirtir.",
+      "accentPartial": false,
+      "translation": "Çanakkale’de yaşıyorum."
+    },
+    {
+      "id": 9,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Milliyet sıfatını tamamla: Ana es ______. (Meksikalı)",
+      "answers": [
+        "mexicana"
+      ],
+      "explanation": "Ana için verilen dişil özneye uygun milliyet sıfatı mexicana olur.",
+      "translation": "Ana Meksikalı."
+    },
+    {
+      "id": 10,
+      "section": "structure",
+      "type": "fill",
+      "prompt": "Benim anlamını veren iyeliği yaz: Tengo dos libros. Son ______ libros.",
+      "answers": [
+        "mis"
+      ],
+      "explanation": "Libros çoğul olduğu için mi → mis olur. İyelik, sahip olunan isimle sayı bakımından uyumludur.",
+      "accentPartial": false,
+      "translation": "İki kitabım var. Onlar benim kitaplarım."
+    },
+    {
+      "id": 11,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Soruyu usted ile yeniden yaz: ¿Cómo te llamas?",
+      "answers": [
+        "¿Cómo se llama usted?",
+        "¿Cómo se llama?",
+        "¿Usted cómo se llama?"
+      ],
+      "explanation": "Tú → usted dönüşümünde te llamas → se llama olur. Soruyu cevaplayan kişi kendisi için yine me llamo der.",
+      "hint": "Soruyu yaz; cevap verme."
+    },
+    {
+      "id": 12,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Soruyu usted ile yeniden yaz: ¿Dónde vives?",
+      "answers": [
+        "¿Dónde vive usted?",
+        "¿Dónde vive?",
+        "¿Usted dónde vive?"
+      ],
+      "explanation": "Vives, tú biçimidir. Usted için vive kullanılır."
+    },
+    {
+      "id": 13,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Soruyu usted ile yeniden yaz: ¿Cuántos años tienes?",
+      "answers": [
+        "¿Cuántos años tiene usted?",
+        "¿Cuántos años tiene?",
+        "¿Usted cuántos años tiene?"
+      ],
+      "explanation": "Tienes → tiene. Años sözcüğündeki ñ ve cuántos sözcüğündeki tildeye dikkat et."
+    },
+    {
+      "id": 14,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Soruyu usted ile yeniden yaz: ¿A qué te dedicas?",
+      "answers": [
+        "¿A qué se dedica usted?",
+        "¿A qué se dedica?",
+        "¿Usted a qué se dedica?"
+      ],
+      "explanation": "Hem zamir hem fiil değişir: te dedicas → se dedica."
+    },
+    {
+      "id": 15,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Soruyu usted ile yeniden yaz: ¿Cuál es tu número de teléfono?",
+      "answers": [
+        "¿Cuál es su número de teléfono?",
+        "¿Cuál es el número de teléfono de usted?"
+      ],
+      "explanation": "Senin anlamındaki tu, bu resmî hitapta sizin anlamındaki su olur."
+    },
+    {
+      "id": 16,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Yaş bildiren cümleyi düzelt ve tamamını yaz: Soy veinticinco años.",
+      "answers": [
+        "Tengo veinticinco años.",
+        "Tengo 25 años.",
+        "Yo tengo veinticinco años.",
+        "Yo tengo 25 años."
+      ],
+      "explanation": "İspanyolcada yaşımızı tener ile söyleriz: tengo veinticinco años.",
+      "translation": "Yirmi beş yaşındayım."
+    },
+    {
+      "id": 17,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Kendini tanıtan Sofía’nın cümlesini düzelt: Me llamas Sofía.",
+      "answers": [
+        "Me llamo Sofía.",
+        "Yo me llamo Sofía."
+      ],
+      "explanation": "Benim adım derken me llamo kullanılır. Te llamas ise senin adın demektir."
+    },
+    {
+      "id": 18,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Meksika’danım anlamını verecek şekilde düzelt: Soy en México.",
+      "answers": [
+        "Soy de México.",
+        "Yo soy de México."
+      ],
+      "explanation": "Köken için ser de kullanılır; en, bu cümledeki doğru edat değildir."
+    },
+    {
+      "id": 19,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Yaşadığın yeri anlatan cümleyi düzelt: Vivo de Madrid.",
+      "answers": [
+        "Vivo en Madrid.",
+        "Yo vivo en Madrid."
+      ],
+      "explanation": "İkamet bildiren yapı vivir en + yerdir."
+    },
+    {
+      "id": 20,
+      "section": "transform",
+      "type": "fill",
+      "prompt": "Ana’dan bahseden cümleyi düzelt: Ella es mexicano.",
+      "answers": [
+        "Ella es mexicana.",
+        "Es mexicana."
+      ],
+      "explanation": "Verilen dişil özneyle mexicana biçimi kullanılır."
+    },
+    {
+      "id": 21,
+      "section": "reading",
+      "type": "fill",
+      "prompt": "¿Cuántos años tiene Ana? Yaşını rakamla yaz.",
+      "answers": [
+        "27",
+        "27 años",
+        "Tiene 27 años",
+        "veintisiete",
+        "veintisiete años",
+        "Tiene veintisiete años"
+      ],
+      "explanation": "Veintisiete = 27. Ana yirmi yedi yaşında.",
+      "textId": "ana",
+      "inputMode": "numeric"
+    },
+    {
+      "id": 22,
+      "section": "reading",
+      "type": "mc",
+      "prompt": "¿De dónde es Ana?",
+      "options": [
+        "De España.",
+        "De México.",
+        "De Argentina.",
+        "De Colombia."
+      ],
+      "correct": 1,
+      "explanation": "Soy mexicana ifadesi Ana’nın Meksikalı olduğunu söyler. Madrid ise yaşadığı şehirdir.",
+      "textId": "ana"
+    },
+    {
+      "id": 23,
+      "section": "reading",
+      "type": "fill",
+      "prompt": "¿Dónde vive Ana? Şehir adını yaz.",
+      "answers": [
+        "Madrid",
+        "en Madrid",
+        "Vive en Madrid"
+      ],
+      "explanation": "Ana, Vivo en Madrid diyor.",
+      "textId": "ana"
+    },
+    {
+      "id": 24,
+      "section": "reading",
+      "type": "mc",
+      "prompt": "¿A qué se dedica Ana?",
+      "options": [
+        "Es médica.",
+        "Es profesora.",
+        "Es enfermera.",
+        "Es estudiante."
+      ],
+      "correct": 2,
+      "explanation": "Soy enfermera = Hemşireyim. Ana’dan söz ederken es enfermera deriz.",
+      "textId": "ana"
+    },
+    {
+      "id": 25,
+      "section": "reading",
+      "type": "mc",
+      "prompt": "Metne göre doğru bilgi hangisi?",
+      "options": [
+        "Ana es española y vive en México.",
+        "Ana es mexicana y vive en Madrid.",
+        "Ana tiene treinta y dos años.",
+        "Ana es profesora."
+      ],
+      "correct": 1,
+      "explanation": "Milliyet ve ikamet farklı bilgiler: Ana Meksikalı ve Madrid’de yaşıyor.",
+      "textId": "ana"
+    },
+    {
+      "id": 26,
+      "section": "reading",
+      "type": "mc",
+      "prompt": "Diego es argentino. ¿Verdadero o falso?",
+      "options": [
+        "Verdadero.",
+        "Falso."
+      ],
+      "correct": 0,
+      "explanation": "Metinde Soy argentino ifadesi var.",
+      "textId": "diego"
+    },
+    {
+      "id": 27,
+      "section": "reading",
+      "type": "fill",
+      "prompt": "¿Dónde vive Diego? Şehir adını yaz.",
+      "answers": [
+        "Valencia",
+        "en Valencia",
+        "Vive en Valencia"
+      ],
+      "explanation": "Diego, Vivo en Valencia diyor.",
+      "textId": "diego"
+    },
+    {
+      "id": 28,
+      "section": "reading",
+      "type": "fill",
+      "prompt": "¿Cuántos años tiene Diego? Yaşını rakamla yaz.",
+      "answers": [
+        "32",
+        "32 años",
+        "Tiene 32 años",
+        "treinta y dos",
+        "treinta y dos años",
+        "Tiene treinta y dos años"
+      ],
+      "explanation": "Treinta y dos = 32.",
+      "textId": "diego",
+      "inputMode": "numeric"
+    },
+    {
+      "id": 29,
+      "section": "reading",
+      "type": "mc",
+      "prompt": "¿Qué lenguas habla Diego?",
+      "options": [
+        "Español y francés.",
+        "Inglés y francés.",
+        "Solo español.",
+        "Español e inglés."
+      ],
+      "correct": 3,
+      "explanation": "Hablo español e inglés = İspanyolca ve İngilizce konuşuyorum.",
+      "textId": "diego"
+    },
+    {
+      "id": 30,
+      "section": "reading",
+      "type": "fill",
+      "prompt": "¿A qué se dedica Diego? Kısa cevap yaz.",
+      "answers": [
+        "profesor",
+        "Es profesor",
+        "Diego es profesor"
+      ],
+      "explanation": "Diego için es profesor deriz. Kendisi metinde soy profesor diyor.",
+      "textId": "diego"
+    },
+    {
+      "id": 31,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Cevaba uygun soruyu tú ile yaz: — ______ — Me llamo Elena.",
+      "answers": [
+        "¿Cómo te llamas?",
+        "¿Cómo te llamas tú?",
+        "¿Tú cómo te llamas?",
+        "¿Cuál es tu nombre?"
+      ],
+      "explanation": "İsim sormak için ¿Cómo te llamas? veya ¿Cuál es tu nombre? kullanılabilir."
+    },
+    {
+      "id": 32,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Cevaba uygun soruyu tú ile yaz: — ______ — Tengo veintiocho años.",
+      "answers": [
+        "¿Cuántos años tienes?",
+        "¿Cuántos años tienes tú?",
+        "¿Tú cuántos años tienes?"
+      ],
+      "explanation": "Yaş sorusu ¿Cuántos años tienes? biçimindedir."
+    },
+    {
+      "id": 33,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Cevaba uygun soruyu tú ile yaz: — ______ — Soy de Chile.",
+      "answers": [
+        "¿De dónde eres?",
+        "¿De dónde eres tú?",
+        "¿Tú de dónde eres?"
+      ],
+      "explanation": "Köken sormak için ¿De dónde eres? kullanılır. Tú zamiri söylenebilir veya atılabilir."
+    },
+    {
+      "id": 34,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Cevaba uygun soruyu tú ile yaz: — ______ — Vivo en Ankara.",
+      "answers": [
+        "¿Dónde vives?",
+        "¿Dónde vives tú?",
+        "¿Tú dónde vives?"
+      ],
+      "explanation": "İkamet sorusu ¿Dónde vives? biçimindedir."
+    },
+    {
+      "id": 35,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Cevaba uygun meslek sorusunu tú ile yaz: — ______ — Soy médico.",
+      "answers": [
+        "¿A qué te dedicas?",
+        "¿A qué te dedicas tú?",
+        "¿Tú a qué te dedicas?",
+        "¿Cuál es tu profesión?"
+      ],
+      "explanation": "Meslek sorusu ¿A qué te dedicas? veya ¿Cuál es tu profesión? olabilir."
+    },
+    {
+      "id": 36,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Kayıt görevlisi olarak adını usted ile sor. — ______ — Me llamo Luis García.",
+      "answers": [
+        "¿Cómo se llama usted?",
+        "¿Cómo se llama?",
+        "¿Usted cómo se llama?",
+        "¿Cuál es su nombre?"
+      ],
+      "explanation": "Resmî hitapta soruda se llama / su kullanılır. Luis, kendisini anlatırken me llamo diye cevap verir."
+    },
+    {
+      "id": 37,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Telefon numarasını usted ile sor. Soruna Cuál ile başla.",
+      "answers": [
+        "¿Cuál es su número de teléfono?",
+        "¿Cuál es su teléfono?"
+      ],
+      "explanation": "Usted ile sizin anlamını veren iyelik su olur. Cuál, número ve teléfono tildelidir."
+    },
+    {
+      "id": 38,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Kişi kartından tam cümle kur: Carla · edad: 23. Carla’nın yaşını ella biçiminde söyle.",
+      "answers": [
+        "Tiene veintitrés años.",
+        "Ella tiene veintitrés años.",
+        "Carla tiene veintitrés años.",
+        "Tiene 23 años.",
+        "Ella tiene 23 años.",
+        "Carla tiene 23 años."
+      ],
+      "explanation": "Başkasının yaşını anlatırken tiene kullanırız; tengo, kendimiz içindir."
+    },
+    {
+      "id": 39,
+      "section": "production",
+      "type": "fill",
+      "prompt": "İzmir’de yaşayan kişi sensin. Tam cümleyle cevap ver: — ¿Dónde vive usted? — ______",
+      "answers": [
+        "Vivo en İzmir.",
+        "Vivo en Izmir.",
+        "Yo vivo en İzmir.",
+        "Yo vivo en Izmir."
+      ],
+      "explanation": "Soru usted ile sorulsa da kendimiz için vivo kullanırız.",
+      "translation": "İzmir’de yaşıyorum."
+    },
+    {
+      "id": 40,
+      "section": "production",
+      "type": "fill",
+      "prompt": "Kişi kartından tam cümle kur: Martín · nacionalidad: argentino. Martín’i él biçiminde anlat.",
+      "answers": [
+        "Es argentino.",
+        "Él es argentino.",
+        "Martín es argentino."
+      ],
+      "explanation": "Martín’den bahsederken es argentino deriz. Soy argentino, kendini tanıtan kişinin cümlesidir."
+    },
+    {
+      "id": 41,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "¿Cuántos años tiene la persona?",
+      "options": [
+        "14",
+        "24",
+        "34",
+        "42"
+      ],
+      "correct": 1,
+      "explanation": "Kayıtta Tengo veinticuatro años deniyor. Veinticuatro = 24.",
+      "audioId": "lucia",
+      "evidence": "Tengo veinticuatro años.",
+      "translation": "Yirmi dört yaşındayım."
+    },
+    {
+      "id": 42,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "¿De dónde es la persona?",
+      "options": [
+        "De España.",
+        "De Colombia.",
+        "De México.",
+        "De Argentina."
+      ],
+      "correct": 2,
+      "explanation": "Soy mexicana ifadesi köken/milliyet bilgisidir. Yaşadığı şehir Sevilla’dır.",
+      "audioId": "lucia",
+      "evidence": "Soy mexicana, pero vivo en Sevilla, en España.",
+      "translation": "Meksikalıyım ama İspanya’nın Sevilla şehrinde yaşıyorum."
+    },
+    {
+      "id": 43,
+      "section": "listening",
+      "type": "fill",
+      "prompt": "¿Dónde vive la persona? Şehir adını yaz.",
+      "answers": [
+        "Sevilla",
+        "en Sevilla",
+        "Vive en Sevilla"
+      ],
+      "explanation": "Kayıtta Vivo en Sevilla deniyor.",
+      "audioId": "lucia",
+      "evidence": "Vivo en Sevilla, en España.",
+      "translation": "İspanya’nın Sevilla şehrinde yaşıyorum."
+    },
+    {
+      "id": 44,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "¿A qué se dedica la persona?",
+      "options": [
+        "Es médica.",
+        "Es enfermera.",
+        "Es profesora.",
+        "Es estudiante."
+      ],
+      "correct": 1,
+      "explanation": "Soy enfermera = Hemşireyim.",
+      "audioId": "lucia",
+      "evidence": "Soy enfermera. Trabajo en un hospital de Sevilla.",
+      "translation": "Hemşireyim. Sevilla’daki bir hastanede çalışıyorum."
+    },
+    {
+      "id": 45,
+      "section": "listening",
+      "type": "fill",
+      "prompt": "Eva’nın yeni tanıştığı kişinin adı ne? Yalnızca adını yaz.",
+      "answers": [
+        "Pablo"
+      ],
+      "explanation": "Erkek konuşmacı kendisini Me llamo Pablo diye tanıtıyor.",
+      "audioId": "pablo",
+      "evidence": "Hola, me llamo Pablo. ¿Y tú?",
+      "translation": "Merhaba, benim adım Pablo. Ya senin?"
+    },
+    {
+      "id": 46,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "¿Dónde vive el nuevo compañero?",
+      "options": [
+        "En Granada.",
+        "En Madrid.",
+        "En Sevilla.",
+        "En Málaga."
+      ],
+      "correct": 0,
+      "explanation": "Pablo, Vivo en Granada diyor.",
+      "audioId": "pablo",
+      "evidence": "Vivo en Granada.",
+      "translation": "Granada’da yaşıyorum."
+    },
+    {
+      "id": 47,
+      "section": "listening",
+      "type": "fill",
+      "prompt": "Yeni tanışılan kişinin telefon numarasını 9 rakamla yaz.",
+      "answers": [
+        "612345678",
+        "612 345 678"
+      ],
+      "explanation": "Duyulan rakamlar: seis, uno, dos, tres, cuatro, cinco, seis, siete, ocho → 612 345 678.",
+      "audioId": "pablo",
+      "evidence": "Es el seis, uno, dos, tres, cuatro, cinco, seis, siete, ocho.",
+      "translation": "Numaram 612 345 678.",
+      "phone": true,
+      "inputMode": "tel",
+      "accentPartial": false
+    },
+    {
+      "id": 48,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "¿Cuántos años tiene Luis García?",
+      "options": [
+        "24",
+        "32",
+        "42",
+        "52"
+      ],
+      "correct": 2,
+      "explanation": "Luis, Tengo cuarenta y dos años diyor. Cuarenta y dos = 42.",
+      "audioId": "registro",
+      "evidence": "Tengo cuarenta y dos años.",
+      "translation": "Kırk iki yaşındayım."
+    },
+    {
+      "id": 49,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "Luis nereli ve nerede yaşıyor?",
+      "options": [
+        "Es de Málaga y vive en Colombia.",
+        "Es de Colombia y vive en Málaga.",
+        "Es de México y vive en Sevilla.",
+        "Es de España y vive en Granada."
+      ],
+      "correct": 1,
+      "explanation": "Soy de Colombia, pero vivo en Málaga cümlesinde köken ve ikamet ayrı ayrı belirtiliyor.",
+      "audioId": "registro",
+      "evidence": "Soy de Colombia, pero vivo en Málaga.",
+      "translation": "Kolombiyalıyım ama Málaga’da yaşıyorum."
+    },
+    {
+      "id": 50,
+      "section": "listening",
+      "type": "mc",
+      "prompt": "Kayıt görevlisinin Luis’e meslek sorusu hangisi?",
+      "options": [
+        "¿A qué te dedicas?",
+        "¿Dónde vive usted?",
+        "¿A qué se dedica usted?",
+        "¿Cómo se llama usted?"
+      ],
+      "correct": 2,
+      "explanation": "Diyalogda usted hitabı kullanılıyor. Meslek sorusu ¿A qué se dedica usted? biçiminde; Luis kendisi için Soy médico diye cevap veriyor.",
+      "audioId": "registro",
+      "evidence": "¿A qué se dedica usted? — Soy médico.",
+      "translation": "Ne iş yapıyorsunuz? — Doktorum."
+    }
+  ]
+}
