@@ -37,3 +37,8 @@ User instruction, 15 November 2026: use `DD-DD-ders-ici-ispanyolcacim-LEVEL.html
 ## Clean classroom activity URLs
 
 User instruction, 15 November 2026: share and display classroom URLs ending in `.html`, without section fragments such as `#dictation-1`, `#estructura`, `#futuro` or `#bolum-2`, at every level. Tabs, keyboard navigation and previous/next controls must update the activity directly without adding a fragment. Honor an incoming legacy fragment for the initial section, then remove it with `history.replaceState` while preserving the path, query string, existing history state, answers and storage keys. Never append a default section on load. Use clean canonical URLs in messages, indexes and maintained activity links.
+
+
+## A1.1 classroom colors
+
+User instruction, 15 November 2026: all A1.1 classroom notes use pure black (`#000000`) for the “ESPAÑOL CON PROFE HAZEL” brand and structural text previously shown in brown. Use soft buttery yellow controls, with black labels and pale yellow borders, on the existing pale yellow page background. Do not restore mustard/brown control labels, borders or hover fills. Classroom entries share `a11-classroom-theme.css`; keep its link after their other styles. Preserve deliberate instructional colors, including green/red/green 3–2–1 phrases and the red spelling reminder. Homework assignment pages retain their own separate styling.

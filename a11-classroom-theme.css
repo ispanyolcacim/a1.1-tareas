@@ -1,0 +1,90 @@
+/* Shared A1.1 classroom palette: black text and soft buttery yellow controls. */
+:root {
+  --primary: #ffe17b;
+  --dark: #000000;
+  --ink: #242424;
+  --muted: #666666;
+  --line: #f0e2aa;
+  --soft: #fff2bd;
+  --bg: #fffbec;
+  --a11-primary: #000000;
+  --a11-primary-dark: #000000;
+  --a11-primary-light: #ffe17b;
+  --a11-ink: #242424;
+  --a11-muted: #666666;
+  --a11-border: #f0e2aa;
+  --a11-soft: #fff2bd;
+  --a11-shadow: 0 4px 24px rgb(0 0 0 / 5%);
+  --classroom-yellow: #ffe17b;
+  --classroom-yellow-soft: #fff2bd;
+  --classroom-yellow-hover: #ffdb67;
+  --classroom-yellow-line: #efd580;
+}
+body { background: var(--bg); color: var(--ink); }
+body a.brand,
+body .classroom-header a.classroom-header__brand {
+  color: #000000 !important;
+}
+.eyebrow, .hero h1 span, .formula, .stem-line strong, .q-number,
+.word-context summary, .word-popover-label {
+  color: #000000;
+}
+body .classroom-header .classroom-header__eyebrow {
+  color: #000000 !important;
+}
+body .classroom-header .classroom-header__masthead,
+body .classroom-header .classroom-header__meta {
+  color: #666666 !important;
+}
+.verb-toggle[aria-expanded="true"], .verb-info:hover { color: #000000; }
+.nav-tab {
+  color: #000000;
+  background: #fffef8;
+  border-color: var(--classroom-yellow-line);
+}
+.tabs .nav-tab[aria-selected="true"] {
+  color: #000000;
+  background: var(--classroom-yellow);
+  border-color: var(--classroom-yellow-line);
+}
+.nav-tab:hover { color: #000000; background: var(--classroom-yellow-soft); }
+.button, .next-section, .checkOne, .reveal, .revealTranslate,
+.nav button, .wrap > .reset {
+  color: #000000;
+  background: var(--classroom-yellow);
+  border-color: var(--classroom-yellow-line);
+  box-shadow: none;
+}
+.button:hover, .next-section:hover, .checkOne:hover, .reveal:hover,
+.revealTranslate:hover, .nav button:hover, .wrap > .reset:hover {
+  color: #000000 !important;
+  background: var(--classroom-yellow-hover) !important;
+  border-color: var(--classroom-yellow-line) !important;
+}
+.button.outline-button { color: #000000; background: var(--classroom-yellow-soft); }
+.classroom-homework-button, #classroom-homework .classroom-homework-link {
+  color: #000000;
+  background: var(--classroom-yellow-soft);
+  border-color: var(--classroom-yellow-line);
+}
+.classroom-homework-button:hover,
+#classroom-homework .classroom-homework-link:hover {
+  color: #000000;
+  background: var(--classroom-yellow);
+  filter: none;
+}
+#classroom-homework .classroom-homework-head { background: #fff8db; }
+#classroom-homework .classroom-homework-eyebrow,
+#classroom-homework .classroom-homework-portal { color: #000000; }
+body .classroom-print, #classroom-homework .classroom-homework-close {
+  color: #000000 !important;
+  border-color: var(--classroom-yellow-line) !important;
+}
+body .classroom-print:hover,
+#classroom-homework .classroom-homework-close:hover { background: #fff8db !important; }
+.nav-tab:focus-visible, .button:focus-visible, .next-section:focus-visible,
+.classroom-homework-button:focus-visible,
+#classroom-homework .classroom-homework-link:focus-visible {
+  outline: 3px solid #ddbb42;
+  outline-offset: 3px;
+}
