@@ -1,26 +1,53 @@
-/* Shared A1.1 classroom palette: black text and soft buttery yellow controls. */
+/* A1.1 classroom colors follow a11-11-12-ida-1-kisim.html / a11-theme.css. */
 :root {
-  --primary: #ffe17b;
+  --primary: #ffdb53;
   --dark: #000000;
   --ink: #242424;
   --muted: #666666;
-  --line: #f0e2aa;
-  --soft: #fff2bd;
-  --bg: #fffbec;
+  --line: #f0e4ae;
+  --soft: #fff8de;
+  --bg: #fffdf4;
   --a11-primary: #000000;
   --a11-primary-dark: #000000;
-  --a11-primary-light: #ffe17b;
+  --a11-primary-light: #ffdb53;
   --a11-ink: #242424;
   --a11-muted: #666666;
-  --a11-border: #f0e2aa;
-  --a11-soft: #fff2bd;
+  --a11-border: #f0e4ae;
+  --a11-soft: #fff8de;
   --a11-shadow: 0 4px 24px rgb(0 0 0 / 5%);
-  --classroom-yellow: #ffe17b;
-  --classroom-yellow-soft: #fff2bd;
-  --classroom-yellow-hover: #ffdb67;
-  --classroom-yellow-line: #efd580;
+  --classroom-yellow: #ffdb53;
+  --classroom-yellow-soft: #fff8de;
+  --classroom-yellow-hover: #ffe475;
+  --classroom-yellow-line: #e8c440;
+  --classroom-button-fill: linear-gradient(135deg, #ffdb53, #fff19a);
+  --classroom-button-hover: linear-gradient(135deg, #f5cc31, #ffe475);
 }
-body { background: var(--bg); color: var(--ink); }
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(255, 222, 87, .24), transparent 52%),
+    radial-gradient(ellipse at 90% 85%, rgba(237, 189, 194, .12), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(120, 91, 32, .035), transparent 70%),
+    #fffdf4;
+  background-attachment: fixed;
+}
+/* Warm yellow card frames, as in the homework; teaching feedback keeps its colors. */
+.rule-card, .reading-card, .section-card:not(.speech-writing-alert),
+.verb-card, .question-card, .translate-item, .group-shortcut,
+.insight, .video-card, .table-wrap, .workshop-toolbar, .writing-row,
+.memory-strip, .wrap .hero, .wrap .part, .wrap .speaking, .wrap .qcard,
+#classroom-homework .classroom-homework-card {
+  border-color: #f0e4ae;
+  background-color: #ffffff;
+}
+.rule-card, .section-card:not(.speech-writing-alert), .wrap .part,
+#classroom-homework .classroom-homework-card {
+  border-top: 3px solid #ffdb53;
+}
+.verb-card:has(.verb-toggle[aria-expanded="true"]) {
+  border-color: #ffdb53;
+  box-shadow: 0 0 0 1px #ffdb5333;
+}
 body a.brand,
 body .classroom-header a.classroom-header__brand {
   color: #000000 !important;
@@ -44,21 +71,21 @@ body .classroom-header .classroom-header__meta {
 }
 .tabs .nav-tab[aria-selected="true"] {
   color: #000000;
-  background: var(--classroom-yellow);
+  background: var(--classroom-button-fill);
   border-color: var(--classroom-yellow-line);
 }
 .nav-tab:hover { color: #000000; background: var(--classroom-yellow-soft); }
 .button, .next-section, .checkOne, .reveal, .revealTranslate,
 .nav button, .wrap > .reset {
   color: #000000;
-  background: var(--classroom-yellow);
+  background: var(--classroom-button-fill);
   border-color: var(--classroom-yellow-line);
   box-shadow: none;
 }
 .button:hover, .next-section:hover, .checkOne:hover, .reveal:hover,
 .revealTranslate:hover, .nav button:hover, .wrap > .reset:hover {
   color: #000000 !important;
-  background: var(--classroom-yellow-hover) !important;
+  background: var(--classroom-button-hover) !important;
   border-color: var(--classroom-yellow-line) !important;
 }
 .button.outline-button { color: #000000; background: var(--classroom-yellow-soft); }
@@ -70,10 +97,10 @@ body .classroom-header .classroom-header__meta {
 .classroom-homework-button:hover,
 #classroom-homework .classroom-homework-link:hover {
   color: #000000;
-  background: var(--classroom-yellow);
+  background: var(--classroom-button-fill);
   filter: none;
 }
-#classroom-homework .classroom-homework-head { background: #fff8db; }
+#classroom-homework .classroom-homework-head { background: linear-gradient(135deg, #fff8de, #ffffff); }
 #classroom-homework .classroom-homework-eyebrow,
 #classroom-homework .classroom-homework-portal { color: #000000; }
 body .classroom-print, #classroom-homework .classroom-homework-close {
@@ -85,6 +112,6 @@ body .classroom-print:hover,
 .nav-tab:focus-visible, .button:focus-visible, .next-section:focus-visible,
 .classroom-homework-button:focus-visible,
 #classroom-homework .classroom-homework-link:focus-visible {
-  outline: 3px solid #ddbb42;
+  outline: 3px solid #ffdb53;
   outline-offset: 3px;
 }
