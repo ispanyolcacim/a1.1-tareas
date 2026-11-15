@@ -42,3 +42,5 @@ User instruction, 15 November 2026: share and display classroom URLs ending in `
 ## A1.1 classroom colors
 
 User instruction, 15 November 2026: all A1.1 classroom notes use pure black (`#000000`) for the “ESPAÑOL CON PROFE HAZEL” brand and structural text previously shown in brown. Use soft buttery yellow controls, with black labels and pale yellow borders, on the existing pale yellow page background. Do not restore mustard/brown control labels, borders or hover fills. Classroom entries share `a11-classroom-theme.css`; keep its link after their other styles. Preserve deliberate instructional colors, including green/red/green 3–2–1 phrases and the red spelling reminder. Homework assignment pages retain their own separate styling.
+
+User preference, 15 November 2026: use one small, relevant emoji beside each classroom navigation label, as in the A1.2 example. Keep the text labels and mark decorative emoji spans `aria-hidden="true"`.
