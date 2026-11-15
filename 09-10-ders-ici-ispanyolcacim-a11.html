@@ -238,8 +238,8 @@ dialog.addEventListener('close',()=>document.dispatchEvent(new Event('lesson:pan
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 
 let pageIndex=0,keyboardTab=false;
-function showPage(focus=false){
-  const requested=location.hash.slice(1);
+function showPage(requested=pages[pageIndex],focus=false){
+  if(location.hash)history.replaceState(history.state,'',location.pathname+location.search);
   pageIndex=Math.max(0,pages.indexOf(requested));
   const active=pages[pageIndex];
   pages.forEach(id=>{el(id).hidden=id!==active;});
@@ -258,13 +258,14 @@ function showPage(focus=false){
   document.dispatchEvent(new Event('lesson:panel'));
   document.title=`A1.1 (9+10) · ${['Video','Tú','Usted','Tú / Usted','Yapı taşları','Birlikte yazalım'][pageIndex]} | İspanyolcacım`;
 }
+document.querySelectorAll('.nav-tab').forEach(tab=>tab.addEventListener('click',event=>{event.preventDefault();showPage(tab.dataset.page,true);}));
 document.querySelectorAll('.nav-tab').forEach((tab,i)=>tab.addEventListener('keydown',event=>{
   let index;if(event.key==='ArrowRight')index=(i+1)%pages.length;else if(event.key==='ArrowLeft')index=(i-1+pages.length)%pages.length;else if(event.key==='Home')index=0;else if(event.key==='End')index=pages.length-1;else return;
-  event.preventDefault();keyboardTab=true;document.querySelectorAll('.nav-tab')[index].focus();location.hash=pages[index];
+  event.preventDefault();keyboardTab=true;document.querySelectorAll('.nav-tab')[index].focus();showPage(pages[index],true);
 }));
-window.addEventListener('hashchange',()=>showPage(true));
-el('previous-page').addEventListener('click',()=>{if(pageIndex>0)location.hash=pages[pageIndex-1];});
-el('next-page').addEventListener('click',()=>{if(pageIndex<pages.length-1)location.hash=pages[pageIndex+1];});
+window.addEventListener('hashchange',()=>showPage(location.hash.slice(1),true));
+el('previous-page').addEventListener('click',()=>{if(pageIndex>0)showPage(pages[pageIndex-1],true);});
+el('next-page').addEventListener('click',()=>{if(pageIndex<pages.length-1)showPage(pages[pageIndex+1],true);});
 
 // The workshop stays on this device. Every edit is saved before switching records.
 const storageKey='ispanyolcacim-a11-9-10-workshop-v1';
@@ -324,7 +325,7 @@ el('export-notes').addEventListener('click',()=>{
 });
 renderRecord();
 if(!storageHealthy)el('save-status').textContent='Kayıt okunamadı. Yeni yazıları indirerek de saklayabilirsin.';
-showPage();
+showPage(location.hash.slice(1));
 
 </script>
 <script>
