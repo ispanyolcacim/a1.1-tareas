@@ -35,7 +35,7 @@
   return {points,correct,accent,wrong,blank,sections};
  }
  function payload(student,summary){
-  return {ogrenci:student,grup:'A1.1',odev:'H3 – 9-10.Ders (1. KISIM)',puan:summary.points,dogru:summary.correct,yanlis:summary.wrong+summary.accent+summary.blank};
+  return {ogrenci:student,grup:'A1.1',odev:'H3 – 9-10.Ders',puan:summary.points,dogru:summary.correct,yanlis:summary.wrong+summary.accent+summary.blank};
  }
  return {normalize,grade,summarize,payload};
 });
