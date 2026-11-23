@@ -52,6 +52,26 @@ function renderCategories(id,items,verb){
    });
    card.append(guide);
   }else if(g.note)card.append(element('p','verb-note',g.note));
+  if(verb==='estar' && g.t.startsWith('08 · El precio')){
+   const comparison=element('aside','price-rule-guide');
+   const patterns=[
+    {emoji:'🏷️',heading:'SER + FİYAT',formula:'SER + precio',desc:'Bir şeyin toplam fiyatını belirtirken.',es:'El libro es diez euros.',tr:'Kitap on avro.',mode:'ser'},
+    {emoji:'🍎',heading:'ESTAR + A + FİYAT',formula:'ESTAR + A + precio',desc:'Özellikle birim başına satış fiyatını ifade ederken.',es:'Las manzanas están a dos euros el kilo.',tr:'Elmaların kilosu iki avro.',mode:'estar'}
+   ];
+   patterns.forEach(({emoji,heading,formula,desc,es,tr,mode})=>{
+    const tile=element('article','price-rule-tile');
+    const top=element('div','price-rule-header');
+    const pictogram=element('span','price-rule-emoji',emoji);pictogram.setAttribute('aria-hidden','true');
+    const labels=element('div','price-rule-labels');
+    labels.append(element('h4','',heading));
+    const pattern=element('p','price-rule-formula',formula);pattern.lang='es';pattern.dataset.es='';pattern.dataset.highlight=mode;
+    labels.append(pattern);
+    top.append(pictogram,labels);
+    tile.append(top,element('p','price-rule-description',desc),makeExample(es,tr,mode));
+    comparison.append(tile);
+   });
+   card.append(comparison);
+  }
   g.pairs.forEach(([es,tr])=>card.append(makeExample(es,tr,verb==='estar'?'both':verb)));
   if(verb==='estar' && g.t.startsWith('03 · El estado civil')){
    const note=element('aside','widow-rule-note');
