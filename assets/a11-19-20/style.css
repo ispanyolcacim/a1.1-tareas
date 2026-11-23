@@ -73,3 +73,18 @@
 .calendar-rule-suffix{font:800 clamp(15px,2vw,19px)/1.45 "Nunito Sans","Nunito",sans-serif;color:#333}
 .calendar-rule-example{font-size:14px;color:#545454;font-weight:700;margin-top:7px}
 @media(max-width:560px){.calendar-rule-line{grid-template-columns:48px minmax(0,1fr);gap:10px;padding:14px 12px}.calendar-rule-icon{width:46px;height:46px;font-size:26px}.calendar-rule-formula{font-size:19px}.calendar-rule-suffix{font-size:15px}}
+
+/* 08 · El precio — two large comparison cards, consistent with week 5 lesson design */
+.price-rule-guide{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:17px 0 23px}
+.price-rule-tile{padding:20px 22px;border:1px solid #edd477;border-left:5px solid #e2bb36;border-radius:19px;background:linear-gradient(115deg,#fff7d8,#fffdfa);box-shadow:0 4px 17px rgba(39,35,21,.04)}
+.price-rule-tile:nth-child(2){border-color:#cbddec;border-left-color:#8eafd2;background:linear-gradient(115deg,#f0f8ff,#fff)}
+.price-rule-header{display:flex;gap:15px;align-items:center}
+.price-rule-emoji{display:grid;place-items:center;flex:0 0 60px;width:60px;height:60px;border-radius:16px;background:#ffffffb5;font-size:33px}
+.price-rule-labels{min-width:0}
+.price-rule-labels h4{margin:0 0 5px;font:1000 clamp(17px,2.6vw,22px)/1.25 "Nunito","Nunito Sans",sans-serif;letter-spacing:.015em;color:#141414}
+.price-rule-formula{margin:0;font:900 clamp(19px,3vw,27px)/1.35 "Nunito","Nunito Sans",sans-serif;color:#161616}
+.price-rule-formula .es-word{font-weight:1000!important}
+.price-rule-description{font-weight:750;font-size:14px;color:#525252;margin:13px 0 7px}
+.price-rule-tile .example-row{border-top:1px dashed #d8ce9c;padding:10px 0 0}
+.price-rule-tile .example-tr{font-weight:750}
+@media(max-width:560px){.price-rule-tile{padding:15px}.price-rule-emoji{width:48px;height:48px;flex-basis:48px;font-size:27px}.price-rule-header{gap:10px}}
