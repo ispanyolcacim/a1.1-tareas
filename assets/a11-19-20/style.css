@@ -44,7 +44,7 @@
 .adj-examples{margin:4px 0 0;border-top:0;background:#fffdf7;padding:12px 17px}
 .adj-examples p{margin:7px 0}
 .adj-examples[hidden],.adj-detail-row[hidden]{display:none!important}
-.adj-detail-row .example-row{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px}
+.adj-examples > .example-row{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px}
 .example-type{font-weight:900}
 .is-ser{color:#344765}.is-estar{color:#5c5677}
 .verb-note{margin:12px 0;background:#fffaf0;border-radius:13px;padding:12px 14px;font-size:14px}
