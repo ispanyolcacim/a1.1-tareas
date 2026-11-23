@@ -52,3 +52,11 @@
 #word-popover[hidden]{display:none!important}
 @media(max-width:720px){.compare-grid{grid-template-columns:1fr}.usage-card,.rule-tile{padding:15px}.compare-table td,.conjugation-table td,.compare-table th,.conjugation-table th{padding:10px 9px}.adjective-table{min-width:580px}}
 @media print{[role="tabpanel"][hidden]{display:block!important;break-before:page}.adjective-table{min-width:0}.lesson-nav,.lesson-footer,.lock,#word-popover,dialog:not([open]){display:none!important}.usage-card,.adj-examples{break-inside:avoid}}
+
+/* 03 · El estado civil — full-width high-visibility exception after examples */
+.widow-rule-note{margin:22px 0 3px;padding:21px 23px;border:2px solid #edcf58;border-left:7px solid #d12c39;border-radius:18px;background:#fff7ce;box-shadow:0 8px 25px rgba(102,73,13,.08)}
+.widow-rule-note h4{font:1000 clamp(19px,2.8vw,24px)/1.3 "Nunito","Nunito Sans",sans-serif;margin:0 0 12px;color:#111}
+.widow-rule-note p{font-size:16px;line-height:1.75;margin:0 0 13px}
+.widow-rule-note .widow-pattern{font:900 clamp(18px,2.8vw,23px)/1.5 "Nunito","Nunito Sans",sans-serif;color:#a31d2c;margin-bottom:10px}
+.widow-rule-note .example-row{border-top:1px dashed #d9ba56;padding:9px 0}
+.widow-rule-note .example-row:last-child{padding-bottom:0}
