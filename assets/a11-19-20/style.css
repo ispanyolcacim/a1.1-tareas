@@ -1,0 +1,54 @@
+
+/* A1.1 19–20 | 15–16 & 17–18 classroom design language */
+.lesson-nav{align-items:stretch}
+.tabs{display:flex;gap:9px;flex-wrap:wrap}
+.lesson-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.rule-tile,.usage-card,.adj-examples{border:1px solid #f0e4ae;border-top:3px solid #ffdb53;border-radius:20px;background:#fff;padding:19px 21px;margin:0 0 17px;box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.rule-tile-heading{font-size:14px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
+.rule-tile h3{font:900 19px/1.3 "Nunito","Nunito Sans",sans-serif;margin:0 0 10px}
+.rule-tile p,.usage-card p{line-height:1.65}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:19px}
+.teaching-note{padding:15px 18px;border:1px solid #f0d677;border-left:4px solid #ffdb53;border-radius:13px;background:#fff9dd;line-height:1.7;font-weight:700;margin:18px 0 0}
+.compare-table,.conjugation-table,.adjective-table{width:100%;border-collapse:collapse;background:#fff;font-size:15px}
+.compare-table th,.conjugation-table th,.adjective-table th{background:#fff3ba;padding:13px 16px;text-align:left;font-weight:900}
+.compare-table td,.conjugation-table td,.adjective-table td{padding:12px 16px;border-bottom:1px solid #f0e4ae}
+.compare-table tr:nth-child(2n) td,.conjugation-table tr:nth-child(2n) td,.adjective-table tr:nth-child(2n) td{background:#fffdf5}
+.compare-table th:not(:first-child),.compare-table td:not(:first-child){text-align:center}
+.conjugation-wrap{padding:18px;border:1px solid #f0e4ae;border-radius:18px;background:#fff;margin:18px 0 26px}
+.conjugation-wrap h3{font:900 20px "Nunito",sans-serif;margin:0 0 13px}
+.conjugation-table{max-width:700px;margin:auto}
+.usage-card h3{font:900 19px/1.45 "Nunito",sans-serif;margin:0 0 5px;color:#171717}
+.usage-card .usage-subtitle{font-size:14px;font-weight:800;color:#535353;margin:0 0 14px}
+.usage-card .usage-intro{margin:0 0 13px}
+.example-row{border-top:1px dashed #eddfa8;padding:10px 0;line-height:1.72}
+.example-row:last-child{padding-bottom:0}
+.es-sentence{font-size:1.07rem;font-weight:700;line-height:1.85;word-break:normal}
+.example-tr{font-size:14px;color:#545454}
+.red-verb,.es-word.red-verb{color:#cb2134!important;font-weight:1000!important;text-shadow:none}
+.es-word{display:inline;appearance:none;padding:0;margin:0;border:0;border-radius:4px;background:transparent;color:inherit;font:inherit;text-align:inherit;cursor:pointer}
+.es-word:hover,.es-word[aria-expanded="true"]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;background:#fff2ac}
+.es-sentence .chunk{padding:1px 3px;border-radius:5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.chunk[data-role="subject"]{--tone:#f9d7e7}
+.chunk[data-role="verb"]{--tone:#dfe5fb}
+.chunk[data-role="object"]{--tone:#fff0bd}
+.chunk[data-role="other"]{--tone:#d4eedb}
+.es-sentence:hover .chunk,.es-sentence:focus-within .chunk{background:var(--tone)}
+.adj-table-container{overflow:auto;border:1px solid #f0e4ae;border-radius:18px}
+.adjective-table{min-width:640px}
+.adjective-table th{font-size:14px}
+.adjective-table td{vertical-align:middle;line-height:1.5}
+.adjective-table td:first-child{font-size:16px;font-weight:900}
+.lock{min-width:45px;min-height:45px;background:#fff8de;border:1px solid #ead778;border-radius:12px;cursor:pointer;padding:4px}
+.lock:hover{background:#ffed9e}
+.adj-detail-row td{padding:0 14px 15px!important;background:#fff!important}
+.adj-examples{margin:4px 0 0;border-top:0;background:#fffdf7;padding:12px 17px}
+.adj-examples p{margin:7px 0}
+.adj-examples[hidden],.adj-detail-row[hidden]{display:none!important}
+.adj-detail-row .example-row{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px}
+.example-type{font-weight:900}
+.is-ser{color:#344765}.is-estar{color:#5c5677}
+.verb-note{margin:12px 0;background:#fffaf0;border-radius:13px;padding:12px 14px;font-size:14px}
+#classroom-homework .classroom-homework-grid{grid-template-columns:minmax(0,1fr)}
+#word-popover[hidden]{display:none!important}
+@media(max-width:720px){.compare-grid{grid-template-columns:1fr}.usage-card,.rule-tile{padding:15px}.compare-table td,.conjugation-table td,.compare-table th,.conjugation-table th{padding:10px 9px}.adjective-table{min-width:580px}}
+@media print{[role="tabpanel"][hidden]{display:block!important;break-before:page}.adjective-table{min-width:0}.lesson-nav,.lesson-footer,.lock,#word-popover,dialog:not([open]){display:none!important}.usage-card,.adj-examples{break-inside:avoid}}
