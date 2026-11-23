@@ -18,6 +18,13 @@
 .practice-bottom textarea{width:100%;min-height:62px;max-height:180px;resize:vertical;padding:13px 14px;border:1.5px dashed #e7c94d;border-radius:12px;background:#fffef7;font:600 16px/1.55 "Nunito Sans",sans-serif;color:#171717}
 .practice-answer{margin-top:13px;padding:13px 15px;border:1px solid #cde8ce;border-radius:13px;background:#fbfffb;font-size:1.08rem;line-height:1.95;font-weight:700}
 .practice-answer[hidden]{display:none}
+.ser-variant{margin-top:12px;padding-top:11px;border-top:1px dashed #d7e6d9}
+.ser-label{display:inline-block;margin-right:8px;color:#174b68;font-size:13px;font-weight:900}
+.ser-difference-button{margin-top:12px;border:1px solid #e7ca5c;border-radius:12px;background:#fff4b9;color:#151515;padding:10px 14px;font:900 14px/1.4 "Nunito Sans",sans-serif;cursor:pointer}
+.ser-difference-button:hover{background:#ffe785}
+.ser-difference{margin-top:12px;border-left:4px solid #ffdb53;border-radius:8px;background:#fffdf3;padding:13px 16px;color:#2a2a2a;font-size:15px;font-weight:600;line-height:1.65}
+.ser-difference[hidden]{display:none}
+.ser-difference p{margin:0 0 10px}.ser-difference p:last-child{margin-bottom:0}
 .lock{cursor:pointer;border:1px solid #eed98c;background:#fff6d1;border-radius:11px;min-width:47px;min-height:48px}
 .lock:hover{background:#ffeb90}
 .role-legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:5px 0 20px}.role-legend span{border-radius:30px;padding:5px 11px;font-size:12px;font-weight:800;border:1px solid #00000012}
@@ -92,9 +99,7 @@
 <div class="section-card">
 <h2 tabindex="-1">✍️ <span data-es>Practiquemos!</span> · Pratik yapalım</h2>
 <p class="mini-intro">10 cümleyi İspanyolcaya çevir. Cevabını boş alana yaz; her cümlenin yalnızca kendi 🔒 kilidini aç. Aynı anlam öbekleri iki dilde aynı renkle eşleşir. Sözcüklere tıklayarak sözlüğü inceleyebilirsin.</p>
-<div class="role-legend" aria-label="Anlam öbeklerinin renkleri">
-<span class="role-subject">Özne</span><span class="role-verb">Eylem</span><span class="role-object">Nesne</span><span class="role-place">Yer / yön</span><span class="role-complement">Birliktelik</span><span class="role-attribute">Nitelik</span>
-</div>
+
 </div>
 <div id="practice-list" class="practice-list"></div>
 </section>
@@ -123,7 +128,7 @@
 <div class="section-card">
 <h2 tabindex="-1">✨ <span data-es>Hay</span> · Nerede, ne zaman kullanılır?</h2>
 <p><strong data-es>Hay</strong> bir yerde bir şeyin veya birinin var olduğunu bildirir. İngilizcedeki <strong lang="en">there is / there are</strong> ayrımına karşılık İspanyolcada aynı <strong data-es>hay</strong> kullanılır; Türkçede genellikle <strong>var</strong> denir.</p>
-<div class="role-legend"><span class="role-verb">Varlık bildiren yapı</span><span class="role-object">Var olan şey / miktar</span><span class="role-place">Yer</span><span class="role-quantity">Sayı / miktar</span></div>
+
 <div id="hay-groups"></div>
 </div>
 </section>
@@ -190,11 +195,11 @@ const practices=[
 {tr:[['subject','Sarı gözlüklü kadın'],['place','şehirde'],['verb','alışveriş yapıyor.']],es:[['subject','La mujer con gafas amarillas'],['verb','hace compras'],['place','en la ciudad.']]},
 {tr:[['subject','Beyaz elbiseli kız çocuğu'],['place','süpermarketten'],['verb','çıkıyor.']],es:[['subject','La niña con vestido blanco'],['verb','sale'],['place','del supermercado.']]},
 {tr:[['place','Sarı otobüs durağında'],['verb','bekliyoruz.']],es:[['verb','Esperamos'],['place','en la parada de autobús amarilla.']]},
-{tr:[['subject','Turuncu tren istasyonundaki biletler'],['attribute','mavidir.']],es:[['subject','Los billetes de la estación de tren naranja'],['attribute','son azules.']]},
+{tr:[['subject','Turuncu tren istasyonunun biletleri'],['attribute','mavidir.']],es:[['subject','Los billetes de la estación de tren naranja'],['attribute','son azules.']]},
 {tr:[['subject','Kırmızı çiçekli kız'],['attribute','mutludur.']],es:[['subject','La niña con flores rojas'],['attribute','está contenta.']]},
 {tr:[['place','Mor kütüphanede'],['object','Gabriel García Márquez’in ilginç bir kitabını'],['verb','okuyorum.']],es:[['verb','Leo'],['object','un libro interesante de Gabriel García Márquez'],['place','en la biblioteca morada.']]},
 {tr:[['subject','Zayıf kadın'],['complement','şişman bir köpekle'],['place','sokakta'],['verb','yürüyor.']],es:[['subject','La mujer delgada'],['verb','camina'],['place','por la calle'],['complement','con un perro gordo.']]},
-{tr:[['subject','Kumral çocuk'],['complement','sarışın arkadaşıyla'],['place','kafede'],['object','siyah çay'],['verb','içiyor.']],es:[['subject','El chico castaño'],['verb','bebe'],['object','té negro'],['place','en la cafetería'],['complement','con su amigo rubio.']]},
+{tr:[['subject','Kumral çocuk'],['complement','sarışın arkadaşıyla (feminen)'],['place','kafede'],['object','siyah çay'],['verb','içiyor.']],es:[['subject','El chico castaño'],['verb','bebe'],['object','té negro'],['place','en la cafetería'],['complement','con su amiga rubia.']]},
 {tr:[['subject','Samimi çocuk'],['place','postanede'],['object','bir mektup'],['verb','yazıyor.']],es:[['subject','El chico simpático'],['verb','escribe'],['object','una carta'],['place','en la oficina de correos.']]}
 ];
 const hayGroups=[
@@ -262,13 +267,37 @@ function e(tag,cls,txt){const o=document.createElement(tag);if(cls)o.className=c
 function phraseLine(parts,lang,group){const row=e('span','example-line');row.lang=lang;parts.forEach((part,i)=>{if(i)row.append(' ');const s=e('span','pair-phrase role-'+part[0],part[1]);s.dataset.sync=group+'-'+part[0];s.dataset.role=part[0];if(lang==='es')s.dataset.es='';row.append(s)});return row;}
 function renderTriple(es,en,tr,group){const card=e('div','triple-card');[[es,'es','🇪🇸'],[en,'en','🇬🇧'],[tr,'tr','🇹🇷']].forEach(([parts,lang,flag])=>{const row=e('div','lang-line '+lang+'-line');row.append(e('span','lang-mark',flag),phraseLine(parts,lang,group));card.append(row)});return card;}
 function triline(es,en,tr){const card=e('div','triple-card');[[es,'es','🇪🇸'],[en,'en','🇬🇧'],[tr,'tr','🇹🇷']].forEach(([words,lang,flag])=>{const row=e('div','lang-line '+lang+'-line');const span=e('span','',words);if(lang==='es')span.dataset.es='';span.lang=lang;row.append(e('span','lang-mark',flag),span);card.append(row)});return card;}
-practices.forEach((item,i)=>{const card=e('article','practice-card');card.dataset.practice=i;const head=e('div','practice-top');head.append(e('span','practice-number',String(i+1).padStart(2,'0')));const tr=e('div','practice-turkish');tr.append(phraseLine(item.tr,'tr','p'+i));head.append(tr);const bottom=e('div','practice-bottom');const area=e('textarea');area.lang='es';area.setAttribute('aria-label',(i+1)+'. cümlenin İspanyolca çevirisi');area.placeholder='İspanyolcasını buraya yaz…';area.rows=2;const key='a11-class-17-18-practice-'+i;try{area.value=localStorage.getItem(key)||''}catch{}area.addEventListener('input',()=>{try{localStorage.setItem(key,area.value)}catch{}});const lock=e('button','lock','🔒');lock.type='button';lock.setAttribute('aria-label',(i+1)+'. cümlenin cevabını aç');const ans=e('div','practice-answer');ans.hidden=true;ans.lang='es';ans.append(phraseLine(item.es,'es','p'+i));lock.setAttribute('aria-expanded','false');lock.addEventListener('click',()=>{ans.hidden=!ans.hidden;lock.textContent=ans.hidden?'🔒':'🔓';lock.setAttribute('aria-expanded',String(!ans.hidden));lock.setAttribute('aria-label',(i+1)+'. cümlenin cevabını '+(ans.hidden?'aç':'gizle'));closeWord()});bottom.append(area,lock);card.append(head,bottom,ans);document.getElementById('practice-list').append(card);});
+practices.forEach((item,i)=>{const card=e('article','practice-card');card.dataset.practice=i;const head=e('div','practice-top');head.append(e('span','practice-number',String(i+1).padStart(2,'0')));const tr=e('div','practice-turkish');tr.append(phraseLine(item.tr,'tr','p'+i));head.append(tr);const bottom=e('div','practice-bottom');const area=e('textarea');area.lang='es';area.setAttribute('aria-label',(i+1)+'. cümlenin İspanyolca çevirisi');area.placeholder='İspanyolcasını buraya yaz…';area.rows=2;const key='a11-class-17-18-practice-'+i;try{area.value=localStorage.getItem(key)||''}catch{}area.addEventListener('input',()=>{try{localStorage.setItem(key,area.value)}catch{}});const lock=e('button','lock','🔒');lock.type='button';lock.setAttribute('aria-label',(i+1)+'. cümlenin cevabını aç');const ans=e('div','practice-answer');ans.hidden=true;ans.lang='es';ans.append(phraseLine(item.es,'es','p'+i));
+if(i===5){
+  const serVariant=e('div','ser-variant');
+  serVariant.append(e('span','ser-label','SER ile: '),phraseLine([['subject','La niña con flores rojas'],['attribute','es feliz.']],'es','p'+i));
+  const differenceButton=e('button','ser-difference-button','İki cümle arasında ne fark var? 🤔');
+  differenceButton.type='button';
+  const difference=e('div','ser-difference');
+  difference.id='ser-estar-explanation-06';
+  difference.hidden=true;
+  difference.append(
+    e('p','', 'ESTAR + contenta → Kız şu anda mutlu, sevinçli hissediyor. O anki duygusal durumunu anlatıyoruz.'),
+    e('p','', 'SER + feliz → Kız genel olarak mutlu bir insan; mutluluğu yaşamının veya kişiliğinin daha genel bir özelliği olarak anlatılıyor.'),
+    e('p','', '💡 Estar her zaman kısa süre, ser her zaman kalıcılık demek değildir. Buradaki ayrım anlık durum ile genel özellik / değerlendirmedir.')
+  );
+  differenceButton.setAttribute('aria-controls',difference.id);
+  differenceButton.setAttribute('aria-expanded','false');
+  differenceButton.addEventListener('click',()=>{
+    difference.hidden=!difference.hidden;
+    differenceButton.setAttribute('aria-expanded',String(!difference.hidden));
+    differenceButton.textContent=difference.hidden?'İki cümle arasında ne fark var? 🤔':'Açıklamayı gizle ↑';
+  });
+  ans.append(serVariant,differenceButton,difference);
+}
+lock.setAttribute('aria-expanded','false');lock.addEventListener('click',()=>{ans.hidden=!ans.hidden;lock.textContent=ans.hidden?'🔒':'🔓';lock.setAttribute('aria-expanded',String(!ans.hidden));lock.setAttribute('aria-label',(i+1)+'. cümlenin cevabını '+(ans.hidden?'aç':'gizle'));closeWord()});bottom.append(area,lock);card.append(head,bottom,ans);document.getElementById('practice-list').append(card);});
 const hb=document.getElementById('haber-examples');hb.append(renderTriple([['verb','Hay'],['object','un coche.']],[['verb','There is'],['object','one car.']],[['object','Bir araba'],['verb','var.']],'hb0'));hb.append(renderTriple([['verb','Hay'],['quantity','dos'],['object','coches.']],[['verb','There are'],['quantity','two'],['object','cars.']],[['quantity','İki'],['object','araba'],['verb','var.']],'hb1'));
 hayGroups.forEach((g,k)=>{const wrap=e('section','rule-card-17');wrap.append(e('h3','section-heading',g.title),e('p','mini-intro',g.intro));g.items.forEach((it,j)=>wrap.append(renderTriple(it,g.english[j],g.turkish[j],'h'+k+'-'+j)));document.getElementById('hay-groups').append(wrap)});
 const warning=e('div','rule-card-17');warning.innerHTML='<h3>⚠️ Belirli artikellerle dikkat!</h3><p>Bir varlığı ilk kez tanıtırken genellikle <strong data-es>el / la / los / las</strong> ile <strong data-es>hay</strong> kullanılmaz. Belirli bir şeyin yerini soruyorsak <strong data-es>estar</strong> tercih edilir.</p><p><span class="symbol">✗</span> <strong data-es>Hay la silla.</strong> &nbsp; <span class="good">✓</span> <strong data-es>Hay una silla.</strong> &nbsp; <span class="good">✓</span> <strong data-es>La silla está aquí.</strong></p><p>🇹🇷 Bir sandalye var. / Sandalye burada. &nbsp; 🇬🇧 There is a chair. / The chair is here.</p>';document.getElementById('hay-groups').append(warning);
 hayqueGroups.forEach((g,i)=>{const section=e('section','rule-card-17');section.append(e('h3','',g.title));g.items.forEach(t=>section.append(triline(...t)));document.getElementById('hayque-groups').append(section)});
 negatives.forEach(t=>document.getElementById('negative-examples').append(triline(...t)));contrast.forEach(t=>document.getElementById('contrast-examples').append(triline(...t)));
 const glossary={
+es:['-dır/-dir; olmak','is','ser','presente 3. tekil'],feliz:['mutlu','happy','feliz','sıfat'],amiga:['kadın arkadaş','female friend','amiga','isim dişil'],rubia:['sarışın','blond','rubio','sıfat dişil'],
 un:['bir','a','un','belirsiz artikel'],una:['bir','a','uno/una','belirsiz artikel'],unos:['birkaç','some','uno','belirsiz artikel çoğul'],unas:['birkaç','some','una','belirsiz artikel çoğul'],el:['belirli artikel','the','el','belirli artikel'],la:['belirli artikel','the','la','belirli artikel'],los:['belirli artikel çoğul','the','el','belirli artikel çoğul'],las:['belirli artikel çoğul','the','la','belirli artikel çoğul'],de:['-ın/-in; -den','of/from','de','edat'],del:['-den; -ın','from/of the','de + el','edat + artikel'],en:['-de/-da','in/at','en','edat'],por:['boyunca; -den','along/through','por','edat'],con:['ile','with','con','edat'],y:['ve','and','y','bağlaç'],o:['veya','or','o','bağlaç'],a:['-e/-a','to','a','edat'],su:['onun','his/her','su','iyelik sıfatı'],que:['ki; gerekli yapıda bağlayıcı','that; linker','que','bağlayıcı'],no:['değil / yok','not/no','no','olumsuzluk'],hay:['var, bulunuyor','there is / there are','haber','kişisiz fiil, presente'],haber:['olmak / yardımcı fiil','to have (auxiliary), to exist','haber','mastar'],impersonal:['kişisiz','impersonal','impersonal','dilbilgisi terimi'],presente:['şimdiki/geniş zaman','present tense','presente','dilbilgisi terimi'],infinitivo:['mastar','infinitive','infinitivo','dilbilgisi terimi'],
 yo:['ben','I','yo','zamir'],tú:['sen','you','tú','zamir'],él:['o (erkek)','he','él','zamir'],ella:['o (kadın)','she','ella','zamir'],usted:['siz (resmî)','you (formal)','usted','zamir'],nosotros:['biz','we','nosotros','zamir'],nosotras:['biz (kadın grubu)','we','nosotras','zamir'],vosotros:['siz','you all','vosotros','zamir'],vosotras:['siz','you all','vosotras','zamir'],ellos:['onlar','they','ellos','zamir'],ellas:['onlar','they','ellas','zamir'],ustedes:['sizler','you all','ustedes','zamir'],he:['... yaptım; yardımcı fiil','have','haber','presente yo'],has:['... yaptın; yardımcı fiil','have','haber','presente tú'],ha:['... yaptı; yardımcı fiil','has','haber','presente 3. tekil'],hemos:['... yaptık; yardımcı fiil','have','haber','presente nosotros'],habéis:['... yaptınız; yardımcı fiil','have','haber','presente vosotros'],han:['... yaptılar; yardımcı fiil','have','haber','presente ellos'],
 hombre:['adam','man','hombre','isim'],camina:['yürüyor','walks','caminar','presente 3. tekil'],parque:['park','park','parque','isim'],libros:['kitaplar','books','libro','isim çoğul'],botellas:['şişeler','bottles','botella','isim çoğul'],mujer:['kadın','woman','mujer','isim'],gafas:['gözlük','glasses','gafas','çoğul isim'],amarillas:['sarı','yellow','amarillo','sıfat dişil çoğul'],hace:['yapıyor','does/makes','hacer','presente 3. tekil'],compras:['alışveriş','shopping','compra','isim çoğul'],ciudad:['şehir','city','ciudad','isim'],niña:['kız çocuğu','girl','niña','isim'],vestido:['elbise','dress','vestido','isim'],blanco:['beyaz','white','blanco','sıfat'],sale:['çıkıyor','leaves','salir','presente 3. tekil'],supermercado:['süpermarket','supermarket','supermercado','isim'],esperamos:['bekliyoruz','we wait','esperar','presente nosotros'],parada:['durak','stop','parada','isim'],autobús:['otobüs','bus','autobús','isim'],amarilla:['sarı','yellow','amarillo','sıfat dişil'],billetes:['biletler','tickets','billete','isim çoğul'],estación:['istasyon','station','estación','isim'],tren:['tren','train','tren','isim'],naranja:['turuncu','orange','naranja','sıfat'],son:['-dır/-dir; ...dır','are','ser','presente 3. çoğul'],azules:['mavi','blue','azul','sıfat çoğul'],flores:['çiçekler','flowers','flor','isim çoğul'],rojas:['kırmızı','red','rojo','sıfat çoğul'],está:['(durum bildirir)','is','estar','presente 3. tekil'],contenta:['mutlu','happy','contento','sıfat dişil'],leo:['okuyorum','I read','leer','presente yo'],libro:['kitap','book','libro','isim'],interesante:['ilginç','interesting','interesante','sıfat'],gabriel:['Gabriel (özel ad)','Gabriel','Gabriel','özel ad'],garcía:['García (soyad)','García','García','özel ad'],márquez:['Márquez (soyad)','Márquez','Márquez','özel ad'],biblioteca:['kütüphane','library','biblioteca','isim'],morada:['mor','purple','morado','sıfat dişil'],delgada:['zayıf','slim','delgado','sıfat dişil'],calle:['sokak','street','calle','isim'],perro:['köpek','dog','perro','isim'],gordo:['şişman','fat','gordo','sıfat'],chico:['erkek çocuk','boy','chico','isim'],castaño:['kumral','brown-haired','castaño','sıfat'],bebe:['içiyor','drinks','beber','presente 3. tekil'],té:['çay','tea','té','isim'],negro:['siyah','black','negro','sıfat'],cafetería:['kafe','café','cafetería','isim'],amigo:['arkadaş','friend','amigo','isim'],rubio:['sarışın','blond','rubio','sıfat'],simpático:['samimi, cana yakın','friendly','simpático','sıfat'],escribe:['yazıyor','writes','escribir','presente 3. tekil'],carta:['mektup','letter','carta','isim'],oficina:['ofis','office','oficina','isim'],correos:['posta','post','correos','isim'],
