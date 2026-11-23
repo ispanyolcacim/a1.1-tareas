@@ -17,7 +17,7 @@ function makeExample(es,tr,highlight='both'){
 }
 function renderTable(id,verb){
  const wrap=element('section','conjugation-wrap');
- const heading=element('h3','', '🧠 Presente · '+verb.toUpperCase());
+ const heading=element('h3','', '🧠 Presente · '+verb.toUpperCase());heading.lang='es';heading.dataset.es='';
  const table=element('table','conjugation-table');const header=element('tr');
  header.append(element('th','','Kişi'),element('th','',verb.toUpperCase()));
  const thead=element('thead');thead.append(header);const tbody=element('tbody');
@@ -31,7 +31,7 @@ function renderTable(id,verb){
 function renderCategories(id,items,verb){
  const host=document.getElementById(id);
  items.forEach(g=>{
-  const card=element('article','usage-card');card.append(element('h3','',g.t),element('p','usage-subtitle',g.sub));
+  const card=element('article','usage-card');const title=element('h3','',g.t);title.lang='es';title.dataset.es='';card.append(title,element('p','usage-subtitle',g.sub));
   if(g.note)card.append(element('p','verb-note',g.note));
   g.pairs.forEach(([es,tr])=>card.append(makeExample(es,tr,verb==='estar'?'both':verb)));
   host.append(card);
