@@ -60,3 +60,16 @@
 .widow-rule-note .widow-pattern{font:900 clamp(18px,2.8vw,23px)/1.5 "Nunito","Nunito Sans",sans-serif;color:#a31d2c;margin-bottom:10px}
 .widow-rule-note .example-row{border-top:1px dashed #d9ba56;padding:9px 0}
 .widow-rule-note .example-row:last-child{padding-bottom:0}
+
+/* ESTAR 07 · concise, stacked lesson-note rules with visual hierarchy */
+.calendar-rule-guide{display:grid;grid-template-columns:minmax(0,1fr);gap:13px;margin:17px 0 21px}
+.calendar-rule-line{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:center;gap:16px;padding:18px 20px;border:1px solid #efd983;border-left:5px solid #e4bd3c;border-radius:19px;background:linear-gradient(100deg,#fff8d9,#ffffff);box-shadow:0 4px 16px rgba(31,28,20,.035)}
+.calendar-rule-line:nth-child(2){background:linear-gradient(100deg,#f4fbed,#ffffff);border-color:#cddfb7;border-left-color:#9cc77f}
+.calendar-rule-line:nth-child(3){background:linear-gradient(100deg,#f3f3ff,#ffffff);border-color:#dcdcf0;border-left-color:#9e9ed9}
+.calendar-rule-icon{display:grid;place-items:center;width:60px;height:60px;background:#ffffffc9;border-radius:17px;font-size:33px;line-height:1}
+.calendar-rule-caption{font:900 13px/1.5 "Nunito Sans","Nunito",sans-serif;letter-spacing:.08em;color:#555;margin-bottom:4px}
+.calendar-rule-formula{font:1000 clamp(19px,3vw,27px)/1.35 "Nunito","Nunito Sans",sans-serif;color:#171717}
+.calendar-rule-formula .es-word{font-weight:1000!important}
+.calendar-rule-suffix{font:800 clamp(15px,2vw,19px)/1.45 "Nunito Sans","Nunito",sans-serif;color:#333}
+.calendar-rule-example{font-size:14px;color:#545454;font-weight:700;margin-top:7px}
+@media(max-width:560px){.calendar-rule-line{grid-template-columns:48px minmax(0,1fr);gap:10px;padding:14px 12px}.calendar-rule-icon{width:46px;height:46px;font-size:26px}.calendar-rule-formula{font-size:19px}.calendar-rule-suffix{font-size:15px}}
