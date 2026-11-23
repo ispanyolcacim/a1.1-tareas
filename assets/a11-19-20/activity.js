@@ -32,7 +32,26 @@ function renderCategories(id,items,verb){
  const host=document.getElementById(id);
  items.forEach(g=>{
   const card=element('article','usage-card');const title=element('h3','',g.t);title.lang='es';title.dataset.es='';card.append(title,element('p','usage-subtitle',g.sub));
-  if(g.note)card.append(element('p','verb-note',g.note));
+  if(verb==='estar' && g.t.startsWith('07 · La fecha')){
+   const guide=element('aside','calendar-rule-guide');
+   const rules=[
+    {icon:'📅',name:'GÜN / TARİH',formula:'ESTAMOS A',suffix:'+ gün veya tarih',example:'Estamos a domingo. → Pazar günündeyiz.',highlight:'estar'},
+    {icon:'🌸',name:'MEVSİM',formula:'ESTAMOS EN',suffix:'+ mevsim',example:'Estamos en primavera. → İlkbahardayız.',highlight:'estar'},
+    {icon:'🕒',name:'SAAT',formula:'SER',suffix:'ile söylenir',example:'Es la una. / Son las dos.',highlight:'ser'}
+   ];
+   rules.forEach(rule=>{
+    const box=element('div','calendar-rule-line');
+    const icon=element('span','calendar-rule-icon',rule.icon);icon.setAttribute('aria-hidden','true');
+    const contents=element('div','calendar-rule-text');
+    contents.append(element('div','calendar-rule-caption',rule.name));
+    const formula=element('div','calendar-rule-formula');
+    const spanish=element('span','',rule.formula);spanish.lang='es';spanish.dataset.es='';spanish.dataset.highlight=rule.highlight;
+    formula.append(spanish,' ',element('span','calendar-rule-suffix',rule.suffix));
+    contents.append(formula,element('div','calendar-rule-example',rule.example));
+    box.append(icon,contents);guide.append(box);
+   });
+   card.append(guide);
+  }else if(g.note)card.append(element('p','verb-note',g.note));
   g.pairs.forEach(([es,tr])=>card.append(makeExample(es,tr,verb==='estar'?'both':verb)));
   if(verb==='estar' && g.t.startsWith('03 · El estado civil')){
    const note=element('aside','widow-rule-note');
