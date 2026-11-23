@@ -1,9 +1,9 @@
-import {persons,forms,serCategories,estarCategories,tenerCategories,adjectives} from './data.js';
+import {persons,forms,serCategories,estarCategories,tenerCategories,adjectives,adjectiveSentenceTranslations} from './data.js';
 import {glossary} from './glossary.js';
 'use strict';
 const SER=new Set(forms.ser),ESTAR=new Set(forms.estar);
 const element=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
-const verbRx=/\b(?:soy|eres|es|somos|sois|son|estoy|estás|está|estamos|estáis|están|tengo|tienes|tiene|tenemos|tenéis|tienen)\b/giu;
+const verbRx=/(?<!\p{L})(?:estamos|estáis|están|estoy|estás|está|somos|sois|son|soy|eres|es|tenemos|tenéis|tienen|tengo|tienes|tiene)(?!\p{L})/giu;
 function appendPhrase(line,role,text){if(!text)return;const span=element('span','chunk',text);span.dataset.role=role;line.append(span)}
 function makeExample(es,tr,highlight='both'){
   const item=element('div','example-row');
@@ -34,6 +34,18 @@ function renderCategories(id,items,verb){
   const card=element('article','usage-card');const title=element('h3','',g.t);title.lang='es';title.dataset.es='';card.append(title,element('p','usage-subtitle',g.sub));
   if(g.note)card.append(element('p','verb-note',g.note));
   g.pairs.forEach(([es,tr])=>card.append(makeExample(es,tr,verb==='estar'?'both':verb)));
+  if(verb==='estar' && g.t.startsWith('03 · El estado civil')){
+   const note=element('aside','widow-rule-note');
+   const heading=element('h4','','🕯️ ⚠️ DUL OLMAK = SER');
+   const message=element('p','');
+   message.append('Eşi vefat etmiş olmak anlamındaki ',element('strong','','dul olmak'),' ifadesi ',element('strong','red-verb','SER'),' fiiliyle kurulur; ESTAR kullanılmaz.');
+   const pattern=element('p','widow-pattern','Ser viudo / viuda de + kişi');
+   pattern.lang='es';pattern.dataset.es='';pattern.dataset.highlight='ser';
+   note.append(heading,message,pattern);
+   note.append(makeExample('Él es viudo.','O, eşi vefat etmiş bir erkektir.','ser'));
+   note.append(makeExample('Ella es viuda de Luis.','O, Luis’in dul eşidir. (Luis vefat etmiştir.)','ser'));
+   card.append(note);
+  }
   host.append(card);
  });
 }
@@ -46,7 +58,7 @@ function renderAdjectives(){
   const buttons=element('td');const lock=element('button','lock','🔒');lock.type='button';
   const detail=element('tr','adj-detail-row');detail.hidden=true;detail.id='adjective-'+(i+1)+'-details';
   const cell=element('td');cell.colSpan=4;const box=element('div','adj-examples');
-  for(const [name,es,tr] of [['SER',serExample,serMeaning],['ESTAR',estarExample,estarMeaning]]){
+  for(const [name,es,tr] of [['SER',serExample,adjectiveSentenceTranslations[i][0]],['ESTAR',estarExample,adjectiveSentenceTranslations[i][1]]]){
    const example=element('div','example-row');example.append(element('strong','example-type '+(name==='SER'?'is-ser':'is-estar'),name),makeExample(es,tr,'both'));
    box.append(example);
   }
