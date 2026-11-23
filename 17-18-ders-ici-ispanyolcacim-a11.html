@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffdb53">
+<title>A1.1 (17+18) · Practiquemos! · El verbo haber</title>
+<link rel="canonical" href="https://ispanyolcacim.github.io/a1.1-tareas/17-18-ders-ici-ispanyolcacim-a11.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Nunito:wght@700;800;900&display=swap">
+<link rel="stylesheet" href="assets/a11-15-16/style.css">
+<link rel="stylesheet" href="a11-classroom-theme.css?v=20261123">
+<style>
+.lesson-nav{align-items:stretch}.tabs{flex-wrap:wrap;gap:9px}
+.mini-intro{font-size:15px;color:#666;margin:7px 0 18px}
+.lesson-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.practice-list{display:grid;gap:17px}.practice-card{padding:20px;border:1px solid #f0e4ae;border-top:4px solid #ffdb53;border-radius:23px;background:#fff;box-shadow:0 6px 24px #00000009}
+.practice-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px}.practice-number{flex:none;display:grid;place-items:center;width:37px;height:37px;border-radius:13px;background:#fff3ae;font-weight:900;color:#000}.practice-turkish{flex:1;font-size:1.08rem;line-height:1.9;font-weight:800;color:#292929}
+.practice-bottom{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:end}
+.practice-bottom textarea{width:100%;min-height:62px;max-height:180px;resize:vertical;padding:13px 14px;border:1.5px dashed #e7c94d;border-radius:12px;background:#fffef7;font:600 16px/1.55 "Nunito Sans",sans-serif;color:#171717}
+.practice-answer{margin-top:13px;padding:13px 15px;border:1px solid #cde8ce;border-radius:13px;background:#fbfffb;font-size:1.08rem;line-height:1.95;font-weight:700}
+.practice-answer[hidden]{display:none}
+.lock{cursor:pointer;border:1px solid #eed98c;background:#fff6d1;border-radius:11px;min-width:47px;min-height:48px}
+.lock:hover{background:#ffeb90}
+.role-legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:5px 0 20px}.role-legend span{border-radius:30px;padding:5px 11px;font-size:12px;font-weight:800;border:1px solid #00000012}
+.pair-phrase{padding:2px 3px;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background .15s}
+.role-subject{--tone:#f8dce7}.role-verb{--tone:#dce9ff}.role-object{--tone:#fff0a8}.role-place{--tone:#d8f0db}.role-complement{--tone:#efe0ff}.role-attribute{--tone:#ffe0c9}.role-quantity{--tone:#d8f4f3}
+.pair-phrase.is-lit,.example-line:hover .pair-phrase,.practice-card:hover .pair-phrase.is-lit,.triple-card:focus-within .pair-phrase.is-lit{background:var(--tone);box-shadow:0 0 0 1px var(--tone)}
+.role-legend .role-subject,.role-legend .role-verb,.role-legend .role-object,.role-legend .role-place,.role-legend .role-complement,.role-legend .role-attribute,.role-legend .role-quantity{background:var(--tone)}
+.rule-card-17,.triple-card,.info-card,.tip-card{border:1px solid #f0e4ae;background:#fff;border-radius:19px;padding:19px 21px;margin-bottom:15px;box-shadow:0 4px 18px #00000008}
+.rule-card-17{border-top:3px solid #ffdb53}.rule-card-17 h3,.tip-card h3{margin:0 0 10px;font:900 20px/1.35 "Nunito",sans-serif}
+.triple-card{display:grid;gap:7px;line-height:1.75}.triple-card .lang-line{display:grid;grid-template-columns:33px minmax(0,1fr);gap:9px;align-items:baseline}
+.lang-mark{font-size:12px;font-weight:900;border-radius:8px;padding:2px 3px;text-align:center;background:#fff8de}
+.triple-card .es-line{font-weight:900;font-size:1.07rem}.triple-card .en-line{color:#575b63}.triple-card .tr-line{color:#252525}
+.block-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.block-grid>*{margin-bottom:0}
+.section-heading{margin:26px 0 14px;font:900 clamp(20px,3vw,25px)/1.2 "Nunito",sans-serif}
+.note-pill{display:inline-block;border:1px solid #e5cb68;background:#fff8de;padding:7px 12px;border-radius:14px;font-size:14px;font-weight:800}
+.haber-duo{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
+.old-conjugation{position:relative;padding:18px;border:1px solid #dedede;border-radius:17px;background:#f6f6f6;color:#777;overflow:hidden}
+.old-conjugation:before,.old-conjugation:after{content:"";position:absolute;top:50%;left:-10%;width:120%;height:5px;background:#dc3349a8;border-radius:9px;transform:rotate(21deg);pointer-events:none;z-index:1}
+.old-conjugation:after{transform:rotate(-21deg)}
+.old-conjugation table{width:100%;border-collapse:collapse;opacity:.66}.old-conjugation td{padding:8px;border-bottom:1px solid #ddd}
+.old-conjugation .cross-caption{position:relative;z-index:2;background:#fff7f7;border:1px solid #f9b9c1;color:#9d1e31;border-radius:10px;padding:10px;margin:16px 0 0;font-weight:900;text-align:center}
+.hay-big{display:grid;place-content:center;text-align:center;border:2px solid #f0d466;border-radius:21px;padding:22px;background:linear-gradient(140deg,#fff3b1,#fffdf5)}
+.hay-big .hay-word{font:900 clamp(70px,10vw,110px)/1 "Nunito",sans-serif;color:#191919}.hay-big p{margin:8px 0;font-weight:800}
+.symbol{font-weight:900;color:#c33842}.good{font-weight:900;color:#246b3b}
+.formula-box{padding:22px;border-radius:20px;background:linear-gradient(135deg,#fff0a4,#fffdf4);border:1px solid #ead16a;margin-bottom:19px;text-align:center}
+.formula-box strong{font:900 clamp(25px,4vw,39px) "Nunito",sans-serif;letter-spacing:-.5px}
+.map-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.map-window{overflow:hidden;border:1px solid #e8d87a;border-radius:19px;background:#fff}
+.map-window iframe{width:100%;height:440px;display:block;border:0;background:#f4f2eb}
+.map-fallback{padding:14px 18px;font-size:14px}.map-fallback a,.map-action{display:inline-flex;gap:7px;align-items:center;border:1px solid #c4a840;border-radius:12px;background:#fff6c3;padding:10px 14px;color:#111;font-weight:900;text-decoration:none}
+.map-write{padding:21px;border:1px solid #f0e4ae;border-top:4px solid #ffdb53;border-radius:19px;background:#fff}
+.map-write h3{font:900 clamp(30px,4vw,40px) "Nunito",sans-serif;margin:0 0 7px}
+.map-write textarea{width:100%;min-height:200px;padding:15px;border:1.5px solid #e4c84f;border-radius:13px;background:#fffef7;resize:vertical;font:600 17px/1.7 "Nunito Sans",sans-serif}
+.write-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+.write-status{font-size:13px;font-weight:800;color:#526254;min-height:1.3em;margin-top:9px}
+.map-prompts{padding-left:21px;line-height:1.85}.map-prompts li{margin-bottom:8px}
+.word-popover[hidden]{display:none!important}.vocab-word{cursor:pointer;text-decoration:underline dotted #8885;text-underline-offset:3px}.vocab-word:hover{background:#fff2a6}
+#word-popover{z-index:99}
+#classroom-homework .classroom-homework-grid{grid-template-columns:repeat(1,minmax(0,1fr))}
+.section-card>h2{margin-top:0}
+@media(max-width:800px){.map-layout,.haber-duo,.block-grid{grid-template-columns:1fr}.map-window iframe{height:360px}}
+@media(max-width:580px){.practice-card{padding:14px}.practice-turkish{font-size:1rem}.role-legend span{font-size:11px}.triple-card,.rule-card-17{padding:14px}.map-window iframe{height:300px}}
+@media print{[role=tabpanel][hidden]{display:block!important;page-break-before:always} .practice-bottom textarea,.write-actions,.map-write textarea{border:1px solid #bbb} .map-window{display:none!important}.practice-card,.triple-card{break-inside:avoid} .section-heading{break-after:avoid}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+<div class="masthead">
+<a class="brand" href="https://www.ispanyolcacim.com/">ESPAÑOL CON PROFE HAZEL</a>
+<span>A1.1 · 17+18. DERS</span>
+<button type="button" class="classroom-print" data-classroom-print>🖨️ Yazdır / PDF</button>
+</div>
+<div class="lesson-logo-wrap"><img class="lesson-logo" src="assets/a11-profe-hazel-logo-transparent.png" alt="İspanyolcacım Dil Akademisi · Profe Hazel" width="2174" height="723"></div>
+<div class="hero"><p class="eyebrow">DERS İÇİ ETKİNLİK · (17+18) A1.1</p><h1>Practiquemos! · El verbo haber</h1></div>
+</header>
+<nav class="lesson-nav" aria-label="Ders bölümleri ve ödevler">
+<div class="tabs" role="tablist" aria-label="Dersin 5 bölümü">
+<button type="button" class="nav-tab" id="tab-practica" role="tab" aria-controls="practica" aria-selected="true">✍️ 01 Practiquemos!</button>
+<button type="button" class="nav-tab" id="tab-verbo" role="tab" aria-controls="verbo" aria-selected="false" tabindex="-1">🧠 02 El verbo haber</button>
+<button type="button" class="nav-tab" id="tab-hay" role="tab" aria-controls="hay" aria-selected="false" tabindex="-1">✨ 03 Hay</button>
+<button type="button" class="nav-tab" id="tab-hayque" role="tab" aria-controls="hayque" aria-selected="false" tabindex="-1">📌 04 Hay que + infinitivo</button>
+<button type="button" class="nav-tab" id="tab-viaje" role="tab" aria-controls="viaje" aria-selected="false" tabindex="-1">🌍 05 ¿Qué hay?</button>
+</div>
+<div class="lesson-actions">
+<button type="button" class="classroom-homework-button" data-dialog="classroom-homework" aria-controls="classroom-homework" aria-expanded="false">📚 17–18. Ders Ödevleri</button>
+</div>
+</nav>
+<main>
+<noscript><p class="section-card">Etkinliği kullanmak için JavaScript açık olmalıdır.</p></noscript>
+<section id="practica" role="tabpanel" aria-labelledby="tab-practica">
+<div class="section-card">
+<h2 tabindex="-1">✍️ Practiquemos! · Pratik yapalım</h2>
+<p class="mini-intro">10 cümleyi İspanyolcaya çevir. Cevabını boş alana yaz; her cümlenin yalnızca kendi 🔒 kilidini aç. Aynı anlam öbekleri iki dilde aynı renkle eşleşir. Sözcüklere tıklayarak sözlüğü inceleyebilirsin.</p>
+<div class="role-legend" aria-label="Anlam öbeklerinin renkleri">
+<span class="role-subject">Özne</span><span class="role-verb">Eylem</span><span class="role-object">Nesne</span><span class="role-place">Yer / yön</span><span class="role-complement">Birliktelik</span><span class="role-attribute">Nitelik</span>
+</div>
+</div>
+<div id="practice-list" class="practice-list"></div>
+</section>
+<section id="verbo" role="tabpanel" aria-labelledby="tab-verbo" hidden>
+<div class="section-card"><h2 tabindex="-1">🧠 El verbo haber · Haber fiili</h2>
+<p>İspanyolcada <strong data-es>haber</strong> fiilinin farklı görevleri vardır. Bu derste yalnızca <strong data-es>hay</strong> biçimine odaklanıyoruz.</p>
+<div class="haber-duo">
+<div class="old-conjugation" aria-label="Presente çekimi ileride öğrenilecek">
+<h3 data-es>Haber · presente</h3>
+<table><tbody>
+<tr><td data-es>yo</td><td data-es>he</td></tr>
+<tr><td data-es>tú</td><td data-es>has</td></tr>
+<tr><td data-es>él / ella / usted</td><td data-es>ha</td></tr>
+<tr><td data-es>nosotros / nosotras</td><td data-es>hemos</td></tr>
+<tr><td data-es>vosotros / vosotras</td><td data-es>habéis</td></tr>
+<tr><td data-es>ellos / ellas / ustedes</td><td data-es>han</td></tr>
+</tbody></table>
+<p class="cross-caption">❌ Bu çekimi daha sonra öğreneceğiz!</p>
+</div>
+<div class="hay-big"><span class="note-pill">ŞİMDİ ÖĞRENDİĞİMİZ</span><div class="hay-word" data-es>hay</div><p data-es>haber · impersonal</p><p>🇹🇷 Var / bulunuyor</p><p>🇬🇧 There is / There are</p><div>Tek bir biçim. Özneye ve sayıma göre değişmez.</div></div>
+</div>
+<div class="tip-card" style="margin-top:18px"><h3>🎯 Tekil mi, çoğul mu? Aynı cevap!</h3><div id="haber-examples"></div><p><strong data-es>Hay</strong> bir kişiye göre çekimlenmez. Bu kullanımda öznesizdir (<strong data-es>impersonal</strong>).</p></div>
+</div>
+</section>
+<section id="hay" role="tabpanel" aria-labelledby="tab-hay" hidden>
+<div class="section-card">
+<h2 tabindex="-1">✨ Hay · Nerede, ne zaman kullanılır?</h2>
+<p><strong data-es>Hay</strong> bir yerde bir şeyin veya birinin var olduğunu bildirir. İngilizcedeki <strong lang="en">there is / there are</strong> ayrımına karşılık İspanyolcada aynı <strong data-es>hay</strong> kullanılır; Türkçede genellikle <strong>var</strong> denir.</p>
+<div class="role-legend"><span class="role-verb">Varlık bildiren yapı</span><span class="role-object">Var olan şey / miktar</span><span class="role-place">Yer</span><span class="role-quantity">Sayı / miktar</span></div>
+<div id="hay-groups"></div>
+</div>
+</section>
+<section id="hayque" role="tabpanel" aria-labelledby="tab-hayque" hidden>
+<div class="section-card">
+<h2 tabindex="-1">📌 Hay que + infinitivo · Yapmak gerek</h2>
+<div class="formula-box"><strong data-es>hay que + infinitivo</strong><p>🇹🇷 Yapmak gerek / yapılmalı · 🇬🇧 One must / It is necessary to</p></div>
+<p>Bu yapı <strong>genel zorunluluk, tavsiye ve uyarı</strong> ifade eder. Kimin yapması gerektiğini söylemez; ardından fiilin <strong>mastar biçimi</strong> gelir.</p>
+<div id="hayque-groups"></div>
+<div class="rule-card-17"><h3>🚫 Olumsuzu: <span data-es>no hay que + infinitivo</span></h3><p>Bir şeyi yapmamak gerektiğini bildirir. Tek başına “gerek yok” anlamına gelen bütün bağlamlarla aynı değildir.</p><div id="negative-examples"></div></div>
+<div class="rule-card-17"><h3>⚖️ Kimin yapması gerektiği belli mi?</h3><div id="contrast-examples"></div><p><span class="symbol">✗</span> <strong data-es>Hay que nosotros estudiar.</strong> &nbsp; <span class="good">✓</span> <strong data-es>Hay que estudiar.</strong></p><p><span class="symbol">✗</span> <strong data-es>Hay que tú hacer esto.</strong> &nbsp; <span class="good">✓</span> <strong data-es>Hay que hacer esto.</strong></p></div>
+</div>
+</section>
+<section id="viaje" role="tabpanel" aria-labelledby="tab-viaje" hidden>
+<div class="section-card">
+<h2 tabindex="-1">🌎 ¡Vamos de viaje! · ¿Qué hay?</h2>
+<p>🧳✈️ Vizesiz Hispanik ülke turuna çıkıyoruz! Pasaport kontrolü yok, uçak bileti yok… çünkü gezimiz ekrandan! 😎 🇪🇸 🇲🇽 🇦🇷 🇨🇴</p>
+<p>MapCrunch bizi rastgele bir sokak manzarasına götürsün. Gördüklerini sınıfta <strong data-es>hay</strong> ile anlat: <strong data-es>Hay una casa.</strong> · <strong data-es>Hay dos coches.</strong> · <strong data-es>No hay personas.</strong></p>
+<div class="map-layout">
+<div class="map-window">
+<iframe title="MapCrunch · rastgele sokak görüntüsü" src="https://www.mapcrunch.com/" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen" allowfullscreen></iframe>
+<div class="map-fallback"><a href="https://www.mapcrunch.com/" target="_blank" rel="noopener noreferrer">🌍 MapCrunch’ı yeni sekmede aç ↗</a><p>Site gömülü pencerede açılmazsa veya konumu değiştiremiyorsan bu bağlantıyı kullan. MapCrunch farklı ülkeler arasından seçim yapmaya da izin verir.</p></div>
+</div>
+<div class="map-write">
+<h3 data-es>¿Qué hay?</h3>
+<p>👀 Manzaraya bak. Neler var? Neler yok? Kaç tane var? Hangi renk? Öğrencilerden farklı cevaplar alıp yazılı olarak da toparlayalım.</p>
+<ul class="map-prompts"><li><span data-es>¿Hay casas o edificios?</span></li><li><span data-es>¿Cuántos coches hay?</span></li><li><span data-es>¿Hay árboles y flores?</span></li><li><span data-es>¿Qué colores hay?</span></li></ul>
+<button type="button" id="write-toggle" class="button" aria-controls="write-area" aria-expanded="false">✍️ Yazma alanını aç</button>
+<div id="write-area" hidden style="margin-top:17px">
+<label for="travel-notes"><strong>✍️ İspanyolca cümlelerimizi yazalım</strong></label>
+<textarea id="travel-notes" lang="es" autocomplete="off" placeholder="Hay...&#10;Hay dos...&#10;No hay...&#10;Hay que..."></textarea>
+<div class="write-actions"><button type="button" class="button" id="write-save">💾 Kaydet</button><button type="button" class="button" id="write-copy">📋 Kopyala</button><button type="button" class="classroom-print" id="write-clear">Temizle</button></div>
+<div id="write-status" class="write-status" role="status"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="lesson-footer"><button id="prev" type="button" class="button" hidden>← Önceki bölüm</button><span id="counter" aria-live="polite">1 / 5</span><button id="next" type="button" class="button">Sonraki bölüm →</button><button id="finish" type="button" class="button" data-dialog="classroom-homework" aria-controls="classroom-homework" aria-expanded="false" hidden>📚 Ders ödevlerine geç</button></div>
+</main>
+</div>
+<dialog id="classroom-homework" aria-labelledby="classroom-homework-title" style="--classroom-hw-accent:#000;--classroom-hw-soft:#fff8de">
+<header class="classroom-homework-head">
+<div class="classroom-homework-top">
+<p class="classroom-homework-eyebrow">A1.1 · 5. HAFTA</p>
+<div class="classroom-homework-actions"><button type="button" class="classroom-print" data-classroom-print>🖨️ Yazdır / PDF</button><form method="dialog"><button class="classroom-homework-close" aria-label="Etkinliğe dön">← Etkinliğe dön</button></form></div>
+</div><h2 id="classroom-homework-title">📚 17–18. Ders Ödevleri</h2></header>
+<div class="classroom-homework-body">
+<div class="classroom-homework-grid">
+<article class="classroom-homework-card"><h3>📝 A1.1 · 17–18. Ders Ödevi</h3><p class="classroom-homework-description">17–18. dersin mevcut ödevini aç, soruları tamamla ve teslim ekranındaki onayı kontrol et.</p><a class="classroom-homework-link" href="https://ispanyolcacim.github.io/a1.1-tareas/a11-17-18-ida.html" target="_blank" rel="noopener noreferrer">Ödevi aç ↗</a></article>
+</div>
+<section class="classroom-homework-prep"><h3>🧠 Sonraki derse hazırlık</h3><article class="classroom-homework-card"><h4>A1.1 · 19–20. Ders Hazırlık Seti</h4><p class="classroom-homework-description">Quizlet · 300 terim</p><a class="classroom-homework-link" href="https://quizlet.com/tr/1231104528/a11-1920-ders-hazirlik-seti-flash-cards" target="_blank" rel="noopener noreferrer">Quizlet’i aç ↗</a></article></section>
+</div>
+</dialog>
+<aside id="word-popover" class="word-popover" role="dialog" aria-labelledby="word-title" hidden>
+<div class="word-head"><h3 id="word-title" lang="es"></h3><button id="word-close" type="button" aria-label="Kelimeyi kapat">×</button></div>
+<dl><dt>Türkçe</dt><dd id="word-tr"></dd><dt>English</dt><dd id="word-en" lang="en"></dd><dt>Sözlük biçimi</dt><dd id="word-lemma" lang="es"></dd><dt>Sözcük türü / çekim</dt><dd id="word-form"></dd><dt>Cümledeki görevi</dt><dd id="word-role"></dd></dl>
+<details id="word-context"><summary>İçinde geçtiği cümle</summary><p id="word-example" lang="es"></p></details>
+</aside>
+<script>
+'use strict';
+const practices=[
+{tr:[['subject','Bir adam'],['place','parkta'],['complement','birkaç kitap ve birkaç şişeyle'],['verb','yürüyor.']],es:[['subject','Un hombre'],['verb','camina'],['place','por el parque'],['complement','con unos libros y unas botellas.']]},
+{tr:[['subject','Sarı gözlüklü kadın'],['place','şehirde'],['verb','alışveriş yapıyor.']],es:[['subject','La mujer con gafas amarillas'],['verb','hace compras'],['place','en la ciudad.']]},
+{tr:[['subject','Beyaz elbiseli kız çocuğu'],['place','süpermarketten'],['verb','çıkıyor.']],es:[['subject','La niña con vestido blanco'],['verb','sale'],['place','del supermercado.']]},
+{tr:[['place','Sarı otobüs durağında'],['verb','bekliyoruz.']],es:[['verb','Esperamos'],['place','en la parada de autobús amarilla.']]},
+{tr:[['subject','Turuncu tren istasyonundaki biletler'],['attribute','mavidir.']],es:[['subject','Los billetes de la estación de tren naranja'],['attribute','son azules.']]},
+{tr:[['subject','Kırmızı çiçekli kız'],['attribute','mutludur.']],es:[['subject','La niña con flores rojas'],['attribute','está contenta.']]},
+{tr:[['place','Mor kütüphanede'],['object','Gabriel García Márquez’in ilginç bir kitabını'],['verb','okuyorum.']],es:[['verb','Leo'],['object','un libro interesante de Gabriel García Márquez'],['place','en la biblioteca morada.']]},
+{tr:[['subject','Zayıf kadın'],['complement','şişman bir köpekle'],['place','sokakta'],['verb','yürüyor.']],es:[['subject','La mujer delgada'],['verb','camina'],['place','por la calle'],['complement','con un perro gordo.']]},
+{tr:[['subject','Kumral çocuk'],['complement','sarışın arkadaşıyla'],['place','kafede'],['object','siyah çay'],['verb','içiyor.']],es:[['subject','El chico castaño'],['verb','bebe'],['object','té negro'],['place','en la cafetería'],['complement','con su amigo rubio.']]},
+{tr:[['subject','Samimi çocuk'],['place','postanede'],['object','bir mektup'],['verb','yazıyor.']],es:[['subject','El chico simpático'],['verb','escribe'],['object','una carta'],['place','en la oficina de correos.']]}
+];
+const hayGroups=[
+{title:'01 · Belirsiz artikeller · un / una / unos / unas',intro:'Bir kişi veya nesneden ilk kez söz ederken; kimliği belirli olmayan varlıklar için.',items:[
+[['verb','Hay'],['object','una silla'],['place','en la habitación.'] ],
+[['verb','Hay'],['object','unas sillas'],['place','ahí.'] ]] ,english:[
+[['verb','There is'],['object','a chair'],['place','in the room.']],
+[['verb','There are'],['object','some chairs'],['place','there.']]],turkish:[
+[['place','Odada'],['object','bir sandalye'],['verb','var.']],
+[['place','Orada'],['object','birkaç sandalye'],['verb','var.']]]},
+{title:'02 · Sayılar · números',intro:'Kaç tane olduğunu söylerken: tekil ve çoğulda hay değişmez.',items:[
+[['verb','Hay'],['quantity','tres'],['object','bicicletas rojas.']],
+[['verb','Hay'],['quantity','cinco'],['object','personas'],['place','en la sala.']]],english:[
+[['verb','There are'],['quantity','three'],['object','red bicycles.']],
+[['verb','There are'],['quantity','five'],['object','people'],['place','in the room.']]],turkish:[
+[['quantity','Üç'],['object','kırmızı bisiklet'],['verb','var.']],
+[['place','Salonda'],['quantity','beş'],['object','kişi'],['verb','var.']]]},
+{title:'03 · Belirsiz miktarlar · cantidades indefinidas',intro:'Poco/a, mucho/a, algo gibi miktar bildiren kelimelerle.',items:[
+[['verb','Hay'],['quantity','poca'],['object','gente'],['place','aquí.']],
+[['verb','Hay'],['quantity','mucho'],['object','ruido'],['place','en la calle.']],
+[['verb','Hay'],['object','algo interesante'],['place','en esa caja.']]],english:[
+[['verb','There are'],['quantity','few'],['object','people'],['place','here.']],
+[['verb','There is'],['quantity','a lot of'],['object','noise'],['place','in the street.']],
+[['verb','There is'],['object','something interesting'],['place','in that box.']]],turkish:[
+[['place','Burada'],['quantity','az'],['object','insan'],['verb','var.']],
+[['place','Sokakta'],['quantity','çok'],['object','gürültü'],['verb','var.']],
+[['place','O kutuda'],['object','ilginç bir şey'],['verb','var.']]]},
+{title:'04 · Çoğul ve sayılamayan isimler',intro:'Çoğul isimler ve su / süt gibi sayılamayan isimlerle de aynı hay kullanılır.',items:[
+[['verb','Hay'],['object','chicas'],['place','en el parque.']],
+[['verb','Hay'],['object','agua'],['place','en el vaso.']],
+[['verb','Hay'],['quantity','poca'],['object','leche'],['place','en la nevera.']]],english:[
+[['verb','There are'],['object','girls'],['place','in the park.']],
+[['verb','There is'],['object','water'],['place','in the glass.']],
+[['verb','There is'],['quantity','little'],['object','milk'],['place','in the fridge.']]],turkish:[
+[['place','Parkta'],['object','kızlar'],['verb','var.']],
+[['place','Bardakta'],['object','su'],['verb','var.']],
+[['place','Buzdolabında'],['quantity','az'],['object','süt'],['verb','var.']]]},
+{title:'05 · Yer ve konum · lugares',intro:'En, aquí, ahí, cerca gibi yer bildiren ifadelerle sık kullanılır.',items:[
+[['verb','Hay'],['object','un perro'],['place','en el jardín.']],
+[['verb','Hay'],['quantity','muchas'],['object','flores'],['place','en el jardín.']]],english:[
+[['verb','There is'],['object','a dog'],['place','in the garden.']],
+[['verb','There are'],['quantity','many'],['object','flowers'],['place','in the garden.']]],turkish:[
+[['place','Bahçede'],['object','bir köpek'],['verb','var.']],
+[['place','Bahçede'],['quantity','birçok'],['object','çiçek'],['verb','var.']]]},
+{title:'06 · Sorular ve olumsuzluk',intro:'Soru için ¿Hay...?; yokluk için No hay... kullanılır.',items:[
+[['verb','¿Hay'],['object','alguna tienda'],['place','cerca?']],
+[['quantity','¿Cuántas'],['object','personas'],['verb','hay'],['place','en la clase?']],
+[['verb','No hay'],['object','coches'],['place','aquí.']]],english:[
+[['verb','Is there'],['object','a shop'],['place','nearby?']],
+[['quantity','How many'],['object','people'],['verb','are there'],['place','in the class?']],
+[['verb','There are no'],['object','cars'],['place','here.']]],turkish:[
+[['place','Yakında'],['object','bir dükkân'],['verb','var mı?']],
+[['place','Sınıfta'],['quantity','kaç'],['object','kişi'],['verb','var?']],
+[['place','Burada'],['object','araba'],['verb','yok.']]]}
+];
+const hayqueGroups=[
+{title:'01 · Genel zorunluluk',items:[['Hay que estudiar.','One must study.','Çalışmak gerek.'],['Hay que limpiar la casa.','The house needs to be cleaned.','Evi temizlemek gerek.'],['Hay que hacer ejercicio.','It is necessary to exercise.','Egzersiz yapmak gerek.'],['Hay que beber mucha agua.','One should drink plenty of water.','Bol su içmek gerek.']]},
+{title:'02 · Öneri veya tavsiye',items:[['Hay que dormir bien antes del examen.','One should sleep well before the exam.','Sınavdan önce iyi uyumak gerek.'],['Hay que llevar paraguas.','One should take an umbrella.','Şemsiye almak gerek.']]},
+{title:'03 · Uyarı / dikkat',items:[['Hay que tener cuidado.','One must be careful.','Dikkatli olmak gerek.'],['Hay que seguir las reglas.','One must follow the rules.','Kurallara uymak gerek.']]}
+];
+const negatives=[['No hay que olvidar la cita.','One must not forget the appointment.','Randevuyu unutmamak gerek.'],['No hay que entrar sin permiso.','One must not enter without permission.','İzinsiz girmemek gerek.']];
+const contrast=[['Hay que estudiar.','One must study.','Ders çalışmak gerek (genel).'],['Tengo que estudiar.','I have to study.','Ders çalışmam gerekiyor (ben).'],['Debes estudiar.','You should / must study.','Ders çalışmalısın (sen).']];
+const roles={subject:'Özne',verb:'Eylem veya varlık bildirimi',object:'Nesne / var olan unsur',place:'Yer veya yön tümleci',complement:'Birliktelik / diğer tümleç',attribute:'Nitelik / yüklem',quantity:'Sayı veya miktar'};
+function e(tag,cls,txt){const o=document.createElement(tag);if(cls)o.className=cls;if(txt!==undefined)o.textContent=txt;return o;}
+function phraseLine(parts,lang,group){const row=e('span','example-line');row.lang=lang;parts.forEach((part,i)=>{if(i)row.append(' ');const s=e('span','pair-phrase role-'+part[0],part[1]);s.dataset.sync=group+'-'+part[0];s.dataset.role=part[0];if(lang==='es')s.dataset.es='';row.append(s)});return row;}
+function renderTriple(es,en,tr,group){const card=e('div','triple-card');[[es,'es','🇪🇸'],[en,'en','🇬🇧'],[tr,'tr','🇹🇷']].forEach(([parts,lang,flag])=>{const row=e('div','lang-line '+lang+'-line');row.append(e('span','lang-mark',flag),phraseLine(parts,lang,group));card.append(row)});return card;}
+function triline(es,en,tr){const card=e('div','triple-card');[[es,'es','🇪🇸'],[en,'en','🇬🇧'],[tr,'tr','🇹🇷']].forEach(([words,lang,flag])=>{const row=e('div','lang-line '+lang+'-line');const span=e('span','',words);if(lang==='es')span.dataset.es='';span.lang=lang;row.append(e('span','lang-mark',flag),span);card.append(row)});return card;}
+practices.forEach((item,i)=>{const card=e('article','practice-card');card.dataset.practice=i;const head=e('div','practice-top');head.append(e('span','practice-number',String(i+1).padStart(2,'0')));const tr=e('div','practice-turkish');tr.append(phraseLine(item.tr,'tr','p'+i));head.append(tr);const bottom=e('div','practice-bottom');const area=e('textarea');area.lang='es';area.setAttribute('aria-label',(i+1)+'. cümlenin İspanyolca çevirisi');area.placeholder='İspanyolcasını buraya yaz…';area.rows=2;const key='a11-class-17-18-practice-'+i;try{area.value=localStorage.getItem(key)||''}catch{}area.addEventListener('input',()=>{try{localStorage.setItem(key,area.value)}catch{}});const lock=e('button','lock','🔒');lock.type='button';lock.setAttribute('aria-label',(i+1)+'. cümlenin cevabını aç');const ans=e('div','practice-answer');ans.hidden=true;ans.lang='es';ans.append(phraseLine(item.es,'es','p'+i));lock.setAttribute('aria-expanded','false');lock.addEventListener('click',()=>{ans.hidden=!ans.hidden;lock.textContent=ans.hidden?'🔒':'🔓';lock.setAttribute('aria-expanded',String(!ans.hidden));lock.setAttribute('aria-label',(i+1)+'. cümlenin cevabını '+(ans.hidden?'aç':'gizle'));closeWord()});bottom.append(area,lock);card.append(head,bottom,ans);document.getElementById('practice-list').append(card);});
+const hb=document.getElementById('haber-examples');hb.append(renderTriple([['verb','Hay'],['object','un coche.']],[['verb','There is'],['object','one car.']],[['object','Bir araba'],['verb','var.']],'hb0'));hb.append(renderTriple([['verb','Hay'],['quantity','dos'],['object','coches.']],[['verb','There are'],['quantity','two'],['object','cars.']],[['quantity','İki'],['object','araba'],['verb','var.']],'hb1'));
+hayGroups.forEach((g,k)=>{const wrap=e('section','rule-card-17');wrap.append(e('h3','section-heading',g.title),e('p','mini-intro',g.intro));g.items.forEach((it,j)=>wrap.append(renderTriple(it,g.english[j],g.turkish[j],'h'+k+'-'+j)));document.getElementById('hay-groups').append(wrap)});
+const warning=e('div','rule-card-17');warning.innerHTML='<h3>⚠️ Belirli artikellerle dikkat!</h3><p>Bir varlığı ilk kez tanıtırken genellikle <strong data-es>el / la / los / las</strong> ile <strong data-es>hay</strong> kullanılmaz. Belirli bir şeyin yerini soruyorsak <strong data-es>estar</strong> tercih edilir.</p><p><span class="symbol">✗</span> <strong data-es>Hay la silla.</strong> &nbsp; <span class="good">✓</span> <strong data-es>Hay una silla.</strong> &nbsp; <span class="good">✓</span> <strong data-es>La silla está aquí.</strong></p><p>🇹🇷 Bir sandalye var. / Sandalye burada. &nbsp; 🇬🇧 There is a chair. / The chair is here.</p>';document.getElementById('hay-groups').append(warning);
+hayqueGroups.forEach((g,i)=>{const section=e('section','rule-card-17');section.append(e('h3','',g.title));g.items.forEach(t=>section.append(triline(...t)));document.getElementById('hayque-groups').append(section)});
+negatives.forEach(t=>document.getElementById('negative-examples').append(triline(...t)));contrast.forEach(t=>document.getElementById('contrast-examples').append(triline(...t)));
+const glossary={
+un:['bir','a','un','belirsiz artikel'],una:['bir','a','uno/una','belirsiz artikel'],unos:['birkaç','some','uno','belirsiz artikel çoğul'],unas:['birkaç','some','una','belirsiz artikel çoğul'],el:['belirli artikel','the','el','belirli artikel'],la:['belirli artikel','the','la','belirli artikel'],los:['belirli artikel çoğul','the','el','belirli artikel çoğul'],las:['belirli artikel çoğul','the','la','belirli artikel çoğul'],de:['-ın/-in; -den','of/from','de','edat'],del:['-den; -ın','from/of the','de + el','edat + artikel'],en:['-de/-da','in/at','en','edat'],por:['boyunca; -den','along/through','por','edat'],con:['ile','with','con','edat'],y:['ve','and','y','bağlaç'],o:['veya','or','o','bağlaç'],a:['-e/-a','to','a','edat'],su:['onun','his/her','su','iyelik sıfatı'],que:['ki; gerekli yapıda bağlayıcı','that; linker','que','bağlayıcı'],no:['değil / yok','not/no','no','olumsuzluk'],hay:['var, bulunuyor','there is / there are','haber','kişisiz fiil, presente'],haber:['olmak / yardımcı fiil','to have (auxiliary), to exist','haber','mastar'],impersonal:['kişisiz','impersonal','impersonal','dilbilgisi terimi'],presente:['şimdiki/geniş zaman','present tense','presente','dilbilgisi terimi'],infinitivo:['mastar','infinitive','infinitivo','dilbilgisi terimi'],
+yo:['ben','I','yo','zamir'],tú:['sen','you','tú','zamir'],él:['o (erkek)','he','él','zamir'],ella:['o (kadın)','she','ella','zamir'],usted:['siz (resmî)','you (formal)','usted','zamir'],nosotros:['biz','we','nosotros','zamir'],nosotras:['biz (kadın grubu)','we','nosotras','zamir'],vosotros:['siz','you all','vosotros','zamir'],vosotras:['siz','you all','vosotras','zamir'],ellos:['onlar','they','ellos','zamir'],ellas:['onlar','they','ellas','zamir'],ustedes:['sizler','you all','ustedes','zamir'],he:['... yaptım; yardımcı fiil','have','haber','presente yo'],has:['... yaptın; yardımcı fiil','have','haber','presente tú'],ha:['... yaptı; yardımcı fiil','has','haber','presente 3. tekil'],hemos:['... yaptık; yardımcı fiil','have','haber','presente nosotros'],habéis:['... yaptınız; yardımcı fiil','have','haber','presente vosotros'],han:['... yaptılar; yardımcı fiil','have','haber','presente ellos'],
+hombre:['adam','man','hombre','isim'],camina:['yürüyor','walks','caminar','presente 3. tekil'],parque:['park','park','parque','isim'],libros:['kitaplar','books','libro','isim çoğul'],botellas:['şişeler','bottles','botella','isim çoğul'],mujer:['kadın','woman','mujer','isim'],gafas:['gözlük','glasses','gafas','çoğul isim'],amarillas:['sarı','yellow','amarillo','sıfat dişil çoğul'],hace:['yapıyor','does/makes','hacer','presente 3. tekil'],compras:['alışveriş','shopping','compra','isim çoğul'],ciudad:['şehir','city','ciudad','isim'],niña:['kız çocuğu','girl','niña','isim'],vestido:['elbise','dress','vestido','isim'],blanco:['beyaz','white','blanco','sıfat'],sale:['çıkıyor','leaves','salir','presente 3. tekil'],supermercado:['süpermarket','supermarket','supermercado','isim'],esperamos:['bekliyoruz','we wait','esperar','presente nosotros'],parada:['durak','stop','parada','isim'],autobús:['otobüs','bus','autobús','isim'],amarilla:['sarı','yellow','amarillo','sıfat dişil'],billetes:['biletler','tickets','billete','isim çoğul'],estación:['istasyon','station','estación','isim'],tren:['tren','train','tren','isim'],naranja:['turuncu','orange','naranja','sıfat'],son:['-dır/-dir; ...dır','are','ser','presente 3. çoğul'],azules:['mavi','blue','azul','sıfat çoğul'],flores:['çiçekler','flowers','flor','isim çoğul'],rojas:['kırmızı','red','rojo','sıfat çoğul'],está:['(durum bildirir)','is','estar','presente 3. tekil'],contenta:['mutlu','happy','contento','sıfat dişil'],leo:['okuyorum','I read','leer','presente yo'],libro:['kitap','book','libro','isim'],interesante:['ilginç','interesting','interesante','sıfat'],gabriel:['Gabriel (özel ad)','Gabriel','Gabriel','özel ad'],garcía:['García (soyad)','García','García','özel ad'],márquez:['Márquez (soyad)','Márquez','Márquez','özel ad'],biblioteca:['kütüphane','library','biblioteca','isim'],morada:['mor','purple','morado','sıfat dişil'],delgada:['zayıf','slim','delgado','sıfat dişil'],calle:['sokak','street','calle','isim'],perro:['köpek','dog','perro','isim'],gordo:['şişman','fat','gordo','sıfat'],chico:['erkek çocuk','boy','chico','isim'],castaño:['kumral','brown-haired','castaño','sıfat'],bebe:['içiyor','drinks','beber','presente 3. tekil'],té:['çay','tea','té','isim'],negro:['siyah','black','negro','sıfat'],cafetería:['kafe','café','cafetería','isim'],amigo:['arkadaş','friend','amigo','isim'],rubio:['sarışın','blond','rubio','sıfat'],simpático:['samimi, cana yakın','friendly','simpático','sıfat'],escribe:['yazıyor','writes','escribir','presente 3. tekil'],carta:['mektup','letter','carta','isim'],oficina:['ofis','office','oficina','isim'],correos:['posta','post','correos','isim'],
+coche:['araba','car','coche','isim'],coches:['arabalar','cars','coche','isim çoğul'],dos:['iki','two','dos','sayı'],tres:['üç','three','tres','sayı'],cinco:['beş','five','cinco','sayı'],silla:['sandalye','chair','silla','isim'],sillas:['sandalyeler','chairs','silla','isim çoğul'],habitación:['oda','room','habitación','isim'],ahí:['orada','there','ahí','yer zarfı'],bicicletas:['bisikletler','bicycles','bicicleta','isim çoğul'],personas:['kişiler','people','persona','isim çoğul'],sala:['salon','room','sala','isim'],poca:['az','little/few','poco','miktar sıfatı'],poco:['az','little','poco','miktar sıfatı'],mucho:['çok','a lot of','mucho','miktar sıfatı'],mucha:['çok','a lot of','mucho','miktar sıfatı'],muchas:['birçok','many','mucho','miktar sıfatı'],gente:['insanlar','people','gente','topluluk ismi'],aquí:['burada','here','aquí','yer zarfı'],ruido:['gürültü','noise','ruido','isim'],algo:['bir şey','something','algo','belirsiz zamir'],esa:['o','that','ese','işaret sıfatı'],caja:['kutu','box','caja','isim'],chicas:['kızlar','girls','chica','isim çoğul'],agua:['su','water','agua','isim'],vaso:['bardak','glass','vaso','isim'],leche:['süt','milk','leche','isim'],nevera:['buzdolabı','fridge','nevera','isim'],jardín:['bahçe','garden','jardín','isim'],alguna:['herhangi bir','some/any','alguno','belirsiz sıfat'],tienda:['dükkân','shop','tienda','isim'],cerca:['yakında','nearby','cerca','yer zarfı'],cuántas:['kaç','how many','cuánto','soru sıfatı'],clase:['sınıf','class','clase','isim'],cuántos:['kaç','how many','cuánto','soru sıfatı'],casas:['evler','houses','casa','isim çoğul'],edificios:['binalar','buildings','edificio','isim çoğul'],árboles:['ağaçlar','trees','árbol','isim çoğul'],colores:['renkler','colors','color','isim çoğul'],qué:['ne / hangi','what','qué','soru zamiri'],casa:['ev','house','casa','isim'],
+estudiar:['ders çalışmak','to study','estudiar','mastar'],limpiar:['temizlemek','to clean','limpiar','mastar'],hacer:['yapmak','to do/make','hacer','mastar'],ejercicio:['egzersiz','exercise','ejercicio','isim'],beber:['içmek','to drink','beber','mastar'],dormir:['uyumak','to sleep','dormir','mastar'],bien:['iyi','well','bien','zarf'],antes:['önce','before','antes','edat/zarf'],examen:['sınav','exam','examen','isim'],llevar:['almak, taşımak','to take','llevar','mastar'],paraguas:['şemsiye','umbrella','paraguas','isim'],tener:['sahip olmak','to have','tener','mastar'],cuidado:['dikkat','care','cuidado','isim'],seguir:['takip etmek','to follow','seguir','mastar'],reglas:['kurallar','rules','regla','isim çoğul'],olvidar:['unutmak','to forget','olvidar','mastar'],cita:['randevu','appointment','cita','isim'],entrar:['girmek','to enter','entrar','mastar'],sin:['-sız/-siz','without','sin','edat'],permiso:['izin','permission','permiso','isim'],tengo:['sahibim / zorundayım','I have','tener','presente yo'],debes:['-melisin/-malısın','you should/must','deber','presente tú'],esto:['bu','this','esto','işaret zamiri'],está:['-dır; bulunuyor','is','estar','presente 3. tekil'],
+rojas:['kırmızı','red','rojo','sıfat çoğul'],rojas:['kırmızı','red','rojo','sıfat dişil çoğul'],rojas:['kırmızı','red','rojo','sıfat dişil çoğul']
+};
+const phraseRoleMap={subject:'Özne',verb:'Fiil / varlık bildiren yapı',object:'Nesne veya var olan unsur',place:'Yer / yön',complement:'Birliktelik veya tümleç',attribute:'Nitelik',quantity:'Sayı veya miktar'};
+function decorateSpanish(){document.querySelectorAll('[data-es]').forEach(root=>{const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode()){if(walker.currentNode.parentElement.closest('.vocab-word'))continue;nodes.push(walker.currentNode)}
+nodes.forEach(node=>{const text=node.nodeValue;const re=/\p{L}+/gu;if(!re.test(text))return;re.lastIndex=0;const fr=document.createDocumentFragment();let offset=0;for(const m of text.matchAll(re)){fr.append(text.slice(offset,m.index));const word=m[0];const btn=e('button','vocab-word',word);btn.type='button';btn.lang='es';btn.dataset.word=word.toLocaleLowerCase('es');btn.setAttribute('aria-controls','word-popover');btn.setAttribute('aria-expanded','false');fr.append(btn);offset=m.index+word.length;}fr.append(text.slice(offset));node.replaceWith(fr)});});}
+decorateSpanish();
+const pop=document.getElementById('word-popover');let activeWord=null;
+function closeWord(returnFocus=false){if(!activeWord)return;const b=activeWord;activeWord=null;b.setAttribute('aria-expanded','false');pop.hidden=true;if(returnFocus)b.focus({preventScroll:true})}
+function placeWord(){if(!activeWord)return;const r=activeWord.getBoundingClientRect();const w=pop.offsetWidth,h=pop.offsetHeight;pop.style.left=Math.max(12,Math.min(r.left,innerWidth-w-12))+'px';pop.style.top=Math.max(12,Math.min(r.bottom+8+h<innerHeight?r.bottom+8:r.top-h-8,innerHeight-h-12))+'px';}
+function openWord(btn){if(activeWord===btn){closeWord(true);return}closeWord();const term=btn.dataset.word;const row=glossary[term]||[term+' (bağlama bak)','See context',term,'İspanyolca kelime'];const target=btn.closest('.pair-phrase')||btn.closest('[data-es]')||btn;const ctx=target.closest('.practice-answer,.triple-card,.rule-card-17,.section-card')||target;const text=ctx.textContent.trim().slice(0,310);document.getElementById('word-title').textContent=btn.textContent;document.getElementById('word-tr').textContent=row[0];document.getElementById('word-en').textContent=row[1];document.getElementById('word-lemma').textContent=row[2];document.getElementById('word-form').textContent=row[3];document.getElementById('word-role').textContent=phraseRoleMap[btn.closest('[data-role]')?.dataset.role]||'Yapı / cümle öbeği';document.getElementById('word-example').textContent=text;activeWord=btn;btn.setAttribute('aria-expanded','true');pop.hidden=false;placeWord();}
+document.addEventListener('click',evt=>{const target=evt.target.closest('.vocab-word');if(target)openWord(target);else if(!pop.contains(evt.target))closeWord()});document.getElementById('word-close').addEventListener('click',()=>closeWord(true));document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closeWord(true)});window.addEventListener('resize',placeWord);
+document.addEventListener('pointerover',ev=>{const p=ev.target.closest('[data-sync]');if(!p)return;const container=p.closest('.practice-card,.triple-card');if(!container)return;container.querySelectorAll('.is-lit').forEach(el=>el.classList.remove('is-lit'));container.querySelectorAll('[data-sync="'+p.dataset.sync+'"]').forEach(el=>el.classList.add('is-lit'))});
+document.addEventListener('focusin',ev=>{const p=ev.target.closest('[data-sync]');if(!p)return;const container=p.closest('.practice-card,.triple-card');container?.querySelectorAll('.is-lit').forEach(el=>el.classList.remove('is-lit'));container?.querySelectorAll('[data-sync="'+p.dataset.sync+'"]').forEach(el=>el.classList.add('is-lit'))});
+document.addEventListener('pointerout',ev=>{const p=ev.target.closest('[data-sync]');if(!p)return;const card=p.closest('.practice-card,.triple-card');if(card&&!card.contains(ev.relatedTarget))card.querySelectorAll('.is-lit').forEach(el=>el.classList.remove('is-lit'));});
+const tabs=[...document.querySelectorAll('[role=tab]')];const pages=tabs.map(t=>document.getElementById(t.getAttribute('aria-controls')));let current=0;const prev=document.getElementById('prev'),next=document.getElementById('next'),finish=document.getElementById('finish');
+function showPage(index,focus){closeWord();current=index;tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1;pages[i].hidden=i!==index});prev.hidden=index===0;next.hidden=index===pages.length-1;finish.hidden=!next.hidden;document.getElementById('counter').textContent=(index+1)+' / '+pages.length;if(focus){pages[index].querySelector('h2')?.focus({preventScroll:true});scrollTo({top:0,behavior:'instant'})}}
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>showPage(i,true));t.addEventListener('keydown',ev=>{let target={ArrowLeft:(i+tabs.length-1)%tabs.length,ArrowRight:(i+1)%tabs.length,Home:0,End:tabs.length-1}[ev.key];if(target===undefined)return;ev.preventDefault();showPage(target);tabs[target].focus()})});prev.addEventListener('click',()=>showPage(current-1,true));next.addEventListener('click',()=>showPage(current+1,true));let initial=pages.findIndex(p=>'#'+p.id===location.hash);if(location.hash)history.replaceState(history.state,'',location.pathname+location.search);showPage(Math.max(0,initial));
+const homework=document.getElementById('classroom-homework');let trigger=null;document.querySelectorAll('[data-dialog="classroom-homework"]').forEach(b=>b.addEventListener('click',()=>{trigger=b;homework.showModal();homework.scrollTop=0;document.body.classList.add('classroom-homework-open');b.setAttribute('aria-expanded','true')}));homework.addEventListener('close',()=>{document.body.classList.remove('classroom-homework-open');trigger?.setAttribute('aria-expanded','false');trigger?.focus({preventScroll:true})});document.querySelectorAll('[data-classroom-print]').forEach(b=>b.addEventListener('click',()=>print()));
+const area=document.getElementById('write-area'),note=document.getElementById('travel-notes'),toggle=document.getElementById('write-toggle'),status=document.getElementById('write-status');const noteKey='a11-class-17-18-mapcrunch-notes';try{note.value=localStorage.getItem(noteKey)||''}catch{}toggle.addEventListener('click',()=>{area.hidden=!area.hidden;toggle.setAttribute('aria-expanded',String(!area.hidden));toggle.textContent=area.hidden?'✍️ Yazma alanını aç':'✍️ Yazma alanını kapat';if(!area.hidden)note.focus()});note.addEventListener('input',()=>{status.textContent='Kaydetmek için “Kaydet”e bas.'});document.getElementById('write-save').addEventListener('click',()=>{try{localStorage.setItem(noteKey,note.value);status.textContent='✅ Bu tarayıcıya kaydedildi.'}catch{status.textContent='Kaydetme yapılamadı; metni kopyalayabilirsin.'}});document.getElementById('write-copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(note.value);status.textContent='📋 Metin kopyalandı.'}catch{note.select();status.textContent='Kopyalama engellendi; seçili metni elle kopyala.'}});document.getElementById('write-clear').addEventListener('click',()=>{if(!confirm('Yazma alanını temizlemek istiyor musun?'))return;note.value='';try{localStorage.removeItem(noteKey)}catch{}status.textContent='Alan temizlendi.'});
+</script>
+</body></html>
