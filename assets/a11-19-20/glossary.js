@@ -1,5 +1,34 @@
 // In-lesson A1.1 clickable lexicon: Turkish, English, lemma, morphological description.
 const raw=String.raw`
+antonio|Antonio|Antonio|Antonio|özel isim
+casas|evler|houses|casa|isim çoğul
+chico|erkek çocuk|boy|chico|isim
+presentación|tanıtım|introduction|presentación|isim
+descripción|tasvir|description|descripción|isim
+origen|köken|origin|origen|isim
+nacionalidad|milliyet|nationality|nacionalidad|isim
+ideología|ideoloji|ideology|ideología|isim
+religión|din|religion|religión|isim
+material|malzeme|material|material|isim
+posesión|sahiplik|possession|posesión|isim
+relación|ilişki|relationship|relación|isim
+estado|durum|state|estado|isim
+ánimo|ruh hâli|mood|ánimo|isim
+resultado|sonuç|result|resultado|isim
+proceso|süreç|process|proceso|isim
+anterior|önceki|previous|anterior|sıfat
+civil|medeni|civil|civil|sıfat
+gerundio|ulaç|gerund|gerundio|dilbilgisi
+temporal|geçici|temporary|temporal|sıfat
+situación|durum|situation|situación|isim
+localización|konum|location|localización|isim
+compañía|birlikte bulunma|company|compañía|isim
+fecha|tarih|date|fecha|isim
+estación|mevsim|season|estación|isim
+año|yıl|year|año|isim
+precio|fiyat|price|precio|isim
+preposición|edat|preposition|preposición|isim
+infinitivo|mastar|infinitive|infinitivo|dilbilgisi
 soy|ben ...im|I am|ser|presente yo
 eres|sen ...sin|you are|ser|presente tú
 es|...dır / ...dir|is|ser|presente 3. tekil
