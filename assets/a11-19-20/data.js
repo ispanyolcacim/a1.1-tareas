@@ -16,7 +16,7 @@ export const serCategories=[
 export const estarCategories=[
 {t:'01 · Estado de ánimo',sub:'Ruh hâli',pairs:[['Yo estoy triste.','Ben üzgünüm.'],['Tú estás cansado.','Sen yorgunsun.'],['Nosotras estamos enfermas.','Biz hastayız.'],['¿Vosotros estáis contentos?','Siz mutlu musunuz?']]},
 {t:'02 · El resultado de un proceso anterior',sub:'Bir olayın veya sürecin sonucu',pairs:[['La puerta está cerrada.','Kapı kapalı.'],['El jarrón está roto.','Vazo kırık.']]},
-{t:'03 · El estado civil',sub:'Medeni durum',note:'Ders notunda bekâr, boşanmış, evli ve sözlü ESTAR ile; dul örneği ise «soy viudo» olarak verilir.',pairs:[['Estoy soltera.','Bekârım (kadın).'],['Estás divorciado.','Boşanmışsın.'],['Estamos casados.','Biz evliyiz.'],['Estoy prometido.','Sözlüyüm (erkek).'],['Soy viudo.','Dulum (erkek).']]},
+{t:'03 · El estado civil',sub:'Medeni durum',pairs:[['Estoy soltera.','Bekârım (kadın).'],['Estás divorciado.','Boşanmışsın.'],['Estamos casados.','Biz evliyiz.'],['Estoy prometido.','Sözlüyüm (erkek).'],['Soy viudo.','Dulum (erkek).']]},
 {t:'04 · Estar + gerundio',sub:'Şu anda süren eylem',note:'📌 Bu yapıyı daha sonra ayrıntılı öğreneceğiz.',pairs:[['Laura está escribiendo.','Laura yazı yazıyor.'],['Vosotros estáis comiendo pizza.','Siz pizza yiyorsunuz.'],['Estoy hablando con las chicas.','Kızlarla konuşuyorum.']]},
 {t:'05 · La profesión temporal',sub:'Dönemsel / geçici meslek',note:'SER ile kalıcı mesleği, «estar de» ile o anda yapılan farklı işi karşılaştır.',pairs:[['Yo soy profesora, pero ahora estoy de taxista.','Öğretmenim fakat şu an taksicilik yapıyorum.'],['Sonia es abogada, pero ahora está de cajera en un supermercado.','Sonia avukat ama şu an süpermarkette kasiyerlik yapıyor.'],['Carlos es ingeniero, pero ahora está de camarero en un restaurante.','Carlos mühendis ama şu an restoranda garsonluk yapıyor.']]},
 {t:'06 · Situación – Localización – Compañía',sub:'Durum / konum / birlikte bulunma',pairs:[['Estamos en clase de español.','İspanyolca dersindeyiz.'],['Madrid está en el centro de España.','Madrid İspanya’nın merkezindedir.'],['Estoy con mis hermanos.','Kardeşlerimle birlikteyim.'],['¿Dónde está mi teléfono?','Telefonum nerede?'],['Estás en la habitación.','Sen odadasın.'],['¿Estás con tu hijo?','Çocuğunla beraber misin?'],['Estoy con mis amigos en un café.','Arkadaşlarımla bir kafedeyim.']]},
@@ -47,4 +47,76 @@ export const adjectives=[
 ['rojo','Kırmızı renkte olmak','Kızarmak, utanmak','El coche es rojo.','Ella está roja.'],
 ['verde','Yeşil renkte olmak','Ham, olgunlaşmamış olmak','El coche es verde.','La manzana está verde.'],
 ['viejo','Yaşlı olmak','Eskimiş olmak','Mi abuelo es viejo.','El móvil está viejo.']
+];
+
+// Türkçe çeviriler örnek cümlelerin birebir bağlamını açıklar; tablodaki anlam etiketlerinden ayrıdır.
+export const adjectiveSentenceTranslations=[
+  [
+    "Ders sıkıcıdır.",
+    "Öğrenci sıkılmış."
+  ],
+  [
+    "María neşeli biridir.",
+    "María bugün neşeli."
+  ],
+  [
+    "Çocuk uzun boyludur.",
+    "Çocuk yaşına göre epey uzamış."
+  ],
+  [
+    "Duvar beyazdır.",
+    "O solgun görünüyor."
+  ],
+  [
+    "O iyi bir insandır.",
+    "O çekici görünüyor."
+  ],
+  [
+    "İş yorucudur.",
+    "Yorgunum (erkek)."
+  ],
+  [
+    "O görme engellidir.",
+    "Bu ışıkta hiçbir şey göremiyorum."
+  ],
+  [
+    "Çocuk açıkgöz ve zekidir.",
+    "Çocuk uyanık."
+  ],
+  [
+    "O eğlenceli biridir.",
+    "Kız çocuğu eğleniyor."
+  ],
+  [
+    "O yakışıklıdır.",
+    "Bugün yakışıklı görünüyor."
+  ],
+  [
+    "Kız çocuğu zekidir.",
+    "Kız çocuğu hazır."
+  ],
+  [
+    "O kibirli bir insandır.",
+    "Kızıyla gurur duyuyor."
+  ],
+  [
+    "Çocuk tembeldir.",
+    "Bugün üşeniyor."
+  ],
+  [
+    "O zengindir.",
+    "Pasta çok lezzetli."
+  ],
+  [
+    "Araba kırmızıdır.",
+    "O kızarmış."
+  ],
+  [
+    "Araba yeşildir.",
+    "Elma henüz hamdır."
+  ],
+  [
+    "Dedem yaşlıdır.",
+    "Cep telefonu eskimiş."
+  ]
 ];
