@@ -1,5 +1,8 @@
 // In-lesson A1.1 clickable lexicon: Turkish, English, lemma, morphological description.
 const raw=String.raw`
+viuda|eşi vefat etmiş kadın; dul|widow|viudo|isim/sıfat dişil
+luis|Luis (özel ad)|Luis|Luis|özel isim
+
 antonio|Antonio|Antonio|Antonio|özel isim
 casas|evler|houses|casa|isim çoğul
 chico|erkek çocuk|boy|chico|isim
