@@ -39,8 +39,10 @@ function renderCategories(id,items,verb){
    const heading=element('h4','','🕯️ ⚠️ DUL OLMAK = SER');
    const message=element('p','');
    message.append('Eşi vefat etmiş olmak anlamındaki ',element('strong','','dul olmak'),' ifadesi ',element('strong','red-verb','SER'),' fiiliyle kurulur; ESTAR kullanılmaz.');
-   const pattern=element('p','widow-pattern','Ser viudo / viuda de + kişi');
-   pattern.lang='es';pattern.dataset.es='';pattern.dataset.highlight='ser';
+   const pattern=element('p','widow-pattern');
+   const grammar=element('span','','Ser viudo/viuda de');
+   grammar.lang='es';grammar.dataset.es='';grammar.dataset.highlight='ser';
+   pattern.append(grammar,' + kişinin adı');
    note.append(heading,message,pattern);
    note.append(makeExample('Él es viudo.','O, eşi vefat etmiş bir erkektir.','ser'));
    note.append(makeExample('Ella es viuda de Luis.','O, Luis’in dul eşidir. (Luis vefat etmiştir.)','ser'));
